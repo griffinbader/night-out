@@ -1,4 +1,4 @@
-"""Genre tagging: looks artists up on MusicBrainz and sorts their tags into
+"""Genre tagging: looks artists up on MusicBrainz (then Last.fm) and sorts their tags into
 Night Out's genre filters. Results are cached in data/genre_cache.json so each
 artist is only looked up once (MusicBrainz allows ~1 request per second).
 """
@@ -95,6 +95,30 @@ def musicbrainz_tags(name):
     return []
 
 
+# ------------------------------------------------------------ Last.fm
+
+def lastfm_key():
+    """API key lives in .env (never committed): LASTFM_API_KEY=..."""
+    env = ROOT / ".env"
+    if env.exists():
+        for line in env.read_text().splitlines():
+            if line.startswith("LASTFM_API_KEY="):
+                return line.split("=", 1)[1].strip()
+    return None
+
+
+def lastfm_tags(name, key):
+    time.sleep(0.25)  # stay well under Last.fm's rate limit
+    q = urllib.parse.urlencode({"method": "artist.gettoptags", "artist": name, "api_key": key,
+                                "format": "json", "autocorrect": 0})
+    req = urllib.request.Request("https://ws.audioscrobbler.com/2.0/?" + q, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        data = json.load(r)
+    tags = (data.get("toptags") or {}).get("tag") or []
+    # counts are 0-100 relative to the top tag; ignore the long tail of one-off tags
+    return [(t["name"], int(t.get("count", 0))) for t in tags if int(t.get("count", 0)) >= 10]
+
+
 def load_cache():
     return json.loads(CACHE.read_text()) if CACHE.exists() else {}
 
@@ -104,8 +128,9 @@ def save_cache(cache):
     CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=1, sort_keys=True))
 
 
-def lookup(name, cache):
-    """Night Out genres for one artist name, using/filling the cache."""
+def lookup(name, cache, fm_key=None):
+    """Night Out genres for one artist: MusicBrainz first, then Last.fm.
+    Each source's answer is cached separately so we never re-ask."""
     key = clean_name(name)
     if not key or len(key) < 2:
         return []
@@ -114,23 +139,34 @@ def lookup(name, cache):
             cache[key] = bucketize(musicbrainz_tags(key))
         except Exception:
             return []  # network hiccup: don't cache, try again next run
-    return cache[key]
+    if cache[key] or not fm_key:
+        return cache[key]
+    fm = "lastfm:" + key
+    if fm not in cache:
+        try:
+            cache[fm] = bucketize(lastfm_tags(key, fm_key))
+        except Exception:
+            return []
+    return cache[fm]
 
 
 def tag_shows(shows, log=print):
     """Fill in show['genres'] for every show. Order: venue-provided genres,
     then headliner on MusicBrainz, then the first couple of openers."""
     cache = load_cache()
+    fm_key = lastfm_key()
+    if not fm_key:
+        log("  (no LASTFM_API_KEY in .env — using MusicBrainz only)")
     todo = {clean_name(s["artist"]) for s in shows} - set(cache)
     if todo:
         log(f"  looking up ~{len(todo)} new artists on MusicBrainz (~{len(todo) * 1.1 / 60:.0f}+ min, first run only)…")
     tagged = 0
     for i, s in enumerate(shows):
         venue_tags = bucketize([(g, 3) for g in s.get("genres", [])])
-        genres = venue_tags or lookup(s["artist"], cache)
+        genres = venue_tags or lookup(s["artist"], cache, fm_key)
         if not genres:
             for opener in s["support"][:2]:
-                genres = lookup(opener, cache)
+                genres = lookup(opener, cache, fm_key)
                 if genres:
                     break
         s["genres"] = genres
