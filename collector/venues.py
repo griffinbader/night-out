@@ -22,8 +22,16 @@ VENUES = [
     dict(id="mhow", name="Music Hall of Williamsburg", borough="Brooklyn", hood="Williamsburg", size="medium", vibes=[]),
     dict(id="racket", name="Racket", borough="Manhattan", hood="Chelsea", size="small", vibes=["Sweaty & loud"]),
     dict(id="gramercy", name="Gramercy Theatre", borough="Manhattan", hood="Gramercy", size="medium", vibes=[]),
-    dict(id="elsewhere", name="Elsewhere", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Dance all night", "Late night"]),
+    dict(id="elsewhere", name="Elsewhere", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Dance all night", "Late night"], genre="Dance"),
     dict(id="warsaw", name="Warsaw", borough="Brooklyn", hood="Greenpoint", size="medium", vibes=["Sweaty & loud"]),
+
+    # --- Added Sept 30 ---
+    dict(id="markethotel", name="Market Hotel", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Sweaty & loud", "Late night"]),
+    dict(id="sawdust", name="National Sawdust", borough="Brooklyn", hood="Williamsburg", size="small", vibes=["Intimate", "Chill"]),
+    dict(id="publicrecords", name="Public Records", borough="Brooklyn", hood="Gowanus", size="small", vibes=["Dance all night", "Late night"], genre="Dance"),
+    dict(id="tveye", name="TV Eye", borough="Queens", hood="Ridgewood", size="small", vibes=["Sweaty & loud", "Late night"]),
+    dict(id="holo", name="H0L0", borough="Queens", hood="Ridgewood", size="small", vibes=["Dance all night", "Late night"], genre="Dance"),
+    dict(id="sonyhall", name="Sony Hall", borough="Manhattan", hood="Times Square", size="medium", vibes=[]),
 
     # --- Other NYC venues that come with the Bowery Presents feed ---
     dict(id="terminal5", name="Terminal 5", borough="Manhattan", hood="Hell's Kitchen", size="large", vibes=["Big room"]),
@@ -56,3 +64,6 @@ BOWERY_NAMES = {
     "Radio City Music Hall": "radiocity", "Carnegie Hall": "carnegie",
     "Stern Auditorium / Perelman Stage at Carnegie Hall": "carnegie", "The Sultan Room": "sultan",
 }
+
+# Ticketmaster Discovery API venue ids -> our venue ids (filled in once we have an API key).
+TICKETMASTER_VENUES = {}

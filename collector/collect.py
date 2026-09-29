@@ -6,10 +6,12 @@ Writes data/shows.js, which the app loads. Past shows from earlier runs are kept
 """
 
 import gzip
+import os
 import html
 import json
 import re
 import sys
+import urllib.parse
 import urllib.request
 import urllib.robotparser
 from datetime import datetime, timedelta
@@ -19,7 +21,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).parent))
 from genres import tag_shows  # noqa: E402
-from venues import BOWERY_NAMES, VENUES  # noqa: E402
+from venues import BOWERY_NAMES, TICKETMASTER_VENUES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "shows.js"
@@ -66,7 +68,10 @@ def text(s):
 
 
 def clean_title(t):
-    t = re.sub(r"\*?\s*(sold out|new|postponed|rescheduled|moved to [^*]+)\s*\*?", "", t, flags=re.I)
+    t = re.sub(r"\*[^*]{1,30}\*", "", t)  # *SOLD OUT*, *NEW DATE* …
+    t = re.sub(r"\b(SOLD OUT|POSTPONED|RESCHEDULED|CANCELL?ED)\b[:!\s-]*", "", t)  # all-caps status words only
+    t = re.sub(r"^\s*NEW[:!-]\s*", "", t)
+    t = re.sub(r"\s+@\s+[^@]+$", "", t)  # "Artist @ Market Hotel"
     return re.sub(r"\s+", " ", t).strip(" -–|")
 
 
@@ -82,13 +87,22 @@ def split_lineup(title, commas=False):
     return (parts[0], parts[1:]) if parts else (title, [])
 
 
+PRESENTER = re.compile(r"(presents?|series|showcase|salon|residency|night|nights|party)\s*:?$", re.I)
+
+
 def split_tagline(name):
-    """'Artist: The Big Tour' -> ('Artist', 'The Big Tour')."""
+    """'Artist: The Big Tour' -> ('Artist', 'The Big Tour');
+    'LPR Presents: Artist' -> ('Artist', 'LPR Presents')."""
     for sep in (": ", " - ", " – ", " — "):
         if sep in name:
-            a, b = name.split(sep, 1)
+            a, b = (x.strip() for x in name.split(sep, 1))
+            if PRESENTER.search(a) and b:
+                return b, a
             if len(a) > 1:
-                return a.strip(), b.strip()
+                return a, b
+    m = re.match(r"(.{3,60}?)\s+presents?\s+(.+)", name, re.I)
+    if m:
+        return m.group(2).strip(), m.group(1).strip() + " presents"
     return name, ""
 
 
@@ -263,6 +277,126 @@ def src_brooklyn_bowl():
     return out
 
 
+def src_venuepilot(account_id, venue):
+    """Venues using the VenuePilot calendar widget (Market Hotel)."""
+    q = ("query($a:[Int!]!,$s:String!,$l:Int){publicEvents(accountIds:$a,startDate:$s,limit:$l)"
+         "{id name date doorTime startTime support ticketsUrl status images}}")
+    body = json.dumps({"query": q, "variables": {"a": [account_id], "s": datetime.now(NYC).strftime("%Y-%m-%d"), "l": 200}}).encode()
+    req = urllib.request.Request("https://www.venuepilot.co/graphql", data=body,
+                                 headers={"User-Agent": UA, "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        events = json.load(r)["data"]["publicEvents"]
+    out = []
+    for e in events:
+        if (e.get("status") or "").lower() in ("cancelled", "canceled", "postponed"):
+            continue
+        head, support = split_lineup(clean_title(e["name"]), commas=True)
+        support += [x.strip() for x in re.split(r",|\n", e.get("support") or "") if x.strip()]
+        clock = (e.get("startTime") or e.get("doorTime") or "20:00")[:5]
+        imgs = e.get("images") or []
+        out.append(show(venue, head, f"{e['date']}T{clock}", support, image=imgs[0] if imgs else None,
+                        url=e.get("ticketsUrl"), source="venuepilot"))
+    return out
+
+
+def src_seetickets_wp(url, venue):
+    """Venue sites using the See Tickets WordPress plugin (TV Eye) — read from the venue's own page."""
+    now = datetime.now(NYC)
+    out = []
+    for block in re.split(r'<div[^>]*class="[^"]*seetickets-list-event-container', fetch(url))[1:]:
+        title = re.search(r'class="[^"]*\btitle"><a href="([^"]+)"[^>]*>(.*?)</a>', block, re.S)
+        date = re.search(r'class="[^"]*\bdate">([^<]+)<', block)
+        if not (title and date):
+            continue
+        day = datetime.strptime(f"{date.group(1).strip()} {now.year}", "%a %b %d %Y")
+        if day.date() < (now - timedelta(days=30)).date():  # "Jan 3" seen in December = next year
+            day = day.replace(year=now.year + 1)
+        clock = parse_clock((re.search(r'see-showtime[^>]*>([^<]+)<', block) or [None, ""])[1]) or "20:00"
+        support = text((re.search(r'supporting-talent">(.*?)</p>', block, re.S) or [None, ""])[1])
+        support = [x.strip() for x in re.split(r",|\band\b", re.sub(r"^with\s+", "", support, flags=re.I)) if x.strip()]
+        price = re.search(r'class="price">([^<]+)<', block)
+        genre = text((re.search(r'class="fs-12 genre">(.*?)</p>', block, re.S) or [None, ""])[1])
+        img = re.search(r'<img[^>]*src="([^"]+)"', block)
+        head, extra = split_lineup(clean_title(text(title.group(2))), commas=True)
+        out.append(show(venue, head, f"{day:%Y-%m-%d}T{clock}", extra + support, price=price_num(price.group(1)) if price else None,
+                        image=img.group(1) if img else None, url=title.group(1), genres=[genre] if genre else [],
+                        source="seetickets-wp"))
+    return out
+
+
+def src_holo():
+    page = fetch("https://h0l0.nyc/events")
+    data = json.loads(re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', page, re.S).group(1))["props"]["pageProps"]
+    out, seen = [], set()
+    for e in (data.get("allUpcomingEvents") or []) + (data.get("highlightedEvents") or []):
+        if e["id"] in seen:
+            continue
+        seen.add(e["id"])
+        a = e["attributes"]
+        poster = (((a.get("Poster") or {}).get("data") or {}).get("attributes") or {}).get("url")
+        head, support = split_lineup(clean_title(a["Title"]), commas=True)
+        out.append(show("holo", head, local_iso(a["EventDateTime"]), support, image=poster, url=a.get("Link"), source="holo"))
+    return out
+
+
+def src_national_sawdust():
+    out = []
+    page = fetch("https://www.nationalsawdust.org/performances")
+    grid = page.split('<div data-w-tab="Tab 2"')[0]  # grid view only (list view repeats the same events)
+    for item in grid.split('role="listitem"')[1:]:
+        link = re.search(r'<a href="(/event/[^"]+)"', item)
+        title = re.search(r'article-title-filter-list[^>]*>(.*?)</h4>', item, re.S)
+        date = re.search(r'category-title-date[^"]*"[^>]*>([A-Z][a-z]+ \d{1,2}, \d{4})<', item)
+        if not (link and title and date):
+            continue
+        day = datetime.strptime(date.group(1), "%B %d, %Y").strftime("%Y-%m-%d")
+        img = re.search(r'background-image:url\(&quot;([^&]+)&quot;\)', item)
+        tickets = re.search(r'<a href="(https?://[^"]+)"[^>]*class="button', item)
+        out.append(show("sawdust", text(title.group(1)), f"{day}T19:30", image=img.group(1) if img else None,
+                        url=tickets.group(1) if tickets else "https://www.nationalsawdust.org" + link.group(1),
+                        source="nationalsawdust"))
+    return out
+
+
+SKIP_TM = re.compile(r"parking|suite|premium seat|vip package|upgrade|tour package|hospitality|gift card", re.I)
+
+
+def src_ticketmaster():
+    """Ticketmaster Discovery API (official) — music events only, so no Knicks/Nets/Rangers games."""
+    key = os.environ.get("TICKETMASTER_API_KEY") or _env_value("TICKETMASTER_API_KEY")
+    if not key:
+        raise RuntimeError("no TICKETMASTER_API_KEY yet — skipped")
+    out = []
+    for tm_id, venue in TICKETMASTER_VENUES.items():
+        q = urllib.parse.urlencode({"apikey": key, "venueId": tm_id, "classificationName": "music",
+                                    "size": 200, "sort": "date,asc", "countryCode": "US"})
+        data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q))
+        for e in (data.get("_embedded") or {}).get("events", []):
+            start = e.get("dates", {}).get("start", {})
+            if not start.get("localDate") or SKIP_TM.search(e["name"]) or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
+                continue
+            acts = [a["name"] for a in (e.get("_embedded") or {}).get("attractions", [])]
+            head = acts[0] if acts else e["name"]
+            imgs = sorted((i for i in e.get("images", []) if i.get("ratio") == "16_9"), key=lambda i: -i.get("width", 0))
+            img = next((i["url"] for i in reversed(imgs) if i.get("width", 0) >= 640), imgs[0]["url"] if imgs else None)
+            genres = [c.get(k, {}).get("name", "") for c in e.get("classifications", []) for k in ("genre", "subGenre")]
+            price = min((p.get("min") for p in e.get("priceRanges", []) if p.get("min")), default=None)
+            out.append(show(venue, head, f"{start['localDate']}T{(start.get('localTime') or '19:30')[:5]}", acts[1:],
+                            tagline=e["name"] if e["name"] != head else "", price=round(price) if price else None,
+                            image=img, url=e.get("url"),
+                            genres=[g for g in genres if g and g.lower() not in ("undefined", "other")], source="ticketmaster"))
+    return out
+
+
+def _env_value(name):
+    env = ROOT / ".env"
+    if env.exists():
+        for line in env.read_text().splitlines():
+            if line.startswith(name + "="):
+                return line.split("=", 1)[1].strip()
+    return None
+
+
 SOURCES = [
     ("Irving Plaza", lambda: src_jsonld("https://www.irvingplaza.com/", "irving")),
     ("Brooklyn Paramount", lambda: src_jsonld("https://www.brooklynparamount.com/", "paramount")),
@@ -277,6 +411,12 @@ SOURCES = [
     ("LPR", src_lpr),
     ("Elsewhere", src_elsewhere),
     ("Brooklyn Bowl", src_brooklyn_bowl),
+    ("Public Records (DICE)", lambda: src_jsonld("https://dice.fm/venue/public-records-w2qg", "publicrecords")),
+    ("Market Hotel", lambda: src_venuepilot(100, "markethotel")),
+    ("TV Eye", lambda: src_seetickets_wp("https://tveyenyc.com/", "tveye")),
+    ("H0L0", src_holo),
+    ("National Sawdust", src_national_sawdust),
+    ("Ticketmaster (MSG, Radio City, Beacon, Barclays, Kings, Sony Hall, Forest Hills)", src_ticketmaster),
 ]
 
 # ---------------------------------------------------------------- main
@@ -284,9 +424,13 @@ SOURCES = [
 # Shindig is for live music — drop the talks, film nights and burlesque that venues also host.
 NOT_MUSIC = re.compile(
     r"burlesque|podcast|film tour|film festival|screening|comedy|stand-?up|politics|awards|"
-    r"trivia|bingo|book (talk|launch)|in conversation|drag (show|brunch)|wrestling|freeski|yoga",
+    r"trivia|bingo|book (talk|launch)|in conversation|drag (show|brunch)|wrestling|freeski|yoga|karaoke",
     re.I,
 )
+
+
+VENUE_SIZE = {v["id"]: v["size"] for v in VENUES}
+VENUE_GENRE = {v["id"]: v.get("genre") for v in VENUES}
 
 
 def show_id(s):
@@ -307,13 +451,17 @@ def main():
     horizon = (now + timedelta(days=DAYS_AHEAD)).strftime("%Y-%m-%d")
     oldest = (now - timedelta(days=KEEP_PAST_DAYS)).strftime("%Y-%m-%d")
 
-    fresh, report = {}, []
+    fresh, report, big_slots = {}, [], set()
     for label, fn in SOURCES:
         try:
             got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
                    and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
             for s in got:
                 s["id"] = show_id(s)
+                slot = (s["venue"], s["start"])
+                if VENUE_SIZE.get(s["venue"]) == "large" and slot in big_slots:
+                    continue  # same arena show from a second feed
+                big_slots.add(slot)
                 fresh.setdefault(s["id"], s)  # first source wins on duplicates
             report.append(f"  ✓ {label}: {len(got)} shows")
         except Exception as e:  # one broken site shouldn't stop the rest
@@ -322,6 +470,9 @@ def main():
     print("\n".join(report))
     report = []
     tagged = tag_shows(list(fresh.values()))
+    for s in fresh.values():  # club venues: untagged nights are almost always dance music
+        if not s["genres"] and VENUE_GENRE.get(s["venue"]):
+            s["genres"] = [VENUE_GENRE[s["venue"]]]
     report.append(f"\n  genres: {tagged}/{len(fresh)} shows tagged")
 
     # keep past shows from earlier runs (history), drop anything stale
