@@ -15,6 +15,11 @@ Not a ticketing platform: every show links out to the venue's own ticket page.
 - `collector/` — reads each venue's calendar (`venues.py` = venue list, `collect.py` = sources)
 
 ## Next up
-1. AI genre tagging for the ~25% of shows MusicBrainz/Last.fm don't know
-2. Accounts so friends / "Going" are real (friends are sample data for now)
-3. Find a source for Baby's All Right and Nightclub 101 (their ticket sites block automated visitors)
+1. MSG / Radio City / Beacon via the Ticketmaster Discovery API — waiting on a developer key (signup link was broken; emailed devportalinquiry@ticketmaster.com). Reader is written: `src_ticketmaster` + `TICKETMASTER_VENUES` in `collector/venues.py`.
+2. Branded sign-in emails (e.g. Resend) + a real domain before sharing widely — Supabase's built-in email is rate-limited.
+3. AI tagging for leftovers: genres for the ~11% of shows without one, and an "is this really an artist?" check on new listings.
+4. No automatic source yet: Baby's All Right, Nightclub 101 (ticket sites block bots), Nowadays (Resident Advisor only), 99 Scott (no calendar).
+5. Link-preview image for shared links.
+
+## Keeping listings clean
+Artists only — no parties, themed nights, talks, comedy, kids' shows. Rules in `collector/curate.py`, hand-made calls in `collector/overrides.json`, and each run writes what it removed to `data/dropped.txt`.
