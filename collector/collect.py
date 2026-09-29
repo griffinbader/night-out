@@ -22,6 +22,7 @@ from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).parent))
+from curate import curate  # noqa: E402
 from genres import tag_shows  # noqa: E402
 from venues import BOWERY_NAMES, TICKETMASTER_VENUES, VENUES  # noqa: E402
 
@@ -84,12 +85,17 @@ def clean_title(t):
     return re.sub(r"\s+", " ", t).strip(" -–|")
 
 
+EVENING_WITH = re.compile(r"^(?:an?\s+)?(?:new york\s+|intimate\s+|special\s+|acoustic\s+)?(?:evening|night)\s+(?:of\s+[\w' ]+?\s+)?with\s+", re.I)
+
+
 def split_lineup(title, commas=False):
     """'A • B • C' / 'A + B' / 'A w/ B' -> ('A', ['B', 'C']).
 
     commas=True also splits 'A, B' — only for small-venue calendars, since big
     acts like 'Earth, Wind & Fire' would get chopped up.
     """
+    # "An Evening with X" names the artist after "with" — handle before splitting on "with"
+    title = re.sub(EVENING_WITH, "", title).strip()
     sep = r"\s+(?:•|\+|w/|with|/)\s+|\s*•\s*" + (r"|,\s+" if commas else "")
     parts = re.split(sep, title)
     parts = [p.strip() for p in parts if p.strip()]
@@ -551,6 +557,10 @@ def main():
 
     print("\n".join(report))
     report = []
+    kept, dropped = curate(list(fresh.values()))
+    fresh = {s["id"]: s for s in kept}  # ids stay as collected so saved plans keep matching
+    report.append(f"\n  curated: dropped {len(dropped)} non-artist listings (see data/dropped.txt)")
+    (ROOT / "data" / "dropped.txt").write_text("\n".join(sorted(set(dropped))) + "\n")
     tagged = tag_shows(list(fresh.values()))
     for s in fresh.values():  # club venues: untagged nights are almost always dance music
         if not s["genres"] and VENUE_GENRE.get(s["venue"]):

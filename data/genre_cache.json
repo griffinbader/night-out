@@ -13,6 +13,7 @@
  "@NICKCHEO the *": [],
  "@NICKCHEO the the": [],
  "A Carnival of Souls The Grand Gothic Halloween Ball": [],
+ "A Joyful Noise": [],
  "A New York Evening With Charlie Puth": [],
  "A New York Evening With Neko Case": [],
  "A Night of Heated Rivalry": [],
@@ -21,8 +22,13 @@
  "ANDY BOAY": [],
  "ANDY BOAY (": [],
  "AR/CO": [],
+ "ARKAI": [],
+ "ARKAI w/ surprise guest Lindsey Stirling": [],
  "ART OF BLUE BLOOD": [],
  "ART OF BLUE BLOOD @ ARTMS": [],
+ "ARTMS": [
+  "Pop"
+ ],
  "AZA": [],
  "Aaron Lee Tasjan": [
   "Country & Folk",
@@ -39,6 +45,7 @@
   "Country & Folk"
  ],
  "Alex Cano": [],
+ "Alexander James": [],
  "Alfie Jukes": [
   "Indie",
   "Pop"
@@ -49,6 +56,7 @@
   "Country & Folk",
   "Pop"
  ],
+ "Alune Wade & Family Affair": [],
  "Alune Wade & Family Affair / faiith (presented by the JGI)": [],
  "Alyssa Grace": [
   "Country & Folk"
@@ -62,6 +70,8 @@
  "An Evening of Mud with Remi Wolf": [],
  "An Evening with Lord Huron": [],
  "An Intimate Evening With Tamar Braxton": [],
+ "Anant Pradhan": [],
+ "Anané & Louie Vega": [],
  "Ancient Artifax 10th Anniversary Pop-up": [],
  "Andi": [
   "Pop"
@@ -70,12 +80,17 @@
   "Pop"
  ],
  "Andrea Gibson's Love Letter from the Afterlife": [],
+ "Andrew Yee and Rothko String Quartet": [],
  "Andy Randazzo & Morgan Burrs": [],
  "Angelo De Augustine": [
   "Country & Folk"
  ],
  "Angine de Poitrine": [
   "Rock",
+  "Indie"
+ ],
+ "Animal Collective": [
+  "Country & Folk",
   "Indie"
  ],
  "Animal Collective Performs Feels": [],
@@ -131,6 +146,7 @@
   "Pop"
  ],
  "Babe America": [],
+ "Baby Jane": [],
  "Baby Jane's": [],
  "Back to the Barre": [],
  "Bad Gyal": [
@@ -170,6 +186,9 @@
   "Jazz"
  ],
  "Bombargo": [],
+ "Bonerama": [
+  "Jazz"
+ ],
  "Boojum & Kendall Street Company": [],
  "BoomBox": [
   "Rock",
@@ -218,6 +237,9 @@
   "Country & Folk",
   "Indie"
  ],
+ "Carly Pearce": [
+  "Country & Folk"
+ ],
  "Carly Pearce - Honest Woman": [],
  "Caroline Kingsbury": [],
  "Castle Rat": [
@@ -229,6 +251,13 @@
   "Pop"
  ],
  "Charlie Parr": [],
+ "Charlie Puth": [
+  "Pop",
+  "R&B"
+ ],
+ "Charlotte Greve": [
+  "Jazz"
+ ],
  "Chasing Abbey": [],
  "Chat Pile": [
   "Punk & Metal",
@@ -248,6 +277,7 @@
  "Coraline": [],
  "Corey Fonville": [],
  "Cropsey Halloween": [],
+ "Croz Boyce": [],
  "Croz Boyce [Avey Tare and Geologist of Animal Collective]": [],
  "Cube": [],
  "CupcakKe": [
@@ -258,11 +288,13 @@
   "Punk & Metal"
  ],
  "D Savage": [],
+ "DANNA": [],
  "DANNA- THE BEDROOM SESSIONS": [],
  "DICE": [],
  "DISCO DOM": [],
  "DJ Gab Wright": [],
  "DJ Golden Hour": [],
+ "DJ Greenie of Lotus": [],
  "DJ Lawyer": [],
  "DJ Meredith Marks": [],
  "DJ Shadow": [
@@ -285,6 +317,10 @@
   "Pop"
  ],
  "Dead Bowl": [],
+ "Dead Poet Society": [
+  "Rock",
+  "Jazz"
+ ],
  "Dead Sullivan": [],
  "Defeated Sanity": [
   "Punk & Metal"
@@ -297,6 +333,7 @@
  "Disney Worlds Collide Concert": [],
  "Diva Bleach": [],
  "Do Si Don'tcha": [],
+ "Dogs and Fishes": [],
  "Dom Dolla": [],
  "Don Omar": [
   "Latin"
@@ -308,9 +345,14 @@
  "Donny Benét": [
   "Dance"
  ],
+ "Duffy": [
+  "R&B",
+  "Pop"
+ ],
  "Duffy x Uhlmann": [],
  "EPIK HIGH": [],
  "ESTEMAN & DANIELA SPALLA": [],
+ "Earl Sweatshirt & MIKE": [],
  "Earl Sweatshirt & MIKE Home on the Range": [],
  "Earlybirds Club": [],
  "Ecca Vandal": [
@@ -395,6 +437,10 @@
   "Dance",
   "Pop"
  ],
+ "GZA": [
+  "Rap",
+  "Punk & Metal"
+ ],
  "GZA (Performing Liquid Swords) w/ Phunky Nomads & Keznamdi": [],
  "Gapyear": [
   "Punk & Metal"
@@ -424,10 +470,15 @@
   "Punk & Metal",
   "Rock"
  ],
+ "God Street Wine": [
+  "Rock",
+  "Jazz"
+ ],
  "Golden Era Rave - 2010's EDM Classics": [],
  "Good Time Mystery Vision": [],
  "Gorgeous Gorgeous Halloween": [],
  "GorillaT": [],
+ "Grace Enger": [],
  "Grace Enger– The Satisfied Girl": [],
  "Grace Sands": [],
  "Grammy-Winning ARKAI": [],
@@ -476,6 +527,10 @@
  "Home Blitz": [],
  "Honcho H0L0 Takeover": [],
  "Honey Marmalade": [],
+ "Honey Revenge": [
+  "Rock",
+  "Pop"
+ ],
  "Honey Revenge x Dead Poet Society": [],
  "Horror Movie Marathon": [],
  "Hosted by @journalingclasses": [],
@@ -496,6 +551,9 @@
  ],
  "Ingrid Andress": [
   "Country & Folk"
+ ],
+ "Ingrid Michaelson": [
+  "Pop"
  ],
  "Ingrid Michaelson 20th Annual Holiday Hop": [],
  "Integrate": [
@@ -530,9 +588,14 @@
  "Jeff Bernat": [
   "R&B"
  ],
+ "Jeff Tweedy": [
+  "Rock",
+  "Country & Folk"
+ ],
  "Jeff Tweedy Solo": [],
  "Jeff Tweedy with special guest Case Oats": [],
  "Jenna Davis": [],
+ "Jenny Alien": [],
  "Jenny Alien (single release)": [],
  "Jens Lekman": [
   "Indie",
@@ -575,6 +638,7 @@
   "Indie"
  ],
  "Julia Wolf": [],
+ "June McDoom": [],
  "June McDoom with support from Anant Pradhan": [],
  "Just Bobby and Just Phil": [],
  "Justin Nozuka": [
@@ -629,14 +693,21 @@
   "Country & Folk",
   "Indie"
  ],
+ "Laraaji": [
+  "Dance"
+ ],
  "Larissa Lambert": [
   "Dance",
   "Pop"
+ ],
+ "Lau Noah": [
+  "Country & Folk"
  ],
  "Lauren Sanderson": [],
  "Lawrence": [],
  "Lazy Horse": [],
  "Leanne Gallati": [],
+ "Lee Emi": [],
  "Lee Emi (Emilee Petersmark of The Crane Wives)": [],
  "Les Savy Fav": [
   "Indie",
@@ -657,11 +728,19 @@
   "Dance",
   "Pop"
  ],
+ "Lindsey Stirling": [
+  "Dance"
+ ],
  "Liquid Todd": [],
  "Little Barrie": [],
  "Little Spoon": [],
  "Liz Cooper": [],
+ "Lord Huron": [
+  "Country & Folk",
+  "Indie"
+ ],
  "Loren Connors": [],
+ "Louie Vega & Anané": [],
  "Loukeman": [],
  "Love Actually": [],
  "Love in the Club": [],
@@ -690,6 +769,7 @@
   "Pop"
  ],
  "Madds Buckley": [],
+ "Madds Buckley 2026/2027": [],
  "Madra Salach": [],
  "Magenta Wave": [],
  "Maher Zain": [
@@ -714,6 +794,7 @@
  "May Shining Windows": [],
  "Mayv": [],
  "MeanRed": [],
+ "Medium Build": [],
  "Medium Build Presents The King of Having Fun on": [],
  "Meg Elsier": [],
  "Meg Lui": [],
@@ -722,13 +803,19 @@
   "Jazz",
   "R&B"
  ],
+ "Michael Millions & Landon Schroder": [],
  "Michael Millions & Landon Schroder [COSMIC ECHO]": [],
  "Michael Serafini": [],
+ "Michael Ward": [],
  "Michael Ward with Dogs and Fishes": [],
  "Michelle Coltrane": [],
  "Michigander": [
   "Indie",
   "Rock"
+ ],
+ "Midnight Magic": [
+  "Dance",
+  "Jazz"
  ],
  "Miles Hewitt": [],
  "Mind Enterprises": [
@@ -767,6 +854,13 @@
  "Nathan Farrell": [],
  "Nectarine Girl": [],
  "Neighbour Andy": [],
+ "Neko Case": [
+  "Country & Folk",
+  "Rock"
+ ],
+ "Nekrogoblikon": [
+  "Punk & Metal"
+ ],
  "Neurosis": [
   "Punk & Metal",
   "Dance"
@@ -789,6 +883,7 @@
  "Noah Pope": [],
  "Noah Richardson": [],
  "Noetika": [],
+ "Numero Group": [],
  "Núria Graham": [],
  "October Community Listening Happy Hour with Paola Prestini": [],
  "Oldstar": [],
@@ -796,13 +891,21 @@
  "Open Mike Eagle": [
   "Rap"
  ],
+ "Opera Praktikos": [],
  "Opera Praktikos’ La Sonnambula": [],
  "Or Best Offer": [],
  "Orlando": [],
+ "Osees": [
+  "Rock",
+  "Dance"
+ ],
  "Osees ft": [],
  "Oso Oso": [
   "Punk & Metal",
   "Indie"
+ ],
+ "Oteil Burbridge": [
+  "Rock"
  ],
  "Oteil Burbridge Performing with LaMP": [],
  "Our Wicked Lady": [],
@@ -810,6 +913,7 @@
   "Dance"
  ],
  "Owen Riegling": [],
+ "P.E.E": [],
  "P.E.E.": [],
  "PC WORSHIP": [],
  "PIV Showcase": [],
@@ -824,6 +928,7 @@
   "Punk & Metal",
   "Country & Folk"
  ],
+ "Parachute": [],
  "Parachute – The Way it Was": [],
  "Paris Paloma": [
   "Country & Folk"
@@ -867,6 +972,9 @@
  ],
  "Post Sex Nachos": [],
  "Presented by New Balance": [],
+ "Pretty Girl": [
+  "Dance"
+ ],
  "Pretty Girl [DJ Set]": [],
  "Pretty Sick": [
   "Punk & Metal",
@@ -896,6 +1004,8 @@
  "RAEGAN": [
   "Pop"
  ],
+ "RYAL": [],
+ "Raaginder": [],
  "Raaginder be:coming USA": [],
  "RaiNao": [],
  "Rave Jesus": [],
@@ -911,6 +1021,10 @@
   "Pop"
  ],
  "Reggaetón Y2K (18+)": [],
+ "Remi Wolf": [
+  "Pop",
+  "R&B"
+ ],
  "Residual Groove": [],
  "Rev": [],
  "Revelation Nights": [],
@@ -929,6 +1043,7 @@
   "Country & Folk"
  ],
  "Rising Appalachia with support from Viv & Riley": [],
+ "Rivkah Reyes": [],
  "Rivkah Reyes (EP": [],
  "Road To Trotamundo": [],
  "Robber Robber": [
@@ -1002,9 +1117,14 @@
   "Jazz"
  ],
  "Send Good Vibes presents Corey Fonville": [],
+ "Senses Fail": [
+  "Punk & Metal",
+  "Rock"
+ ],
  "Senses Fail Presents Still Searching": [],
  "Sensorium World": [],
  "Sera Cahoone": [],
+ "Serge Clivio and Friends": [],
  "Set Your Goals": [
   "Punk & Metal"
  ],
@@ -1050,6 +1170,7 @@
   "Dance"
  ],
  "Slimdan": [],
+ "Somi": [],
  "Son Rompe Pera": [
   "Latin",
   "Punk & Metal"
@@ -1057,6 +1178,7 @@
  "Song Dongye": [],
  "Soundbath with Charlotte & Kirk Douglas": [],
  "Soundbath with Franck Raharinosy, Sara Auster, and Nigol Koulajian": [],
+ "Space Bacon & Dizgo": [],
  "Space Bacon & Dizgo w/ DJ Greenie of Lotus": [],
  "Special Guests": [],
  "Spencer Krug": [],
@@ -1088,6 +1210,10 @@
  "Sunfade": [],
  "SuperSonic": [],
  "Supertaste": [],
+ "Surprise Chef": [
+  "Jazz",
+  "R&B"
+ ],
  "Surprise Chef (EARLY SET)": [],
  "Suzy Sheer": [],
  "Swapmeet": [],
@@ -1099,6 +1225,9 @@
  "TEN": [
   "Rock"
  ],
+ "THE BOUNCING SOULS": [
+  "Punk & Metal"
+ ],
  "THE BOUNCING SOULS 'Born To Be": [],
  "THE CENTRAL PARK FIVE": [],
  "THE HOUSE IS ON FIRE": [],
@@ -1106,8 +1235,15 @@
   "R&B",
   "Pop"
  ],
+ "Tab Benoit": [
+  "Jazz",
+  "R&B"
+ ],
  "Tab Benoit w/ Bonerama": [],
  "Talent Show for Adults": [],
+ "Tamar Braxton": [
+  "R&B"
+ ],
  "Taper's Choice": [],
  "Taylor Bickett": [],
  "Teddy Swims": [
@@ -1128,6 +1264,10 @@
  "The Avalanches": [
   "Dance",
   "Rap"
+ ],
+ "The Blasting Company": [
+  "Jazz",
+  "Country & Folk"
  ],
  "The Blasting Company plays Over The Garden Wall": [],
  "The Blue Dot": [],
@@ -1161,6 +1301,10 @@
  "The Great Gig": [],
  "The Hold Steady": [
   "Indie",
+  "Rock"
+ ],
+ "The Jayhawks": [
+  "Country & Folk",
   "Rock"
  ],
  "The King of Having Fun on": [],
@@ -1198,6 +1342,7 @@
   "Rock",
   "Indie"
  ],
+ "The Smiths Tribute": [],
  "The Smiths Tribute NYC": [],
  "The Snuts": [
   "Indie"
@@ -1233,6 +1378,9 @@
  ],
  "The Women’s Game": [],
  "The Wordless Music Orchestra": [],
+ "The Wrecks": [
+  "Pop"
+ ],
  "The Wrecks - Finally": [],
  "Theo Katzman": [],
  "Theophobia": [],
@@ -1300,6 +1448,7 @@
  "WILLOW": [
   "Punk & Metal"
  ],
+ "Washer": [],
  "Waterfall Strainer": [],
  "Wax Future": [],
  "Waylon Wyatt": [
@@ -1344,16 +1493,22 @@
  "Yana": [],
  "York Burlesque Festival’s Golden Pastie Awards": [],
  "York Modular Society 7th Anniversary": [],
+ "Yuki Chiba": [],
  "Yuki Chiba / FIRST NORTH AMERICA": [],
  "Zach Kyle": [],
+ "Zoso": [],
  "Zoso The Ultimate Led Zeppelin Experience": [],
  "bunii": [
   "Rap",
   "Rock"
  ],
+ "confetti": [
+  "Pop"
+ ],
  "confetti x khel": [],
  "dakota jones": [],
  "deca joins": [],
+ "faiith": [],
  "featuring: Steve Kimock": [],
  "feeble little horse": [
   "Indie"
@@ -1369,6 +1524,8 @@
   "Punk & Metal",
   "Pop"
  ],
+ "inti figgis-vizueta": [],
+ "inti figgis-vizueta’s Music for Transitions": [],
  "inti figgis-vizueta’s Music for Transitions with Andrew Yee and Rothko String Quartet": [],
  "jigitz": [],
  "jill mccracken": [],
@@ -1383,6 +1540,7 @@
  "lastfm:@NICKCHEO the *": [],
  "lastfm:@NICKCHEO the the": [],
  "lastfm:A Carnival of Souls The Grand Gothic Halloween Ball": [],
+ "lastfm:A Joyful Noise": [],
  "lastfm:A New York Evening With Charlie Puth": [],
  "lastfm:A New York Evening With Neko Case": [],
  "lastfm:A Night of Heated Rivalry": [],
@@ -1395,6 +1553,8 @@
   "Rock"
  ],
  "lastfm:ANDY BOAY (": [],
+ "lastfm:ARKAI": [],
+ "lastfm:ARKAI w/ surprise guest Lindsey Stirling": [],
  "lastfm:ART OF BLUE BLOOD": [],
  "lastfm:ART OF BLUE BLOOD @ ARTMS": [],
  "lastfm:AZA": [
@@ -1413,6 +1573,9 @@
   "Country & Folk"
  ],
  "lastfm:Alex Cano": [],
+ "lastfm:Alexander James": [
+  "Dance"
+ ],
  "lastfm:Ali": [
   "Rap",
   "Jazz"
@@ -1420,6 +1583,7 @@
  "lastfm:Allan Rayman": [
   "R&B"
  ],
+ "lastfm:Alune Wade & Family Affair": [],
  "lastfm:Alune Wade & Family Affair / faiith (presented by the JGI)": [],
  "lastfm:Amsterdam presents Charlotte Greve": [],
  "lastfm:An Evening": [],
@@ -1427,8 +1591,11 @@
  "lastfm:An Evening of Mud with Remi Wolf": [],
  "lastfm:An Evening with Lord Huron": [],
  "lastfm:An Intimate Evening With Tamar Braxton": [],
+ "lastfm:Anant Pradhan": [],
+ "lastfm:Anané & Louie Vega": [],
  "lastfm:Ancient Artifax 10th Anniversary Pop-up": [],
  "lastfm:Andrea Gibson's Love Letter from the Afterlife": [],
+ "lastfm:Andrew Yee and Rothko String Quartet": [],
  "lastfm:Andy Randazzo & Morgan Burrs": [],
  "lastfm:Animal Collective Performs Feels": [],
  "lastfm:Anthony Roth Costanzo": [],
@@ -1454,6 +1621,9 @@
   "Rock"
  ],
  "lastfm:BOOTS! MONSTER MASH": [],
+ "lastfm:Baby Jane": [
+  "Rock"
+ ],
  "lastfm:Baby Jane's": [],
  "lastfm:Back to the Barre": [],
  "lastfm:Banda AL9": [
@@ -1520,9 +1690,16 @@
  "lastfm:Coraline": [],
  "lastfm:Corey Fonville": [],
  "lastfm:Cropsey Halloween": [],
+ "lastfm:Croz Boyce": [
+  "Rock",
+  "Dance"
+ ],
  "lastfm:Croz Boyce [Avey Tare and Geologist of Animal Collective]": [],
  "lastfm:D Savage": [
   "Rap"
+ ],
+ "lastfm:DANNA": [
+  "Pop"
  ],
  "lastfm:DANNA- THE BEDROOM SESSIONS": [],
  "lastfm:DICE": [
@@ -1530,6 +1707,7 @@
  ],
  "lastfm:DJ Gab Wright": [],
  "lastfm:DJ Golden Hour": [],
+ "lastfm:DJ Greenie of Lotus": [],
  "lastfm:DJ Lawyer": [],
  "lastfm:DJ Meredith Marks": [],
  "lastfm:DOUBLE STANDARD": [
@@ -1573,6 +1751,7 @@
   "Pop"
  ],
  "lastfm:Do Si Don'tcha": [],
+ "lastfm:Dogs and Fishes": [],
  "lastfm:Dom Dolla": [
   "Dance"
  ],
@@ -1586,6 +1765,7 @@
   "Pop"
  ],
  "lastfm:ESTEMAN & DANIELA SPALLA": [],
+ "lastfm:Earl Sweatshirt & MIKE": [],
  "lastfm:Earl Sweatshirt & MIKE Home on the Range": [],
  "lastfm:Earlybirds Club": [],
  "lastfm:Effy": [
@@ -1647,6 +1827,10 @@
  "lastfm:Gorgeous Gorgeous Halloween": [],
  "lastfm:GorillaT": [
   "Dance"
+ ],
+ "lastfm:Grace Enger": [
+  "Country & Folk",
+  "Indie"
  ],
  "lastfm:Grace Enger– The Satisfied Girl": [],
  "lastfm:Grace Sands": [],
@@ -1725,6 +1909,10 @@
   "Pop",
   "Country & Folk"
  ],
+ "lastfm:Jenny Alien": [
+  "Pop",
+  "Dance"
+ ],
  "lastfm:Jenny Alien (single release)": [],
  "lastfm:Jesse Gold": [
   "R&B",
@@ -1743,6 +1931,9 @@
  "lastfm:Julia Wolf": [
   "Indie",
   "Rock"
+ ],
+ "lastfm:June McDoom": [
+  "Country & Folk"
  ],
  "lastfm:June McDoom with support from Anant Pradhan": [],
  "lastfm:Just Bobby and Just Phil": [],
@@ -1791,6 +1982,7 @@
  ],
  "lastfm:Lazy Horse": [],
  "lastfm:Leanne Gallati": [],
+ "lastfm:Lee Emi": [],
  "lastfm:Lee Emi (Emilee Petersmark of The Crane Wives)": [],
  "lastfm:Level 1 Freeski Film": [],
  "lastfm:Liam Benzvi": [
@@ -1817,6 +2009,7 @@
   "Indie",
   "Jazz"
  ],
+ "lastfm:Louie Vega & Anané": [],
  "lastfm:Loukeman": [
   "Dance"
  ],
@@ -1836,6 +2029,7 @@
  "lastfm:Madds Buckley": [
   "Indie"
  ],
+ "lastfm:Madds Buckley 2026/2027": [],
  "lastfm:Madra Salach": [
   "Country & Folk"
  ],
@@ -1849,11 +2043,17 @@
  "lastfm:Matthew Danger Lippman": [],
  "lastfm:May Shining Windows": [],
  "lastfm:MeanRed": [],
+ "lastfm:Medium Build": [
+  "Indie",
+  "Country & Folk"
+ ],
  "lastfm:Medium Build Presents The King of Having Fun on": [],
  "lastfm:Meg Lui": [],
  "lastfm:Meg Lui (": [],
+ "lastfm:Michael Millions & Landon Schroder": [],
  "lastfm:Michael Millions & Landon Schroder [COSMIC ECHO]": [],
  "lastfm:Michael Serafini": [],
+ "lastfm:Michael Ward": [],
  "lastfm:Michael Ward with Dogs and Fishes": [],
  "lastfm:Michelle Coltrane": [],
  "lastfm:Mitch Wood \"My Impression of a Show\"": [],
@@ -1895,11 +2095,13 @@
   "Country & Folk",
   "Indie"
  ],
+ "lastfm:Numero Group": [],
  "lastfm:October Community Listening Happy Hour with Paola Prestini": [],
  "lastfm:Olivia O'Brien": [
   "Pop",
   "Dance"
  ],
+ "lastfm:Opera Praktikos": [],
  "lastfm:Opera Praktikos’ La Sonnambula": [],
  "lastfm:Or Best Offer": [
   "Indie"
@@ -1914,6 +2116,7 @@
  "lastfm:Owen Riegling": [
   "Country & Folk"
  ],
+ "lastfm:P.E.E": [],
  "lastfm:P.E.E.": [],
  "lastfm:PC WORSHIP": [
   "Indie",
@@ -1921,6 +2124,10 @@
  ],
  "lastfm:PIV Showcase": [],
  "lastfm:Pair of Sloths": [],
+ "lastfm:Parachute": [
+  "Pop",
+  "Dance"
+ ],
  "lastfm:Parachute – The Way it Was": [],
  "lastfm:Party like it's 2016!": [],
  "lastfm:Party of the Century": [],
@@ -1952,6 +2159,11 @@
  "lastfm:Puss N Boots": [
   "Country & Folk"
  ],
+ "lastfm:RYAL": [
+  "Pop",
+  "Indie"
+ ],
+ "lastfm:Raaginder": [],
  "lastfm:Raaginder be:coming USA": [],
  "lastfm:RaiNao": [
   "Latin",
@@ -1983,6 +2195,9 @@
  "lastfm:Richard Perez": [],
  "lastfm:Rio Amor & Friends": [],
  "lastfm:Rising Appalachia with support from Viv & Riley": [],
+ "lastfm:Rivkah Reyes": [
+  "Indie"
+ ],
  "lastfm:Rivkah Reyes (EP": [],
  "lastfm:Road To Trotamundo": [],
  "lastfm:Robert Lester Folsom": [
@@ -2017,6 +2232,7 @@
  "lastfm:Sera Cahoone": [
   "Country & Folk"
  ],
+ "lastfm:Serge Clivio and Friends": [],
  "lastfm:Shagshop Rooftop": [],
  "lastfm:Shawn James": [
   "Country & Folk",
@@ -2034,9 +2250,14 @@
   "Indie",
   "Jazz"
  ],
+ "lastfm:Somi": [
+  "Jazz",
+  "R&B"
+ ],
  "lastfm:Song Dongye": [],
  "lastfm:Soundbath with Charlotte & Kirk Douglas": [],
  "lastfm:Soundbath with Franck Raharinosy, Sara Auster, and Nigol Koulajian": [],
+ "lastfm:Space Bacon & Dizgo": [],
  "lastfm:Space Bacon & Dizgo w/ DJ Greenie of Lotus": [],
  "lastfm:Special Guests": [
   "Rap"
@@ -2127,6 +2348,7 @@
   "Punk & Metal",
   "Rock"
  ],
+ "lastfm:The Smiths Tribute": [],
  "lastfm:The Smiths Tribute NYC": [],
  "lastfm:The Universe Of Lonnie Liston Smith": [],
  "lastfm:The Vampyre Masquerade": [],
@@ -2176,6 +2398,10 @@
   "Indie",
   "Punk & Metal"
  ],
+ "lastfm:Washer": [
+  "Punk & Metal",
+  "Indie"
+ ],
  "lastfm:Waterfall Strainer": [
   "Indie"
  ],
@@ -2223,8 +2449,12 @@
  ],
  "lastfm:York Burlesque Festival’s Golden Pastie Awards": [],
  "lastfm:York Modular Society 7th Anniversary": [],
+ "lastfm:Yuki Chiba": [
+  "Rap"
+ ],
  "lastfm:Yuki Chiba / FIRST NORTH AMERICA": [],
  "lastfm:Zach Kyle": [],
+ "lastfm:Zoso": [],
  "lastfm:Zoso The Ultimate Led Zeppelin Experience": [],
  "lastfm:confetti x khel": [],
  "lastfm:dakota jones": [
@@ -2232,10 +2462,13 @@
   "Rock"
  ],
  "lastfm:deca joins": [],
+ "lastfm:faiith": [],
  "lastfm:featuring: Steve Kimock": [],
  "lastfm:gabrielle hope": [
   "Country & Folk"
  ],
+ "lastfm:inti figgis-vizueta": [],
+ "lastfm:inti figgis-vizueta’s Music for Transitions": [],
  "lastfm:inti figgis-vizueta’s Music for Transitions with Andrew Yee and Rothko String Quartet": [],
  "lastfm:jigitz": [
   "Pop",
@@ -2283,6 +2516,9 @@
   "Country & Folk"
  ],
  "the women's national hockey league": [],
+ "tripleS": [
+  "Pop"
+ ],
  "w/ Ka$hkenni": [],
  "w/ Megan Falley": [],
  "with Cal in Red": [],
