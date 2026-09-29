@@ -84,6 +84,10 @@
   "Jazz",
   "Rock"
  ],
+ "Arcángel": [
+  "Latin",
+  "Rap"
+ ],
  "Arkose": [],
  "Arlo": [],
  "Arlo Parks": [
@@ -203,6 +207,8 @@
  "CRADLE OF FILTH": [
   "Punk & Metal"
  ],
+ "Caleb Wheeler Curtis & Jason Moran": [],
+ "Candlelight": [],
  "Candy Crush": [],
  "Cannons": [
   "Indie",
@@ -239,6 +245,7 @@
  "Cigarettes @ Sunset": [],
  "Clarissa Bitar Vinyl Listening Party": [],
  "Content Blocks (": [],
+ "Coraline": [],
  "Corey Fonville": [],
  "Cropsey Halloween": [],
  "Croz Boyce [Avey Tare and Geologist of Animal Collective]": [],
@@ -291,6 +298,9 @@
  "Diva Bleach": [],
  "Do Si Don'tcha": [],
  "Dom Dolla": [],
+ "Don Omar": [
+  "Latin"
+ ],
  "Donis": [
   "Country & Folk"
  ],
@@ -308,6 +318,9 @@
   "Rap"
  ],
  "Effy": [],
+ "Eitan Katz": [
+  "Pop"
+ ],
  "Eivør": [
   "Country & Folk",
   "Dance"
@@ -514,6 +527,9 @@
   "R&B",
   "Country & Folk"
  ],
+ "Jeff Bernat": [
+  "R&B"
+ ],
  "Jeff Tweedy Solo": [],
  "Jeff Tweedy with special guest Case Oats": [],
  "Jenna Davis": [],
@@ -535,6 +551,7 @@
   "Dance",
   "R&B"
  ],
+ "Jessie’s Girl": [],
  "Jim James": [
   "Country & Folk",
   "Indie"
@@ -544,6 +561,10 @@
  ],
  "Johnny Blue Skies & the Dark Clouds": [],
  "Jonathan Something": [],
+ "Jorja Smith": [
+  "R&B",
+  "Pop"
+ ],
  "Judah & The Lion": [],
  "Juelz": [
   "Dance",
@@ -642,6 +663,7 @@
  "Liz Cooper": [],
  "Loren Connors": [],
  "Loukeman": [],
+ "Love Actually": [],
  "Love in the Club": [],
  "Lovie": [],
  "Lucy Bedroque": [
@@ -670,6 +692,9 @@
  "Madds Buckley": [],
  "Madra Salach": [],
  "Magenta Wave": [],
+ "Maher Zain": [
+  "R&B"
+ ],
  "Man/Woman/Chainsaw": [
   "Indie",
   "Punk & Metal"
@@ -717,6 +742,10 @@
  "Mopar Stars": [],
  "More More More": [],
  "More TBA": [],
+ "Morgan James": [
+  "Jazz",
+  "R&B"
+ ],
  "Morley": [],
  "Motifv": [],
  "Mountain Grass Unit": [],
@@ -728,7 +757,9 @@
   "Rap",
   "Indie"
  ],
+ "Murmrr Presents Numero Group": [],
  "Music from the John and Alice Coltrane Home": [],
+ "Music of Bob Marley + More for Kids": [],
  "NAYGOD": [],
  "NINE VICIOUS": [],
  "NOTD": [],
@@ -746,6 +777,7 @@
  "Nia Archives": [
   "R&B"
  ],
+ "Nicoletta Todesco": [],
  "Night Lovell": [
   "Rap"
  ],
@@ -867,6 +899,7 @@
  "Raaginder be:coming USA": [],
  "RaiNao": [],
  "Rave Jesus": [],
+ "Rawayana": [],
  "Ray LaMontagne": [
   "Country & Folk",
   "Indie"
@@ -880,6 +913,7 @@
  "Reggaetón Y2K (18+)": [],
  "Residual Groove": [],
  "Rev": [],
+ "Revelation Nights": [],
  "Revocation": [
   "Punk & Metal"
  ],
@@ -907,6 +941,10 @@
   "Dance"
  ],
  "Rocky Horror": [],
+ "Rocky™": [],
+ "Rod Wave": [
+  "Rap"
+ ],
  "Roman Flügel": [
   "Dance"
  ],
@@ -939,6 +977,7 @@
  ],
  "Sabrina Song": [],
  "Sally Boy": [],
+ "Salon Parcha Featuring Ella Bric & Special Guests": [],
  "Sam & Louise Sullivan": [],
  "Samantha Fish": [
   "Jazz",
@@ -1119,6 +1158,7 @@
   "Punk & Metal",
   "Indie"
  ],
+ "The Great Gig": [],
  "The Hold Steady": [
   "Indie",
   "Rock"
@@ -1138,6 +1178,10 @@
  "The Pharcyde & Slum Village": [],
  "The Pink Rambo": [],
  "The Q Brothers (Hip Hop for Families!)": [],
+ "The Residents": [
+  "Indie",
+  "Pop"
+ ],
  "The Rest is Politics U.S": [],
  "The Rikkies": [],
  "The Ritual": [],
@@ -1150,6 +1194,10 @@
   "Punk & Metal"
  ],
  "The Slim Kings": [],
+ "The Smashing Pumpkins": [
+  "Rock",
+  "Indie"
+ ],
  "The Smiths Tribute NYC": [],
  "The Snuts": [
   "Indie"
@@ -1249,12 +1297,19 @@
   "Rap"
  ],
  "Volvox": [],
+ "WILLOW": [
+  "Punk & Metal"
+ ],
  "Waterfall Strainer": [],
  "Wax Future": [],
  "Waylon Wyatt": [
   "Country & Folk"
  ],
  "Weak Signal": [],
+ "Weezer": [
+  "Rock",
+  "Pop"
+ ],
  "Wesley Joseph": [],
  "Weston Estate": [],
  "Westside Cowboy": [
@@ -1296,6 +1351,7 @@
   "Rap",
   "Rock"
  ],
+ "confetti x khel": [],
  "dakota jones": [],
  "deca joins": [],
  "featuring: Steve Kimock": [],
@@ -1443,6 +1499,8 @@
  "lastfm:CARISTA": [],
  "lastfm:CEG Presents SIMRIT": [],
  "lastfm:CLUB 1BD Halloween": [],
+ "lastfm:Caleb Wheeler Curtis & Jason Moran": [],
+ "lastfm:Candlelight": [],
  "lastfm:Candy Crush": [],
  "lastfm:Carly Pearce - Honest Woman": [],
  "lastfm:Charlie Parr": [
@@ -1459,6 +1517,7 @@
  "lastfm:Children under 1 enter free": [],
  "lastfm:Christopher Ardra": [],
  "lastfm:Clarissa Bitar Vinyl Listening Party": [],
+ "lastfm:Coraline": [],
  "lastfm:Corey Fonville": [],
  "lastfm:Cropsey Halloween": [],
  "lastfm:Croz Boyce [Avey Tare and Geologist of Animal Collective]": [],
@@ -1671,6 +1730,7 @@
   "R&B",
   "Indie"
  ],
+ "lastfm:Jessie’s Girl": [],
  "lastfm:Johnny Blue Skies & the Dark Clouds": [],
  "lastfm:Jonathan Something": [
   "Indie",
@@ -1760,6 +1820,7 @@
  "lastfm:Loukeman": [
   "Dance"
  ],
+ "lastfm:Love Actually": [],
  "lastfm:Love in the Club": [],
  "lastfm:Lovie": [],
  "lastfm:Lucy Bright": [],
@@ -1808,7 +1869,9 @@
  "lastfm:Mountain Grass Unit": [
   "Country & Folk"
  ],
+ "lastfm:Murmrr Presents Numero Group": [],
  "lastfm:Music from the John and Alice Coltrane Home": [],
+ "lastfm:Music of Bob Marley + More for Kids": [],
  "lastfm:NAYGOD": [],
  "lastfm:NINE VICIOUS": [
   "Rap"
@@ -1826,6 +1889,7 @@
  ],
  "lastfm:New Amsterdam presents Charlotte Greve": [],
  "lastfm:New York Modular Society 7th Anniversary": [],
+ "lastfm:Nicoletta Todesco": [],
  "lastfm:Noah Pope": [],
  "lastfm:Noah Richardson": [
   "Country & Folk",
@@ -1896,6 +1960,10 @@
  "lastfm:Rave Jesus": [
   "Dance"
  ],
+ "lastfm:Rawayana": [
+  "Punk & Metal",
+  "Latin"
+ ],
  "lastfm:Razor-N-Tape presents A Joyful Noise": [],
  "lastfm:ReSolute": [
   "Punk & Metal",
@@ -1907,6 +1975,7 @@
  "lastfm:Rev": [
   "Rock"
  ],
+ "lastfm:Revelation Nights": [],
  "lastfm:Revocation —": [],
  "lastfm:Richard Finger": [
   "Dance"
@@ -1922,12 +1991,14 @@
  "lastfm:Rocky Horror": [
   "Dance"
  ],
+ "lastfm:Rocky™": [],
  "lastfm:Ryman Leon": [
   "Pop"
  ],
  "lastfm:SE ESTÁ HACIENDO TARDE": [],
  "lastfm:SERGE CLIVIO AND FRIENDS 6": [],
  "lastfm:SIMRIT": [],
+ "lastfm:Salon Parcha Featuring Ella Bric & Special Guests": [],
  "lastfm:Sam & Louise Sullivan": [],
  "lastfm:Sanctuary Park": [],
  "lastfm:Santos Bravos": [
@@ -2032,6 +2103,7 @@
   "Indie",
   "Rock"
  ],
+ "lastfm:The Great Gig": [],
  "lastfm:The King of Having Fun on": [],
  "lastfm:The Moves.NYC Launch Party": [],
  "lastfm:The Nursery": [],
@@ -2154,6 +2226,7 @@
  "lastfm:Yuki Chiba / FIRST NORTH AMERICA": [],
  "lastfm:Zach Kyle": [],
  "lastfm:Zoso The Ultimate Led Zeppelin Experience": [],
+ "lastfm:confetti x khel": [],
  "lastfm:dakota jones": [
   "Jazz",
   "Rock"

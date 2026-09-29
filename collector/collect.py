@@ -10,7 +10,9 @@ import os
 import html
 import json
 import re
+import subprocess
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 import urllib.robotparser
@@ -53,10 +55,17 @@ def fetch(url):
     if not allowed(url):
         raise RuntimeError(f"robots.txt disallows {url}")
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Encoding": "gzip"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        body = r.read()
-        if r.headers.get("Content-Encoding") == "gzip":
-            body = gzip.decompress(body)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            body = r.read()
+            if r.headers.get("Content-Encoding") == "gzip":
+                body = gzip.decompress(body)
+    except urllib.error.URLError as e:
+        if "SSL" not in str(e):
+            raise
+        # macOS's built-in Python has an old SSL library some sites refuse; curl doesn't.
+        body = subprocess.run(["curl", "-sL", "--compressed", "-m", "30", "-A", UA, url],
+                              capture_output=True, check=True).stdout
     return body.decode("utf-8", "ignore")
 
 
@@ -358,6 +367,76 @@ def src_national_sawdust():
     return out
 
 
+# Arena/theater calendars mix in sports, comedy and family shows — keep music only.
+NOT_CONCERT = re.compile(
+    r"\bvs\.?\b|\bv\.\s|liberty|nets\b|knicks|rangers|islanders|basketball|hockey|boxing|\bufc\b|\bwwe\b|\baew\b|"
+    r"wrestling|playoffs?|preseason|globetrotters|monster jam|disney|on ice|paw patrol|sesame|bluey|cocomelon|"
+    r"circus|graduation|commencement|comedy|comedian|stand-?up|podcast|live taping|in conversation|an evening with .* author|"
+    r"magic show|illusionist|film|screening|ballet|nutcracker|dance company|gala|awards",
+    re.I,
+)
+
+
+def src_barclays():
+    out = []
+    for block in fetch("https://www.barclayscenter.com/events").split('data-timestamp="')[1:]:
+        ts = int(block.split('"', 1)[0])
+        title = re.search(r"<h3>(.*?)</h3>", block, re.S)
+        if not title:
+            continue
+        name = text(title.group(1))
+        tagline = text((re.search(r"<h4>(.*?)</h4>", block, re.S) or [None, ""])[1])
+        if NOT_CONCERT.search(f"{name} {tagline}"):
+            continue
+        img = re.search(r'<img src="([^"]+)"', block)
+        tickets = re.search(r'href="(https?://[^"]*ticketmaster[^"]*)"', block)
+        start = datetime.fromtimestamp(ts, NYC).strftime("%Y-%m-%dT%H:%M")
+        out.append(show("barclays", name, start, tagline="" if tagline.lower() == name.lower() else tagline,
+                        image=img.group(1) if img else None, url=html.unescape(tickets.group(1)) if tickets else None,
+                        source="barclays"))
+    return out
+
+
+def src_sony_hall():
+    out = []
+    for block in fetch("https://sonyhall.com/shows/").split("<li class='show-group")[1:]:
+        name = re.search(r"<h2\s*><a href='([^']+)'>(.*?)</a>", block, re.S)
+        date = re.search(r"<time datetime='(\d{4}-\d{2}-\d{2})'", block)
+        if not (name and date):
+            continue
+        prefix = text((re.search(r"class='prefix-text'>(.*?)</div>", block, re.S) or [None, ""])[1])
+        sub = text((re.search(r"<h3>(.*?)</h3>", block, re.S) or [None, ""])[1])
+        tod = text((re.search(r"class='tod'>(.*?)</div>", block, re.S) or [None, ""])[1])
+        clock = parse_clock(tod.split("SHOW")[-1]) or parse_clock(tod) or "20:00"
+        img = re.search(r"data-src='([^']+)'", block)
+        tickets = re.search(r"href='(https?://[^']*(?:ticketmaster|ticketweb)[^']*)'", block)
+        head, support = split_lineup(clean_title(text(name.group(2))))
+        out.append(show("sonyhall", head, f"{date.group(1)}T{clock}", support, tagline=sub or prefix,
+                        image=img.group(1) if img else None, url=html.unescape(tickets.group(1)) if tickets else name.group(1),
+                        source="sonyhall"))
+    return out
+
+
+def src_kings_theatre():
+    """ATG's Kings Theatre page tags each event (Concert / Comedy / Family / Talk…) — keep concerts."""
+    page = fetch("https://us.atgtickets.com/venues/kings-theatre-brooklyn/whats-on/")
+    out = []
+    for m in re.finditer(r'<div class="MuiCardContent-root[^"]*">(.*?)(?=<div class="MuiCardContent-root|\Z)', page, re.S):
+        card = m.group(1)[:4000]
+        name = re.search(r'<h2 class="MuiBox-root[^"]*">(.*?)</h2>', card, re.S)
+        kind = re.search(r'bodySmall[^"]*">(Concert|Comedy|Dance|Family|Events|Talk|Film|Theatre|Musical)</p>', card)
+        date = re.search(r'bodySmall[^"]*">([A-Z][a-z]{2}, [A-Z][a-z]{2} \d{1,2}, \d{4})</p>', card)
+        if not (name and date) or not kind or kind.group(1) != "Concert":
+            continue
+        link = re.search(r'href="(/events/[^"]+?/kings-theatre-brooklyn/)"', card)
+        imgs = re.findall(r'<img class="MuiCardMedia-root[^>]*?src="([^"]+)"', page[:m.start()])
+        day = datetime.strptime(date.group(1), "%a, %b %d, %Y").strftime("%Y-%m-%d")
+        head, support = split_lineup(clean_title(text(name.group(1))))
+        out.append(show("kings", head, f"{day}T20:00", support, image=imgs[-1] if imgs else None,
+                        url="https://us.atgtickets.com" + link.group(1) if link else None, source="kings"))
+    return out
+
+
 SKIP_TM = re.compile(r"parking|suite|premium seat|vip package|upgrade|tour package|hospitality|gift card", re.I)
 
 
@@ -416,7 +495,10 @@ SOURCES = [
     ("TV Eye", lambda: src_seetickets_wp("https://tveyenyc.com/", "tveye")),
     ("H0L0", src_holo),
     ("National Sawdust", src_national_sawdust),
-    ("Ticketmaster (MSG, Radio City, Beacon, Barclays, Kings, Sony Hall, Forest Hills)", src_ticketmaster),
+    ("Barclays Center", src_barclays),
+    ("Sony Hall", src_sony_hall),
+    ("Kings Theatre", src_kings_theatre),
+    ("Ticketmaster API (MSG, Radio City, Beacon)", src_ticketmaster),
 ]
 
 # ---------------------------------------------------------------- main
