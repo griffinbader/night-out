@@ -234,3 +234,30 @@ h3 {
 }
 .ticket-link:hover { color: var(--yellow); }
 .thumb img, .hero img { position: absolute; inset: 0; }
+
+/* ---------- Accounts ---------- */
+.account-card {
+  display: flex; flex-direction: column; gap: 10px; margin: 8px 0 18px;
+  padding: 18px; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--card);
+}
+.account-card b { font: 800 22px var(--display); letter-spacing: -.5px; }
+.account-card p { margin: 0; color: var(--muted); }
+.account-card .search { margin: 0; }
+.account-card .btn.primary, .add-friend .btn.primary { background: var(--yellow); color: var(--black); padding: 10px 18px; font-size: 15px; align-self: flex-start; }
+.form-msg { font-size: 13px; color: var(--yellow); min-height: 1em; }
+.swatches { display: flex; gap: 8px; }
+.swatches input { position: absolute; opacity: 0; }
+.swatches span { display: block; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--ink); cursor: pointer; }
+.swatches input:checked + span { box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink); }
+
+.account-bar, .person { display: flex; align-items: center; gap: 12px; }
+.account-bar { margin: 4px 0 18px; }
+.account-bar div, .person div { flex: 1; display: flex; flex-direction: column; }
+.account-bar b, .person b { font: 800 17px var(--display); }
+.account-bar span, .person span { font: 500 12px var(--mono); color: var(--muted); }
+.person { padding: 10px 0; border-bottom: 1.5px solid var(--ink); }
+
+.add-friend { display: flex; gap: 8px; align-items: center; }
+.add-friend .search { margin: 0; flex: 1; }
+.add-friend .btn.primary { align-self: auto; }
+.feed-item > .face.lg { flex: none; }

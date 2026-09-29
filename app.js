@@ -1,6 +1,7 @@
-// Night Out prototype — all logic runs in the browser, no server needed.
+// Night Out — listings run in the browser; accounts & friends sync through Supabase (account.js).
 
 // ---------- Saved state (your "going" / "interested" picks) ----------
+// Signed out: picks live in this browser. Signed in: they come from your account.
 function load(key, fallback) {
   try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
 }
@@ -10,7 +11,10 @@ function save(key, value) {
 
 const going = new Set(load('no.going', []));
 const interested = new Set(load('no.interested', []));
-const persist = () => { save('no.going', [...going]); save('no.interested', [...interested]); };
+const persist = () => {
+  if (Account.me.profile) return; // signed in: the account is the source of truth
+  save('no.going', [...going]); save('no.interested', [...interested]);
+};
 
 const state = {
   tab: 'discover',
@@ -25,7 +29,6 @@ const state = {
 };
 
 const byId = Object.fromEntries(SHOWS.map(s => [s.id, s]));
-const friendById = Object.fromEntries(FRIENDS.map(f => [f.id, f]));
 const view = document.getElementById('view');
 const sheet = document.getElementById('sheet');
 
@@ -81,12 +84,45 @@ const countFor = (skip, test) => SHOWS.filter(s => matches(s, skip) && test(s)).
 const activeFilterCount = () => state.boroughs.size + state.hoods.size + state.genres.size + state.vibes.size + (state.price !== 'any') + !!state.query;
 
 // ---------- Pieces ----------
+// ---------- Friends' plans ----------
+let friendGoing = {};   // show id -> [friend profile ids]
+let snapshots = {};     // show id -> listing saved with a plan (for shows no longer listed)
+
+function syncFromAccount() {
+  const { me } = Account;
+  friendGoing = {};
+  snapshots = {};
+  for (const p of [...me.friendPlans, ...me.myPlans]) {
+    if (!byId[p.show_id] && p.show?.artist) snapshots[p.show_id] = fromSnapshot(p.show_id, p.show);
+  }
+  for (const p of me.friendPlans) {
+    if (p.status === 'going') (friendGoing[p.show_id] ||= []).push(p.user_id);
+  }
+  if (me.profile) {
+    going.clear(); interested.clear();
+    for (const p of me.myPlans) (p.status === 'going' ? going : interested).add(p.show_id);
+  }
+}
+
+function fromSnapshot(id, snap) {
+  const venue = venueById[snap.venue] || { id: snap.venue, name: snap.venue, hood: '', borough: '', vibes: [], size: 'small' };
+  return {
+    id, artist: esc(snap.artist), support: (snap.support || []).map(esc), venue, start: new Date(snap.start),
+    image: snap.image && esc(snap.image), genres: snap.genres || [], vibes: [], price: snap.price, url: snap.url && esc(snap.url),
+    description: '', tagline: '',
+  };
+}
+
+const showFor = id => byId[id] || snapshots[id];
+const friendsAt = s => friendGoing[s.id] || [];
+const avatar = (p, cls = '') => `<span class="face ${cls}" style="background:${p.color}">${esc(p.display_name)[0].toUpperCase()}</span>`;
+
 function faces(ids, max = 3) {
-  if (!ids.length) return '';
-  const shown = ids.slice(0, max).map(id => friendById[id]);
-  const names = shown.map(f => f.name);
-  const label = ids.length === 1 ? `${names[0]} is going` : `${names[0]} + ${ids.length - 1} going`;
-  return `<div class="faces"><div class="face-stack">${shown.map(f => `<span class="face" style="background:${f.color}">${f.name[0]}</span>`).join('')}</div>${label}</div>`;
+  const people = ids.map(Account.profileById).filter(Boolean);
+  if (!people.length) return '';
+  const first = esc(people[0].display_name);
+  const label = people.length === 1 ? `${first} is going` : `${first} + ${people.length - 1} going`;
+  return `<div class="faces"><div class="face-stack">${people.slice(0, max).map(p => avatar(p)).join('')}</div>${label}</div>`;
 }
 
 function actionButtons(s) {
@@ -155,7 +191,7 @@ function card(s) {
       </div>
       <div class="card-foot">
         ${s.price != null ? `<span class="price ${s.price === 0 ? 'free' : ''}">${priceLabel(s.price)}</span>` : '<span></span>'}
-        ${faces(s.friendsGoing)}
+        ${faces(friendsAt(s))}
         ${actionButtons(s)}
       </div>
     </div>
@@ -220,20 +256,72 @@ function renderList() {
 
 // ---------- Friends ----------
 function renderFriends() {
+  const { me } = Account;
+  if (!me.profile) {
+    view.innerHTML = `<h2>The <em>crew</em></h2>${accountPanel('See where your friends are going. Sign in to add them.')}`;
+    return;
+  }
   const now = midnight();
-  const upcoming = SHOWS.filter(s => s.start >= now && s.start < addDays(now, 14) && s.friendsGoing.length);
-  const recent = SHOWS.filter(s => s.start < now && s.start > addDays(now, -21) && s.friendsGoing.length).reverse().slice(0, 12);
-  const item = (s, past) => `<div class="feed-item" data-open="${s.id}">
-    <div class="face-stack">${s.friendsGoing.slice(0, 2).map(id => `<span class="face lg" style="background:${friendById[id].color}">${friendById[id].name[0]}</span>`).join('')}</div>
-    <div><p><b>${s.friendsGoing.map(id => friendById[id].name).join(', ')}</b> ${past ? 'went to' : s.friendsGoing.length > 1 ? 'are going to' : 'is going to'} <b>${s.artist}</b></p>
-    <p class="meta">${s.venue.name} · ${dayLabel(s.start) === 'Tonight' ? 'Tonight' : fmtDate(s.start)}</p></div>
-  </div>`;
+  const item = (p, past) => {
+    const s = showFor(p.show_id);
+    const f = Account.profileById(p.user_id);
+    if (!s || !f) return '';
+    return `<div class="feed-item" data-open="${s.id}">
+      ${avatar(f, 'lg')}
+      <div><p><b>${esc(f.display_name)}</b> ${past ? 'went to' : 'is going to'} <b>${s.artist}</b></p>
+      <p class="meta">${s.venue.name} · ${dayLabel(s.start) === 'Tonight' ? 'Tonight' : fmtDate(s.start)}</p></div>
+    </div>`;
+  };
+  const going = me.friendPlans.filter(p => p.status === 'going' && p.show_start);
+  const upcoming = going.filter(p => new Date(p.show_start) >= now).sort((a, b) => new Date(a.show_start) - new Date(b.show_start));
+  const recent = going.filter(p => new Date(p.show_start) < now).sort((a, b) => new Date(b.show_start) - new Date(a.show_start)).slice(0, 15);
+  const person = (p, action) => `<div class="person">${avatar(p, 'lg')}<div><b>${esc(p.display_name)}</b><span>@${p.username}</span></div>${action}</div>`;
+
   view.innerHTML = `
     <h2>The <em>crew</em></h2>
-    <div class="friend-row">${FRIENDS.map(f => `<div><span class="face lg" style="background:${f.color}">${f.name[0]}</span>${f.name}</div>`).join('')}</div>
+    <form class="add-friend" data-form="find">
+      <input class="search" name="username" placeholder="Add a friend by @username" autocomplete="off" autocapitalize="none" required>
+      <button class="btn primary" type="submit">Add</button>
+    </form>
+    <div id="find-result" class="form-msg"></div>
+    ${me.incoming.length ? `<h3>Want to be friends</h3>${me.incoming.map(p => person(p, `<button class="btn going on" data-add="${p.id}">Add back</button>`)).join('')}` : ''}
+    ${me.friends.length ? `<div class="friend-row">${me.friends.map(f => `<div>${avatar(f, 'lg')}${esc(f.display_name)}</div>`).join('')}</div>` : ''}
+    ${me.outgoing.length ? `<h3>Waiting on</h3>${me.outgoing.map(p => person(p, `<button class="btn" data-unadd="${p.id}">Cancel</button>`)).join('')}` : ''}
     <h3>Going soon</h3>
-    ${upcoming.length ? upcoming.map(s => item(s, false)).join('') : '<div class="empty">No plans yet.</div>'}
-    ${recent.length ? `<h3>Recently went</h3>${recent.map(s => item(s, true)).join('')}` : ''}`;
+    ${upcoming.length ? upcoming.map(p => item(p, false)).join('') : `<div class="empty">${me.friends.length ? 'No plans from friends yet.' : 'Add friends to see where they’re headed.'}</div>`}
+    ${recent.length ? `<h3>Recently went</h3>${recent.map(p => item(p, true)).join('')}` : ''}
+    ${me.friends.length ? `<h3>Friends</h3>${me.friends.map(p => person(p, `<button class="btn" data-unadd="${p.id}">Remove</button>`)).join('')}` : ''}`;
+}
+
+// ---------- Account panel (sign in / pick a username / signed-in bar) ----------
+const COLORS = ['#ffd23f', '#ff9ccf', '#22c07a', '#b8a2ff', '#6f86ff', '#ff9f1c', '#ff4d2e'];
+
+function accountPanel(pitch) {
+  const { me } = Account;
+  if (!Account.enabled) return '';
+  if (!me.ready) return '<div class="empty">Loading…</div>';
+  if (!me.user) {
+    return `<form class="account-card" data-form="signin">
+      <b>Sign in to Night Out</b>
+      <p>${pitch} No password — we'll email you a sign-in link.</p>
+      <input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
+      <button class="btn primary" type="submit">Email me a link</button>
+      <div class="form-msg" id="signin-msg"></div>
+    </form>`;
+  }
+  if (!me.profile) {
+    return `<form class="account-card" data-form="profile">
+      <b>Pick your name</b>
+      <p>Friends find you by your username.</p>
+      <input class="search" name="display" placeholder="Your name" maxlength="40" required>
+      <input class="search" name="username" placeholder="username (letters, numbers, _)" pattern="[a-z0-9_]{3,20}" maxlength="20" autocapitalize="none" required>
+      <div class="swatches">${COLORS.map((c, i) => `<label><input type="radio" name="color" value="${c}" ${i ? '' : 'checked'}><span style="background:${c}"></span></label>`).join('')}</div>
+      <button class="btn primary" type="submit">Let's go</button>
+      <div class="form-msg" id="profile-msg"></div>
+    </form>`;
+  }
+  return `<div class="account-bar">${avatar(me.profile, 'lg')}<div><b>${esc(me.profile.display_name)}</b><span>@${me.profile.username}</span></div>
+    <button class="btn" data-signout>Sign out</button></div>`;
 }
 
 // ---------- My Shows ----------
@@ -245,14 +333,15 @@ function topOf(arr) {
 
 function renderMine() {
   const now = midnight();
-  const mine = [...going].map(id => byId[id]).filter(Boolean);
+  const mine = [...going].map(showFor).filter(Boolean);
   const history = mine.filter(s => s.start < now).sort((a, b) => b.start - a.start);
   const upcoming = mine.filter(s => s.start >= now).sort((a, b) => a.start - b.start);
-  const maybe = [...interested].map(id => byId[id]).filter(s => s && s.start >= now && !going.has(s.id)).sort((a, b) => a.start - b.start);
+  const maybe = [...interested].map(showFor).filter(s => s && s.start >= now && !going.has(s.id)).sort((a, b) => a.start - b.start);
   const thisYear = history.filter(s => s.start.getFullYear() === now.getFullYear());
 
   view.innerHTML = `
     <h2>Your <em>nights</em></h2>
+    ${accountPanel('Save your plans and show history to your account, on every device.')}
     <div class="stats">
       <div class="stat"><b>${thisYear.length}</b><span>shows this year</span></div>
       <div class="stat"><b>${new Set(history.map(s => s.venue.id)).size}</b><span>venues</span></div>
@@ -272,9 +361,9 @@ function renderMine() {
 
 // ---------- Detail sheet ----------
 function openSheet(id) {
-  const s = byId[id];
+  const s = showFor(id);
+  if (!s) return;
   const t = fmtTime(s.start);
-  const friendNames = s.friendsGoing.map(f => friendById[f].name);
   sheet.innerHTML = `<div class="sheet-body">
     <div class="hero">
       ${art(s)}
@@ -287,7 +376,7 @@ function openSheet(id) {
     ${s.description ? `<p class="desc">${s.description}</p>` : ''}
     <ul class="lineup">${[s.artist, ...s.support].map(a => `<li>${a}</li>`).join('')}</ul>
     ${s.price != null ? `<span class="price ${s.price === 0 ? 'free' : ''}">${s.price === 0 ? 'Free show' : `From $${s.price}`}</span>` : ''}
-    ${friendNames.length ? `<p>${faces(s.friendsGoing, 6)}</p>` : ''}
+    ${friendsAt(s).length ? `<p>${faces(friendsAt(s), 6)}</p>` : ''}
     ${actionButtons(s)}
     ${s.url ? `<a class="ticket-link" href="${s.url}" target="_blank" rel="noopener">Tickets &amp; info ↗</a>` : ''}
     <p class="note">Night Out doesn't sell tickets — this opens the venue's own ticket page.</p>
@@ -315,12 +404,19 @@ document.addEventListener('click', e => {
     if (t.dataset.act === 'going') { toggle(going, id); if (going.has(id)) interested.delete(id); }
     else { toggle(interested, id); if (interested.has(id)) going.delete(id); }
     persist();
+    if (Account.me.profile) {
+      const status = going.has(id) ? 'going' : interested.has(id) ? 'interested' : null;
+      Account.setPlan(showFor(id), status);
+    }
     const sheetOpen = !sheet.classList.contains('hidden');
     render();
     if (sheetOpen) openSheet(id);
     return;
   }
   if (t.dataset.close !== undefined) return closeSheet();
+  if (t.dataset.signout !== undefined) return Account.signOut();
+  if (t.dataset.add) return Account.addFriend(t.dataset.add);
+  if (t.dataset.unadd) return Account.removeFriend(t.dataset.unadd);
   if (t.dataset.open) return openSheet(t.dataset.open);
   if (t.dataset.when) { state.when = t.dataset.when; return renderDiscover(); }
   if (t.dataset.chip) {
@@ -340,6 +436,34 @@ document.addEventListener('click', e => {
   }
 });
 
+document.addEventListener('submit', async e => {
+  const form = e.target.closest('[data-form]');
+  if (!form) return;
+  e.preventDefault();
+  const f = new FormData(form);
+  const msg = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  const button = form.querySelector('button[type=submit]');
+  button.disabled = true;
+  try {
+    if (form.dataset.form === 'signin') {
+      await Account.sendLink(f.get('email').trim());
+      msg('signin-msg', 'Check your email for the sign-in link.');
+    } else if (form.dataset.form === 'profile') {
+      await Account.createProfile(f.get('username').trim().toLowerCase(), f.get('display').trim(), f.get('color'));
+    } else if (form.dataset.form === 'find') {
+      const name = f.get('username').trim();
+      const person = await Account.findUser(name);
+      if (!person) msg('find-result', `No one called @${name.replace(/^@/, '')} yet.`);
+      else if (person.id === Account.me.profile.id) msg('find-result', 'That’s you!');
+      else { await Account.addFriend(person.id); }
+    }
+  } catch (err) {
+    msg({ signin: 'signin-msg', profile: 'profile-msg', find: 'find-result' }[form.dataset.form], err.message || 'Something went wrong.');
+  } finally {
+    button.disabled = false;
+  }
+});
+
 document.addEventListener('input', e => {
   if (e.target.id === 'search') { state.query = e.target.value.trim(); renderList(); }
 });
@@ -349,4 +473,26 @@ if (UPDATED) {
   document.getElementById('updated').textContent =
     `Live · updated ${UPDATED.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
 }
+// When the account changes (sign in/out, friends, plans): bring over picks made
+// while signed out, then redraw with account data.
+Account.onChange(async () => {
+  const { me } = Account;
+  if (me.profile) {
+    const local = [...load('no.going', []).map(id => ['going', id]), ...load('no.interested', []).map(id => ['interested', id])]
+      .filter(([, id]) => byId[id] && !me.myPlans.some(p => p.show_id === id))
+      .map(([status, id]) => ({ status, show: byId[id] }));
+    save('no.going', []); save('no.interested', []);
+    if (local.length) return Account.importPlans(local); // fires onChange again
+  } else if (me.ready) {
+    going.clear(); interested.clear();
+    load('no.going', []).forEach(id => going.add(id));
+    load('no.interested', []).forEach(id => interested.add(id));
+  }
+  syncFromAccount();
+  const sheetId = !sheet.classList.contains('hidden') && sheet.querySelector('[data-id]')?.dataset.id;
+  render();
+  if (sheetId) openSheet(sheetId);
+});
+
 render();
+Account.init();

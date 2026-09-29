@@ -1,17 +1,9 @@
 // Turns the collector's output (data/shows.js -> window.NIGHT_OUT) into what the app uses.
-// Shows and venues are real. Friends are still sample people until accounts exist.
+// Friends come from accounts (account.js).
 
 const BOROUGHS = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
 const VIBES = ['Intimate', 'Dance all night', 'Sweaty & loud', 'Chill', 'Big room', 'Late night'];
 
-const FRIENDS = [
-  { id: 'maya', name: 'Maya', color: '#ff9ccf' },
-  { id: 'jordan', name: 'Jordan', color: '#22c07a' },
-  { id: 'sam', name: 'Sam', color: '#ffd23f' },
-  { id: 'priya', name: 'Priya', color: '#b8a2ff' },
-  { id: 'leo', name: 'Leo', color: '#6f86ff' },
-  { id: 'tasha', name: 'Tasha', color: '#ff9f1c' },
-];
 
 // Small deterministic random helpers (used for artwork and sample friends).
 function hashStr(s) {
@@ -54,14 +46,12 @@ const SHOWS = RAW.shows
       image: raw.image && esc(raw.image), url: raw.url && esc(raw.url) };  // genres come from our own fixed list
     const venue = venueById[s.venue];
     const start = new Date(s.start); // local NYC time, e.g. 2026-10-02T20:00
-    const r = rng(`friends-${s.id}`);
     return {
       ...s,
       venue,
       start,
       vibes: vibesFor(s, venue, start.getHours()),
       description: s.tagline || '',
-      friendsGoing: FRIENDS.filter(() => r() < 0.05).map(f => f.id), // sample friends
     };
   })
   .sort((a, b) => a.start - b.start);
