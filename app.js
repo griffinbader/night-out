@@ -24,7 +24,9 @@ const state = {
   hoods: new Set(),
   genres: new Set(),
   vibes: new Set(),
-  price: 'any',
+  maxPrice: null,        // null = any price; 0 = free only
+  includeUnpriced: true, // many listings don't show a price
+  view: 'list',          // 'list' | 'map'
   query: '',
   moreFilters: false,
 };
@@ -73,8 +75,9 @@ function matches(s, skip = '') {
   if (skip !== 'hood' && state.hoods.size && !state.hoods.has(s.venue.hood)) return false;
   if (skip !== 'genre' && state.genres.size && !s.genres.some(g => state.genres.has(g))) return false;
   if (skip !== 'vibe' && state.vibes.size && !s.vibes.some(v => state.vibes.has(v))) return false;
-  if (state.price === 'free' && s.price !== 0) return false;
-  if (state.price === 'u20' && s.price > 20) return false;
+  if (state.maxPrice != null) {
+    if (s.price == null ? !state.includeUnpriced : s.price > state.maxPrice) return false;
+  }
   if (state.query) {
     const q = state.query.toLowerCase();
     const hay = [s.artist, ...s.support, s.venue.name, s.venue.hood].join(' ').toLowerCase();
@@ -83,7 +86,7 @@ function matches(s, skip = '') {
   return true;
 }
 const countFor = (skip, test) => SHOWS.filter(s => matches(s, skip) && test(s)).length;
-const activeFilterCount = () => state.boroughs.size + state.hoods.size + state.genres.size + state.vibes.size + (state.price !== 'any') + !!state.query;
+const activeFilterCount = () => state.boroughs.size + state.hoods.size + state.genres.size + state.vibes.size + (state.maxPrice != null) + !!state.query;
 
 // ---------- Pieces ----------
 // ---------- Friends' plans ----------
@@ -233,26 +236,36 @@ function renderDiscover() {
   renderList();
 }
 
+// Price slider: 0 = free only, far right = any price.
+const PRICE_MAX = 150;
+const priceText = () => state.maxPrice == null ? 'Any price' : state.maxPrice === 0 ? 'Free only' : `Up to $${state.maxPrice}`;
+
 function renderControls() {
   const hoods = [...new Set(VENUES.filter(v => state.boroughs.has(v.borough)).map(v => v.hood))].filter(h => !BOROUGHS.includes(h)).sort();
-  const extra = +(state.price !== 'any');
+  const priceOn = state.maxPrice != null;
   document.getElementById('controls').innerHTML = `
     ${chipRow('Borough', BOROUGHS, state.boroughs, 'borough', b => countFor('borough', s => s.venue.borough === b))}
     ${hoods.length ? chipRow('Neighborhood', hoods, state.hoods, 'hood', h => countFor('hood', s => s.venue.hood === h)) : ''}
     ${chipRow('Genre', GENRES, state.genres, 'genre', g => countFor('genre', s => s.genres.includes(g)))}
     ${chipRow('Vibe', VIBES, state.vibes, 'vibe', v => countFor('vibe', s => s.vibes.includes(v)))}
-    <button class="filter-toggle" data-more>${state.moreFilters ? '− Fewer filters' : `+ Price${extra > 0 ? ` (${extra})` : ''}`}</button>
+    <button class="filter-toggle" data-more>${state.moreFilters ? '− Fewer filters' : `+ Price${priceOn ? ` (${priceText()})` : ''}`}</button>
     ${state.moreFilters ? `
-      <div class="filter-group"><div class="filter-label">Price</div><div class="chips">
-        ${[['any', 'Any price'], ['u20', '$20 or less'], ['free', 'Free']].map(([k, l]) => `<button class="chip ${state.price === k ? 'on' : ''}" style="--c:${CHIP_COLORS.price}" data-price="${k}">${l}</button>`).join('')}
-      </div></div>` : ''}
+      <div class="filter-group price-group">
+        <div class="filter-label">Price · <b id="price-text">${priceText()}</b></div>
+        <input type="range" id="price-range" min="0" max="${PRICE_MAX}" step="5" value="${state.maxPrice ?? PRICE_MAX}" aria-label="Maximum price">
+        <div class="range-ends"><span>Free</span><span>Any</span></div>
+        <label class="check"><input type="checkbox" id="price-unlisted" ${state.includeUnpriced ? 'checked' : ''}> Include shows without a listed price</label>
+      </div>` : ''}
     <input class="search" id="search" type="search" placeholder="Search artist or venue" value="${state.query}">`;
 }
 
 function renderList() {
   const list = SHOWS.filter(s => matches(s));
   const el = document.getElementById('list');
-  const head = `<div class="result-count"><span>${list.length} show${list.length === 1 ? '' : 's'}</span>${activeFilterCount() ? '<button data-clear>Clear filters</button>' : ''}</div>`;
+  const head = `<div class="result-count"><span>${list.length} show${list.length === 1 ? '' : 's'}</span>
+    <span class="result-actions">${activeFilterCount() ? '<button data-clear>Clear filters</button>' : ''}
+    <span class="view-toggle"><button data-view="list" class="${state.view === 'list' ? 'on' : ''}">List</button><button data-view="map" class="${state.view === 'map' ? 'on' : ''}">Map</button></span></span></div>`;
+  if (state.view === 'map') { el.innerHTML = head + '<div id="map"></div>'; return drawMap(list); }
   if (!list.length) {
     el.innerHTML = head + `<div class="empty"><b>Nothing matches</b>Try a wider timeframe or fewer filters.</div>`;
     return;
@@ -264,6 +277,32 @@ function renderList() {
     html += card(s);
   }
   el.innerHTML = html;
+}
+
+// ---------- Map ----------
+// One pin per venue, showing how many of the currently filtered shows are there.
+let map = null;
+function drawMap(list) {
+  if (map) { map.remove(); map = null; }
+  if (!window.L) { document.getElementById('map').innerHTML = '<div class="empty">Map couldn’t load — check your connection.</div>'; return; }
+  const byVenue = {};
+  for (const s of list) if (s.venue.lat) (byVenue[s.venue.id] ||= { venue: s.venue, shows: [] }).shows.push(s);
+  map = L.map('map', { zoomControl: true, attributionControl: true }).setView([40.715, -73.96], 12);
+  // Free OpenStreetMap tiles, darkened with CSS (.leaflet-tile-pane) to fit the site.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+  const pins = Object.values(byVenue).map(({ venue, shows }) => {
+    const icon = L.divIcon({ className: 'pin', html: `<span>${shows.length}</span>`, iconSize: [34, 34], iconAnchor: [17, 17] });
+    const rows = shows.slice(0, 8).map(s => `<a data-open="${s.id}"><b>${s.artist}</b><span>${dayLabel(s.start) === 'Tonight' ? 'Tonight' : fmtDate(s.start)} · ${fmtTime(s.start).h}${fmtTime(s.start).ap.toLowerCase()}</span></a>`).join('');
+    const more = shows.length > 8 ? `<div class="pop-more">+ ${shows.length - 8} more</div>` : '';
+    return L.marker([venue.lat, venue.lng], { icon })
+      .bindPopup(`<div class="pop"><div class="pop-venue">${venue.name}</div><div class="pop-hood">${venue.hood}, ${venue.borough}</div>${rows}${more}</div>`, { maxWidth: 240, autoPanPadding: [24, 24] })
+      .addTo(map);
+  });
+  if (pins.length) map.fitBounds(L.featureGroup(pins).getBounds().pad(0.15), { maxZoom: 14 });
+  else document.getElementById('map').insertAdjacentHTML('afterbegin', '<div class="map-empty">No shows match — try a wider timeframe.</div>');
 }
 
 // ---------- Friends ----------
@@ -552,10 +591,10 @@ document.addEventListener('click', e => {
     }
     renderControls(); return renderList();
   }
-  if (t.dataset.price) { state.price = t.dataset.price; renderControls(); return renderList(); }
+  if (t.dataset.view) { state.view = t.dataset.view; return renderList(); }
   if (t.dataset.more !== undefined) { state.moreFilters = !state.moreFilters; return renderControls(); }
   if (t.dataset.clear !== undefined) {
-    state.boroughs.clear(); state.hoods.clear(); state.genres.clear(); state.vibes.clear(); state.price = 'any'; state.query = '';
+    state.boroughs.clear(); state.hoods.clear(); state.genres.clear(); state.vibes.clear(); state.maxPrice = null; state.includeUnpriced = true; state.query = '';
     renderControls(); return renderList();
   }
 });
@@ -589,11 +628,19 @@ document.addEventListener('submit', async e => {
 });
 
 document.addEventListener('change', e => {
+  if (e.target.id === 'price-range' || e.target.id === 'price-unlisted') { renderControls(); renderList(); return; }
   if (e.target.id === 'date-pick' && e.target.value) { state.when = 'date'; state.date = e.target.value; renderDiscover(); }
 });
 
 document.addEventListener('input', e => {
   if (e.target.id === 'search') { state.query = e.target.value.trim(); renderList(); }
+  if (e.target.id === 'price-range') {
+    const v = +e.target.value;
+    state.maxPrice = v >= PRICE_MAX ? null : v;
+    document.getElementById('price-text').textContent = priceText();
+    renderList();
+  }
+  if (e.target.id === 'price-unlisted') { state.includeUnpriced = e.target.checked; }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
