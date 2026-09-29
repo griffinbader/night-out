@@ -469,19 +469,6 @@ document.addEventListener('input', e => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
-// Tab bar: hide while scrolling down through listings, show on any scroll up
-// (and near the top/bottom of the page) so it never sits on top of a card you're reading.
-(() => {
-  const tabs = document.querySelector('.tabs');
-  let lastY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    const nearEdge = y < 80 || window.innerHeight + y >= document.body.scrollHeight - 40;
-    if (nearEdge || y < lastY - 4) tabs.classList.remove('away');
-    else if (y > lastY + 4) tabs.classList.add('away');
-    lastY = y;
-  }, { passive: true });
-})();
 
 if (UPDATED) {
   document.getElementById('updated').textContent =

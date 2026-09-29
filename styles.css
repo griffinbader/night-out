@@ -30,7 +30,7 @@ body {
 }
 button { font: inherit; color: inherit; cursor: pointer; }
 
-.app { max-width: 720px; margin: 0 auto; padding: 0 16px 88px; }
+.app { max-width: 720px; margin: 0 auto; padding: 0 16px 40px; }
 
 /* ---------- Header ---------- */
 .top {
@@ -45,7 +45,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font: 800 13px var(--display); color: var(--black); background: var(--yellow); border: 2px solid var(--ink);
   padding: 1px 8px; border-radius: 6px; transform: rotate(-5deg); display: inline-block;
 }
-.sample-note { font: 500 11px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.sample-note { font: 500 11px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-top: 4px; }
 
 h2 { font: 800 44px/0.95 var(--display); letter-spacing: -2px; margin: 18px 0 16px; }
 h2 em { font-style: normal; color: var(--red); }
@@ -178,22 +178,14 @@ h3 {
 .history-item .a { font: 800 17px var(--display); letter-spacing: -.3px; }
 .history-item .v { color: var(--muted); font-size: 13px; }
 
-/* ---------- Bottom tabs ----------
-   Docked to the bottom edge (not floating over cards). Slides away while you
-   scroll down through listings and comes back as soon as you scroll up. */
-.tabs {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-  display: flex; justify-content: center; gap: 6px;
-  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
-  background: var(--paper); border-top: 2px solid var(--ink);
-  transition: transform .25s ease;
-}
-.tabs.away { transform: translateY(100%); }
+/* ---------- Tabs ----------
+   Live in the sticky header at the top — a bottom bar fights with the iPhone
+   Safari address bar, which sits at the bottom and resizes while scrolling. */
+.tabs { display: flex; gap: 4px; }
 .tabs button {
-  flex: 1; max-width: 160px; background: none; border: 2px solid transparent; padding: 7px 0; color: var(--ink); border-radius: 99px;
-  font: 700 14px var(--display); display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: none; border: 2px solid transparent; padding: 5px 11px; color: var(--ink); border-radius: 99px;
+  font: 700 14px var(--display);
 }
-.tabs .ico { font-size: 15px; }
 .tabs button.active { background: var(--yellow); color: var(--black); border-color: var(--ink); }
 
 /* ---------- Detail sheet ---------- */
@@ -266,3 +258,12 @@ h3 {
 .add-friend .search { margin: 0; flex: 1; }
 .add-friend .btn.primary { align-self: auto; }
 .feed-item > .face.lg { flex: none; }
+
+/* Narrow phones: tighten the header so logo + tabs fit on one row. */
+@media (max-width: 420px) {
+  .logo { font-size: 23px; letter-spacing: -1px; }
+  .logo::after { font-size: 17px; transform: translateY(-3px); }
+  .city { display: none; }
+  .tabs button { padding: 4px 9px; font-size: 13px; }
+  .top { padding: 10px 0 8px; border-bottom: 2px solid var(--ink); margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+}
