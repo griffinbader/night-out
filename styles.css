@@ -268,3 +268,18 @@ h3 {
   .tabs button { padding: 4px 9px; font-size: 13px; }
   .top { padding: 10px 0 8px; border-bottom: 2px solid var(--ink); margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
 }
+
+/* ---------- Share / calendar / invites ---------- */
+.sheet-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.sheet-tools .btn { text-decoration: none; color: var(--ink); font-size: 13px; padding: 7px 13px; }
+.invite-btn { background: var(--yellow); color: var(--black); padding: 10px 18px; font-size: 15px; margin-bottom: 14px; }
+.invite-note {
+  background: var(--pink); color: var(--black); border: 2px solid var(--ink); border-radius: 12px;
+  padding: 10px 14px; font-weight: 700; margin-bottom: 12px;
+}
+#toast {
+  position: fixed; left: 50%; top: 16px; transform: translate(-50%, -140%); z-index: 50;
+  background: var(--yellow); color: var(--black); border: 2px solid var(--ink); border-radius: 99px;
+  padding: 8px 18px; font-weight: 700; box-shadow: var(--shadow); transition: transform .25s ease; max-width: calc(100% - 32px);
+}
+#toast.on { transform: translate(-50%, 0); }

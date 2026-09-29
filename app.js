@@ -258,7 +258,9 @@ function renderList() {
 function renderFriends() {
   const { me } = Account;
   if (!me.profile) {
-    view.innerHTML = `<h2>The <em>crew</em></h2>${accountPanel('See where your friends are going. Sign in to add them.')}`;
+    view.innerHTML = `<h2>The <em>crew</em></h2>
+      ${invitePending ? '<div class="invite-note">You’ve been invited! Sign in and you’ll be connected automatically.</div>' : ''}
+      ${accountPanel(invitePending ? 'Your friend is waiting on the other side.' : 'See where your friends are going. Sign in to add them.')}`;
     return;
   }
   const now = midnight();
@@ -279,6 +281,7 @@ function renderFriends() {
 
   view.innerHTML = `
     <h2>The <em>crew</em></h2>
+    <button class="btn primary invite-btn" data-invite>Invite friends</button>
     <form class="add-friend" data-form="find">
       <input class="search" name="username" placeholder="Add a friend by @username" autocomplete="off" autocapitalize="none" required>
       <button class="btn primary" type="submit">Add</button>
@@ -359,6 +362,103 @@ function renderMine() {
     </div>`).join('')}`;
 }
 
+// ---------- Sharing, invites & calendar ----------
+const BASE_URL = location.origin + location.pathname;
+const showLink = s => `${BASE_URL}#show=${encodeURIComponent(s.id)}`;
+const plain = h => { const d = document.createElement('div'); d.innerHTML = h; return d.textContent; };
+
+function toast(msg) {
+  let el = document.getElementById('toast');
+  if (!el) { el = document.createElement('div'); el.id = 'toast'; document.body.appendChild(el); }
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => el.classList.remove('on'), 2600);
+}
+
+// Phone share sheet when available, otherwise copy the link.
+async function shareLink({ title, text, url }) {
+  if (navigator.share) {
+    try { await navigator.share({ title, text, url }); return; } catch (e) { if (e.name === 'AbortError') return; }
+  }
+  try { await navigator.clipboard.writeText(url); toast('Link copied'); }
+  catch { prompt('Copy this link:', url); }
+}
+
+function shareShow(s) {
+  const when = `${dayLabel(s.start) === 'Tonight' ? 'tonight' : fmtDate(s.start)}`;
+  shareLink({ title: `${plain(s.artist)} · Shindig`, text: `${plain(s.artist)} at ${s.venue.name}, ${when}`, url: showLink(s) });
+}
+
+// Calendar: .ics file (Apple Calendar / Outlook) or a Google Calendar link. Shows default to 3 hours.
+const calStamp = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}T${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}00`;
+const icsText = v => String(v).replace(/[\;,]/g, m => '\\' + m).replace(/\n/g, '\\n');
+
+function calendarDetails(s) {
+  const end = new Date(s.start.getTime() + 3 * 3600e3);
+  const where = [s.venue.name, s.venue.hood, s.venue.borough, 'NY'].filter((x, i, a) => x && a.indexOf(x) === i).join(', ');
+  const lineup = [plain(s.artist), ...s.support.map(plain)].join(', ');
+  return { title: `${plain(s.artist)} at ${s.venue.name}`, where, start: calStamp(s.start), end: calStamp(end),
+    details: `${lineup}\n${s.url ? 'Tickets: ' + plain(s.url) + '\n' : ''}On Shindig: ${showLink(s)}` };
+}
+
+function downloadIcs(s) {
+  const c = calendarDetails(s);
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Shindig//EN', 'BEGIN:VEVENT',
+    `UID:${s.id}@shindig`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').slice(0, 15)}Z`,
+    `DTSTART;TZID=America/New_York:${c.start}`, `DTEND;TZID=America/New_York:${c.end}`,
+    `SUMMARY:${icsText(c.title)}`, `LOCATION:${icsText(c.where)}`, `DESCRIPTION:${icsText(c.details)}`,
+    `URL:${showLink(s)}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+  a.download = `${plain(s.artist).replace(/[^\w]+/g, '-').slice(0, 40)}.ics`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+function googleCalUrl(s) {
+  const c = calendarDetails(s);
+  return 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
+    action: 'TEMPLATE', text: c.title, dates: `${c.start}/${c.end}`, ctz: 'America/New_York', location: c.where, details: c.details,
+  });
+}
+
+// Links like #show=<id> (open a show) and #invite=<code> (become friends).
+async function handleLink() {
+  const params = new URLSearchParams(location.hash.slice(1));
+  if (params.get('invite')) {
+    try { localStorage.setItem('no.invite', params.get('invite')); } catch { /* fine */ }
+    history.replaceState(null, '', BASE_URL);
+    await tryPendingInvite();
+  }
+  if (params.get('show')) {
+    const id = params.get('show');
+    history.replaceState(null, '', BASE_URL);
+    if (showFor(id)) openSheet(id); else toast('That show isn’t listed anymore.');
+  }
+}
+
+let invitePending = null;
+async function tryPendingInvite() {
+  let code = null;
+  try { code = localStorage.getItem('no.invite'); } catch { /* fine */ }
+  invitePending = code;
+  if (!code || !Account.me.ready) return render();
+  if (!Account.me.profile) { state.tab = 'friends'; return render(); } // sign in first, then we connect
+  try {
+    const who = await Account.acceptInvite(code);
+    try { localStorage.removeItem('no.invite'); } catch { /* fine */ }
+    invitePending = null;
+    state.tab = 'friends';
+    render();
+    toast(who?.self ? 'That’s your own invite link!' : `You and ${who.display_name} are now friends`);
+  } catch (err) {
+    try { localStorage.removeItem('no.invite'); } catch { /* fine */ }
+    invitePending = null;
+    toast(err.message);
+  }
+}
+
 // ---------- Detail sheet ----------
 function openSheet(id) {
   const s = showFor(id);
@@ -379,6 +479,11 @@ function openSheet(id) {
     ${friendsAt(s).length ? `<p>${faces(friendsAt(s), 6)}</p>` : ''}
     ${actionButtons(s)}
     ${s.url ? `<a class="ticket-link" href="${s.url}" target="_blank" rel="noopener">Tickets &amp; info ↗</a>` : ''}
+    <div class="sheet-tools">
+      <button class="btn" data-share="${s.id}">Send to a friend</button>
+      ${s.start >= midnight() ? `<button class="btn" data-ics="${s.id}">+ Apple / Outlook</button>
+      <a class="btn" href="${googleCalUrl(s)}" target="_blank" rel="noopener">+ Google Calendar</a>` : ''}
+    </div>
     <p class="note">Shindig doesn't sell tickets — this opens the venue's own ticket page.</p>
   </div>`;
   sheet.classList.remove('hidden');
@@ -415,6 +520,13 @@ document.addEventListener('click', e => {
   }
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.signout !== undefined) return Account.signOut();
+  if (t.dataset.share) return shareShow(showFor(t.dataset.share));
+  if (t.dataset.ics) return downloadIcs(showFor(t.dataset.ics));
+  if (t.dataset.invite !== undefined) {
+    return Account.inviteLink()
+      .then(url => shareLink({ title: 'Come to shows with me on Shindig', text: `${plain(Account.me.profile.display_name)} invited you to Shindig — see where they’re going and find shows in NYC.`, url }))
+      .catch(err => toast(err.message));
+  }
   if (t.dataset.add) return Account.addFriend(t.dataset.add);
   if (t.dataset.unadd) return Account.removeFriend(t.dataset.unadd);
   if (t.dataset.open) return openSheet(t.dataset.open);
@@ -490,10 +602,12 @@ Account.onChange(async () => {
     load('no.interested', []).forEach(id => interested.add(id));
   }
   syncFromAccount();
+  if (me.profile && invitePending) return tryPendingInvite();
   const sheetId = !sheet.classList.contains('hidden') && sheet.querySelector('[data-id]')?.dataset.id;
   render();
   if (sheetId) openSheet(sheetId);
 });
 
 render();
-Account.init();
+Account.init().then(handleLink);
+window.addEventListener('hashchange', handleLink);

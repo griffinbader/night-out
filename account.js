@@ -3,6 +3,7 @@
 // your own plans and those of mutual friends.
 
 const Account = (() => {
+  const PROFILE_COLS = 'id, username, display_name, color';
   const cfg = window.NIGHT_OUT_CONFIG || {};
   const db = window.supabase && cfg.supabaseUrl ? window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey) : null;
 
@@ -33,7 +34,7 @@ const Account = (() => {
     me.user = session?.user || null;
     me.profile = null; me.friends = []; me.incoming = []; me.outgoing = []; me.friendPlans = []; me.myPlans = [];
     if (me.user) {
-      const { data: profile } = await db.from('profiles').select('*').eq('id', me.user.id).maybeSingle();
+      const { data: profile } = await db.from('profiles').select(PROFILE_COLS).eq('id', me.user.id).maybeSingle();
       me.profile = profile;
       if (profile) await loadSocial();
     }
@@ -51,7 +52,7 @@ const Account = (() => {
     const iAdded = new Set((follows || []).filter(f => f.follower_id === uid).map(f => f.followee_id));
     const addedMe = new Set((follows || []).filter(f => f.followee_id === uid).map(f => f.follower_id));
     const ids = [...new Set([...iAdded, ...addedMe])];
-    const { data: people } = ids.length ? await db.from('profiles').select('*').in('id', ids) : { data: [] };
+    const { data: people } = ids.length ? await db.from('profiles').select(PROFILE_COLS).in('id', ids) : { data: [] };
     const byId = Object.fromEntries((people || []).map(p => [p.id, p]));
     me.friends = ids.filter(id => iAdded.has(id) && addedMe.has(id)).map(id => byId[id]).filter(Boolean);
     me.incoming = [...addedMe].filter(id => !iAdded.has(id)).map(id => byId[id]).filter(Boolean);
@@ -119,8 +120,22 @@ const Account = (() => {
       await loadSocial(); changed();
     },
 
+    async inviteLink() {
+      const { data, error } = await db.rpc('my_invite_code');
+      if (error || !data) throw new Error('Couldn’t make your invite link — try again in a moment.');
+      return `${location.origin}${location.pathname}#invite=${data}`;
+    },
+
+    // Opening someone's invite link: become friends both ways. Returns the inviter's profile bits.
+    async acceptInvite(code) {
+      const { data, error } = await db.rpc('accept_invite', { code });
+      if (error) throw new Error(error.message);
+      await loadSocial(); changed();
+      return data;
+    },
+
     async findUser(username) {
-      const { data } = await db.from('profiles').select('*').eq('username', username.toLowerCase().replace(/^@/, '')).maybeSingle();
+      const { data } = await db.from('profiles').select(PROFILE_COLS).eq('username', username.toLowerCase().replace(/^@/, '')).maybeSingle();
       return data;
     },
 
