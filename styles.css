@@ -65,6 +65,12 @@ h3 {
 }
 .when button:hover { transform: translateY(-1px); }
 .when button.on { background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0 var(--red); }
+.date-chip {
+  position: relative; flex: none; display: inline-flex; align-items: center; cursor: pointer;
+  border: 2px solid var(--ink); background: var(--card); padding: 8px 13px; border-radius: 99px; font: 700 15px var(--display);
+}
+.date-chip.on { border-style: solid; background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0 var(--red); }
+.date-chip input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
 
 /* ---------- Filter chips ---------- */
 .filter-group { margin-top: 14px; }

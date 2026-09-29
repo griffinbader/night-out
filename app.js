@@ -19,6 +19,7 @@ const persist = () => {
 const state = {
   tab: 'discover',
   when: 'weekend',
+  date: null,      // 'YYYY-MM-DD' when a specific date is picked
   boroughs: new Set(),
   hoods: new Set(),
   genres: new Set(),
@@ -50,6 +51,7 @@ function range(when) {
     }
     case 'week': return [t, addDays(t, 7)];
     case 'twoweeks': return [t, addDays(t, 14)];
+    case 'date': { const d = new Date(state.date + 'T00:00'); return [d, addDays(d, 1)]; }
   }
 }
 
@@ -211,10 +213,20 @@ function chipRow(label, items, selected, group, counter) {
 // ---------- Discover ----------
 const WHENS = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'This weekend'], ['week', 'Next 7 days'], ['twoweeks', 'Next 2 weeks']];
 
+// "Pick a date": a chip with the phone's native date picker laid over it.
+const isoDay = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+function datePicker() {
+  const on = state.when === 'date' && state.date;
+  const label = on ? new Date(state.date + 'T00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
+  const last = SHOWS.length ? isoDay(SHOWS[SHOWS.length - 1].start) : '';
+  return `<label class="date-chip ${on ? 'on' : ''}" title="Pick a date">📅${on ? ' ' + label : ''}
+    <input type="date" id="date-pick" min="${isoDay(new Date())}" max="${last}" value="${state.date || ''}" aria-label="Pick a date"></label>`;
+}
+
 function renderDiscover() {
   view.innerHTML = `
     <h2>Where's the <em>music</em>?</h2>
-    <div class="when">${WHENS.map(([k, l]) => `<button data-when="${k}" class="${state.when === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+    <div class="when">${datePicker()}${WHENS.map(([k, l]) => `<button data-when="${k}" class="${state.when === k ? 'on' : ''}">${l}</button>`).join('')}</div>
     <div id="controls"></div>
     <div id="list"></div>`;
   renderControls();
@@ -576,16 +588,16 @@ document.addEventListener('submit', async e => {
   }
 });
 
+document.addEventListener('change', e => {
+  if (e.target.id === 'date-pick' && e.target.value) { state.when = 'date'; state.date = e.target.value; renderDiscover(); }
+});
+
 document.addEventListener('input', e => {
   if (e.target.id === 'search') { state.query = e.target.value.trim(); renderList(); }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
 
-if (UPDATED) {
-  document.getElementById('updated').textContent =
-    `NYC · live · updated ${UPDATED.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-}
 // When the account changes (sign in/out, friends, plans): bring over picks made
 // while signed out, then redraw with account data.
 Account.onChange(async () => {
