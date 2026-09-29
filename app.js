@@ -472,7 +472,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet()
 
 if (UPDATED) {
   document.getElementById('updated').textContent =
-    `Live · updated ${UPDATED.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+    `NYC · live · updated ${UPDATED.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
 }
 // When the account changes (sign in/out, friends, plans): bring over picks made
 // while signed out, then redraw with account data.

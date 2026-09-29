@@ -40,7 +40,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .brand { display: flex; align-items: center; gap: 10px; }
 .logo { font: 800 28px/1 var(--display); letter-spacing: -1.2px; }
-.logo::after { content: '✺'; color: var(--red); margin-left: 3px; font-size: 22px; display: inline-block; transform: translateY(-4px); }
+.logo::after {
+  content: ''; display: inline-block; width: .24em; height: .24em; margin-left: .08em;
+  background: var(--red); border-radius: 50%; box-shadow: 0 0 10px var(--red);
+}
 .city {
   font: 800 13px var(--display); color: var(--black); background: var(--yellow); border: 2px solid var(--ink);
   padding: 1px 8px; border-radius: 6px; transform: rotate(-5deg); display: inline-block;
@@ -262,8 +265,6 @@ h3 {
 /* Narrow phones: tighten the header so logo + tabs fit on one row. */
 @media (max-width: 420px) {
   .logo { font-size: 23px; letter-spacing: -1px; }
-  .logo::after { font-size: 17px; transform: translateY(-3px); }
-  .city { display: none; }
   .tabs button { padding: 4px 9px; font-size: 13px; }
   .top { padding: 10px 0 8px; border-bottom: 2px solid var(--ink); margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
 }
