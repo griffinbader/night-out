@@ -4,6 +4,7 @@ artist is only looked up once (MusicBrainz allows ~1 request per second).
 """
 
 import json
+import os
 import re
 import time
 import urllib.parse
@@ -98,7 +99,9 @@ def musicbrainz_tags(name):
 # ------------------------------------------------------------ Last.fm
 
 def lastfm_key():
-    """API key lives in .env (never committed): LASTFM_API_KEY=..."""
+    """API key: LASTFM_API_KEY env var (GitHub Actions secret) or .env locally (never committed)."""
+    if os.environ.get("LASTFM_API_KEY"):
+        return os.environ["LASTFM_API_KEY"]
     env = ROOT / ".env"
     if env.exists():
         for line in env.read_text().splitlines():
