@@ -67,7 +67,7 @@ def clean_name(name):
     name = re.split(r"\s+[|~]\s+|\s+presents?\s*[:\-]?\s*$|\.\s", name, flags=re.I)[0]
     name = NOISE.sub("", name)
     name = re.sub(r"\((solo|w/ band|full band|dj set|acoustic|live)[^)]*\)", "", name, flags=re.I)
-    return re.sub(r"\s+", " ", name).strip(" -–:,")
+    return re.sub(r"\s+", " ", name).strip(" -–:,(")
 
 
 def _norm(s):

@@ -281,6 +281,13 @@ SOURCES = [
 
 # ---------------------------------------------------------------- main
 
+# Night Out is for live music — drop the talks, film nights and burlesque that venues also host.
+NOT_MUSIC = re.compile(
+    r"burlesque|podcast|film tour|film festival|screening|comedy|stand-?up|politics|awards|"
+    r"trivia|bingo|book (talk|launch)|in conversation|drag (show|brunch)|wrestling|freeski|yoga",
+    re.I,
+)
+
 
 def show_id(s):
     slug = re.sub(r"[^a-z0-9]+", "-", s["artist"].lower()).strip("-")[:40]
@@ -303,7 +310,8 @@ def main():
     fresh, report = {}, []
     for label, fn in SOURCES:
         try:
-            got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]]
+            got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
+                   and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
             for s in got:
                 s["id"] = show_id(s)
                 fresh.setdefault(s["id"], s)  # first source wins on duplicates
