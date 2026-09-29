@@ -284,7 +284,7 @@ function renderList() {
 let map = null;
 function drawMap(list) {
   if (map) { map.remove(); map = null; }
-  if (!window.L) { document.getElementById('map').innerHTML = '<div class="empty">Map couldn’t load — check your connection.</div>'; return; }
+  if (!window.L) { document.getElementById('map').innerHTML = '<div class="empty">Map couldn’t load. Check your connection.</div>'; return; }
   const byVenue = {};
   for (const s of list) if (s.venue.lat) (byVenue[s.venue.id] ||= { venue: s.venue, shows: [] }).shows.push(s);
   map = L.map('map', { zoomControl: true, attributionControl: true }).setView([40.715, -73.96], 12);
@@ -302,7 +302,7 @@ function drawMap(list) {
       .addTo(map);
   });
   if (pins.length) map.fitBounds(L.featureGroup(pins).getBounds().pad(0.15), { maxZoom: 14 });
-  else document.getElementById('map').insertAdjacentHTML('afterbegin', '<div class="map-empty">No shows match — try a wider timeframe.</div>');
+  else document.getElementById('map').insertAdjacentHTML('afterbegin', '<div class="map-empty">No shows match. Try a wider timeframe.</div>');
 }
 
 // ---------- Friends ----------
@@ -357,7 +357,7 @@ function accountPanel(pitch) {
   if (!me.user) {
     return `<form class="account-card" data-form="signin">
       <b>Sign in to Shindig</b>
-      <p>${pitch} No password — we'll email you a sign-in link.</p>
+      <p>${pitch} No password needed, we'll email you a sign-in link.</p>
       <input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
       <button class="btn primary" type="submit">Email me a link</button>
       <div class="form-msg" id="signin-msg"></div>
@@ -386,7 +386,7 @@ function accountFooter() {
 function topOf(arr) {
   const c = {};
   arr.forEach(x => (c[x] = (c[x] || 0) + 1));
-  return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
+  return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] || 'None yet';
 }
 
 function renderMine() {
@@ -540,7 +540,7 @@ function openSheet(id) {
       ${s.start >= midnight() ? `<button class="btn" data-ics="${s.id}">+ Apple / Outlook</button>
       <a class="btn" href="${googleCalUrl(s)}" target="_blank" rel="noopener">+ Google Calendar</a>` : ''}
     </div>
-    <p class="note">Shindig doesn't sell tickets — this opens the venue's own ticket page.</p>
+    <p class="note">Shindig doesn't sell tickets. This opens the venue's own ticket page.</p>
   </div>`;
   sheet.classList.remove('hidden');
 }
@@ -585,7 +585,7 @@ document.addEventListener('click', e => {
   if (t.dataset.ics) return downloadIcs(showFor(t.dataset.ics));
   if (t.dataset.invite !== undefined) {
     return Account.inviteLink()
-      .then(url => shareLink({ title: 'Come to shows with me on Shindig', text: `${plain(Account.me.profile.display_name)} invited you to Shindig — see where they’re going and find shows in NYC.`, url }))
+      .then(url => shareLink({ title: 'Come to shows with me on Shindig', text: `${plain(Account.me.profile.display_name)} invited you to Shindig. See where they’re going and find shows in NYC.`, url }))
       .catch(err => toast(err.message));
   }
   if (t.dataset.add) return Account.addFriend(t.dataset.add);

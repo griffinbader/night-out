@@ -89,7 +89,7 @@ const Account = (() => {
     // Permanently removes the account: sign-in record, profile, plans and friend connections.
     async deleteAccount() {
       const { error } = await db.rpc('delete_my_account');
-      if (error) throw new Error('Couldn’t delete your account — try again, or email griffin@ctownsounds.com.');
+      if (error) throw new Error('Couldn’t delete your account. Try again, or email griffin@ctownsounds.com.');
       await db.auth.signOut();
     },
 
@@ -129,7 +129,7 @@ const Account = (() => {
 
     async inviteLink() {
       const { data, error } = await db.rpc('my_invite_code');
-      if (error || !data) throw new Error('Couldn’t make your invite link — try again in a moment.');
+      if (error || !data) throw new Error('Couldn’t make your invite link. Try again in a moment.');
       return `${location.origin}${location.pathname}#invite=${data}`;
     },
 
