@@ -187,14 +187,14 @@ function renderDiscover() {
 
 function renderControls() {
   const hoods = [...new Set(VENUES.filter(v => state.boroughs.has(v.borough)).map(v => v.hood))].filter(h => !BOROUGHS.includes(h)).sort();
-  const extra = state.genres.size + (state.price !== 'any');
+  const extra = +(state.price !== 'any');
   document.getElementById('controls').innerHTML = `
     ${chipRow('Borough', BOROUGHS, state.boroughs, 'borough', b => countFor('borough', s => s.venue.borough === b))}
     ${hoods.length ? chipRow('Neighborhood', hoods, state.hoods, 'hood', h => countFor('hood', s => s.venue.hood === h)) : ''}
+    ${chipRow('Genre', GENRES, state.genres, 'genre', g => countFor('genre', s => s.genres.includes(g)))}
     ${chipRow('Vibe', VIBES, state.vibes, 'vibe', v => countFor('vibe', s => s.vibes.includes(v)))}
-    <button class="filter-toggle" data-more>${state.moreFilters ? '− Fewer filters' : `+ Genre & price${extra > 0 ? ` (${extra})` : ''}`}</button>
+    <button class="filter-toggle" data-more>${state.moreFilters ? '− Fewer filters' : `+ Price${extra > 0 ? ` (${extra})` : ''}`}</button>
     ${state.moreFilters ? `
-      ${chipRow('Genre', GENRES, state.genres, 'genre', g => countFor('genre', s => s.genres.includes(g)))}
       <div class="filter-group"><div class="filter-label">Price</div><div class="chips">
         ${[['any', 'Any price'], ['u20', '$20 or less'], ['free', 'Free']].map(([k, l]) => `<button class="chip ${state.price === k ? 'on' : ''}" style="--c:${CHIP_COLORS.price}" data-price="${k}">${l}</button>`).join('')}
       </div></div>` : ''}

@@ -18,6 +18,7 @@ from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).parent))
+from genres import tag_shows  # noqa: E402
 from venues import BOWERY_NAMES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -309,6 +310,11 @@ def main():
             report.append(f"  ✓ {label}: {len(got)} shows")
         except Exception as e:  # one broken site shouldn't stop the rest
             report.append(f"  ✗ {label}: {type(e).__name__}: {e}")
+
+    print("\n".join(report))
+    report = []
+    tagged = tag_shows(list(fresh.values()))
+    report.append(f"\n  genres: {tagged}/{len(fresh)} shows tagged")
 
     # keep past shows from earlier runs (history), drop anything stale
     past = [s for s in load_existing() if oldest <= s["start"][:10] < today and s["id"] not in fresh]

@@ -38,9 +38,9 @@ const venueById = Object.fromEntries(VENUES.map(v => [v.id, v]));
 function vibesFor(show, venue, hour) {
   const vibes = new Set(venue.vibes);
   const g = show.genres.join(' ').toLowerCase();
-  if (/electronic|house|techno|dance|club/.test(g)) vibes.add('Dance all night');
-  if (/punk|metal|hardcore|garage/.test(g)) vibes.add('Sweaty & loud');
-  if (/jazz|folk|ambient|classical|acoustic/.test(g)) vibes.add('Chill');
+  if (/dance/.test(g)) vibes.add('Dance all night');
+  if (/punk|metal/.test(g)) vibes.add('Sweaty & loud');
+  if (/jazz|folk/.test(g)) vibes.add('Chill');
   if (hour >= 22) vibes.add('Late night');
   if (venue.size === 'small' && !vibes.has('Sweaty & loud')) vibes.add('Intimate');
   return [...vibes].slice(0, 3);
@@ -51,7 +51,7 @@ const SHOWS = RAW.shows
   .map(raw => {
     // listing text comes from venue sites, so escape it before it goes into the page
     const s = { ...raw, artist: esc(raw.artist), support: raw.support.map(esc), tagline: esc(raw.tagline),
-      image: raw.image && esc(raw.image), url: raw.url && esc(raw.url), genres: raw.genres.map(esc) };
+      image: raw.image && esc(raw.image), url: raw.url && esc(raw.url) };  // genres come from our own fixed list
     const venue = venueById[s.venue];
     const start = new Date(s.start); // local NYC time, e.g. 2026-10-02T20:00
     const r = rng(`friends-${s.id}`);
@@ -66,7 +66,8 @@ const SHOWS = RAW.shows
   })
   .sort((a, b) => a.start - b.start);
 
-// Genres come from the listings themselves (only some venues tag them so far).
-const GENRES = [...new Set(SHOWS.flatMap(s => s.genres))].sort();
+// Broad genres, in the order they appear as filters (set in collector/genres.py).
+const GENRE_ORDER = ['Pop', 'Rap', 'R&B', 'Indie', 'Rock', 'Punk & Metal', 'Dance', 'Jazz', 'Country & Folk', 'Latin'];
+const GENRES = GENRE_ORDER.filter(g => SHOWS.some(s => s.genres.includes(g)));
 
 const UPDATED = RAW.updated ? new Date(RAW.updated) : null;
