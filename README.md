@@ -1,4 +1,4 @@
-# Night Out
+# Shindig
 
 Find live music in NYC tonight, this weekend, or whenever — filtered by borough, neighborhood, vibe and genre.
 Not a ticketing platform: every show links out to the venue's own ticket page.

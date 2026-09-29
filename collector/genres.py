@@ -1,5 +1,5 @@
 """Genre tagging: looks artists up on MusicBrainz (then Last.fm) and sorts their tags into
-Night Out's genre filters. Results are cached in data/genre_cache.json so each
+Shindig's genre filters. Results are cached in data/genre_cache.json so each
 artist is only looked up once (MusicBrainz allows ~1 request per second).
 """
 
@@ -13,9 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "data" / "genre_cache.json"
-UA = "NightOut/0.1 ( griffin@ctownsounds.com )"  # MusicBrainz asks for a contact
+UA = "Shindig/0.1 ( griffin@ctownsounds.com )"  # MusicBrainz asks for a contact
 
-# Night Out genre -> keywords found in MusicBrainz/venue tags. Kept deliberately
+# Shindig genre -> keywords found in MusicBrainz/venue tags. Kept deliberately
 # broad (Griffin's call): subgenres fold into ~10 filters people actually use.
 # First match wins per tag, so more specific keywords sit higher up.
 BUCKETS = [
@@ -46,7 +46,7 @@ def bucket_for(tag):
 
 
 def bucketize(tags):
-    """[(tag, weight)] -> top 2 Night Out genres."""
+    """[(tag, weight)] -> top 2 Shindig genres."""
     score = {}
     for tag, weight in tags:
         b = bucket_for(tag)
@@ -132,7 +132,7 @@ def save_cache(cache):
 
 
 def lookup(name, cache, fm_key=None):
-    """Night Out genres for one artist: MusicBrainz first, then Last.fm.
+    """Shindig genres for one artist: MusicBrainz first, then Last.fm.
     Each source's answer is cached separately so we never re-ask."""
     key = clean_name(name)
     if not key or len(key) < 2:

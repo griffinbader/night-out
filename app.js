@@ -1,4 +1,4 @@
-// Night Out — listings run in the browser; accounts & friends sync through Supabase (account.js).
+// Shindig — listings run in the browser; accounts & friends sync through Supabase (account.js).
 
 // ---------- Saved state (your "going" / "interested" picks) ----------
 // Signed out: picks live in this browser. Signed in: they come from your account.
@@ -302,7 +302,7 @@ function accountPanel(pitch) {
   if (!me.ready) return '<div class="empty">Loading…</div>';
   if (!me.user) {
     return `<form class="account-card" data-form="signin">
-      <b>Sign in to Night Out</b>
+      <b>Sign in to Shindig</b>
       <p>${pitch} No password — we'll email you a sign-in link.</p>
       <input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
       <button class="btn primary" type="submit">Email me a link</button>
@@ -379,7 +379,7 @@ function openSheet(id) {
     ${friendsAt(s).length ? `<p>${faces(friendsAt(s), 6)}</p>` : ''}
     ${actionButtons(s)}
     ${s.url ? `<a class="ticket-link" href="${s.url}" target="_blank" rel="noopener">Tickets &amp; info ↗</a>` : ''}
-    <p class="note">Night Out doesn't sell tickets — this opens the venue's own ticket page.</p>
+    <p class="note">Shindig doesn't sell tickets — this opens the venue's own ticket page.</p>
   </div>`;
   sheet.classList.remove('hidden');
 }
@@ -468,6 +468,20 @@ document.addEventListener('input', e => {
   if (e.target.id === 'search') { state.query = e.target.value.trim(); renderList(); }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+// Tab bar: hide while scrolling down through listings, show on any scroll up
+// (and near the top/bottom of the page) so it never sits on top of a card you're reading.
+(() => {
+  const tabs = document.querySelector('.tabs');
+  let lastY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const nearEdge = y < 80 || window.innerHeight + y >= document.body.scrollHeight - 40;
+    if (nearEdge || y < lastY - 4) tabs.classList.remove('away');
+    else if (y > lastY + 4) tabs.classList.add('away');
+    lastY = y;
+  }, { passive: true });
+})();
 
 if (UPDATED) {
   document.getElementById('updated').textContent =

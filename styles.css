@@ -1,4 +1,4 @@
-/* Night Out — gig-poster look: paper, ink, flat screen-print colors. */
+/* Shindig — gig-poster look: paper, ink, flat screen-print colors. */
 :root {
   --paper: #121110;   /* page background */
   --card: #1c1a17;    /* cards, sheets */
@@ -30,7 +30,7 @@ body {
 }
 button { font: inherit; color: inherit; cursor: pointer; }
 
-.app { max-width: 720px; margin: 0 auto; padding: 0 16px 104px; }
+.app { max-width: 720px; margin: 0 auto; padding: 0 16px 88px; }
 
 /* ---------- Header ---------- */
 .top {
@@ -178,18 +178,23 @@ h3 {
 .history-item .a { font: 800 17px var(--display); letter-spacing: -.3px; }
 .history-item .v { color: var(--muted); font-size: 13px; }
 
-/* ---------- Bottom tabs ---------- */
+/* ---------- Bottom tabs ----------
+   Docked to the bottom edge (not floating over cards). Slides away while you
+   scroll down through listings and comes back as soon as you scroll up. */
 .tabs {
-  position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 10;
-  display: flex; gap: 4px; padding: 6px; margin-bottom: env(safe-area-inset-bottom);
-  background: var(--ink); border-radius: 99px; width: min(420px, calc(100% - 32px));
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: flex; justify-content: center; gap: 6px;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+  background: var(--paper); border-top: 2px solid var(--ink);
+  transition: transform .25s ease;
 }
+.tabs.away { transform: translateY(100%); }
 .tabs button {
-  flex: 1; background: none; border: 0; padding: 9px 0; color: var(--black); border-radius: 99px;
+  flex: 1; max-width: 160px; background: none; border: 2px solid transparent; padding: 7px 0; color: var(--ink); border-radius: 99px;
   font: 700 14px var(--display); display: flex; align-items: center; justify-content: center; gap: 6px;
 }
 .tabs .ico { font-size: 15px; }
-.tabs button.active { background: var(--yellow); color: var(--black); }
+.tabs button.active { background: var(--yellow); color: var(--black); border-color: var(--ink); }
 
 /* ---------- Detail sheet ---------- */
 .sheet {

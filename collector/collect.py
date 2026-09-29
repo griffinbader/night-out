@@ -1,4 +1,4 @@
-"""Night Out collector: gathers upcoming shows from venue websites.
+"""Shindig collector: gathers upcoming shows from venue websites.
 
 Run:  python3 collector/collect.py
 Writes data/shows.js, which the app loads. Past shows from earlier runs are kept
@@ -281,7 +281,7 @@ SOURCES = [
 
 # ---------------------------------------------------------------- main
 
-# Night Out is for live music — drop the talks, film nights and burlesque that venues also host.
+# Shindig is for live music — drop the talks, film nights and burlesque that venues also host.
 NOT_MUSIC = re.compile(
     r"burlesque|podcast|film tour|film festival|screening|comedy|stand-?up|politics|awards|"
     r"trivia|bingo|book (talk|launch)|in conversation|drag (show|brunch)|wrestling|freeski|yoga",

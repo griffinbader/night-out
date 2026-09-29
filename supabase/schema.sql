@@ -1,4 +1,4 @@
--- Night Out database: profiles, plans (going / interested / history), friends.
+-- Shindig database: profiles, plans (going / interested / history), friends.
 -- Paste this whole file into Supabase → SQL Editor → New query → Run. Safe to re-run.
 
 -- ---------------------------------------------------------------- profiles

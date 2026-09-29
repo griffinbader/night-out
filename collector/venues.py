@@ -1,4 +1,4 @@
-"""Every venue Night Out knows about.
+"""Every venue Shindig knows about.
 
 borough / hood power the location filters. size is small (<400), medium (<1000)
 or large. vibes are the venue's baseline feel; shows add more based on time/genre.
