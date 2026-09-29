@@ -328,3 +328,27 @@ h3 {
 .leaflet-control-attribution { background: rgba(18,17,16,.8) !important; color: var(--muted) !important; }
 .leaflet-control-attribution a { color: var(--muted) !important; }
 .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.85) contrast(.9) saturate(.6); }
+
+/* ---------- About / Privacy pages & footer ---------- */
+a.brand { text-decoration: none; color: var(--ink); }
+.back-link { font: 700 14px var(--display); color: var(--ink); text-decoration: none; }
+.back-link:hover { color: var(--yellow); }
+.doc { max-width: 640px; padding-bottom: 40px; }
+.doc h3 { margin: 26px 0 6px; }
+.doc p, .doc li { font-size: 16px; line-height: 1.6; }
+.doc p { margin: 0 0 10px; }
+.doc ul { padding-left: 20px; margin: 6px 0 10px; }
+.doc li { margin-bottom: 6px; }
+.doc a { color: var(--yellow); }
+.doc .lede { font-size: 18px; }
+.doc-date { font: 500 12px var(--mono); color: var(--muted); text-transform: uppercase; }
+.doc-links { margin-top: 30px; font-weight: 700; }
+.site-footer {
+  display: flex; justify-content: center; gap: 18px; padding: 28px 0 8px; margin-top: 30px;
+  border-top: 2px solid var(--ink); font: 500 12px var(--mono); text-transform: uppercase;
+}
+.site-footer a { color: var(--muted); text-decoration: none; }
+.site-footer a:hover { color: var(--ink); }
+.danger-zone { text-align: center; margin-top: 28px; }
+.danger-zone button { background: none; border: 0; color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer; }
+.danger-zone button:hover { color: var(--red); }

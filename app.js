@@ -378,6 +378,10 @@ function accountPanel(pitch) {
     <button class="btn" data-signout>Sign out</button></div>`;
 }
 
+function accountFooter() {
+  return Account.me.profile ? '<p class="danger-zone"><button data-delete-account>Delete my account</button></p>' : '';
+}
+
 // ---------- My Shows ----------
 function topOf(arr) {
   const c = {};
@@ -410,7 +414,8 @@ function renderMine() {
     ${history.map(s => `<div class="history-item" data-open="${s.id}">
       <div><div class="a">${s.artist}</div><div class="v">${s.venue.name}</div></div>
       <div class="d">${s.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
-    </div>`).join('')}`;
+    </div>`).join('')}
+    ${accountFooter()}`;
 }
 
 // ---------- Sharing, invites & calendar ----------
@@ -571,6 +576,11 @@ document.addEventListener('click', e => {
   }
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.signout !== undefined) return Account.signOut();
+  if (t.dataset.deleteAccount !== undefined) {
+    const ok = confirm('Delete your Shindig account? This permanently removes your profile, plans, show history and friends. It can’t be undone.');
+    if (ok) Account.deleteAccount().then(() => toast('Your account was deleted.')).catch(err => toast(err.message));
+    return;
+  }
   if (t.dataset.share) return shareShow(showFor(t.dataset.share));
   if (t.dataset.ics) return downloadIcs(showFor(t.dataset.ics));
   if (t.dataset.invite !== undefined) {

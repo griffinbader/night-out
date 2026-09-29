@@ -86,6 +86,13 @@ const Account = (() => {
 
     async signOut() { await db.auth.signOut(); },
 
+    // Permanently removes the account: sign-in record, profile, plans and friend connections.
+    async deleteAccount() {
+      const { error } = await db.rpc('delete_my_account');
+      if (error) throw new Error('Couldn’t delete your account — try again, or email griffin@ctownsounds.com.');
+      await db.auth.signOut();
+    },
+
     async createProfile(username, displayName, color) {
       const { error } = await db.from('profiles').insert({ id: me.user.id, username, display_name: displayName, color });
       if (error) throw new Error(error.code === '23505' ? 'That username is taken.' : error.message);
