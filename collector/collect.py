@@ -187,6 +187,12 @@ def src_jsonld(url, venue):
     out = []
     for e in jsonld_events(fetch(url)):
         name = text(e.get("name", ""))
+        if re.search(r"Cancel|Postpon|Reschedul", str(e.get("eventStatus", ""))):
+            continue
+        where = (e.get("location") or {}).get("name") if isinstance(e.get("location"), dict) else None
+        if where and _our_venue(where) != venue:
+            VENUE_MISMATCHES.append(f"{name} — page for {venue} says it's at {where!r}; skipped")
+            continue
         head, support = split_lineup(clean_title(name), commas="dice.fm" in url)
         offers = e.get("offers") or {}
         if isinstance(offers, list):
@@ -212,6 +218,8 @@ def src_bowery_presents(account=59, names=None):
             continue
         t = e.get("title") or {}
         head = t.get("headlinersText") or t.get("eventTitleText") or ""
+        if re.search(r"\bmoved\b|cancel|postpone", " ".join(str(v) for v in t.values()) + " " + str(e.get("status", "")), re.I):
+            continue  # "Revocation (moved to Saint Vitus)"
         support = [s.strip() for s in re.split(r",\s*|\s+/\s+", t.get("supportingText") or "") if s.strip()]
         media = e.get("media") or {}
         img = (media.get("17") or media.get("1") or next(iter(media.values()), {}) or {}).get("file_name")
@@ -273,6 +281,9 @@ def src_elsewhere():
     data = json.loads(re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', page, re.S).group(1))
     out = []
     for e in data["props"]["pageProps"]["initialEventData"]["events"]:
+        if not (e.get("address") or "").startswith("599 Johnson"):
+            VENUE_MISMATCHES.append(f"{e.get('name')} — Elsewhere feed, but at {e.get('address')!r}; skipped")
+            continue
         artists = e.get("artists") or [e.get("name")]
         cents = e.get("representative_ticket_price")
         imgs = e.get("image_urls") or []
@@ -524,6 +535,14 @@ def src_wp_sobs():
     return out
 
 
+# LPR's feed tags each show with the room it's in. Only these are ours; the rest (LA, SF, Miami...) are skipped.
+LPR_SPACES = {
+    "main-space": "lpr", "littlefield": "littlefield", "the-town-hall": "townhall", "national-sawdust": "sawdust",
+    "xanadu": "xanadu", "the-sultan-room": "sultan", "knockdown-center": "knockdown", "pioneer-works": "pioneerworks",
+    "public-records": "publicrecords", "adler-hall-at-new-york-society-for-ethical-culture": "ethical",
+}
+
+
 def src_wp_lpr():
     """LPR's WordPress feed: newest posts first; the date/time sit in each post's description."""
     out = []
@@ -541,6 +560,11 @@ def src_wp_lpr():
             if day < today:
                 continue
             future += 1
+            spaces = [c[len("event_spaces-"):] for c in e.get("class_list", []) if c.startswith("event_spaces-")]
+            venue = LPR_SPACES.get(spaces[0]) if len(spaces) == 1 else None
+            if not venue:
+                VENUE_MISMATCHES.append(f"{text(e['title']['rendered'])} — LPR feed, room {spaces}; skipped")
+                continue
             times = m.group(3) or ""
             clock = parse_clock(times.split("|")[-1] if "show" in times.lower() else times) or "19:00"
             show_m = re.search(r"(\d{1,2}(?::\d\d)?\s*[AP]M)\s*show", desc, re.I)
@@ -553,7 +577,7 @@ def src_wp_lpr():
                 price = int(pm.group(1)) if pm else None
             except Exception:
                 pass
-            out.append(show("lpr", head, f"{day:%Y-%m-%d}T{clock}", support, price=price, url=e["link"],
+            out.append(show(venue, head, f"{day:%Y-%m-%d}T{clock}", support, price=price, url=e["link"],
                             genres=tags, source="lpr"))
         if future == 0 and page > 1:
             break  # older posts from here on
@@ -610,8 +634,12 @@ def src_dice_widget(url, venues):
                      if re.search(r"\d{1,2} [A-Z][a-z]{2}\s*[―-]", l)), None)
         if not lines or not when:
             continue
-        venue = next((vid for key, vid in venues.items() if any(key.lower() in l.lower() for l in lines[1:])), venues.get("*"))
+        if any(re.fullmatch(r"cancell?ed|postponed", l, re.I) for l in lines):
+            continue
+        where = lines[1] if len(lines) > 1 else ""
+        venue = venues.get(_norm_venue(where))
         if not venue:
+            VENUE_MISMATCHES.append(f"{lines[0]} — {url} calendar, but at {where!r}; skipped")
             continue
         day = datetime.strptime(f"{when.group(2)} {when.group(3)} {now.year}", "%d %b %Y")
         if day.date() < (now - timedelta(days=30)).date():
@@ -703,6 +731,32 @@ def src_kings_theatre():
 SKIP_TM = re.compile(r"parking|suite|premium seat|vip package|upgrade|tour package|hospitality|gift card", re.I)
 
 
+MUSIC_SEGMENT = "KZFzniwnSyZfZ7v7nJ"
+
+
+def _event_key(url):
+    """Ticketmaster event id at the end of a ticket link (.../event/300064EC4E15E471)."""
+    m = re.search(r"/event/([0-9A-Za-z]{10,})", url or "")
+    return m.group(1) if m else None
+
+
+def _tm_not_music(key, tm_id):
+    """Remember this venue's non-music Ticketmaster events (comedy, talks, theater), so a venue site that
+    lists everything (The Bell House, Gramercy, Irving Plaza...) can't slip them back in."""
+    page = 0
+    while page < 5:
+        q = urllib.parse.urlencode({"apikey": key, "venueId": tm_id, "classificationId": f"-{MUSIC_SEGMENT}",
+                                    "size": 200, "page": page, "countryCode": "US"})
+        data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q, api=True))
+        time.sleep(0.25)
+        for e in (data.get("_embedded") or {}).get("events", []):
+            TM_NOT_MUSIC.update(k for k in (e.get("id"), _event_key(e.get("url"))) if k)
+        info = data.get("page", {})
+        if info.get("number", 0) + 1 >= info.get("totalPages", 1):
+            break
+        page += 1
+
+
 def src_ticketmaster():
     """Ticketmaster Discovery API (official) — music events only, so no Knicks/Nets/Rangers games."""
     key = os.environ.get("TICKETMASTER_API_KEY") or _env_value("TICKETMASTER_API_KEY")
@@ -710,6 +764,7 @@ def src_ticketmaster():
         raise RuntimeError("no TICKETMASTER_API_KEY yet — skipped")
     out = []
     for tm_id, venue in TICKETMASTER_VENUES.items():
+        _tm_not_music(key, tm_id)
         events, page = [], 0
         while True:
             q = urllib.parse.urlencode({"apikey": key, "venueId": tm_id, "classificationName": "music",
@@ -750,6 +805,8 @@ def _norm_venue(name):
 EXACT_VENUE_NAMES = {_norm_venue(v["name"]): v["id"] for v in VENUES}
 EXACT_VENUE_NAMES.update({_norm_venue(k): v for k, v in {**BOWERY_NAMES, **VENUE_NAMES}.items()})
 VENUE_BY_ID = {v["id"]: v for v in VENUES}
+VENUE_MISMATCHES = []  # listings a venue's own feed had that are actually somewhere else
+TM_NOT_MUSIC = set()  # Ticketmaster event ids at our venues that Ticketmaster doesn't classify as music
 NEAR_MISSES = {}  # unmatched venue names that look like one of ours; reported so they can be added by hand
 
 
@@ -942,10 +999,10 @@ SOURCES = [
     ("Brooklyn Paramount", lambda: src_jsonld("https://www.brooklynparamount.com/", "paramount")),
     ("Warsaw", lambda: src_jsonld("https://www.warsawconcerts.com/", "warsaw")),
     ("Gramercy Theatre", lambda: src_jsonld("https://www.thegramercytheatre.com/", "gramercy")),
-    ("Full calendar: Union Pool", lambda: src_dice_widget("https://www.union-pool.com/calendar", {"*": "unionpool"})),
+    ("Full calendar: Union Pool", lambda: src_dice_widget("https://www.union-pool.com/calendar", {"unionpool": "unionpool"})),
     ("Full calendar: The Sultan Room", lambda: src_dice_widget("https://thesultanroom.com/",
-        {"Rooftop": "sultanroof", "Turk": None, "*": "sultan"})),
-    ("Full calendar: Saint Vitus", lambda: src_dice_widget("https://www.saintvitusbar.com/", {"*": "saintvitus"})),
+        {"thesultanroom": "sultan", "thesultanroomrooftop": "sultanroof", "sultanroomrooftop": "sultanroof"})),
+    ("Full calendar: Saint Vitus", lambda: src_dice_widget("https://www.saintvitusbar.com/", {"saintvitus": "saintvitus", "saintvitusbar": "saintvitus"})),
     ("Union Pool (DICE)", lambda: src_jsonld("https://dice.fm/venue/union-pool-nbvl", "unionpool")),
     ("The Sultan Room (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-e27w", "sultan")),
     ("Sultan Room Rooftop (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-rooftop-x57a", "sultanroof")),
@@ -1046,7 +1103,10 @@ def track_venue_health(shows):
              and not any(k.startswith(x) for x in IGNORED_CANDIDATES)]
     cands.sort(key=lambda c: -c["events"])
     (ROOT / "data" / "venue_candidates.json").write_text(json.dumps(cands, indent=1, ensure_ascii=False))
-    (ROOT / "data" / "venue_match_review.json").write_text(json.dumps(NEAR_MISSES, indent=1, ensure_ascii=False))
+    (ROOT / "data" / "venue_match_review.json").write_text(json.dumps(
+        {"near_misses": NEAR_MISSES, "skipped_other_venue": sorted(set(VENUE_MISMATCHES))}, indent=1, ensure_ascii=False))
+    if VENUE_MISMATCHES:
+        print(f"\n  skipped {len(set(VENUE_MISMATCHES))} listings that a feed had under the wrong venue (data/venue_match_review.json)")
     if NEAR_MISSES:
         print("\n  venue names NOT matched that look like ours (add to VENUE_NAMES only if it's truly the same room):")
         for name, why in sorted(NEAR_MISSES.items()):
@@ -1108,6 +1168,27 @@ def load_existing():
     return json.loads(raw[raw.index("{"):raw.rindex("}") + 1]).get("shows", [])
 
 
+def drop_cross_venue_duplicates(fresh):
+    """The same act can't play two of our venues within 3 hours of each other. When two sources disagree
+    (a moved show, a presenter's feed listing an off-site show), keep the higher-priority source's venue."""
+    by_act = {}
+    for s in fresh.values():
+        by_act.setdefault((_act_key(s["artist"]), s["start"][:10]), []).append(s)
+    for (act, day), group in by_act.items():
+        venues = {s["venue"] for s in group}
+        if len(venues) < 2 or act == "?":
+            continue
+        group.sort(key=lambda s: s["_prio"])
+        keep = group[0]
+        for s in group[1:]:
+            gap = abs((datetime.fromisoformat(s["start"]) - datetime.fromisoformat(keep["start"])).total_seconds()) / 3600
+            if s["venue"] != keep["venue"] and gap < 3:
+                fresh.pop(s["id"], None)
+                VENUE_MISMATCHES.append(f"{s['artist']} {day}: listed at {s['venue']} ({s['source']}) and {keep['venue']} "
+                                        f"({keep['source']}); kept {keep['venue']}")
+    return fresh
+
+
 def main():
     now = datetime.now(NYC)
     today = now.strftime("%Y-%m-%d")
@@ -1126,13 +1207,15 @@ def main():
                 return True  # same show under a slightly different name, or same slot
         return False
 
-    for label, fn in SOURCES:
+    for prio, (label, fn) in enumerate(SOURCES):
         try:
             got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
                    and not already_listed(s)
-                   and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
+                   and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")
+                   and not (_event_key(s.get("url")) and _event_key(s.get("url")) in TM_NOT_MUSIC)]
             for s in got:
                 s["id"] = show_id(s)
+                s["_prio"] = prio
                 slot = (s["venue"], s["start"])
                 if VENUE_SIZE.get(s["venue"]) == "large" and slot in big_slots:
                     continue  # same arena show from a second feed
@@ -1146,6 +1229,9 @@ def main():
 
     print("\n".join(report))
     report = []
+    fresh = drop_cross_venue_duplicates(fresh)
+    for s in fresh.values():
+        s.pop("_prio", None)
     kept, dropped = curate(list(fresh.values()))
     fresh = {s["id"]: s for s in kept}  # ids stay as collected so saved plans keep matching
     report.append(f"\n  curated: dropped {len(dropped)} non-artist listings (see data/dropped.txt)")

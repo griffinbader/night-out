@@ -202,6 +202,6 @@ VENUE_NAMES = {
     "The Meadows - Brooklyn": "meadows", "Mercury Lounge - New York": "mercury",
     "The Brooklyn Monarch": "monarch", "Night Club 101": "nc101",
     "Palladium Times Square": "palladium", "The Rooftop at Pier 17": "pier17",
-    "Racket NYC": "racket", "Saint Vitus Bar": "saintvitus", "S.O.B.'s": "sobs", "SOB's - Sounds Of Brazil": "sobs",
+    "Racket NYC": "racket", "SILO Brooklyn": "silo", "Saint Vitus Bar": "saintvitus", "S.O.B.'s": "sobs", "SOB's - Sounds Of Brazil": "sobs",
     "The Sultan Room - Rooftop": "sultanroof", "The Town Hall - New York": "townhall", "Town Hall": "townhall",
 }

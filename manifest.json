@@ -1,0 +1,13 @@
+{
+  "name": "shindig",
+  "short_name": "shindig",
+  "description": "Live music in NYC, every night.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#121110",
+  "theme_color": "#121110",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

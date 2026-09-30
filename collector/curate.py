@@ -96,7 +96,7 @@ NOT_ARTIST = re.compile(
     r"\bdrag\b|king of drag|burlesque|for kids|rock and roll playhouse|little spoon|\bin concert\b|concert tour$|"
     r"\bfilm\b|movie|pop-?up|anniversary(?! tour)|workshop|line dancing|barre\b|comedy|comedian|live taping|"
     r"women.s game|freeski|rocket science|\bsalon\b|premiere|a new musical|\bmusical\b|winter festival|"
-    r"\bgala\b|benefit(?:ing)?\b|fundraiser|modular society|shagshop|club 1bd|9am banger|revelation nights|"
+    r"\bgala\b|benefit(?:ing)?\b|fundraiser|modular society|shagshop|club 1bd|9am ?banger|revelation nights|skat(?:e|ing)\b|sk8|skaterobics|on wheels|open decks|lounge sessions|social club|\bseries$|\bimprov\b|talk show|video vault|for lovers|"
     r"back to the \d0s|candlelight|tribute night|\bthe \d0'?s\b|music festival|\bshowcase\b|for families|"
     r"^x\s|\bkoom\b|\bconference\b|takeover|variety show|battle of|jingle ball|\bthe moth\b|story ?slam|storytell|poetry|spoken word|open mic|honoring the music of|celebrating the music of|the music of |orchestra concert|symphonic (?:tribute|tour)|video game|\bin concert\b",
     re.I,
@@ -107,7 +107,8 @@ NOT_ARTIST = re.compile(
 NOT_ARTIST_SUBTITLE = re.compile(
     r"\bpart(?:y|ies)\b|podcast|comedy|comedian|live taping|for kids|rock and roll playhouse|listening (?:session|party)|"
     r"in conversation|book (?:signing|talk|launch)|country line dancing|drag show|burlesque|\btributes\b|dance class|"
-    r"\b(?:metal|metalcore|emo|disco|goth|dance|soul|house|techno|\d0s|y2k)\s+night\b|takeover|all day long",
+    r"\b(?:metal|metalcore|emo|disco|goth|dance|soul|house|techno|\d0s|y2k)\s+night\b|takeover|all day long|"
+    r"\bskate\b|improv\b|the music of |bollywood|dancehall, soca",
     re.I,
 )
 
@@ -116,10 +117,27 @@ def _key(s):
     return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
 
 
+def _artist_from_series(raw, s):
+    """The real artist from the support list or the subtitle: "MUSIC! with Hearing Things" -> Hearing Things."""
+    t = s.get("tagline", "") or ""
+    t = re.sub(r"^.*?:\s*", "", t) if ":" in t else t
+    t = re.sub(rf"^{re.escape(raw)}\s+(?:with|w/)\s+", "", t, flags=re.I)
+    t = re.sub(r"\s*\(free.*$|\s+presents?$", "", t, flags=re.I)
+    t = re.split(r",\s*|\s+\+\s+|\s+and more|\s+\+ more", t)[0].strip()
+    if t and _key(t) != _key(raw) and re.search(r"[a-z]{2}", t, re.I) and not re.search(r"rsvp|tickets?$", t, re.I):
+        return t
+    good = [x for x in s["support"] if re.search(r"[a-z]{2}", x, re.I) and not re.search(r"rsvp|\)$", x, re.I)]
+    if good:
+        s["support"].remove(good[0])
+        return good[0]
+    return ""
+
+
 def curate(shows, log=print):
     """Rewrites headliners and drops non-artist listings, in place. Returns (kept, dropped)."""
     exclude = [_key(x) for x in OVERRIDES["exclude"]]
     rename = {_key(k): v for k, v in OVERRIDES["rename"].items()}
+    series = {_key(x) for x in OVERRIDES.get("series", [])}
     keep, dropped = [], []
     for s in shows:
         raw = s["artist"]
@@ -134,9 +152,14 @@ def curate(shows, log=print):
         presenter = re.fullmatch(r"(.{2,40}?)\s+presents?", s.get("tagline", "") or "", re.I)
         if presenter and re.search(r"\btour\b", raw, re.I) and k not in rename:
             s["artist"], s["tagline"] = presenter.group(1), raw  # "The Self Titled Tour" / "Stephen Day Presents"
-        s["support"] = [headliner(x) for x in s["support"] if x and not re.search(r"\btour\b|\bpresents?\b|hosted by|under \d", x, re.I)]
+        s["support"] = [headliner(x) for x in s["support"] if x and not re.search(r"\btour\b|\bpresents?\b|hosted by|under \d|rsvp", x, re.I)]
         if re.fullmatch(r"(?:an?\s+)?(?:\w+\s+)?(?:evening|night)", s["artist"], re.I) and s["support"]:
             s["artist"] = s["support"].pop(0)  # "An Evening" + ["Lambchop"] -> Lambchop
+        if _key(s["artist"]) in series:  # a party/series name billed over the real artists: "Lost Miracle" | Sébastien Léger
+            s["artist"] = _artist_from_series(raw, s)
+            if not s["artist"]:
+                dropped.append(raw)
+                continue
         blob = f"{raw} {s.get('tagline', '')}"
         rule_hit = NOT_ARTIST.search(raw) or NOT_ARTIST_SUBTITLE.search(s.get("tagline", ""))
         if any(x and x in _key(blob) for x in exclude) or (k not in rename and rule_hit):

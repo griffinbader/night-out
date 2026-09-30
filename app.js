@@ -18,8 +18,11 @@ const persist = () => {
 
 const state = {
   tab: 'discover',
-  when: 'weekend',
-  date: null,      // 'YYYY-MM-DD' when a specific date is picked
+  when: null,      // null = every upcoming show; or a timeframe button, or 'range'
+  from: null,      // 'YYYY-MM-DD' start of a picked date range
+  to: null,        // 'YYYY-MM-DD' end of it (same as from for a single day)
+  rangeOpen: false,
+  limit: 80,       // cards drawn so far; more load as you scroll
   boroughs: new Set(),
   hoods: new Set(),
   genres: new Set(),
@@ -52,7 +55,8 @@ function range(when) {
     }
     case 'week': return [t, addDays(t, 7)];
     case 'twoweeks': return [t, addDays(t, 14)];
-    case 'date': { const d = new Date(state.date + 'T00:00'); return [d, addDays(d, 1)]; }
+    case 'range': return [new Date(state.from + 'T00:00'), addDays(new Date((state.to || state.from) + 'T00:00'), 1)];
+    default: return [t, new Date(8.64e15)]; // no timeframe picked: everything from today on
   }
 }
 
@@ -217,18 +221,52 @@ const WHENS = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'Th
 
 // "Pick a date": a chip with the phone's native date picker laid over it.
 const isoDay = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const shortDay = iso => new Date(iso + 'T00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+function rangeLabel() {
+  if (!state.from) return '';
+  if (!state.to || state.to === state.from) return new Date(state.from + 'T00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const [a, b] = [shortDay(state.from), shortDay(state.to)];
+  return a.split(' ')[0] === b.split(' ')[0] ? `${a} to ${b.split(' ')[1]}` : `${a} to ${b}`;
+}
+
+// 📅 opens a from/to picker. Pick one day or a stretch of days.
 function datePicker() {
-  const on = state.when === 'date' && state.date;
-  const label = on ? new Date(state.date + 'T00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
+  const on = state.when === 'range' && state.from;
+  return `<button class="date-chip ${on ? 'on' : ''}" data-range-toggle aria-expanded="${state.rangeOpen}" title="Pick dates">📅${on ? ' ' + rangeLabel() : ''}</button>`;
+}
+
+function rangePanel() {
+  if (!state.rangeOpen) return '';
+  const first = isoDay(new Date());
   const last = SHOWS.length ? isoDay(SHOWS[SHOWS.length - 1].start) : '';
-  return `<label class="date-chip ${on ? 'on' : ''}" title="Pick a date">📅${on ? ' ' + label : ''}
-    <input type="date" id="date-pick" min="${isoDay(new Date())}" max="${last}" value="${state.date || ''}" aria-label="Pick a date"></label>`;
+  return `<div class="range-panel">
+    <label>From<input type="date" id="range-from" min="${first}" max="${last}" value="${state.from || ''}"></label>
+    <label>To<input type="date" id="range-to" min="${state.from || first}" max="${last}" value="${state.to || ''}"></label>
+    <div class="range-actions">
+      <button class="btn range-apply" data-range-apply>Show these dates</button>
+      ${state.when === 'range' ? '<button class="btn" data-range-clear>Clear</button>' : ''}
+    </div>
+    <p class="range-hint">Leave "To" empty for a single day.</p>
+  </div>`;
+}
+
+// First visit: a quick note on what this is. Hidden once dismissed or signed in.
+function welcomeCard() {
+  if (load('no.welcomed', false) || Account.me.profile) return '';
+  return `<div class="welcome">
+    <p><b>New here?</b> Shindig lists live music at NYC venues, pulled from venue calendars and ticket sites every morning.
+    Pick a night, filter by borough, genre or vibe, and tap any show for tickets.</p>
+    <p>Sign in to mark what you're going to and see where your friends are headed.</p>
+    <div class="welcome-actions">${Account.enabled ? '<button class="btn welcome-signin" data-welcome="signin">Sign in</button>' : ''}<button class="btn" data-welcome="ok">Got it</button></div>
+  </div>`;
 }
 
 function renderDiscover() {
   view.innerHTML = `
+    ${welcomeCard()}
     <h2>Where's the <em>music</em>?</h2>
     <div class="when">${datePicker()}${WHENS.map(([k, l]) => `<button data-when="${k}" class="${state.when === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+    ${rangePanel()}
     <div id="controls"></div>
     <div id="list"></div>`;
   renderControls();
@@ -262,15 +300,35 @@ function renderControls() {
     <input class="search" id="search" type="search" placeholder="Search artist or venue" value="${state.query}">`;
 }
 
+const MISSING_CTA = `<div class="missing-cta">Know about a show that isn't here? <button data-missing>Tell us</button></div>`;
+
+// Long lists draw in pages as you scroll, so opening every show stays quick on a phone.
+let listKey = '', moreObserver = null;
+function watchForMore(total) {
+  moreObserver?.disconnect();
+  const el = document.getElementById('load-more');
+  if (!el || !('IntersectionObserver' in window)) return;
+  moreObserver = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting || state.limit >= total) return;
+    state.limit += 120;
+    renderList();
+  }, { rootMargin: '1200px 0px' });
+  moreObserver.observe(el);
+}
+
 function renderList() {
   const list = SHOWS.filter(s => matches(s));
+  const key = JSON.stringify([state.when, state.from, state.to, [...state.boroughs], [...state.hoods], [...state.genres], [...state.vibes], state.maxPrice, state.query]);
+  if (key !== listKey) { listKey = key; state.limit = 80; }
+  const more = total => total > state.limit
+    ? `<button id="load-more" class="load-more" data-load-more>Show more (${total - state.limit} left)</button>` : '';
   const el = document.getElementById('list');
   const head = `<div class="result-count"><span>${list.length} show${list.length === 1 ? '' : 's'}</span>
     <span class="result-actions">${activeFilterCount() ? '<button data-clear>Clear filters</button>' : ''}
     <span class="view-toggle"><button data-view="list" class="${state.view === 'list' ? 'on' : ''}">List</button><button data-view="map" class="${state.view === 'map' ? 'on' : ''}">Map</button></span></span></div>`;
   if (state.view === 'map') { el.innerHTML = head + '<div id="map"></div>'; return drawMap(list); }
   if (!list.length) {
-    el.innerHTML = head + `<div class="empty"><b>Nothing matches</b>Try a wider timeframe or fewer filters.</div>`;
+    el.innerHTML = head + `<div class="empty"><b>Nothing matches</b>Try a wider timeframe or fewer filters.</div>` + MISSING_CTA;
     return;
   }
   const byDay = shows => {
@@ -282,12 +340,20 @@ function renderList() {
     }
     return out;
   };
-  if (state.maxPrice == null) { el.innerHTML = head + byDay(list); return; }
+  if (state.maxPrice == null) {
+    el.innerHTML = head + byDay(list.slice(0, state.limit)) + (more(list.length) || MISSING_CTA);
+    return watchForMore(list.length);
+  }
   // Price filter on: shows with a known base price first, then the rest under their own heading
-  const priced = list.filter(s => s.price != null), unpriced = list.filter(s => s.price == null);
+  const ordered = [...list.filter(s => s.price != null), ...list.filter(s => s.price == null)];
+  const page = ordered.slice(0, state.limit);
+  const priced = page.filter(s => s.price != null), unpriced = page.filter(s => s.price == null);
+  const unpricedTotal = list.length - list.filter(s => s.price != null).length;
   el.innerHTML = head
     + (priced.length ? byDay(priced) : `<div class="empty"><b>No listed prices in range</b>Shows without a listed price are below.</div>`)
-    + (unpriced.length ? `<div class="price-divider"><b>Price not listed</b><span>${unpriced.length} show${unpriced.length === 1 ? '' : 's'} · check the ticket link</span></div>${byDay(unpriced)}` : '');
+    + (unpriced.length ? `<div class="price-divider"><b>Price not listed</b><span>${unpricedTotal} show${unpricedTotal === 1 ? '' : 's'} · check the ticket link</span></div>${byDay(unpriced)}` : '')
+    + (more(ordered.length) || MISSING_CTA);
+  watchForMore(ordered.length);
 }
 
 // ---------- Map ----------
@@ -552,10 +618,37 @@ function openSheet(id) {
       <a class="btn" href="${googleCalUrl(s)}" target="_blank" rel="noopener">+ Google Calendar</a>` : ''}
     </div>
     <p class="note">Shindig doesn't sell tickets. This opens the venue's own ticket page.</p>
+    <div id="report-box"><button class="text-link" data-report-open="${s.id}">Something wrong with this listing?</button></div>
   </div>`;
   sheet.classList.remove('hidden');
 }
 const closeSheet = () => sheet.classList.add('hidden');
+
+// ---------- Reports: wrong info on a show, or a show we're missing ----------
+function openReport(id) {
+  document.getElementById('report-box').innerHTML = `<form class="report-form" data-form="report" data-show="${esc(id)}">
+    <div class="filter-label">What's wrong?</div>
+    <label><input type="radio" name="kind" value="wrong_info" required> Wrong date, time, venue or lineup</label>
+    <label><input type="radio" name="kind" value="not_artist"> Not an artist show</label>
+    <label><input type="radio" name="kind" value="cancelled"> Cancelled</label>
+    <label><input type="radio" name="kind" value="other"> Something else</label>
+    <textarea name="details" maxlength="1000" rows="2" placeholder="Anything else? (optional)"></textarea>
+    <div class="report-actions"><button type="submit" class="btn">Send</button><span id="report-msg" class="form-msg"></span></div>
+  </form>`;
+}
+
+function openMissing() {
+  sheet.innerHTML = `<div class="sheet-body missing-sheet">
+    <button class="sheet-close" data-close aria-label="Close">✕</button>
+    <h3>Missing a show?</h3>
+    <p>Tell us the artist, venue and date, and we'll figure out why it didn't come through.</p>
+    <form class="report-form" data-form="missing">
+      <textarea name="details" maxlength="1000" rows="4" required placeholder="e.g. Geese at Forest Hills Stadium, Sat Oct 3"></textarea>
+      <div class="report-actions"><button type="submit" class="btn">Send</button><span id="missing-msg" class="form-msg"></span></div>
+    </form>
+  </div>`;
+  sheet.classList.remove('hidden');
+}
 
 // ---------- Rendering & events ----------
 function render() {
@@ -586,6 +679,13 @@ document.addEventListener('click', e => {
     return;
   }
   if (t.dataset.close !== undefined) return closeSheet();
+  if (t.dataset.reportOpen) return openReport(t.dataset.reportOpen);
+  if (t.dataset.missing !== undefined) return openMissing();
+  if (t.dataset.welcome) {
+    save('no.welcomed', true);
+    if (t.dataset.welcome === 'signin') { state.tab = 'mine'; window.scrollTo(0, 0); }
+    return render();
+  }
   if (t.dataset.signout !== undefined) return Account.signOut();
   if (t.dataset.deleteAccount !== undefined) {
     const ok = confirm('Delete your Shindig account? This permanently removes your profile, plans, show history and friends. It can’t be undone.');
@@ -602,7 +702,23 @@ document.addEventListener('click', e => {
   if (t.dataset.add) return Account.addFriend(t.dataset.add);
   if (t.dataset.unadd) return Account.removeFriend(t.dataset.unadd);
   if (t.dataset.open) return openSheet(t.dataset.open);
-  if (t.dataset.when) { state.when = t.dataset.when; return renderDiscover(); }
+  if (t.dataset.when) { // tap again to go back to every show
+    state.when = state.when === t.dataset.when ? null : t.dataset.when;
+    state.rangeOpen = false; state.limit = 80;
+    return renderDiscover();
+  }
+  if (t.dataset.rangeToggle !== undefined) { state.rangeOpen = !state.rangeOpen; return renderDiscover(); }
+  if (t.dataset.rangeApply !== undefined) {
+    const from = document.getElementById('range-from').value, to = document.getElementById('range-to').value;
+    if (!from) { document.getElementById('range-from').focus(); return; }
+    state.from = from; state.to = to && to >= from ? to : from;
+    state.when = 'range'; state.rangeOpen = false; state.limit = 80;
+    return renderDiscover();
+  }
+  if (t.dataset.rangeClear !== undefined) {
+    state.when = null; state.from = state.to = null; state.rangeOpen = false; state.limit = 80;
+    return renderDiscover();
+  }
   if (t.dataset.chip) {
     const set = { borough: state.boroughs, hood: state.hoods, genre: state.genres, vibe: state.vibes }[t.dataset.chip];
     toggle(set, t.dataset.val);
@@ -613,6 +729,7 @@ document.addEventListener('click', e => {
     renderControls(); return renderList();
   }
   if (t.dataset.view) { state.view = t.dataset.view; return renderList(); }
+  if (t.dataset.loadMore !== undefined) { state.limit += 120; return renderList(); }
   if (t.dataset.more !== undefined) { state.moreFilters = !state.moreFilters; return renderControls(); }
   if (t.dataset.clear !== undefined) {
     state.boroughs.clear(); state.hoods.clear(); state.genres.clear(); state.vibes.clear(); state.maxPrice = null; state.query = '';
@@ -627,13 +744,22 @@ document.addEventListener('submit', async e => {
   const f = new FormData(form);
   const msg = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
   const button = form.querySelector('button[type=submit]');
-  button.disabled = true;
+  if (button) button.disabled = true;
   try {
     if (form.dataset.form === 'signin') {
       await Account.sendLink(f.get('email').trim());
       msg('signin-msg', 'Check your email for the sign-in link.');
     } else if (form.dataset.form === 'profile') {
       await Account.createProfile(f.get('username').trim().toLowerCase(), f.get('display').trim(), f.get('color'));
+    } else if (form.dataset.form === 'report') {
+      const s = showFor(form.dataset.show);
+      await Account.report({ kind: f.get('kind'), showId: form.dataset.show, details: f.get('details').trim(),
+        showLabel: s ? `${plain(s.artist)} · ${s.venue.name} · ${fmtDate(s.start)}` : null });
+      document.getElementById('report-box').innerHTML = '<p class="note">Thanks, we got it. We’ll take a look.</p>';
+    } else if (form.dataset.form === 'missing') {
+      await Account.report({ kind: 'missing', details: f.get('details').trim() });
+      closeSheet();
+      toast('Thanks, we got it. We’ll look into it.');
     } else if (form.dataset.form === 'find') {
       const name = f.get('username').trim();
       const person = await Account.findUser(name);
@@ -642,15 +768,19 @@ document.addEventListener('submit', async e => {
       else { await Account.addFriend(person.id); }
     }
   } catch (err) {
-    msg({ signin: 'signin-msg', profile: 'profile-msg', find: 'find-result' }[form.dataset.form], err.message || 'Something went wrong.');
+    msg({ signin: 'signin-msg', profile: 'profile-msg', find: 'find-result', report: 'report-msg', missing: 'missing-msg' }[form.dataset.form], err.message || 'Something went wrong.');
   } finally {
-    button.disabled = false;
+    if (button?.isConnected) button.disabled = false;
   }
 });
 
 document.addEventListener('change', e => {
   if (e.target.id === 'price-range') { renderControls(); renderList(); return; }
-  if (e.target.id === 'date-pick' && e.target.value) { state.when = 'date'; state.date = e.target.value; renderDiscover(); }
+  if (e.target.id === 'range-from') { // "To" can't be before "From"
+    const to = document.getElementById('range-to');
+    to.min = e.target.value;
+    if (to.value && to.value < e.target.value) to.value = '';
+  }
 });
 
 document.addEventListener('input', e => {
@@ -688,6 +818,13 @@ Account.onChange(async () => {
   if (sheetId) openSheet(sheetId);
 });
 
+// Personal links for the test group look like ...?r=alex. Remember the first one this browser arrived with.
+const refParam = new URLSearchParams(location.search).get('r');
+if (refParam) {
+  if (!load('no.ref', null)) save('no.ref', refParam.slice(0, 64));
+  history.replaceState(null, '', location.pathname + location.hash);
+}
+
 render();
-Account.init().then(handleLink);
+Account.init().then(() => { Account.logVisit(load('no.ref', null)); handleLink(); });
 window.addEventListener('hashchange', handleLink);

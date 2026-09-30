@@ -1,5 +1,5 @@
 {
-  "_about": "Judgment calls the rules can't make. 'exclude': listing text (title or tagline) that means it's not an artist show. 'rename': exact listing title -> the artist to headline.",
+  "_about": "Judgment calls the rules can't make. 'exclude': listing text (title or tagline) that means it's not an artist show. 'rename': exact listing title -> the artist to headline. 'series': party/series names billed above the real artists; the artist is taken from the lineup or subtitle.",
   "exclude": [
     "Do Si Don'tcha",
     "Music of Bob Marley + More for Kids",
@@ -110,7 +110,19 @@
     "Heel Toe Rodeo",
     "hABBAween",
     "A Night of Inspiration",
-    "On Broadway"
+    "On Broadway",
+    "Michael Jackson Night",
+    "Jazz For Lovers",
+    "A Little Motion, A Little Picture",
+    "Caribbean Saturdays",
+    "PLAYGRND",
+    "Tootsie's Video Vault",
+    "Tootsie’s Video Vault",
+    "The George Lucas Talk Show",
+    "If You're Really From New York",
+    "If You’re Really From New York",
+    "Amit Tandon",
+    "The Bechdel Cast"
   ],
   "rename": {
     "An Evening With Lambchop": "Lambchop",
@@ -147,5 +159,15 @@
     "inti figgis-vizueta's Music for Transitions": "inti figgis-vizueta",
     "inti figgis-vizueta’s Music for Transitions": "inti figgis-vizueta",
     "Big Crown Records 10 Year Anniversary": "El Michels Affair"
-  }
+  },
+  "series": [
+    "Lost Miracle",
+    "Sunday Sunday",
+    "The Nursery",
+    "Chatroom",
+    "MUSIC!",
+    "Elsewhere",
+    "not without friends",
+    "H0L0"
+  ]
 }

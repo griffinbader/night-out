@@ -17,6 +17,15 @@ const Account = (() => {
     friendPlans: [],  // [{ user_id, show_id, status, show, show_start }]
     myPlans: [],      // same shape, mine
   };
+  const localGet = k => { try { return localStorage.getItem(k); } catch { return null; } };
+  const localSet = (k, v) => { try { localStorage.setItem(k, v); } catch { /* storage unavailable — fine */ } };
+  // A random code for this browser, so return visits can be counted before someone signs in.
+  const deviceId = () => {
+    let id = localGet('no.device');
+    if (!id) { id = (crypto.randomUUID?.() || Math.random().toString(36).slice(2) + Date.now().toString(36)); localSet('no.device', id); }
+    return id;
+  };
+
   const listeners = [];
   const changed = () => listeners.forEach(fn => fn());
 
@@ -155,6 +164,25 @@ const Account = (() => {
     async removeFriend(id) {
       await db.from('follows').delete().eq('follower_id', me.user.id).eq('followee_id', id);
       await loadSocial(); changed();
+    },
+
+    // Visit log for the test group: one row per device every 30 minutes at most (supabase/testing.sql).
+    async logVisit(ref) {
+      if (!db) return;
+      const last = +(localGet('no.lastVisit') || 0);
+      if (Date.now() - last < 30 * 60e3) return;
+      localSet('no.lastVisit', String(Date.now()));
+      const { error } = await db.from('visits').insert({ device_id: deviceId(), user_id: me.user?.id || null, ref: ref || null });
+      if (error) console.warn('visit not logged', error.message);
+    },
+
+    // kind: 'wrong_info' | 'not_artist' | 'cancelled' | 'other' | 'missing'
+    async report({ kind, showId = null, showLabel = null, details = null }) {
+      if (!db) throw new Error('Couldn’t send that. Email griffin@ctownsounds.com instead.');
+      const { error } = await db.from('reports').insert({
+        kind, show_id: showId, show_label: showLabel, details: details || null, device_id: deviceId(), user_id: me.user?.id || null,
+      });
+      if (error) throw new Error('Couldn’t send that. Try again, or email griffin@ctownsounds.com.');
     },
   };
 })();
