@@ -12,21 +12,18 @@
  {
   "venue": "nc101",
   "name": "Nightclub 101",
-  "shows": 79,
+  "shows": 77,
   "sources": {
-   "ticketmaster": 74,
-   "ticketmaster-mirror": 5
+   "ticketmaster": 77
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "mercury",
   "name": "Mercury Lounge",
-  "shows": 133,
+  "shows": 99,
   "sources": {
-   "ticketmaster": 96,
-   "seatgeek": 4,
-   "ticketmaster-mirror": 33
+   "ticketmaster": 99
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -55,12 +52,12 @@
  {
   "venue": "irving",
   "name": "Irving Plaza",
-  "shows": 86,
+  "shows": 51,
   "sources": {
    "ticketmaster": 50,
-   "seatgeek": 36
+   "seatgeek": 1
   },
-  "confidence": "mixed"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "paramount",
@@ -75,9 +72,9 @@
  {
   "venue": "steel",
   "name": "Brooklyn Steel",
-  "shows": 36,
+  "shows": 40,
   "sources": {
-   "bowery": 35,
+   "bowery": 39,
    "seatgeek": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -85,20 +82,20 @@
  {
   "venue": "lpr",
   "name": "LPR",
-  "shows": 93,
+  "shows": 85,
   "sources": {
-   "lpr": 82,
-   "seatgeek": 2,
-   "ticketmaster-mirror": 9
+   "lpr": 83,
+   "seatgeek": 1,
+   "ticketmaster-mirror": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "sultan",
   "name": "The Sultan Room",
-  "shows": 38,
+  "shows": 39,
   "sources": {
-   "dice-widget": 37,
+   "dice-widget": 38,
    "ticketmaster-mirror": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -153,21 +150,19 @@
  {
   "venue": "gramercy",
   "name": "Gramercy Theatre",
-  "shows": 27,
+  "shows": 26,
   "sources": {
-   "ticketmaster": 26,
-   "seatgeek": 1
+   "ticketmaster": 26
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "elsewhere",
   "name": "Elsewhere",
-  "shows": 68,
+  "shows": 67,
   "sources": {
-   "eventbrite": 62,
-   "elsewhere": 4,
-   "seatgeek": 2
+   "eventbrite": 63,
+   "elsewhere": 4
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -183,12 +178,11 @@
  {
   "venue": "markethotel",
   "name": "Market Hotel",
-  "shows": 9,
+  "shows": 1,
   "sources": {
-   "venuepilot": 8,
    "ticketmaster-mirror": 1
   },
-  "confidence": "good: from an official feed or the venue's full calendar"
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
  {
   "venue": "sawdust",
@@ -240,30 +234,28 @@
  {
   "venue": "bluenote",
   "name": "Blue Note",
-  "shows": 113,
+  "shows": 103,
   "sources": {
-   "ticketmaster": 103,
-   "ticketmaster-mirror": 10
+   "ticketmaster": 103
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "palladium",
   "name": "Palladium Times Square",
-  "shows": 16,
+  "shows": 15,
   "sources": {
    "ticketmaster": 14,
-   "palladium": 1,
-   "ticketmaster-mirror": 1
+   "palladium": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "pacha",
   "name": "Pacha NYC",
-  "shows": 15,
+  "shows": 14,
   "sources": {
-   "seatgeek": 15
+   "seatgeek": 14
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
@@ -333,10 +325,9 @@
  {
   "venue": "citywinery",
   "name": "City Winery",
-  "shows": 7,
+  "shows": 5,
   "sources": {
-   "seatgeek": 6,
-   "ticketmaster-mirror": 1
+   "seatgeek": 5
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
@@ -364,9 +355,9 @@
  {
   "venue": "saintvitus",
   "name": "Saint Vitus",
-  "shows": 43,
+  "shows": 46,
   "sources": {
-   "dice-widget": 43
+   "dice-widget": 46
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -438,9 +429,9 @@
  {
   "venue": "melrose",
   "name": "Melrose Ballroom",
-  "shows": 7,
+  "shows": 8,
   "sources": {
-   "squarespace": 7
+   "squarespace": 8
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -500,9 +491,9 @@
  {
   "venue": "knockdown",
   "name": "Knockdown Center",
-  "shows": 33,
+  "shows": 41,
   "sources": {
-   "bowery": 5,
+   "bowery": 13,
    "jsonld": 28
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
@@ -573,10 +564,10 @@
  {
   "venue": "hammerstein",
   "name": "Hammerstein Ballroom",
-  "shows": 9,
+  "shows": 8,
   "sources": {
    "ticketmaster": 7,
-   "seatgeek": 2
+   "seatgeek": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },

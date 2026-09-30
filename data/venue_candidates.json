@@ -1,85 +1,30 @@
 [
  {
-  "name": "Birdland Jazz Club",
-  "events": 212,
+  "name": "Berlin",
+  "events": 47,
   "sources": [
    "ticketmaster"
   ],
-  "lat": 40.7590167,
-  "lng": -73.9896861
+  "lat": 40.722974,
+  "lng": -73.98608
  },
  {
-  "name": "Birdland Theater",
-  "events": 178,
+  "name": "Cafe Wha?",
+  "events": 17,
   "sources": [
    "ticketmaster"
   ],
-  "lat": 40.7590167,
-  "lng": -73.9896861
+  "lat": 40.730207,
+  "lng": -74.000677
  },
  {
-  "name": "Birdland",
-  "events": 82,
+  "name": "The Bitter End",
+  "events": 11,
   "sources": [
    "ticketmaster"
   ],
-  "lat": 40.7593,
-  "lng": -73.990196
- },
- {
-  "name": "Bowery Palace",
-  "events": 53,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.7257,
-  "lng": -73.991673
- },
- {
-  "name": "Lucinda's",
-  "events": 52,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.728329,
-  "lng": -73.982199
- },
- {
-  "name": "BrownstoneJAZZ",
-  "events": 45,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.6815228,
-  "lng": -73.947016
- },
- {
-  "name": "David Geffen Hall",
-  "events": 36,
-  "sources": [
-   "seatgeek",
-   "ticketmaster"
-  ],
-  "lat": 40.7729,
-  "lng": -73.9831
- },
- {
-  "name": "Wild Horses",
-  "events": 28,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.725689,
-  "lng": -73.991692
- },
- {
-  "name": "Iridium",
-  "events": 27,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.761816,
-  "lng": -73.983389
+  "lat": 40.728419,
+  "lng": -73.999141
  },
  {
   "name": "Hill Country Live",
@@ -89,6 +34,15 @@
   ],
   "lat": 40.7442495,
   "lng": -73.9903775
+ },
+ {
+  "name": "Berlin NYC",
+  "events": 4,
+  "sources": [
+   "seatgeek"
+  ],
+  "lat": 40.723,
+  "lng": -73.9861
  },
  {
   "name": "What's Left Records",
@@ -145,6 +99,15 @@
   ],
   "lat": 40.758451,
   "lng": -73.983265
+ },
+ {
+  "name": "The Greene Space",
+  "events": 3,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.72744098,
+  "lng": -74.00501248
  },
  {
   "name": "Ellen's Stardust Theater",
