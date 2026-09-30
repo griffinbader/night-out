@@ -625,6 +625,7 @@
   "Dance"
  ],
  "Dylan Gossett & Charles Wesley Godwin": [],
+ "Dylan Thom": [],
  "ELIOT LIPP": [],
  "EPIK HIGH": [],
  "ESTEMAN & DANIELA SPALLA": [],
@@ -898,6 +899,9 @@
  ],
  "HARBOUR": [],
  "HAVASI": [],
+ "HEEMS": [
+  "Rap"
+ ],
  "HELADO TROPICAL": [],
  "HERE I AM": [],
  "HEY, NOTHING": [],
@@ -992,6 +996,7 @@
   "Punk & Metal",
   "Indie"
  ],
+ "IN IMPROVISATION": [],
  "INNA": [
   "Dance",
   "Pop"
@@ -1224,6 +1229,7 @@
   "Rap",
   "Jazz"
  ],
+ "King & Queen of the Cypher": [],
  "King Princess": [
   "Pop",
   "Indie"
@@ -1371,6 +1377,7 @@
   "R&B",
   "Pop"
  ],
+ "Loofy": [],
  "Lord Huron": [
   "Country & Folk",
   "Indie"
@@ -1402,6 +1409,9 @@
  ],
  "Luis Vargas": [
   "Latin"
+ ],
+ "Luke Alessi": [
+  "Dance"
  ],
  "Luke Kidgell": [],
  "Luna": [
@@ -1505,6 +1515,7 @@
   "Dance"
  ],
  "Matthew Danger Lippman": [],
+ "Max Kulchinsky": [],
  "May Shining Windows": [],
  "Mayv": [],
  "MeanRed": [],
@@ -1782,6 +1793,7 @@
   "Dance"
  ],
  "Pretty Girl [DJ Set]": [],
+ "Prince Klassen": [],
  "ProbCause": [],
  "Prosumer": [],
  "Protomartyr": [
@@ -2147,6 +2159,7 @@
   "Dance",
   "Pop"
  ],
+ "Sébastien Léger x Roy Rosenfeld": [],
  "T.3": [],
  "TALIA": [],
  "TEILZ": [],
@@ -2466,6 +2479,7 @@
   "Punk & Metal",
   "Rock"
  ],
+ "WARRIORS CUP 81": [],
  "WATERFALL STRAINER": [],
  "WHY ANOTHER": [],
  "Wadari": [],
@@ -3055,6 +3069,10 @@
   "Indie"
  ],
  "lastfm:Dylan Gossett & Charles Wesley Godwin": [],
+ "lastfm:Dylan Thom": [
+  "Rock",
+  "Indie"
+ ],
  "lastfm:ELIOT LIPP": [
   "Dance",
   "Rap"
@@ -3274,6 +3292,7 @@
  ],
  "lastfm:I AM HOUSE Orchestrated": [],
  "lastfm:I Put a Spell on You": [],
+ "lastfm:IN IMPROVISATION": [],
  "lastfm:Ian Sweet": [
   "Indie"
  ],
@@ -3430,6 +3449,7 @@
   "Country & Folk",
   "Rap"
  ],
+ "lastfm:King & Queen of the Cypher": [],
  "lastfm:King of Drag": [],
  "lastfm:King of the World": [
   "Jazz"
@@ -3534,6 +3554,9 @@
  "lastfm:Litvar": [
   "Indie"
  ],
+ "lastfm:Loofy": [
+  "Dance"
+ ],
  "lastfm:Loren Connors": [
   "Indie",
   "Jazz"
@@ -3619,6 +3642,7 @@
   "Rock"
  ],
  "lastfm:Matthew Danger Lippman": [],
+ "lastfm:Max Kulchinsky": [],
  "lastfm:May Shining Windows": [],
  "lastfm:MeanRed": [],
  "lastfm:Medium Build": [
@@ -3825,6 +3849,7 @@
  ],
  "lastfm:Presented by New Balance": [],
  "lastfm:Pretty Girl [DJ Set]": [],
+ "lastfm:Prince Klassen": [],
  "lastfm:Prosumer": [
   "Dance"
  ],
@@ -4050,6 +4075,7 @@
  ],
  "lastfm:Sweetbreads, Lily Too, Amelia Jackie": [],
  "lastfm:Sydnee Washington": [],
+ "lastfm:Sébastien Léger x Roy Rosenfeld": [],
  "lastfm:T.3": [],
  "lastfm:TALIA": [
   "Punk & Metal",
@@ -4261,6 +4287,7 @@
   "Indie",
   "Punk & Metal"
  ],
+ "lastfm:WARRIORS CUP 81": [],
  "lastfm:WATERFALL STRAINER": [
   "Indie"
  ],

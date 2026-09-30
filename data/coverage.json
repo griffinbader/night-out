@@ -12,9 +12,9 @@
  {
   "venue": "nc101",
   "name": "Nightclub 101",
-  "shows": 77,
+  "shows": 78,
   "sources": {
-   "ticketmaster": 77
+   "ticketmaster": 78
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -62,10 +62,9 @@
  {
   "venue": "paramount",
   "name": "Brooklyn Paramount",
-  "shows": 57,
+  "shows": 56,
   "sources": {
-   "ticketmaster": 56,
-   "seatgeek": 1
+   "ticketmaster": 56
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -82,9 +81,9 @@
  {
   "venue": "lpr",
   "name": "LPR",
-  "shows": 85,
+  "shows": 53,
   "sources": {
-   "lpr": 83,
+   "lpr": 51,
    "seatgeek": 1,
    "ticketmaster-mirror": 1
   },
@@ -93,9 +92,9 @@
  {
   "venue": "sultan",
   "name": "The Sultan Room",
-  "shows": 38,
+  "shows": 39,
   "sources": {
-   "dice-widget": 38
+   "dice-widget": 39
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -111,9 +110,9 @@
  {
   "venue": "unionpool",
   "name": "Union Pool",
-  "shows": 43,
+  "shows": 30,
   "sources": {
-   "dice-widget": 43
+   "jsonld": 30
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -131,9 +130,9 @@
  {
   "venue": "mhow",
   "name": "Music Hall of Williamsburg",
-  "shows": 35,
+  "shows": 34,
   "sources": {
-   "bowery": 35
+   "bowery": 34
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -158,10 +157,9 @@
  {
   "venue": "elsewhere",
   "name": "Elsewhere",
-  "shows": 67,
+  "shows": 63,
   "sources": {
-   "eventbrite": 63,
-   "elsewhere": 4
+   "eventbrite": 63
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -189,7 +187,8 @@
   "name": "National Sawdust",
   "shows": 27,
   "sources": {
-   "nationalsawdust": 27
+   "lpr": 6,
+   "nationalsawdust": 21
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -206,9 +205,9 @@
  {
   "venue": "tveye",
   "name": "TV Eye",
-  "shows": 10,
+  "shows": 9,
   "sources": {
-   "seetickets-wp": 7,
+   "seetickets-wp": 6,
    "seatgeek": 3
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -289,9 +288,9 @@
  {
   "venue": "colden",
   "name": "Colden Auditorium",
-  "shows": 6,
+  "shows": 5,
   "sources": {
-   "ticketmaster": 6
+   "ticketmaster": 5
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -307,9 +306,9 @@
  {
   "venue": "stgeorge",
   "name": "St. George Theatre",
-  "shows": 7,
+  "shows": 6,
   "sources": {
-   "ticketmaster": 7
+   "ticketmaster": 6
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -334,30 +333,29 @@
  {
   "venue": "bellhouse",
   "name": "The Bell House",
-  "shows": 22,
+  "shows": 3,
   "sources": {
    "ticketmaster": 1,
-   "jsonld": 19,
    "seatgeek": 2
   },
-  "confidence": "good: from an official feed or the venue's full calendar"
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
  {
   "venue": "littlefield",
   "name": "Littlefield",
-  "shows": 32,
+  "shows": 29,
   "sources": {
    "eventbrite": 11,
-   "eventbrite-widget": 21
+   "eventbrite-widget": 18
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "saintvitus",
   "name": "Saint Vitus",
-  "shows": 46,
+  "shows": 40,
   "sources": {
-   "dice-widget": 46
+   "dice-widget": 40
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -401,21 +399,22 @@
  {
   "venue": "sobs",
   "name": "SOB's",
-  "shows": 24,
+  "shows": 22,
   "sources": {
-   "sobs": 24
+   "sobs": 22
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "xanadu",
   "name": "Xanadu",
-  "shows": 31,
+  "shows": 8,
   "sources": {
-   "jsonld": 30,
+   "lpr": 3,
+   "jsonld": 4,
    "seatgeek": 1
   },
-  "confidence": "capped: DICE venue page stops at 30 shows"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "nowadays",
@@ -438,11 +437,11 @@
  {
   "venue": "silo",
   "name": "SILO",
-  "shows": 30,
+  "shows": 21,
   "sources": {
-   "jsonld": 30
+   "jsonld": 21
   },
-  "confidence": "capped: DICE venue page stops at 30 shows"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "basementny",
@@ -474,9 +473,9 @@
   "name": "NY Society for Ethical Culture",
   "shows": 1,
   "sources": {
-   "seatgeek": 1
+   "lpr": 1
   },
-  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "citifield",
@@ -488,10 +487,9 @@
  {
   "venue": "terminal5",
   "name": "Terminal 5",
-  "shows": 28,
+  "shows": 27,
   "sources": {
-   "bowery": 27,
-   "seatgeek": 1
+   "bowery": 27
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -521,11 +519,10 @@
  {
   "venue": "townhall",
   "name": "The Town Hall",
-  "shows": 23,
+  "shows": 22,
   "sources": {
    "ticketmaster": 18,
-   "bowery": 2,
-   "seatgeek": 3
+   "seatgeek": 4
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -571,10 +568,9 @@
  {
   "venue": "hammerstein",
   "name": "Hammerstein Ballroom",
-  "shows": 8,
+  "shows": 7,
   "sources": {
-   "ticketmaster": 7,
-   "seatgeek": 1
+   "ticketmaster": 7
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
