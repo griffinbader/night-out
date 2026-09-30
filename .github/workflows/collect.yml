@@ -24,6 +24,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Browser for venue calendars that only render in a browser
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+
       - name: Collect listings
         env:
           LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}

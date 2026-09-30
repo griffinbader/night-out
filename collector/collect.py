@@ -493,6 +493,132 @@ def src_eventbrite_widget(url, venue):
     return out
 
 
+def src_wp_sobs():
+    """SOB's publishes every show (date, time, price) through its WordPress feed."""
+    out, page = [], 1
+    today = datetime.now(NYC).strftime("%Y%m%d")
+    while page <= 6:
+        try:
+            items = json.loads(fetch(f"https://sobs.com/wp-json/wp/v2/events?per_page=100&page={page}"))
+        except urllib.error.HTTPError:
+            break
+        if not items:
+            break
+        for e in items:
+            a = e.get("acf") or {}
+            day = a.get("event_date") or ""
+            if len(day) != 8 or day < today:
+                continue
+            clock = (a.get("event_time") or "20:00")[:5]
+            title = text(a.get("event_title") or e["title"]["rendered"])
+            price = re.search(r"\$\s?(\d+)", a.get("event_price") or "")
+            img = a.get("event_image") if isinstance(a.get("event_image"), str) else None
+            head, support = split_lineup(clean_title(title))
+            out.append(show("sobs", head, f"{day[:4]}-{day[4:6]}-{day[6:]}T{clock}", support,
+                            tagline=text(a.get("event_subt") or ""), price=int(price.group(1)) if price else None,
+                            image=img, url=e.get("link"), source="sobs"))
+        page += 1
+    return out
+
+
+def src_wp_lpr():
+    """LPR's WordPress feed: newest posts first; the date/time sit in each post's description."""
+    out = []
+    today = datetime.now(NYC).date()
+    for page in range(1, 5):
+        items = json.loads(fetch(f"https://lpr.com/wp-json/wp/v2/lpr_events?per_page=100&page={page}"
+                                 "&_fields=title,link,class_list,yoast_head_json"))
+        future = 0
+        for e in items:
+            desc = (e.get("yoast_head_json") or {}).get("og_description") or ""
+            m = re.search(r"on [A-Z][a-z]+, ([A-Z][a-z]+ \d{1,2})(?:st|nd|rd|th)?, (\d{4})(?:\s*\|\s*([^|]+))?", desc)
+            if not m:
+                continue
+            day = datetime.strptime(f"{m.group(1)} {m.group(2)}", "%B %d %Y").date()
+            if day < today:
+                continue
+            future += 1
+            times = m.group(3) or ""
+            clock = parse_clock(times.split("|")[-1] if "show" in times.lower() else times) or "19:00"
+            show_m = re.search(r"(\d{1,2}(?::\d\d)?\s*[AP]M)\s*show", desc, re.I)
+            clock = parse_clock(show_m.group(1)) if show_m else clock
+            tags = [c[4:].replace("-", " ") for c in e.get("class_list", []) if c.startswith("tag-")]
+            head, support = split_lineup(clean_title(text(e["title"]["rendered"])), commas=True)
+            price = None
+            try:  # base ticket price is printed on the show page ("Event Ticket: $25")
+                pm = re.search(r"Event Ticket:\s*\$\s?(\d+)", text(fetch(e["link"])))
+                price = int(pm.group(1)) if pm else None
+            except Exception:
+                pass
+            out.append(show("lpr", head, f"{day:%Y-%m-%d}T{clock}", support, price=price, url=e["link"],
+                            genres=tags, source="lpr"))
+        if future == 0 and page > 1:
+            break  # older posts from here on
+    return out
+
+
+def src_public_records():
+    """Public Records' own calendar lists every show (DICE's venue page stops at 30)."""
+    now = datetime.now(NYC)
+    out = []
+    for m in re.finditer(r'<a target="_blank" class="event table-row" href="([^"]+)"[^>]*>(.*?)</a>', fetch("https://publicrecords.nyc/"), re.S):
+        link, body = m.group(1), m.group(2)
+        date = re.search(r'class="table-cell date">\s*[A-Z][a-z]{2} (\d{1,2})\.(\d{1,2})<br\s*/?>\s*([A-Za-z]+), ([^,<]+)', body)
+        title = re.search(r'class="table-cell title">\s*(.*?)<span', body, re.S)
+        if not (date and title) or date.group(3).lower() == "etc":  # "Etc" = talks, listening nights, etc.
+            continue
+        day = datetime(now.year, int(date.group(1)), int(date.group(2)))
+        if day.date() < (now - timedelta(days=30)).date():
+            day = day.replace(year=now.year + 1)
+        head, support = split_lineup(clean_title(text(title.group(1))), commas=True)
+        out.append(show("publicrecords", head, f"{day:%Y-%m-%d}T{parse_clock(date.group(4)) or '20:00'}", support,
+                        url=link, genres=["Dance"] if date.group(3).lower() == "club" else [], source="publicrecords"))
+    return out
+
+
+def src_dice_widget(url, venues):
+    """Venue sites that embed DICE's event widget (Union Pool, The Sultan Room) show every show,
+    while DICE's own venue pages stop at 30. The widget only appears in a real browser, so this opens
+    the page with Playwright (installed in the GitHub Action). venues: text on the card -> venue id."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        raise RuntimeError("Playwright not installed here (runs in GitHub Actions) — DICE backup used")
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page(user_agent=UA)
+        page.goto(url, wait_until="networkidle", timeout=90000)
+        page.wait_for_selector(".dice_events article", timeout=45000)
+        for _ in range(8):  # "load more" if the widget has it
+            more = page.query_selector("button:has-text('Load more'), button:has-text('Show more')")
+            if not more:
+                break
+            more.click()
+            page.wait_for_timeout(1500)
+        cards = page.eval_on_selector_all(".dice_events article", """els => els.map(e => ({
+            text: e.innerText, href: (e.querySelector('a[href*="dice"]') || {}).href || null,
+            img: (e.querySelector('img') || {}).src || null }))""")
+        browser.close()
+    now = datetime.now(NYC)
+    out = []
+    for c in cards:
+        lines = [l.strip() for l in c["text"].split("\n") if l.strip()]
+        when = next((re.search(r"([A-Z][a-z]{2}) (\d{1,2}) ([A-Z][a-z]{2})\s*[―-]\s*(\d{1,2}(?::\d\d)?\s*[ap]m)", l) for l in lines
+                     if re.search(r"\d{1,2} [A-Z][a-z]{2}\s*[―-]", l)), None)
+        if not lines or not when:
+            continue
+        venue = next((vid for key, vid in venues.items() if any(key.lower() in l.lower() for l in lines[1:])), venues.get("*"))
+        if not venue:
+            continue
+        day = datetime.strptime(f"{when.group(2)} {when.group(3)} {now.year}", "%d %b %Y")
+        if day.date() < (now - timedelta(days=30)).date():
+            day = day.replace(year=now.year + 1)
+        head, support = split_lineup(clean_title(lines[0]), commas=True)
+        out.append(show(venue, head, f"{day:%Y-%m-%d}T{parse_clock(when.group(4)) or '20:00'}", support,
+                        image=c.get("img"), url=c.get("href"), source="dice-widget"))
+    return out
+
+
 # Arena/theater calendars mix in sports, comedy and family shows — keep music only.
 NOT_CONCERT = re.compile(
     r"\bvs\.?\b|\bv\.\s|liberty|nets\b|knicks|rangers|islanders|basketball|hockey|boxing|\bufc\b|\bwwe\b|\baew\b|"
@@ -545,7 +671,15 @@ def src_sony_hall():
 
 def src_kings_theatre():
     """ATG's Kings Theatre page tags each event (Concert / Comedy / Family / Talk…) — keep concerts."""
-    page = fetch("https://us.atgtickets.com/venues/kings-theatre-brooklyn/whats-on/")
+    page = ""
+    for n in range(1, 6):  # ATG paginates the list
+        try:
+            chunk = fetch("https://us.atgtickets.com/venues/kings-theatre-brooklyn/whats-on/" + (f"?page={n}" if n > 1 else ""))
+        except urllib.error.HTTPError:
+            break
+        if n > 1 and "MuiCardContent-root" not in chunk:
+            break
+        page += chunk
     out = []
     for m in re.finditer(r'<div class="MuiCardContent-root[^"]*">(.*?)(?=<div class="MuiCardContent-root|\Z)', page, re.S):
         card = m.group(1)[:4000]
@@ -586,6 +720,8 @@ def src_ticketmaster():
             page += 1
         for e in events:
             start = e.get("dates", {}).get("start", {})
+            if re.search(r"ticketmaster\.com/event/Z", e.get("url", "")):
+                continue  # resale-only listing, not the official sale
             if not start.get("localDate") or SKIP_TM.search(e["name"]) or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
                 continue
             acts = [a["name"] for a in (e.get("_embedded") or {}).get("attractions", [])]
@@ -653,6 +789,8 @@ def src_eventbrite(path, venue, only_venue_name=None):
         time.sleep(0.3)
     out = []
     for e in events:
+        if e.get("category_id") not in (None, "103"):  # 103 = Music; skips comedy, talks, classes
+            continue
         vname = (e.get("venue") or {}).get("name") or ""
         if only_venue_name and only_venue_name.lower() not in vname.lower():
             continue  # e.g. Elsewhere also sells shows it promotes at other venues
@@ -680,6 +818,9 @@ SOURCES = [
     ("Brooklyn Paramount", lambda: src_jsonld("https://www.brooklynparamount.com/", "paramount")),
     ("Warsaw", lambda: src_jsonld("https://www.warsawconcerts.com/", "warsaw")),
     ("Gramercy Theatre", lambda: src_jsonld("https://www.thegramercytheatre.com/", "gramercy")),
+    ("Full calendar: Union Pool", lambda: src_dice_widget("https://www.union-pool.com/calendar", {"*": "unionpool"})),
+    ("Full calendar: The Sultan Room", lambda: src_dice_widget("https://thesultanroom.com/",
+        {"Rooftop": "sultanroof", "Turk": None, "*": "sultan"})),
     ("Union Pool (DICE)", lambda: src_jsonld("https://dice.fm/venue/union-pool-nbvl", "unionpool")),
     ("The Sultan Room (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-e27w", "sultan")),
     ("Sultan Room Rooftop (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-rooftop-x57a", "sultanroof")),
@@ -687,10 +828,13 @@ SOURCES = [
     ("Forest Hills Stadium", lambda: src_bowery_presents(58, {"Forest Hills Stadium": "foresthills"})),
     ("Bowery Ballroom", lambda: src_mercury_east("https://mercuryeastpresents.com/boweryballroom/", "bowery")),
     ("Mercury Lounge", lambda: src_mercury_east("https://mercuryeastpresents.com/mercurylounge/", "mercury")),
-    ("LPR", src_lpr),
+    ("LPR", src_wp_lpr),
     ("Elsewhere", src_elsewhere),
     ("Brooklyn Bowl", src_brooklyn_bowl),
-    ("Public Records (DICE)", lambda: src_jsonld("https://dice.fm/venue/public-records-w2qg", "publicrecords")),
+    ("Public Records", src_public_records),
+    ("Saint Vitus (DICE)", lambda: src_jsonld("https://dice.fm/venue/saint-vitus-rgrv", "saintvitus")),
+    ("Knockdown Center (DICE)", lambda: src_jsonld("https://dice.fm/venue/knockdown-center-e776", "knockdown")),
+    ("Knockdown Center Ruins (DICE)", lambda: src_jsonld("https://dice.fm/venue/ruins-at-knockdown-center-owog", "knockdown")),
     ("Market Hotel", lambda: src_venuepilot(100, "markethotel")),
     ("TV Eye", lambda: src_seetickets_wp("https://tveyenyc.com/", "tveye")),
     ("H0L0", src_holo),
@@ -701,7 +845,7 @@ SOURCES = [
     ("Blue Note", src_blue_note),
     ("Palladium Times Square", src_palladium),
     ("The Rooftop at Pier 17", src_pier17),
-    ("SOB's", src_sobs),
+    ("SOB's", src_wp_sobs),
     ("Melrose Ballroom", lambda: src_squarespace_events("https://www.melroseballroom.com/events", "melrose")),
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
@@ -719,7 +863,7 @@ NOT_MUSIC = re.compile(
 
 
 VENUE_SIZE = {v["id"]: v["size"] for v in VENUES}
-OFFICIAL = ("Ticketmaster API", "Eventbrite API")  # official feeds win; venue websites are the backup
+OFFICIAL = ("Ticketmaster API", "Eventbrite API", "Full calendar")  # these win; other readers are the backup
 VENUE_GENRE = {v["id"]: v.get("genre") for v in VENUES}
 
 
@@ -768,9 +912,8 @@ def main():
     report.append(f"\n  curated: dropped {len(dropped)} non-artist listings (see data/dropped.txt)")
     (ROOT / "data" / "dropped.txt").write_text("\n".join(sorted(set(dropped))) + "\n")
     tagged = tag_shows(list(fresh.values()))
-    mixed = {v["id"] for v in VENUES if v.get("music_only_if_known")}
-    unknown = [k for k, s in fresh.items() if s["venue"] in mixed and not s["genres"]]
-    for k in unknown:  # comedy/talks share these stages; unrecognized performers are left out
+    comics = [k for k, s in fresh.items() if "Comedy" in s["genres"]]
+    for k in comics:  # music databases say this performer is a comedian / podcaster, not a musician
         dropped.append(fresh.pop(k)["artist"])
     (ROOT / "data" / "dropped.txt").write_text("\n".join(sorted(set(dropped))) + "\n")
     for s in fresh.values():  # club venues: untagged nights are almost always dance music
