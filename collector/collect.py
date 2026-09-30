@@ -637,7 +637,10 @@ def src_dice_widget(url, venues):
         if any(re.fullmatch(r"cancell?ed|postponed", l, re.I) for l in lines):
             continue
         where = lines[1] if len(lines) > 1 else ""
-        venue = venues.get(_norm_venue(where))
+        if re.search(r"\d{1,2} [A-Z][a-z]{2}\s*[―-]", where):
+            where = ""  # single-venue calendars (Union Pool) don't print a venue on each card
+        # the printed venue decides; a show promoted at another of our venues goes there (exact names only)
+        venue = venues.get(_norm_venue(where)) or (_our_venue(where) if where else None)
         if not venue:
             VENUE_MISMATCHES.append(f"{lines[0]} — {url} calendar, but at {where!r}; skipped")
             continue
@@ -999,7 +1002,7 @@ SOURCES = [
     ("Brooklyn Paramount", lambda: src_jsonld("https://www.brooklynparamount.com/", "paramount")),
     ("Warsaw", lambda: src_jsonld("https://www.warsawconcerts.com/", "warsaw")),
     ("Gramercy Theatre", lambda: src_jsonld("https://www.thegramercytheatre.com/", "gramercy")),
-    ("Full calendar: Union Pool", lambda: src_dice_widget("https://www.union-pool.com/calendar", {"unionpool": "unionpool"})),
+    ("Full calendar: Union Pool", lambda: src_dice_widget("https://www.union-pool.com/calendar", {"unionpool": "unionpool", "": "unionpool"})),
     ("Full calendar: The Sultan Room", lambda: src_dice_widget("https://thesultanroom.com/",
         {"thesultanroom": "sultan", "thesultanroomrooftop": "sultanroof", "sultanroomrooftop": "sultanroof"})),
     ("Full calendar: Saint Vitus", lambda: src_dice_widget("https://www.saintvitusbar.com/", {"saintvitus": "saintvitus", "saintvitusbar": "saintvitus"})),
