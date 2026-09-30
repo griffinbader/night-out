@@ -1,7 +1,7 @@
 """Every venue Shindig knows about.
 
 borough / hood power the location filters. size is small (<400), medium (<1000)
-or large. vibes are the venue's baseline feel; shows add more based on time/genre.
+or large. vibes are the venue's baseline feel ("Big room" = 2,500+ capacity); shows add more based on time/genre.
 lat/lng (from OpenStreetMap) place the venue on the map.
 """
 
@@ -11,10 +11,10 @@ VENUES = [
     dict(id="nc101", name="Nightclub 101", borough="Manhattan", hood="East Village", size="small", vibes=["Dance all night", "Late night"], lat=40.72585, lng=-73.98404),
     dict(id="mercury", name="Mercury Lounge", borough="Manhattan", hood="Lower East Side", size="small", vibes=["Intimate"], lat=40.7221, lng=-73.98679),
     dict(id="bowery", name="Bowery Ballroom", borough="Manhattan", hood="Lower East Side", size="medium", vibes=[], lat=40.72044, lng=-73.99333),
-    dict(id="webster", name="Webster Hall", borough="Manhattan", hood="East Village", size="large", vibes=["Big room"], lat=40.73176, lng=-73.98909),
-    dict(id="irving", name="Irving Plaza", borough="Manhattan", hood="Union Square", size="large", vibes=["Big room"], lat=40.73491, lng=-73.98827),
+    dict(id="webster", name="Webster Hall", borough="Manhattan", hood="East Village", size="large", vibes=[], lat=40.73176, lng=-73.98909),
+    dict(id="irving", name="Irving Plaza", borough="Manhattan", hood="Union Square", size="large", vibes=[], lat=40.73491, lng=-73.98827),
     dict(id="paramount", name="Brooklyn Paramount", borough="Brooklyn", hood="Downtown Brooklyn", size="large", vibes=["Big room"], lat=40.69004, lng=-73.98173),
-    dict(id="steel", name="Brooklyn Steel", borough="Brooklyn", hood="East Williamsburg", size="large", vibes=["Big room"], lat=40.71939, lng=-73.93875),
+    dict(id="steel", name="Brooklyn Steel", borough="Brooklyn", hood="East Williamsburg", size="large", vibes=[], lat=40.71939, lng=-73.93875),
     dict(id="lpr", name="LPR", borough="Manhattan", hood="Greenwich Village", size="medium", vibes=[], lat=40.72843, lng=-73.99988),
     dict(id="sultan", name="The Sultan Room", borough="Brooklyn", hood="Bushwick", size="small", vibes=["Intimate"], lat=40.70555, lng=-73.92234),
     dict(id="sultanroof", name="The Sultan Room Rooftop", borough="Brooklyn", hood="Bushwick", size="small", vibes=["Chill"], lat=40.70555, lng=-73.92234),
@@ -36,7 +36,7 @@ VENUES = [
 
     # --- Added Oct 1 via the SeatGeek API (music venues ~200+ capacity) ---
     dict(id="bluenote", name="Blue Note", borough="Manhattan", hood="Greenwich Village", size="small", vibes=["Intimate", "Chill"], genre="Jazz", lat=40.7309, lng=-74.0007),
-    dict(id="palladium", name="Palladium Times Square", borough="Manhattan", hood="Times Square", size="large", vibes=["Big room"], lat=40.7576, lng=-73.9858),
+    dict(id="palladium", name="Palladium Times Square", borough="Manhattan", hood="Times Square", size="large", vibes=[], lat=40.7576, lng=-73.9858),
     dict(id="pacha", name="Pacha NYC", borough="Manhattan", hood="Hell's Kitchen", size="large", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.76367, lng=-73.99744),
     dict(id="cielo", name="Cielo", borough="Manhattan", hood="Meatpacking District", size="small", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7397, lng=-74.007),
     dict(id="unitedpalace", name="United Palace", borough="Manhattan", hood="Washington Heights", size="large", vibes=["Big room"], lat=40.8465, lng=-73.9379, music_only_if_known=True),
@@ -45,7 +45,7 @@ VENUES = [
     dict(id="colden", name="Colden Auditorium", borough="Queens", hood="Flushing", size="large", vibes=[], lat=40.7498, lng=-73.8187, music_only_if_known=True),
     dict(id="lefrak", name="LeFrak Concert Hall", borough="Queens", hood="Flushing", size="medium", vibes=["Chill"], lat=40.7377, lng=-73.8157, music_only_if_known=True),
     dict(id="stgeorge", name="St. George Theatre", borough="Staten Island", hood="St. George", size="large", vibes=["Big room"], lat=40.6418, lng=-74.0773, music_only_if_known=True),
-    dict(id="lehman", name="Lehman Center", borough="Bronx", hood="Bedford Park", size="large", vibes=["Big room"], lat=40.8749, lng=-73.8932, music_only_if_known=True),
+    dict(id="lehman", name="Lehman Center", borough="Bronx", hood="Bedford Park", size="large", vibes=[], lat=40.8749, lng=-73.8932, music_only_if_known=True),
     dict(id="citywinery", name="City Winery", borough="Manhattan", hood="Hudson Square", size="medium", vibes=["Intimate", "Chill"], lat=40.7263, lng=-74.006, music_only_if_known=True),
     dict(id="bellhouse", name="The Bell House", borough="Brooklyn", hood="Gowanus", size="medium", vibes=[], lat=40.6735, lng=-73.9916, music_only_if_known=True),
     dict(id="littlefield", name="Littlefield", borough="Brooklyn", hood="Gowanus", size="small", vibes=["Intimate"], lat=40.67842, lng=-73.98332, music_only_if_known=True),
@@ -60,7 +60,7 @@ VENUES = [
     dict(id="melrose", name="Melrose Ballroom", borough="Queens", hood="Long Island City", size="medium", vibes=[], lat=40.7556, lng=-73.9285),
     dict(id="silo", name="SILO", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7105, lng=-73.9229),
     dict(id="basementny", name="Basement", borough="Queens", hood="Maspeth", size="medium", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7157, lng=-73.9143),
-    dict(id="apollo", name="Apollo Theater", borough="Manhattan", hood="Harlem", size="large", vibes=["Big room"], lat=40.8097, lng=-73.9496, music_only_if_known=True),
+    dict(id="apollo", name="Apollo Theater", borough="Manhattan", hood="Harlem", size="large", vibes=[], lat=40.8097, lng=-73.9496, music_only_if_known=True),
     dict(id="ethical", name="NY Society for Ethical Culture", borough="Manhattan", hood="Upper West Side", size="medium", vibes=["Chill"], lat=40.7711, lng=-73.9801, music_only_if_known=True),
     dict(id="citifield", name="Citi Field", borough="Queens", hood="Flushing", size="large", vibes=["Big room"], lat=40.7577, lng=-73.8456, music_only_if_known=True),
 
