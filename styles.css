@@ -290,11 +290,37 @@ h3 {
 }
 #toast.on { transform: translate(-50%, 0); }
 
-/* ---------- Price slider ---------- */
-.price-group .filter-label b { color: var(--ink); font-family: var(--display); font-size: 13px; text-transform: none; letter-spacing: 0; }
-#price-range { width: 100%; accent-color: var(--green); margin: 6px 0 0; height: 28px; }
-.range-ends { display: flex; justify-content: space-between; font: 500 11px var(--mono); color: var(--muted); text-transform: uppercase; }
-.check { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); }
+/* ---------- Price slider ----------
+   Big readout bubble rides above the handle; track fills green up to the price. */
+.price-slider { position: relative; padding: 46px 14px 0; }
+.price-bubble {
+  position: absolute; top: 0; transform: translateX(-50%);
+  /* follows the handle but never leaves the screen; the pointer below marks the exact spot */
+  left: clamp(62px, calc(14px + (100% - 28px) * var(--pct) / 100), calc(100% - 62px));
+  white-space: nowrap; background: var(--green); color: var(--black); border: 2px solid var(--ink); border-radius: 10px;
+  padding: 3px 10px; font: 800 17px var(--display); box-shadow: 2px 2px 0 var(--ink);
+}
+.price-pointer {
+  position: absolute; top: 29px; left: calc(14px + (100% - 28px) * var(--pct) / 100); transform: translateX(-50%) rotate(45deg);
+  width: 10px; height: 10px; background: var(--green); border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+}
+#price-range {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 10px; margin: 0; border-radius: 99px;
+  border: 2px solid var(--ink); cursor: pointer;
+  background: linear-gradient(to right, var(--green) calc(var(--pct) * 1%), var(--card) calc(var(--pct) * 1%));
+}
+#price-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--yellow); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+}
+#price-range::-moz-range-thumb {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink);
+}
+.price-ticks {
+  display: flex; justify-content: space-between; margin: 8px -6px 0;
+  font: 500 11px var(--mono); color: var(--muted); text-transform: uppercase;
+}
+.check { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--muted); }
 .check input { accent-color: var(--green); width: 16px; height: 16px; }
 
 /* ---------- List / map ---------- */
@@ -352,3 +378,22 @@ a.brand { text-decoration: none; color: var(--ink); }
 .danger-zone { text-align: center; margin-top: 28px; }
 .danger-zone button { background: none; border: 0; color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer; }
 .danger-zone button:hover { color: var(--red); }
+
+/* ---------- Edges & orientation ----------
+   Filter rows wrap instead of scrolling sideways (no half-cut buttons), and the
+   page keeps clear of the iPhone notch / rounded corners in any orientation. */
+.app {
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+html, body { overflow-x: hidden; }
+.when, .chips { flex-wrap: wrap; overflow: visible; padding-right: 0; }
+.card { margin-right: 4px; }  /* room for the hard shadow */
+.sheet-body { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+@media (max-width: 420px) {
+  .when { gap: 6px; }
+  .when button, .date-chip { padding: 6px 12px; font-size: 14px; }
+  .chips { gap: 5px; }
+  .chip { padding: 4px 10px; font-size: 12.5px; }
+  .top { margin: 0 calc(-1 * max(16px, env(safe-area-inset-left))); padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+}

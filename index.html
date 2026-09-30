@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shindig</title>
   <meta name="description" content="Find live music in NYC tonight, this weekend, or whenever, filtered by borough, genre and vibe.">
   <meta property="og:title" content="shindig: live music in NYC">
@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-  <link rel="stylesheet" href="styles.css?v=15">
+  <link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body>
   <div class="app">
@@ -36,11 +36,11 @@
 
   <!-- listings change daily: ask for a fresh copy instead of a phone's saved one -->
   <script>document.write('<script src="data/shows.js?t=' + Math.floor(Date.now() / 60000) + '"><\/script>');</script>
-  <script src="data.js?v=15"></script>
+  <script src="data.js?v=19"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-  <script src="config.js?v=15"></script>
+  <script src="config.js?v=19"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="account.js?v=15"></script>
-  <script src="app.js?v=15"></script>
+  <script src="account.js?v=19"></script>
+  <script src="app.js?v=19"></script>
 </body>
 </html>

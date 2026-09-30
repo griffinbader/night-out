@@ -190,7 +190,9 @@ def src_jsonld(url, venue):
             offers = offers[0] if offers else {}
         img = e.get("image")
         img = img[0] if isinstance(img, list) and img else img
-        out.append(show(venue, head, local_iso(e["startDate"]), support, price=price_num(offers.get("lowPrice") or offers.get("price")),
+        # DICE prices include fees and it doesn't publish the base price, so leave those blank
+        base = None if "dice.fm" in url else price_num(offers.get("lowPrice") or offers.get("price"))
+        out.append(show(venue, head, local_iso(e["startDate"]), support, price=base,
                         image=img, url=e.get("url"), source="jsonld"))
     return out
 

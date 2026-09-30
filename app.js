@@ -25,7 +25,6 @@ const state = {
   genres: new Set(),
   vibes: new Set(),
   maxPrice: null,        // null = any price; 0 = free only
-  includeUnpriced: true, // many listings don't show a price
   view: 'list',          // 'list' | 'map'
   query: '',
   moreFilters: false,
@@ -76,7 +75,7 @@ function matches(s, skip = '') {
   if (skip !== 'genre' && state.genres.size && !s.genres.some(g => state.genres.has(g))) return false;
   if (skip !== 'vibe' && state.vibes.size && !s.vibes.some(v => state.vibes.has(v))) return false;
   if (state.maxPrice != null) {
-    if (s.price == null ? !state.includeUnpriced : s.price > state.maxPrice) return false;
+    if (s.price == null || s.price > state.maxPrice) return false;  // base (pre-fee) prices only
   }
   if (state.query) {
     const q = state.query.toLowerCase();
@@ -214,7 +213,7 @@ function chipRow(label, items, selected, group, counter) {
 }
 
 // ---------- Discover ----------
-const WHENS = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'This weekend'], ['week', 'Next 7 days'], ['twoweeks', 'Next 2 weeks']];
+const WHENS = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'This weekend'], ['week', 'Next 7 days']];
 
 // "Pick a date": a chip with the phone's native date picker laid over it.
 const isoDay = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -238,6 +237,7 @@ function renderDiscover() {
 
 // Price slider: 0 = free only, far right = any price.
 const PRICE_MAX = 150;
+const pricePct = () => Math.round(((state.maxPrice ?? PRICE_MAX) / PRICE_MAX) * 100);
 const priceText = () => state.maxPrice == null ? 'Any price' : state.maxPrice === 0 ? 'Free only' : `Up to $${state.maxPrice}`;
 
 function renderControls() {
@@ -251,10 +251,13 @@ function renderControls() {
     <button class="filter-toggle" data-more>${state.moreFilters ? '− Fewer filters' : `+ Price${priceOn ? ` (${priceText()})` : ''}`}</button>
     ${state.moreFilters ? `
       <div class="filter-group price-group">
-        <div class="filter-label">Price · <b id="price-text">${priceText()}</b></div>
-        <input type="range" id="price-range" min="0" max="${PRICE_MAX}" step="5" value="${state.maxPrice ?? PRICE_MAX}" aria-label="Maximum price">
-        <div class="range-ends"><span>Free</span><span>Any</span></div>
-        <label class="check"><input type="checkbox" id="price-unlisted" ${state.includeUnpriced ? 'checked' : ''}> Include shows without a listed price</label>
+        <div class="filter-label">Price</div>
+        <div class="price-slider" id="price-slider" style="--pct:${pricePct()}">
+          <output class="price-bubble" id="price-text" for="price-range">${priceText()}</output>
+          <span class="price-pointer" aria-hidden="true"></span>
+          <input type="range" id="price-range" min="0" max="${PRICE_MAX}" step="5" value="${state.maxPrice ?? PRICE_MAX}" aria-label="Maximum price">
+          <div class="price-ticks"><span>Free</span><span>$50</span><span>$100</span><span>Any</span></div>
+        </div>
       </div>` : ''}
     <input class="search" id="search" type="search" placeholder="Search artist or venue" value="${state.query}">`;
 }
@@ -604,7 +607,7 @@ document.addEventListener('click', e => {
   if (t.dataset.view) { state.view = t.dataset.view; return renderList(); }
   if (t.dataset.more !== undefined) { state.moreFilters = !state.moreFilters; return renderControls(); }
   if (t.dataset.clear !== undefined) {
-    state.boroughs.clear(); state.hoods.clear(); state.genres.clear(); state.vibes.clear(); state.maxPrice = null; state.includeUnpriced = true; state.query = '';
+    state.boroughs.clear(); state.hoods.clear(); state.genres.clear(); state.vibes.clear(); state.maxPrice = null; state.query = '';
     renderControls(); return renderList();
   }
 });
@@ -638,7 +641,7 @@ document.addEventListener('submit', async e => {
 });
 
 document.addEventListener('change', e => {
-  if (e.target.id === 'price-range' || e.target.id === 'price-unlisted') { renderControls(); renderList(); return; }
+  if (e.target.id === 'price-range') { renderControls(); renderList(); return; }
   if (e.target.id === 'date-pick' && e.target.value) { state.when = 'date'; state.date = e.target.value; renderDiscover(); }
 });
 
@@ -648,9 +651,9 @@ document.addEventListener('input', e => {
     const v = +e.target.value;
     state.maxPrice = v >= PRICE_MAX ? null : v;
     document.getElementById('price-text').textContent = priceText();
+    document.getElementById('price-slider').style.setProperty('--pct', pricePct());
     renderList();
   }
-  if (e.target.id === 'price-unlisted') { state.includeUnpriced = e.target.checked; }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 
