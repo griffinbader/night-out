@@ -9,6 +9,7 @@ import gzip
 import os
 import html
 import json
+import math
 import re
 import subprocess
 import sys
@@ -27,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import ai_reader  # noqa: E402
 from curate import curate  # noqa: E402
 from genres import tag_shows  # noqa: E402
-from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEASONAL_VENUES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_SITES, VENUES  # noqa: E402
+from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEASONAL_VENUES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_NAMES, VENUE_SITES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "shows.js"
@@ -742,23 +743,38 @@ def src_ticketmaster():
     return out
 
 
-# Other names the ticketing sites use for our venues (lowercase letters and digits only).
-VENUE_ALIASES = {"lepoissonrouge": "lpr", "theapollos": "apollo", "apollos": "apollo"}
+def _norm_venue(name):
+    return re.sub(r"[^a-z0-9]", "", (name or "").lower())
+
+
+EXACT_VENUE_NAMES = {_norm_venue(v["name"]): v["id"] for v in VENUES}
+EXACT_VENUE_NAMES.update({_norm_venue(k): v for k, v in {**BOWERY_NAMES, **VENUE_NAMES}.items()})
+VENUE_BY_ID = {v["id"]: v for v in VENUES}
+NEAR_MISSES = {}  # unmatched venue names that look like one of ours; reported so they can be added by hand
+
+
+def _km(lat1, lng1, lat2, lng2):
+    return math.hypot((lat1 - lat2) * 111.0, (lng1 - lng2) * 84.0)
 
 
 def _our_venue(name, lat=None, lng=None):
-    """Match a ticketing site's venue name to one of ours by name only. Matching by map location pulled in
-    neighbors (Daryl Roth Theatre as Irving Plaza, Berlin as Mercury Lounge), so lat/lng are ignored."""
-    n = re.sub(r"[^a-z0-9]", "", (name or "").lower())
-    if not n:
+    """A citywide listing's venue name -> our venue id, by EXACT name only (see VENUE_NAMES in venues.py).
+    A match more than 3 km from our venue is rejected too (same name, different place)."""
+    n = _norm_venue(name)
+    vid = EXACT_VENUE_NAMES.get(n)
+    ours = VENUE_BY_ID.get(vid)
+    if vid and lat and lng and ours and ours.get("lat") and _km(float(lat), float(lng), ours["lat"], ours["lng"]) > 3:
+        NEAR_MISSES.setdefault(name, f"named like {ours['name']} but {_km(float(lat), float(lng), ours['lat'], ours['lng']):.1f} km away — rejected")
         return None
-    for alias, vid in VENUE_ALIASES.items():
-        if n.startswith(alias):
-            return vid
+    if vid:
+        return vid
+    # Not matched. If it resembles one of ours (shares its name, or sits within 150 m), flag it for review.
     for v in VENUES:
-        k = re.sub(r"[^a-z0-9]", "", v["name"].lower())
-        if n == k or (len(k) >= 6 and k in n) or (len(n) >= 6 and n in k):
-            return v["id"]
+        k = _norm_venue(v["name"])
+        close = lat and lng and v.get("lat") and _km(float(lat), float(lng), v["lat"], v["lng"]) < 0.15
+        if n and ((len(k) >= 5 and k in n) or (len(n) >= 5 and n in k) or close):
+            NEAR_MISSES.setdefault(name, f"looks like {v['name']} but isn't an exact known name — not matched")
+            break
     return None
 
 
@@ -850,8 +866,9 @@ def src_ticketmaster_mirror():
             for e in (data.get("_embedded") or {}).get("events", []):
                 v = ((e.get("_embedded") or {}).get("venues") or [{}])[0]
                 loc = v.get("location") or {}
-                venue = _our_venue(v.get("name"), float(loc["latitude"]) if loc.get("latitude") else None,
-                                   float(loc["longitude"]) if loc.get("longitude") else None)
+                venue = TICKETMASTER_VENUES.get(v.get("id")) or _our_venue(
+                    v.get("name"), float(loc["latitude"]) if loc.get("latitude") else None,
+                    float(loc["longitude"]) if loc.get("longitude") else None)
                 start = e.get("dates", {}).get("start", {})
                 if not venue:
                     _note_candidate(v.get("name"), "ticketmaster", float(loc["latitude"]) if loc.get("latitude") else None,
@@ -1029,6 +1046,11 @@ def track_venue_health(shows):
              and not any(k.startswith(x) for x in IGNORED_CANDIDATES)]
     cands.sort(key=lambda c: -c["events"])
     (ROOT / "data" / "venue_candidates.json").write_text(json.dumps(cands, indent=1, ensure_ascii=False))
+    (ROOT / "data" / "venue_match_review.json").write_text(json.dumps(NEAR_MISSES, indent=1, ensure_ascii=False))
+    if NEAR_MISSES:
+        print("\n  venue names NOT matched that look like ours (add to VENUE_NAMES only if it's truly the same room):")
+        for name, why in sorted(NEAR_MISSES.items()):
+            print(f"    {name!r}: {why}")
     print("\n  venue health (possible closings):" if notes else "\n  venue health: no closing signals")
     for n in notes:
         print(n)

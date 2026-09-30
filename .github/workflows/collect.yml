@@ -36,7 +36,7 @@ jobs:
           TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python collector/collect.py
+        run: python collector/test_venue_match.py && python collector/collect.py
 
       - name: Save updated listings
         run: |

@@ -60,6 +60,7 @@ VENUES = [
     dict(id="silo", name="SILO", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Throw ass"], genre="Dance", lat=40.7105, lng=-73.9229),
     dict(id="basementny", name="Basement", borough="Queens", hood="Maspeth", size="medium", vibes=["Throw ass"], genre="Dance", lat=40.7157, lng=-73.9143),
     dict(id="apollo", name="Apollo Theater", borough="Manhattan", hood="Harlem", size="large", vibes=["Sitting"], lat=40.8097, lng=-73.9496),
+    dict(id="apollovictoria", name="The Apollo Stages at the Victoria", borough="Manhattan", hood="Harlem", size="small", vibes=["Sitting", "Intimate"], lat=40.80956, lng=-73.94901),
     dict(id="ethical", name="NY Society for Ethical Culture", borough="Manhattan", hood="Upper West Side", size="medium", vibes=["Sitting", "Chill"], lat=40.7711, lng=-73.9801),
     dict(id="citifield", name="Citi Field", borough="Queens", hood="Flushing", size="large", vibes=["Big room"], lat=40.7577, lng=-73.8456),
 
@@ -106,7 +107,7 @@ TICKETMASTER_VENUES = {
     "KovZpZAJEa6A": "kings",
     "KovZ917ARQ0": "lehman", "KovZpZAIdJ1A": "colden", "KovZ917AG0V": "lefrak",
     "KovZpZA7AAEA": "msg", "KovZpZA7kvlA": "msgtheater", "KovZpZAE7vdA": "radiocity", "KovZpZAEAd6A": "beacon",
-    "KovZpZA7AAIA": "apollo", "KovZ917AJw7": "apollo", "KovZ917AJsB": "apollo",
+    "KovZpZA7AAIA": "apollo", "KovZ917AJw7": "apollovictoria", "KovZ917AJsB": "apollovictoria",
     "KovZpa4PZe": "stgeorge", "KovZpZAalvtA": "citifield",
 }
 
@@ -128,7 +129,7 @@ SEATGEEK_VENUES = {3731: "pacha",
                    467045: "basementny",
                    1366: "ethical",
                    774: "carnegie",
-                   994: "carnegie",
+
                    56718: "babys",
 }
 
@@ -144,7 +145,7 @@ VENUE_SITES = {
     "citywinery": "https://citywinery.com/", "saintvitus": "https://www.saintvitusbar.com/",
     "pioneerworks": "https://pioneerworks.org/", "scott99": "https://www.99scott.com/", "crownhill": "https://crownhilltheatre.com/calendar",
     "roughtrade": "https://www.roughtrade.com/", "xanadu": "https://www.xanadu.nyc/", "nowadays": "https://nowadays.nyc/",
-    "silo": "https://www.silo-brooklyn.com/", "basementny": "https://basementny.net/", "apollo": "https://www.apollotheater.org/",
+    "silo": "https://www.silo-brooklyn.com/", "basementny": "https://basementny.net/", "apollo": "https://www.apollotheater.org/", "apollovictoria": "https://www.apollotheater.org/",
     "ethical": "https://www.ethicalsociety.org/", "citifield": "https://www.mlb.com/mets/tickets/concerts",
     "carnegie": "https://www.carnegiehall.org/calendar",
     "tveye": "https://tveyenyc.com/", "monarch": "https://www.brooklynmonarch.com/", "meadows": "https://www.themeadowsnyc.com/",
@@ -178,3 +179,29 @@ IGNORED_CANDIDATES = {
 
 # Outdoor / seasonal venues: months without shows are normal, so the closing watch ignores quiet stretches.
 SEASONAL_VENUES = {"foresthills", "pier17", "meadows", "kbridge", "flushing", "citifield"}
+
+# Every venue name the citywide listings (SeatGeek, Ticketmaster) use for one of our venues. Matching is EXACT
+# (ignoring case, spaces and punctuation) — never partial or by map location, which filed neighbors under our
+# venues (Daryl Roth Theatre as Irving Plaza, Berlin as Mercury Lounge, "Brooklyn" as Brooklyn Paramount).
+# A name not listed here is never matched; near-misses are reported each run so they can be added by hand.
+VENUE_NAMES = {
+    "The Apollo's Historic Theater": "apollo",
+    "The Apollo's Victoria Theater 1": "apollovictoria", "The Apollos Victoria Theater 1": "apollovictoria",
+    "The Apollo's Jonelle Procope Theater": "apollovictoria",
+    "Beacon Theatre - New York": "beacon", "Blue Note Jazz Club": "bluenote", "Blue Note Jazz Club - NY": "bluenote",
+    "Brooklyn Bowl - NY": "bowl", "Carnegie Hall - NY": "carnegie",
+    "Colden Auditorium at Kupferberg Center for the Arts": "colden",
+    "Elsewhere - The Rooftop": "elsewhere", "Elsewhere - Brooklyn": "elsewhere",
+    "Manhattan Center Hammerstein Ballroom": "hammerstein",
+    "Irving Plaza Powered By Verizon 5G": "irving",
+    "Under the K Bridge": "kbridge", "Under the 'K' Bridge Park": "kbridge",
+    "Kings Theatre - Brooklyn": "kings", "Ruins at Knockdown Center": "knockdown",
+    "LeFrak Concert Hall at Kupferberg Center for the Arts": "lefrak",
+    "Lehman Center for the Performing Arts": "lehman", "Littlefield - Brooklyn": "littlefield",
+    "Le Poisson Rouge": "lpr", "(Le) Poisson Rouge": "lpr",
+    "The Meadows - Brooklyn": "meadows", "Mercury Lounge - New York": "mercury",
+    "The Brooklyn Monarch": "monarch", "Night Club 101": "nc101",
+    "Palladium Times Square": "palladium", "The Rooftop at Pier 17": "pier17",
+    "Racket NYC": "racket", "Saint Vitus Bar": "saintvitus", "S.O.B.'s": "sobs", "SOB's - Sounds Of Brazil": "sobs",
+    "The Sultan Room - Rooftop": "sultanroof", "The Town Hall - New York": "townhall", "Town Hall": "townhall",
+}
