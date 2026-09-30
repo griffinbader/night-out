@@ -12,6 +12,7 @@ import json
 import re
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -561,10 +562,18 @@ def src_ticketmaster():
         raise RuntimeError("no TICKETMASTER_API_KEY yet — skipped")
     out = []
     for tm_id, venue in TICKETMASTER_VENUES.items():
-        q = urllib.parse.urlencode({"apikey": key, "venueId": tm_id, "classificationName": "music",
-                                    "size": 200, "sort": "date,asc", "countryCode": "US"})
-        data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q, api=True))
-        for e in (data.get("_embedded") or {}).get("events", []):
+        events, page = [], 0
+        while True:
+            q = urllib.parse.urlencode({"apikey": key, "venueId": tm_id, "classificationName": "music",
+                                        "size": 200, "page": page, "sort": "date,asc", "countryCode": "US"})
+            data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q, api=True))
+            events += (data.get("_embedded") or {}).get("events", [])
+            time.sleep(0.25)  # stay under 5 requests/second
+            info = data.get("page", {})
+            if info.get("number", 0) + 1 >= info.get("totalPages", 1):
+                break
+            page += 1
+        for e in events:
             start = e.get("dates", {}).get("start", {})
             if not start.get("localDate") or SKIP_TM.search(e["name"]) or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
                 continue
@@ -622,6 +631,7 @@ def _env_value(name):
 
 
 SOURCES = [
+    ("Ticketmaster API (official listings for Ticketmaster/TicketWeb venues)", src_ticketmaster),
     ("Irving Plaza", lambda: src_jsonld("https://www.irvingplaza.com/", "irving")),
     ("Brooklyn Paramount", lambda: src_jsonld("https://www.brooklynparamount.com/", "paramount")),
     ("Warsaw", lambda: src_jsonld("https://www.warsawconcerts.com/", "warsaw")),
@@ -651,7 +661,6 @@ SOURCES = [
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
     ("SeatGeek API (venues without their own readable calendar)", src_seatgeek),
-    ("Ticketmaster API (Nightclub 101, MSG, Radio City, Beacon, Apollo, St. George, Citi Field)", src_ticketmaster),
 ]
 
 # ---------------------------------------------------------------- main
@@ -687,9 +696,11 @@ def main():
     oldest = (now - timedelta(days=KEEP_PAST_DAYS)).strftime("%Y-%m-%d")
 
     fresh, report, big_slots = {}, [], set()
+    official = set()  # venues already covered by Ticketmaster — their own sites are only a backup
     for label, fn in SOURCES:
         try:
             got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
+                   and (fn is src_ticketmaster or s["venue"] not in official)
                    and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
             for s in got:
                 s["id"] = show_id(s)
@@ -698,6 +709,8 @@ def main():
                     continue  # same arena show from a second feed
                 big_slots.add(slot)
                 fresh.setdefault(s["id"], s)  # first source wins on duplicates
+            if fn is src_ticketmaster:
+                official = {s["venue"] for s in got}
             report.append(f"  ✓ {label}: {len(got)} shows")
         except Exception as e:  # one broken site shouldn't stop the rest
             report.append(f"  ✗ {label}: {type(e).__name__}: {e}")

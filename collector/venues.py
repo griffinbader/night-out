@@ -99,6 +99,9 @@ BOWERY_NAMES = {
 # Ticketmaster Discovery API venue ids -> our venue ids (filled in once we have an API key).
 TICKETMASTER_VENUES = {
     "KovZ917AYEJ": "nc101",
+    "KovZpaFPje": "irving", "KovZpZA77ldA": "paramount", "KovZpZAdJtAA": "warsaw", "KovZpZAEAdaA": "gramercy",
+    "KovZpZAJAkAA": "mercury", "KovZpZA7dkJA": "bowery", "KovZ917Ah5Q": "sonyhall", "KovZ917AtP3": "barclays",
+    "KovZpZAkJtvA": "bluenote", "KovZ917ARvk": "bellhouse",
     "KovZpZA7AAEA": "msg", "KovZpZA7kvlA": "msgtheater", "KovZpZAE7vdA": "radiocity", "KovZpZAEAd6A": "beacon",
     "KovZpZA7AAIA": "apollo", "KovZ917AJw7": "apollo", "KovZ917AJsB": "apollo",
     "KovZpa4PZe": "stgeorge", "KovZpZAalvtA": "citifield",

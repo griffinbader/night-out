@@ -67,6 +67,10 @@
  "Alyssa Grace": [
   "Country & Folk"
  ],
+ "Amber Mark": [
+  "R&B",
+  "Pop"
+ ],
  "Amsterdam presents Charlotte Greve": [],
  "Amtrac": [
   "Dance"
@@ -154,6 +158,7 @@
   "Country & Folk"
  ],
  "BERTHA": [],
+ "BIG FAMOUS": [],
  "BOOTS! MONSTER MASH": [],
  "BOYNEXTDOOR": [
   "Pop"
@@ -190,6 +195,9 @@
  "Benny P": [],
  "Bethel Music": [],
  "Big Special": [],
+ "Big Youth": [
+  "Pop"
+ ],
  "Billboard Style": [],
  "Billboard Style (": [],
  "Bimbo": [
@@ -366,6 +374,7 @@
  "DON TETTO IN NEW YORK": [],
  "DOUBLE STANDARD": [],
  "DR": [],
+ "DTM": [],
  "DUUNES": [
   "Rock",
   "Indie"
@@ -623,6 +632,7 @@
  ],
  "Hannah Cole, Evil Adeline": [],
  "Hannah Ishizaki, Chiori Miyagawa, and Mark Campbell": [],
+ "Harlem Gospel Choir": [],
  "Hathway": [],
  "Hathway, Honest Mistakes": [],
  "Haunted Ballroom": [],
@@ -778,6 +788,7 @@
   "Country & Folk",
   "Indie"
  ],
+ "Jo Firestone": [],
  "Joe Mande Con Amici": [],
  "John Carroll Kirby": [
   "Jazz"
@@ -832,6 +843,9 @@
  "Kelela -avatar": [],
  "Kelsey Lu": [],
  "Ken Yates": [],
+ "Kenyon Dixon": [
+  "R&B"
+ ],
  "Kevin Atwater": [],
  "Kevin Oliver Jr": [],
  "Kid Sistr": [],
@@ -840,6 +854,7 @@
   "Jazz"
  ],
  "King of Drag": [],
+ "King of the World": [],
  "Knocked Loose": [
   "Punk & Metal"
  ],
@@ -851,10 +866,12 @@
  "Knox": [
   "Pop"
  ],
+ "Kranium": [],
  "Kruder & Dorfmeister": [
   "Dance",
   "Jazz"
  ],
+ "Kurt Braunohler": [],
  "Kyle Gordon": [],
  "Kyle Schuesler": [],
  "Kyle Waves": [],
@@ -926,6 +943,10 @@
  "Little Barrie": [],
  "Little Spoon": [],
  "Liz Cooper": [],
+ "Lolo Zouaï": [
+  "R&B",
+  "Pop"
+ ],
  "Lord Huron": [
   "Country & Folk",
   "Indie"
@@ -937,6 +958,7 @@
  "Loukeman": [],
  "Love Actually": [],
  "Love in the Club": [],
+ "Lovers Rock Reggae": [],
  "Lovie": [],
  "Lucy Bedroque": [
   "Rap",
@@ -1149,6 +1171,10 @@
   "Rock"
  ],
  "Oteil Burbridge Performing with LaMP": [],
+ "Other Lives": [
+  "Country & Folk",
+  "Indie"
+ ],
  "Our Wicked Lady": [],
  "Overmono": [
   "Dance"
@@ -1290,6 +1316,7 @@
  "Rebecca Black": [
   "Pop"
  ],
+ "Reggae Fest": [],
  "Reggaetón Y2K (18+)": [],
  "Remi Wolf": [
   "Pop",
@@ -1321,6 +1348,10 @@
  "Robber Robber": [
   "Punk & Metal",
   "Rock"
+ ],
+ "Robert Glasper": [
+  "Jazz",
+  "R&B"
  ],
  "Robert Lester Folsom": [],
  "Rocket From The Crypt": [
@@ -1480,6 +1511,9 @@
  "Starbomb": [
   "Pop",
   "Rap"
+ ],
+ "Stefon Harris": [
+  "Jazz"
  ],
  "Stella Lefty": [
   "Country & Folk",
@@ -1808,6 +1842,7 @@
   "Punk & Metal"
  ],
  "Wadari": [],
+ "Wang Leehom": [],
  "Warmachine": [],
  "Washer": [],
  "Waterfall Strainer": [],
@@ -1847,6 +1882,7 @@
  "Worry Club": [],
  "Wrath Across North America": [],
  "Wrecked": [],
+ "Wyatt Cenac": [],
  "Wynonna Judd": [
   "Country & Folk"
  ],
@@ -1876,6 +1912,7 @@
   "Pop"
  ],
  "confetti x khel": [],
+ "cortex": [],
  "dakota jones": [],
  "deca joins": [],
  "emma who?": [],
@@ -1888,6 +1925,7 @@
   "Rap"
  ],
  "gabrielle hope": [],
+ "hABBAween": [],
  "hongjoin": [
   "Country & Folk"
  ],
@@ -2004,6 +2042,7 @@
  "lastfm:BERTHA": [
   "Rock"
  ],
+ "lastfm:BIG FAMOUS": [],
  "lastfm:BOOTS! MONSTER MASH": [],
  "lastfm:BURAY": [
   "Pop"
@@ -2138,6 +2177,7 @@
  "lastfm:DR": [
   "Dance"
  ],
+ "lastfm:DTM": [],
  "lastfm:DVT": [
   "Indie"
  ],
@@ -2330,6 +2370,7 @@
  "lastfm:Hamilton Leithauser + Rostam": [],
  "lastfm:Hannah Cole, Evil Adeline": [],
  "lastfm:Hannah Ishizaki, Chiori Miyagawa, and Mark Campbell": [],
+ "lastfm:Harlem Gospel Choir": [],
  "lastfm:Hathway": [],
  "lastfm:Hathway, Honest Mistakes": [],
  "lastfm:Haunted Ballroom": [],
@@ -2410,6 +2451,7 @@
   "Indie"
  ],
  "lastfm:Jessie’s Girl": [],
+ "lastfm:Jo Firestone": [],
  "lastfm:Joe Mande Con Amici": [],
  "lastfm:Johnny Blue Skies & the Dark Clouds": [],
  "lastfm:Johnny Pemberton": [],
@@ -2464,7 +2506,14 @@
  ],
  "lastfm:Kevin Oliver Jr": [],
  "lastfm:King of Drag": [],
+ "lastfm:King of the World": [
+  "Jazz"
+ ],
  "lastfm:Knocked Loose & Denzel Curry": [],
+ "lastfm:Kranium": [
+  "Punk & Metal"
+ ],
+ "lastfm:Kurt Braunohler": [],
  "lastfm:Kyle Gordon": [],
  "lastfm:Kyle Waves": [],
  "lastfm:Kylie Cantrall": [
@@ -2537,6 +2586,7 @@
  ],
  "lastfm:Love Actually": [],
  "lastfm:Love in the Club": [],
+ "lastfm:Lovers Rock Reggae": [],
  "lastfm:Lovie": [],
  "lastfm:Lucy Bright": [],
  "lastfm:Luke Kidgell": [],
@@ -2772,6 +2822,7 @@
   "Dance"
  ],
  "lastfm:Real Young": [],
+ "lastfm:Reggae Fest": [],
  "lastfm:Reggaetón Y2K (18+)": [],
  "lastfm:Residual Groove": [],
  "lastfm:Rev": [
@@ -3076,6 +3127,7 @@
   "Punk & Metal"
  ],
  "lastfm:Wadari": [],
+ "lastfm:Wang Leehom": [],
  "lastfm:Warmachine": [
   "Punk & Metal"
  ],
@@ -3118,6 +3170,7 @@
  ],
  "lastfm:Wrath Across North America": [],
  "lastfm:Wrecked": [],
+ "lastfm:Wyatt Cenac": [],
  "lastfm:XngHan&Xoul": [
   "Pop",
   "Dance"
@@ -3144,6 +3197,10 @@
  "lastfm:Zoso": [],
  "lastfm:Zoso The Ultimate Led Zeppelin Experience": [],
  "lastfm:confetti x khel": [],
+ "lastfm:cortex": [
+  "Jazz",
+  "Punk & Metal"
+ ],
  "lastfm:dakota jones": [
   "Jazz",
   "Rock"
@@ -3155,6 +3212,7 @@
  "lastfm:gabrielle hope": [
   "Country & Folk"
  ],
+ "lastfm:hABBAween": [],
  "lastfm:inti figgis-vizueta": [],
  "lastfm:inti figgis-vizueta’s Music for Transitions": [],
  "lastfm:inti figgis-vizueta’s Music for Transitions with Andrew Yee and Rothko String Quartet": [],

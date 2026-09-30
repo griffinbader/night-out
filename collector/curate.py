@@ -97,7 +97,7 @@ NOT_ARTIST = re.compile(
     r"women.s game|freeski|rocket science|\bsalon\b|premiere|a new musical|\bmusical\b|winter festival|"
     r"\bgala\b|benefit(?:ing)?\b|fundraiser|modular society|shagshop|club 1bd|9am banger|revelation nights|"
     r"back to the \d0s|candlelight|tribute night|\bthe \d0'?s\b|music festival|\bshowcase\b|for families|"
-    r"^x\s|\bkoom\b|\bconference\b|\bsummit\b|takeover|variety show|battle of|jingle ball|orchestra concert|symphonic (?:tribute|tour)|video game|\bin concert\b",
+    r"^x\s|\bkoom\b|\bconference\b|\bsummit\b|takeover|variety show|battle of|jingle ball|honoring the music of|celebrating the music of|the music of |orchestra concert|symphonic (?:tribute|tour)|video game|\bin concert\b",
     re.I,
 )
 
