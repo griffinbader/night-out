@@ -45,8 +45,13 @@ def bucket_for(tag):
     return None
 
 
+NOT_MUSIC_TAG = re.compile(r"comedy|comedian|stand-?up|spoken word|podcast|storytelling|improv|sketch|audiobook", re.I)
+
+
 def bucketize(tags):
-    """[(tag, weight)] -> top 2 Shindig genres."""
+    """[(tag, weight)] -> top 2 Shindig genres. Performers whose main tag is comedy etc. get none."""
+    if tags and NOT_MUSIC_TAG.search(max(tags, key=lambda t: t[1])[0]):
+        return []
     score = {}
     for tag, weight in tags:
         b = bucket_for(tag)

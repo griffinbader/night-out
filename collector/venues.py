@@ -34,6 +34,36 @@ VENUES = [
     dict(id="holo", name="H0L0", borough="Queens", hood="Ridgewood", size="small", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.69428, lng=-73.90218),
     dict(id="sonyhall", name="Sony Hall", borough="Manhattan", hood="Times Square", size="medium", vibes=[], lat=40.75965, lng=-73.98701),
 
+    # --- Added Oct 1 via the SeatGeek API (music venues ~200+ capacity) ---
+    dict(id="bluenote", name="Blue Note", borough="Manhattan", hood="Greenwich Village", size="small", vibes=["Intimate", "Chill"], genre="Jazz", lat=40.7309, lng=-74.0007),
+    dict(id="palladium", name="Palladium Times Square", borough="Manhattan", hood="Times Square", size="large", vibes=["Big room"], lat=40.7576, lng=-73.9858),
+    dict(id="pacha", name="Pacha NYC", borough="Manhattan", hood="Hell's Kitchen", size="large", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.76367, lng=-73.99744),
+    dict(id="cielo", name="Cielo", borough="Manhattan", hood="Meatpacking District", size="small", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7397, lng=-74.007),
+    dict(id="unitedpalace", name="United Palace", borough="Manhattan", hood="Washington Heights", size="large", vibes=["Big room"], lat=40.8465, lng=-73.9379, music_only_if_known=True),
+    dict(id="pier17", name="The Rooftop at Pier 17", borough="Manhattan", hood="Seaport", size="large", vibes=["Big room"], lat=40.7063, lng=-74.0038),
+    dict(id="storehouse", name="Brooklyn Storehouse", borough="Brooklyn", hood="Navy Yard", size="large", vibes=["Big room", "Dance all night"], genre="Dance", lat=40.6998, lng=-73.9745),
+    dict(id="colden", name="Colden Auditorium", borough="Queens", hood="Flushing", size="large", vibes=[], lat=40.7498, lng=-73.8187, music_only_if_known=True),
+    dict(id="lefrak", name="LeFrak Concert Hall", borough="Queens", hood="Flushing", size="medium", vibes=["Chill"], lat=40.7377, lng=-73.8157, music_only_if_known=True),
+    dict(id="stgeorge", name="St. George Theatre", borough="Staten Island", hood="St. George", size="large", vibes=["Big room"], lat=40.6418, lng=-74.0773, music_only_if_known=True),
+    dict(id="lehman", name="Lehman Center", borough="Bronx", hood="Bedford Park", size="large", vibes=["Big room"], lat=40.8749, lng=-73.8932, music_only_if_known=True),
+    dict(id="citywinery", name="City Winery", borough="Manhattan", hood="Hudson Square", size="medium", vibes=["Intimate", "Chill"], lat=40.7263, lng=-74.006, music_only_if_known=True),
+    dict(id="bellhouse", name="The Bell House", borough="Brooklyn", hood="Gowanus", size="medium", vibes=[], lat=40.6735, lng=-73.9916, music_only_if_known=True),
+    dict(id="littlefield", name="Littlefield", borough="Brooklyn", hood="Gowanus", size="small", vibes=["Intimate"], lat=40.67842, lng=-73.98332, music_only_if_known=True),
+    dict(id="saintvitus", name="Saint Vitus", borough="Brooklyn", hood="Greenpoint", size="small", vibes=["Sweaty & loud", "Late night"], lat=40.7368, lng=-73.9551),
+    dict(id="pioneerworks", name="Pioneer Works", borough="Brooklyn", hood="Red Hook", size="medium", vibes=[], lat=40.6792, lng=-74.0122, music_only_if_known=True),
+    dict(id="scott99", name="99 Scott", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7106, lng=-73.9234),
+    dict(id="crownhill", name="Crown Hill Theatre", borough="Brooklyn", hood="Crown Heights", size="medium", vibes=[], lat=40.6731, lng=-73.9504, music_only_if_known=True),
+    dict(id="roughtrade", name="Rough Trade Below", borough="Manhattan", hood="Midtown", size="small", vibes=["Intimate"], lat=40.75929, lng=-73.97958),
+    dict(id="sobs", name="SOB's", borough="Manhattan", hood="Hudson Square", size="medium", vibes=["Dance all night"], lat=40.7285, lng=-74.0051),
+    dict(id="xanadu", name="Xanadu", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Dance all night", "Late night"], lat=40.72089, lng=-73.95554),
+    dict(id="nowadays", name="Nowadays", borough="Queens", hood="Ridgewood", size="medium", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.6929, lng=-73.9015),
+    dict(id="melrose", name="Melrose Ballroom", borough="Queens", hood="Long Island City", size="medium", vibes=[], lat=40.7556, lng=-73.9285),
+    dict(id="silo", name="SILO", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7105, lng=-73.9229),
+    dict(id="basementny", name="Basement", borough="Queens", hood="Maspeth", size="medium", vibes=["Dance all night", "Late night"], genre="Dance", lat=40.7157, lng=-73.9143),
+    dict(id="apollo", name="Apollo Theater", borough="Manhattan", hood="Harlem", size="large", vibes=["Big room"], lat=40.8097, lng=-73.9496, music_only_if_known=True),
+    dict(id="ethical", name="NY Society for Ethical Culture", borough="Manhattan", hood="Upper West Side", size="medium", vibes=["Chill"], lat=40.7711, lng=-73.9801, music_only_if_known=True),
+    dict(id="citifield", name="Citi Field", borough="Queens", hood="Flushing", size="large", vibes=["Big room"], lat=40.7577, lng=-73.8456, music_only_if_known=True),
+
     # --- Other NYC venues that come with the Bowery Presents feed ---
     dict(id="terminal5", name="Terminal 5", borough="Manhattan", hood="Hell's Kitchen", size="large", vibes=["Big room"], lat=40.76975, lng=-73.99274),
     dict(id="knockdown", name="Knockdown Center", borough="Queens", hood="Maspeth", size="large", vibes=["Big room", "Dance all night"], lat=40.71528, lng=-73.91367),
@@ -50,7 +80,7 @@ VENUES = [
     dict(id="msg", name="Madison Square Garden", borough="Manhattan", hood="Midtown", size="large", vibes=["Big room"], lat=40.75051, lng=-73.99352),
     dict(id="msgtheater", name="The Theater at MSG", borough="Manhattan", hood="Midtown", size="large", vibes=["Big room"], lat=40.75051, lng=-73.99352),
     dict(id="radiocity", name="Radio City Music Hall", borough="Manhattan", hood="Midtown", size="large", vibes=["Big room"], lat=40.76013, lng=-73.98002),
-    dict(id="carnegie", name="Carnegie Hall", borough="Manhattan", hood="Midtown", size="large", vibes=["Chill"], lat=40.76488, lng=-73.98028),
+    dict(id="carnegie", name="Carnegie Hall", borough="Manhattan", hood="Midtown", size="large", vibes=["Chill"], lat=40.76488, lng=-73.98028, music_only_if_known=True),
 ]
 
 # Bowery Presents names -> our venue ids (NYC five boroughs only).
@@ -70,4 +100,47 @@ BOWERY_NAMES = {
 TICKETMASTER_VENUES = {}
 
 # SeatGeek venue ids -> our venue ids (official SeatGeek Platform API, concerts only).
-SEATGEEK_VENUES = {93: "msg", 2513: "msgtheater", 4348: "radiocity", 414: "beacon"}
+SEATGEEK_VENUES = {93: "msg", 2513: "msgtheater", 4348: "radiocity", 414: "beacon",
+                   3731: "pacha",
+                   9001: "cielo",
+                   1410: "unitedpalace",
+                   462992: "storehouse",
+                   522350: "colden",
+                   372451: "lefrak",
+                   781: "stgeorge",
+                   3086: "lehman",
+                   4730: "citywinery",
+                   7929: "saintvitus",
+                   71344: "pioneerworks",
+                   450980: "scott99",
+                   522178: "crownhill",
+                   1609550: "roughtrade",
+                   1608343: "xanadu",
+                   430407: "nowadays",
+                   521776: "silo",
+                   467045: "basementny",
+                   522048: "apollo",
+                   1608140: "apollo",
+                   1366: "ethical",
+                   3: "citifield",
+                   774: "carnegie",
+                   994: "carnegie",
+                   56718: "babys",
+}
+
+# Official websites, used as the link for listings that come from SeatGeek so people
+# land on the venue's own page (not a resale marketplace).
+VENUE_SITES = {
+    "msg": "https://www.msg.com/madison-square-garden", "msgtheater": "https://www.msg.com/the-theater-at-madison-square-garden",
+    "radiocity": "https://www.msg.com/radio-city-music-hall", "beacon": "https://www.msg.com/beacon-theatre",
+    "babys": "https://babysallright.com/", "pacha": "https://www.pachanyc.com/", "cielo": "https://www.cieloclub.com/",
+    "unitedpalace": "https://www.unitedpalace.org/", "storehouse": "https://brooklynstorehouse.com/",
+    "colden": "https://kupferbergcenter.org/events/", "lefrak": "https://kupferbergcenter.org/events/",
+    "stgeorge": "https://stgeorgetheatre.com/events/", "lehman": "https://www.lehmancenter.org/",
+    "citywinery": "https://citywinery.com/", "saintvitus": "https://www.saintvitusbar.com/",
+    "pioneerworks": "https://pioneerworks.org/", "scott99": "https://www.99scott.com/", "crownhill": "https://crownhilltheatre.com/calendar",
+    "roughtrade": "https://www.roughtrade.com/", "xanadu": "https://www.xanadu.nyc/", "nowadays": "https://nowadays.nyc/",
+    "silo": "https://www.silo-brooklyn.com/", "basementny": "https://basementny.net/", "apollo": "https://www.apollotheater.org/",
+    "ethical": "https://www.ethicalsociety.org/", "citifield": "https://www.mlb.com/mets/tickets/concerts",
+    "carnegie": "https://www.carnegiehall.org/calendar",
+}

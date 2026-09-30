@@ -50,6 +50,7 @@ TOUR_CUTS = [
     r"\s*[“\"].*$",                               # 'Bit Brigade "The Legend of Zelda" + …'
     r"\s*\[[^\]]*\]\s*$",                          # "Croz Boyce [Avey Tare and Geologist …]"
     r"\s+20\d\d(?:/20\d\d)?$",                    # "Madds Buckley 2026/2027"
+    r"\s+(?:concert\s+)?(?:live\s+)?in (?:new york|nyc|ny)(?: city)?$",  # "Mumiy Troll Concert in New York"
 ]
 
 STRIP = re.compile(
@@ -104,7 +105,7 @@ NOT_ARTIST = re.compile(
 # so only unmistakable non-music words there count against a listing.
 NOT_ARTIST_SUBTITLE = re.compile(
     r"\bpart(?:y|ies)\b|podcast|comedy|comedian|live taping|for kids|rock and roll playhouse|listening (?:session|party)|"
-    r"in conversation|book (?:signing|talk|launch)|country line dancing|drag show|burlesque|\btributes\b|"
+    r"in conversation|book (?:signing|talk|launch)|country line dancing|drag show|burlesque|\btributes\b|dance class|"
     r"\b(?:metal|metalcore|emo|disco|goth|dance|soul|house|techno|\d0s|y2k)\s+night\b|takeover|all day long",
     re.I,
 )

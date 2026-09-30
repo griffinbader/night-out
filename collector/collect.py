@@ -24,7 +24,7 @@ from zoneinfo import ZoneInfo
 sys.path.insert(0, str(Path(__file__).parent))
 from curate import curate  # noqa: E402
 from genres import tag_shows  # noqa: E402
-from venues import BOWERY_NAMES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUES  # noqa: E402
+from venues import BOWERY_NAMES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_SITES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "shows.js"
@@ -374,6 +374,113 @@ def src_national_sawdust():
     return out
 
 
+def src_blue_note():
+    """Blue Note NYC — residencies are listed as date ranges; one listing per night."""
+    out = []
+    page = fetch("https://www.bluenotejazz.com/nyc/")
+    for li in re.split(r"<li class='show-slide", page)[1:]:
+        name = re.search(r"<h3\s*><a href='([^']+)'>(.*?)</a>", li, re.S)
+        days = re.findall(r"<time datetime='(\d{4}-\d{2}-\d{2})'", li)
+        if not (name and days):
+            continue
+        first = datetime.strptime(days[0], "%Y-%m-%d")
+        last = datetime.strptime(days[-1], "%Y-%m-%d")
+        img = re.search(r"data-image='([^']+)'", li)
+        head, support = split_lineup(clean_title(text(name.group(2))))
+        d = first
+        while d <= last and (d - first).days < 14:
+            out.append(show("bluenote", head, f"{d:%Y-%m-%d}T20:00", support, image=img.group(1) if img else None,
+                            url=name.group(1), genres=["Jazz"], source="bluenote"))
+            d += timedelta(days=1)
+    return out
+
+
+def src_palladium():
+    out = []
+    page = fetch("https://www.palladiumtimessquare.com/")
+    for box in page.split('event-list-box port-')[1:]:
+        link = re.search(r'<a href="(https://www\.palladiumtimessquare\.com/event/[^"]+)"', box)
+        title = re.search(r"<h3[^>]*>\s*<a[^>]*>(.*?)</a>", box, re.S)
+        date = re.search(r"(\d{2}/\d{2}/\d{4})", box)
+        if not (link and title and date):
+            continue
+        clock = parse_clock((re.search(r"Doors:\s*([^<]+)<", box) or [None, ""])[1]) or "20:00"
+        img = re.search(r'<img[^>]*src="([^"]+)"', box)
+        try:
+            day = datetime.strptime(date.group(1), "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            continue  # the odd malformed date on their site
+        head, support = split_lineup(clean_title(text(title.group(1))))
+        out.append(show("palladium", head, f"{day}T{clock}", support, image=img.group(1) if img else None,
+                        url=link.group(1), source="palladium"))
+    return out
+
+
+def src_pier17():
+    out = []
+    for sec in fetch("https://rooftopatpier17.com/").split('<section class="event__single')[1:]:
+        if "Concerts" not in sec[:120]:
+            continue
+        title = re.search(r"<h2>(.*?)</h2>", sec, re.S)
+        date = re.search(r'event__date">\s*([A-Z][a-z]{2}, [A-Z][a-z]{2} \d{1,2}, \d{4})', sec)
+        if not (title and date):
+            continue
+        img = re.search(r'<img src="([^"]+)"', sec)
+        tickets = re.search(r'<a href="([^"]+)" class="button" target="_blank"', sec)
+        info = re.search(r'<a href="(https://rooftopatpier17\.com/events/[^"]+)"', sec)
+        day = datetime.strptime(date.group(1), "%a, %b %d, %Y").strftime("%Y-%m-%d")
+        head, support = split_lineup(clean_title(text(title.group(1))))
+        out.append(show("pier17", head, f"{day}T19:00", support, image=img.group(1) if img else None,
+                        url=html.unescape(tickets.group(1)) if tickets else (info.group(1) if info else None), source="pier17"))
+    return out
+
+
+def src_sobs():
+    out = []
+    for card in fetch("https://sobs.com/").split('<article class="event-card')[1:]:
+        link = re.search(r'data-link="([^"]+)"', card)
+        title = re.search(r"<h4[^>]*>(.*?)</h4>", card, re.S)
+        date = re.search(r"calendar-event-line[^>]*></i>\s*([A-Z][a-z]{2} \d{1,2}, \d{4})", card)
+        if not (link and title and date):
+            continue
+        clock = parse_clock((re.search(r"time-line[^>]*></i>\s*([^<]+)<", card) or [None, ""])[1]) or "20:00"
+        img = re.search(r"background-image:url\(([^)]+)\)", card)
+        day = datetime.strptime(date.group(1), "%b %d, %Y").strftime("%Y-%m-%d")
+        head, support = split_lineup(clean_title(text(title.group(1))))
+        out.append(show("sobs", head, f"{day}T{clock}", support, image=img.group(1) if img else None,
+                        url=link.group(1), source="sobs"))
+    return out
+
+
+def src_squarespace_events(url, venue):
+    """Squarespace event pages publish their calendar as JSON (?format=json)."""
+    data = json.loads(fetch(url + ("&" if "?" in url else "?") + "format=json"))
+    base = "{0.scheme}://{0.netloc}".format(urlparse(url))
+    out = []
+    for e in data.get("upcoming") or []:
+        start = datetime.fromtimestamp(e["startDate"] / 1000, NYC).strftime("%Y-%m-%dT%H:%M")
+        head, support = split_lineup(clean_title(text(e.get("title", ""))), commas=True)
+        out.append(show(venue, head, start, support, image=e.get("assetUrl"),
+                        url=base + e["fullUrl"] if e.get("fullUrl") else url, source="squarespace"))
+    return out
+
+
+def src_eventbrite_widget(url, venue):
+    """Venue sites using the 'Widget for Eventbrite' WordPress plugin (Littlefield)."""
+    out = []
+    for art in fetch(url).split('<article class="wfea-venue__event')[1:]:
+        when = re.search(r'datetime="([^"]+)"', art)
+        title = re.search(r'entry-title[^>]*>\s*<a[^>]*title="Eventbrite link to ([^"]+)"', art)
+        link = re.search(r'href="(/event/\?wfea_eb_id=\d+)"', art)
+        if not (when and title):
+            continue
+        img = re.search(r'<img[^>]*src="([^"]+)"', art)
+        head, support = split_lineup(clean_title(text(title.group(1))), commas=True)
+        out.append(show(venue, head, local_iso(when.group(1)), support, image=html.unescape(img.group(1)) if img else None,
+                        url="{0.scheme}://{0.netloc}".format(urlparse(url)) + link.group(1) if link else url, source="eventbrite-widget"))
+    return out
+
+
 # Arena/theater calendars mix in sports, comedy and family shows — keep music only.
 NOT_CONCERT = re.compile(
     r"\bvs\.?\b|\bv\.\s|liberty|nets\b|knicks|rangers|islanders|basketball|hockey|boxing|\bufc\b|\bwwe\b|\baew\b|"
@@ -494,7 +601,7 @@ def src_seatgeek():
                 genres = [g["name"] for p in performers[:1] for g in (p.get("genres") or [])]
                 out.append(show(venue, acts[0], e["datetime_local"][:16], acts[1:],
                                 tagline=e["title"] if e["title"] not in (acts[0], e.get("short_title")) else "",
-                                url=e.get("url"), genres=genres, source="seatgeek"))
+                                url=VENUE_SITES.get(venue) or e.get("url"), genres=genres, source="seatgeek"))
             meta = data.get("meta", {})
             if page * meta.get("per_page", 100) >= meta.get("total", 0):
                 break
@@ -533,7 +640,14 @@ SOURCES = [
     ("Barclays Center", src_barclays),
     ("Sony Hall", src_sony_hall),
     ("Kings Theatre", src_kings_theatre),
-    ("SeatGeek API (MSG, Radio City, Beacon)", src_seatgeek),
+    ("Blue Note", src_blue_note),
+    ("Palladium Times Square", src_palladium),
+    ("The Rooftop at Pier 17", src_pier17),
+    ("SOB's", src_sobs),
+    ("Melrose Ballroom", lambda: src_squarespace_events("https://www.melroseballroom.com/events", "melrose")),
+    ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
+    ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
+    ("SeatGeek API (venues without their own readable calendar)", src_seatgeek),
     ("Ticketmaster API", src_ticketmaster),
 ]
 
@@ -592,6 +706,11 @@ def main():
     report.append(f"\n  curated: dropped {len(dropped)} non-artist listings (see data/dropped.txt)")
     (ROOT / "data" / "dropped.txt").write_text("\n".join(sorted(set(dropped))) + "\n")
     tagged = tag_shows(list(fresh.values()))
+    mixed = {v["id"] for v in VENUES if v.get("music_only_if_known")}
+    unknown = [k for k, s in fresh.items() if s["venue"] in mixed and not s["genres"]]
+    for k in unknown:  # comedy/talks share these stages; unrecognized performers are left out
+        dropped.append(fresh.pop(k)["artist"])
+    (ROOT / "data" / "dropped.txt").write_text("\n".join(sorted(set(dropped))) + "\n")
     for s in fresh.values():  # club venues: untagged nights are almost always dance music
         if not s["genres"] and VENUE_GENRE.get(s["venue"]):
             s["genres"] = [VENUE_GENRE[s["venue"]]]
