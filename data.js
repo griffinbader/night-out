@@ -33,7 +33,7 @@ function vibesFor(show, venue, hour) {
   if (/dance/.test(g)) vibes.add('Dance all night');
   if (/punk|metal/.test(g)) vibes.add('Sweaty & loud');
   if (/jazz|folk/.test(g)) vibes.add('Chill');
-  if (hour >= 22) vibes.add('Late night');
+  if (hour >= 22 || hour < 5) vibes.add('Late night'); // 10pm or later, including after-midnight sets
   if (venue.size === 'small' && !vibes.has('Sweaty & loud')) vibes.add('Intimate');
   return [...vibes].slice(0, 3);
 }
