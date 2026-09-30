@@ -189,10 +189,6 @@
  "Band of Silver": [],
  "Banda AL9": [],
  "Banshee": [],
- "Basement": [
-  "Punk & Metal",
-  "Rock"
- ],
  "Bassvictim": [
   "Dance",
   "Pop"
@@ -260,10 +256,6 @@
   "Indie"
  ],
  "Brand": [],
- "Brand New": [
-  "Punk & Metal",
-  "Rock"
- ],
  "Breakfield": [],
  "Brendan Scannell": [],
  "Brennan Wedl": [],
@@ -284,9 +276,6 @@
  "CEG Presents SIMRIT": [],
  "CHRONO TRIGGER Orchestra Concert": [],
  "CLUB 1BD Halloween": [],
- "CRADLE OF FILTH": [
-  "Punk & Metal"
- ],
  "Caleb Wheeler Curtis & Jason Moran": [],
  "Candlelight": [],
  "Candy Crush": [],
@@ -362,9 +351,6 @@
   "Indie",
   "Pop"
  ],
- "Combust": [
-  "Punk & Metal"
- ],
  "Concrete Husband": [],
  "Content Blocks (": [],
  "Coraline": [],
@@ -381,10 +367,6 @@
   "Indie"
  ],
  "Cut Copy (dj)": [],
- "Cypress Hill": [
-  "Rap",
-  "Punk & Metal"
- ],
  "D Savage": [],
  "DANNA": [],
  "DANNA- THE BEDROOM SESSIONS": [],
@@ -441,9 +423,6 @@
  "Deerhoof": [
   "Indie",
   "Pop"
- ],
- "Defeated Sanity": [
-  "Punk & Metal"
  ],
  "Derrick Gee's Radio Hour": [],
  "Dev Lemons": [],
@@ -544,10 +523,6 @@
  ],
  "FORAGER": [],
  "Fai Laci": [],
- "Failure": [
-  "Rock",
-  "Punk & Metal"
- ],
  "Faux Real": [],
  "Fawn Ridge": [
   "Indie"
@@ -560,6 +535,10 @@
  ],
  "Flørist": [],
  "Folk Night Out": [],
+ "Foster The People": [
+  "Indie",
+  "Pop"
+ ],
  "Fox Stevenson & Mystery Skulls": [],
  "Foxtide": [],
  "Franc Moody": [
@@ -616,6 +595,10 @@
  ],
  "Gary Owen": [],
  "Gayathri Krishnan": [],
+ "Geese": [
+  "Indie",
+  "Rock"
+ ],
  "Genesis Owusu": [
   "Rap",
   "Pop"
@@ -634,8 +617,7 @@
   "Indie"
  ],
  "Gilla Band": [
-  "Indie",
-  "Punk & Metal"
+  "Indie"
  ],
  "Gimme Gimme Disco": [],
  "Giovannie and the Hired Guns": [
@@ -673,8 +655,8 @@
  ],
  "Grupo Duelo": [],
  "Guerilla Toss": [
-  "Punk & Metal",
-  "Indie"
+  "Indie",
+  "Pop"
  ],
  "Gully Boys": [],
  "Guster": [
@@ -709,9 +691,6 @@
  "Hathway, Honest Mistakes": [],
  "Haunted Ballroom": [],
  "Havok": [
-  "Punk & Metal"
- ],
- "Hawthorne Heights": [
   "Punk & Metal"
  ],
  "Health": [
@@ -770,15 +749,13 @@
   "Punk & Metal"
  ],
  "Iguana Death Cult": [
-  "Punk & Metal"
+  "Punk & Metal",
+  "Indie"
  ],
  "Il Volo": [
   "Pop"
  ],
  "Ilykimchi": [],
- "Imminence": [
-  "Punk & Metal"
- ],
  "Improvement Movement": [],
  "Ingrid Andress": [
   "Country & Folk"
@@ -1025,7 +1002,6 @@
   "Pop"
  ],
  "Lime Garden": [
-  "Punk & Metal",
   "Indie"
  ],
  "Lindsey Stirling": [
@@ -1112,8 +1088,7 @@
   "Dance"
  ],
  "Man/Woman/Chainsaw": [
-  "Indie",
-  "Punk & Metal"
+  "Indie"
  ],
  "Margaret Glaspy": [
   "Country & Folk"
@@ -1226,10 +1201,6 @@
   "Punk & Metal"
  ],
  "Nervous Records": [],
- "Neurosis": [
-  "Punk & Metal",
-  "Dance"
- ],
  "Nevertel": [],
  "New Amsterdam presents Charlotte Greve": [],
  "New York Modular Society 7th Anniversary": [],
@@ -1259,8 +1230,8 @@
  "Olivia O'Brien": [],
  "Omer Adam": [],
  "Omni": [
-  "Rock",
-  "Punk & Metal"
+  "Indie",
+  "Rock"
  ],
  "Once More": [
   "Punk & Metal"
@@ -1342,15 +1313,8 @@
   "Jazz",
   "Pop"
  ],
- "PeelingFlesh": [
-  "Punk & Metal"
- ],
  "Peggy Gou": [
   "Dance"
- ],
- "Pennywise": [
-  "Punk & Metal",
-  "Rock"
  ],
  "Ph0": [],
  "Phoebe Robinson": [],
@@ -1362,10 +1326,6 @@
  "Piranhana": [],
  "Played by The Rock and Roll Playhouse": [],
  "Playland": [],
- "Plini": [
-  "Punk & Metal",
-  "Rock"
- ],
  "Pollyanna": [
   "Indie"
  ],
@@ -1381,15 +1341,11 @@
   "Dance"
  ],
  "Pretty Girl [DJ Set]": [],
- "Pretty Sick": [
-  "Punk & Metal",
-  "Rock"
- ],
  "ProbCause": [],
  "Prosumer": [],
  "Protomartyr": [
-  "Punk & Metal",
-  "Indie"
+  "Indie",
+  "Punk & Metal"
  ],
  "Provider": [
   "Rock",
@@ -1398,9 +1354,7 @@
  "Prunk & Guests": [],
  "Prymek & Sage": [],
  "Punchis Punchis": [],
- "Pup Punk": [
-  "Punk & Metal"
- ],
+ "Pup Punk": [],
  "Purple Disco Machine": [
   "Dance"
  ],
@@ -1414,7 +1368,7 @@
  ],
  "RIP Magic": [
   "Dance",
-  "Punk & Metal"
+  "Indie"
  ],
  "ROA": [
   "Pop"
@@ -1456,6 +1410,9 @@
  ],
  "Richard Finger": [],
  "Richard Perez": [],
+ "Ringo Starr & His All-Starr Band": [
+  "Rock"
+ ],
  "Rio Amor & Friends": [],
  "Riria": [],
  "Rise Against Ricochet": [],
@@ -1467,19 +1424,11 @@
  "Rivkah Reyes": [],
  "Rivkah Reyes (EP": [],
  "Road To Trotamundo": [],
- "Robber Robber": [
-  "Punk & Metal",
-  "Rock"
- ],
  "Robert Glasper": [
   "Jazz",
   "R&B"
  ],
  "Robert Lester Folsom": [],
- "Rocket From The Crypt": [
-  "Punk & Metal",
-  "Dance"
- ],
  "Rocketship": [],
  "Rocky Horror": [],
  "Rocky Horror Picture Show": [],
@@ -1501,10 +1450,6 @@
  ],
  "SASHA DOBSON": [
   "Jazz"
- ],
- "SCHOOLBOY Q": [
-  "Rap",
-  "Punk & Metal"
  ],
  "SE ESTÁ HACIENDO TARDE": [],
  "SERGE CLIVIO AND FRIENDS 6": [],
@@ -1551,10 +1496,6 @@
   "Jazz"
  ],
  "Send Good Vibes presents Corey Fonville": [],
- "Senses Fail": [
-  "Punk & Metal",
-  "Rock"
- ],
  "Senses Fail Presents Still Searching": [],
  "Sensorium World": [],
  "Sera Cahoone": [],
@@ -1602,9 +1543,6 @@
   "Pop",
   "R&B"
  ],
- "Signs of the Swarm": [
-  "Punk & Metal"
- ],
  "Simple Things": [],
  "Skilla Baby": [
   "Rap"
@@ -1626,10 +1564,6 @@
   "Rock"
  ],
  "Somi": [],
- "Son Rompe Pera": [
-  "Latin",
-  "Punk & Metal"
- ],
  "Song Dongye": [],
  "Soundbath with Charlotte & Kirk Douglas": [],
  "Soundbath with Franck Raharinosy, Sara Auster, and Nigol Koulajian": [],
@@ -1698,7 +1632,7 @@
  "Suzy Sheer": [],
  "Swapmeet": [],
  "Sweeping Promises": [
-  "Punk & Metal",
+  "Indie",
   "Rock"
  ],
  "Sweetbreads": [],
@@ -1714,9 +1648,6 @@
  "TEILZ, queenie, Bea Hardy, Justin Strauss": [],
  "TEN": [
   "Rock"
- ],
- "THE BOUNCING SOULS": [
-  "Punk & Metal"
  ],
  "THE BOUNCING SOULS 'Born To Be": [],
  "THE CENTRAL PARK FIVE": [],
@@ -1770,10 +1701,6 @@
  ],
  "The Blasting Company plays Over The Garden Wall": [],
  "The Blue Dot": [],
- "The Bobby Lees": [
-  "Punk & Metal",
-  "Rock"
- ],
  "The Bones of J.R": [],
  "The Burkharts": [],
  "The Cactus Blossoms": [
@@ -1781,8 +1708,8 @@
  ],
  "The Courettes": [],
  "The Damned": [
-  "Punk & Metal",
-  "Rock"
+  "Rock",
+  "Punk & Metal"
  ],
  "The Damnwells": [
   "Rock",
@@ -1797,10 +1724,6 @@
  "The Fatties": [],
  "The Format": [],
  "The George Lucas Talk Show": [],
- "The Get Up Kids": [
-  "Punk & Metal",
-  "Indie"
- ],
  "The Great Gig": [],
  "The Hails": [],
  "The Hall": [],
@@ -1850,7 +1773,7 @@
  "The Royston Club": [],
  "The Self Titled": [],
  "The Serfs": [
-  "Punk & Metal"
+  "Indie"
  ],
  "The Slackers": [
   "Punk & Metal"
@@ -1876,10 +1799,6 @@
  "The Strokes": [
   "Indie",
   "Rock"
- ],
- "The Suicide Machines": [
-  "Punk & Metal",
-  "Pop"
  ],
  "The Takes": [],
  "The Tallest Man on Earth": [
@@ -1964,10 +1883,6 @@
  "Tye Turner": [],
  "Tōth": [],
  "UNFILTERED": [],
- "Uncle Acid & The Deadbeats": [
-  "Rock",
-  "Punk & Metal"
- ],
  "Uncle Jeb's Farm": [],
  "Universal Temple of the Arts Staten Island JAZZ Festival": [],
  "Unsane": [
@@ -1975,10 +1890,6 @@
   "Punk & Metal"
  ],
  "UpDating": [],
- "Upon Your Dead Body": [
-  "Rock",
-  "Punk & Metal"
- ],
  "Ushka": [],
  "Victoria Monet": [
   "R&B",
@@ -1993,9 +1904,6 @@
  "W.A.S.P": [
   "Punk & Metal",
   "Rock"
- ],
- "WILLOW": [
-  "Punk & Metal"
  ],
  "Wadari": [],
  "Wang Leehom": [],
@@ -2245,7 +2153,7 @@
  "lastfm:Benny P": [],
  "lastfm:Bethel Music": [],
  "lastfm:Big Special": [
-  "Punk & Metal"
+  "Indie"
  ],
  "lastfm:Billboard Style": [],
  "lastfm:Billboard Style (": [],
@@ -2269,10 +2177,6 @@
  "lastfm:Boojum & Kendall Street Company": [],
  "lastfm:Bop To The Top (18+)": [],
  "lastfm:Boss & Noeul": [],
- "lastfm:Brand": [
-  "Punk & Metal",
-  "Country & Folk"
- ],
  "lastfm:Brendan Scannell": [],
  "lastfm:Brennan Wedl": [
   "Country & Folk",
@@ -2345,9 +2249,6 @@
  ],
  "lastfm:DANNA- THE BEDROOM SESSIONS": [],
  "lastfm:DAY26 & J": [],
- "lastfm:DICE": [
-  "Punk & Metal"
- ],
  "lastfm:DJ Gab Wright": [],
  "lastfm:DJ Golden Hour": [],
  "lastfm:DJ Greenie of Lotus": [],
@@ -2357,9 +2258,6 @@
   "Dance"
  ],
  "lastfm:DON TETTO IN NEW YORK": [],
- "lastfm:DOUBLE STANDARD": [
-  "Punk & Metal"
- ],
  "lastfm:DR": [
   "Dance"
  ],
@@ -2553,18 +2451,11 @@
  "lastfm:Gully Boys": [
   "Punk & Metal"
  ],
- "lastfm:HARBOUR": [
-  "Punk & Metal"
- ],
  "lastfm:HEY, NOTHING": [
   "Indie",
   "Country & Folk"
  ],
  "lastfm:HOMECOMING WEEKEND": [],
- "lastfm:HOUSE OF HEAVY": [
-  "Punk & Metal",
-  "Rock"
- ],
  "lastfm:Habibi's House w/ DJ Habibeats": [],
  "lastfm:Halloween Rock Show & DJ Masquerade": [],
  "lastfm:Hamilton Leithauser + Rostam": [],
@@ -2798,10 +2689,6 @@
   "Indie",
   "Jazz"
  ],
- "lastfm:Lost Dog": [
-  "Rock",
-  "Punk & Metal"
- ],
  "lastfm:Louie Vega & Anané": [],
  "lastfm:Louis Prince": [
   "Indie"
@@ -2818,8 +2705,7 @@
  "lastfm:MANCHESTER FOREVER": [],
  "lastfm:MARIA BAMFORD": [],
  "lastfm:MICO": [
-  "Punk & Metal",
-  "Pop"
+  "Punk & Metal"
  ],
  "lastfm:MIRA MIRA": [
   "Dance"
@@ -3004,10 +2890,6 @@
   "Punk & Metal"
  ],
  "lastfm:Phoebe Robinson": [],
- "lastfm:Pinhead Gunpowder": [
-  "Punk & Metal",
-  "Rock"
- ],
  "lastfm:Piranhana": [],
  "lastfm:Played by The Rock and Roll Playhouse": [],
  "lastfm:Playland": [
@@ -3032,6 +2914,7 @@
   "Jazz"
  ],
  "lastfm:Punchis Punchis": [],
+ "lastfm:Pup Punk": [],
  "lastfm:Puss N Boots": [
   "Country & Folk"
  ],
@@ -3048,10 +2931,6 @@
  ],
  "lastfm:Rave Jesus": [
   "Dance"
- ],
- "lastfm:Rawayana": [
-  "Punk & Metal",
-  "Latin"
  ],
  "lastfm:Raybody": [],
  "lastfm:Razor-N-Tape presents A Joyful Noise": [],
@@ -3238,7 +3117,7 @@
  "lastfm:Teksupport": [],
  "lastfm:Telehealth": [
   "Rock",
-  "Punk & Metal"
+  "Indie"
  ],
  "lastfm:Telehealth, Imperial Motors": [],
  "lastfm:Telemakus": [
@@ -3299,10 +3178,6 @@
  "lastfm:The Q Brothers (Hip Hop for Families!)": [],
  "lastfm:The Rest is Politics U.S": [],
  "lastfm:The Rikkies": [],
- "lastfm:The Ritual": [
-  "Punk & Metal",
-  "Rock"
- ],
  "lastfm:The Rock And Roll Playhouse": [],
  "lastfm:The Rock And Roll Playhouse Plays": [],
  "lastfm:The Rock and Roll Playhouse Presents DJ Golden Hour": [],
@@ -3313,10 +3188,6 @@
  ],
  "lastfm:The Royston Club": [
   "Indie"
- ],
- "lastfm:The Self Titled": [
-  "Punk & Metal",
-  "Rock"
  ],
  "lastfm:The Smiths Tribute": [],
  "lastfm:The Smiths Tribute NYC": [],
@@ -3421,10 +3292,6 @@
  "lastfm:Wholly Unwinding (A New Musical) - NYC Premiere": [],
  "lastfm:Why Another": [],
  "lastfm:Why So Serious!": [],
- "lastfm:Wind Walkers": [
-  "Punk & Metal",
-  "Rock"
- ],
  "lastfm:Winyah": [
   "Indie",
   "Rock"
@@ -3481,7 +3348,7 @@
  ],
  "lastfm:cortex": [
   "Jazz",
-  "Punk & Metal"
+  "Indie"
  ],
  "lastfm:daine": [
   "Pop",
@@ -3525,14 +3392,8 @@
  "lastfm:mary in the junkyard": [
   "Indie"
  ],
- "lastfm:memories": [
-  "Punk & Metal"
- ],
  "lastfm:saoirse dream, Anita Velveeta, Estelle Allen": [],
  "lastfm:summerclub & Natalie Wilson": [],
- "lastfm:the": [
-  "Punk & Metal"
- ],
  "lastfm:w/ Ka$hkenni": [],
  "lastfm:w/ Megan Falley": [],
  "lastfm:with Cal in Red": [],
@@ -3544,10 +3405,6 @@
  "memories": [],
  "nimino": [
   "Dance"
- ],
- "sadie": [
-  "Punk & Metal",
-  "Rock"
  ],
  "saoirse dream": [
   "Pop",

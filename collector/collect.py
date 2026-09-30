@@ -197,12 +197,14 @@ def src_jsonld(url, venue):
     return out
 
 
-def src_bowery_presents():
-    """One feed covering Bowery Presents' NYC venues (Webster Hall, Brooklyn Steel, Racket, ...)."""
-    data = json.loads(fetch("https://aegwebprod.blob.core.windows.net/json/events/59/events.json"))
+def src_bowery_presents(account=59, names=None):
+    """AEG/AXS venue feeds. Account 59 = Bowery Presents' NYC venues (Webster Hall, Brooklyn Steel,
+    Racket, ...); 58 = Forest Hills Stadium, which has its own feed."""
+    names = names or BOWERY_NAMES
+    data = json.loads(fetch(f"https://aegwebprod.blob.core.windows.net/json/events/{account}/events.json"))
     out = []
     for e in data["events"]:
-        venue = BOWERY_NAMES.get((e.get("venue") or {}).get("title"))
+        venue = names.get((e.get("venue") or {}).get("title"))
         if not venue or not e.get("active", True):
             continue
         t = e.get("title") or {}
@@ -675,6 +677,7 @@ SOURCES = [
     ("The Sultan Room (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-e27w", "sultan")),
     ("Sultan Room Rooftop (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-rooftop-x57a", "sultanroof")),
     ("Bowery Presents NYC", src_bowery_presents),
+    ("Forest Hills Stadium", lambda: src_bowery_presents(58, {"Forest Hills Stadium": "foresthills"})),
     ("Bowery Ballroom", lambda: src_mercury_east("https://mercuryeastpresents.com/boweryballroom/", "bowery")),
     ("Mercury Lounge", lambda: src_mercury_east("https://mercuryeastpresents.com/mercurylounge/", "mercury")),
     ("LPR", src_lpr),

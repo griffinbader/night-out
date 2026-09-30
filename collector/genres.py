@@ -39,6 +39,8 @@ GENRES = [b for b, _ in BUCKETS]
 
 def bucket_for(tag):
     t = tag.lower()
+    if re.search(r"post[- ]?punk|art[- ]punk|dance[- ]punk|punk[- ]funk", t):
+        return "Indie"  # post-punk & co. sound indie/rock, not like a mosh pit
     for name, words in BUCKETS:
         if any(re.search(rf"(^|[^a-z]){re.escape(w)}([^a-z]|$)", t) for w in words):
             return name
