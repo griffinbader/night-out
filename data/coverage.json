@@ -43,9 +43,9 @@
   "name": "Webster Hall",
   "shows": 47,
   "sources": {
-   "bowery": 44,
-   "seatgeek": 2,
-   "ticketmaster-mirror": 1
+   "dice-widget": 2,
+   "bowery": 43,
+   "seatgeek": 2
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -110,9 +110,9 @@
  {
   "venue": "unionpool",
   "name": "Union Pool",
-  "shows": 30,
+  "shows": 43,
   "sources": {
-   "jsonld": 30
+   "dice-widget": 43
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -205,8 +205,9 @@
  {
   "venue": "tveye",
   "name": "TV Eye",
-  "shows": 9,
+  "shows": 11,
   "sources": {
+   "dice-widget": 2,
    "seetickets-wp": 6,
    "seatgeek": 3
   },
@@ -343,10 +344,9 @@
  {
   "venue": "littlefield",
   "name": "Littlefield",
-  "shows": 29,
+  "shows": 11,
   "sources": {
-   "eventbrite": 11,
-   "eventbrite-widget": 18
+   "eventbrite": 11
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -499,7 +499,8 @@
   "shows": 41,
   "sources": {
    "bowery": 13,
-   "jsonld": 28
+   "jsonld": 27,
+   "seatgeek": 1
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
  },
