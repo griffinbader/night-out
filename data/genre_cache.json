@@ -5,6 +5,7 @@
  "3BallMTY": [
   "Latin"
  ],
+ "6 SENSE": [],
  "8TURN": [
   "Pop"
  ],
@@ -19,7 +20,14 @@
  "A Night of Heated Rivalry": [],
  "A Night of Inspiration": [],
  "AADJA": [],
+ "ADULT": [
+  "Pop"
+ ],
+ "AEREA": [
+  "Dance"
+ ],
  "AJ McLean presents Alexander James": [],
+ "ANA.GHA": [],
  "ANDY BOAY": [],
  "ANDY BOAY (": [],
  "AR/CO": [],
@@ -71,6 +79,7 @@
   "R&B",
   "Pop"
  ],
+ "Ami Taf Ra": [],
  "Amsterdam presents Charlotte Greve": [],
  "Amtrac": [
   "Dance"
@@ -117,6 +126,9 @@
   "Latin",
   "Rap"
  ],
+ "Arde Bogotá": [
+  "Rock"
+ ],
  "Arkose": [],
  "Arlo": [],
  "Arlo Parks": [
@@ -159,6 +171,7 @@
  ],
  "BERTHA": [],
  "BIG FAMOUS": [],
+ "BKG": [],
  "BOOTS! MONSTER MASH": [],
  "BOYNEXTDOOR": [
   "Pop"
@@ -183,6 +196,9 @@
  "Bassvictim": [
   "Dance",
   "Pop"
+ ],
+ "Be Your Own Pet": [
+  "Indie"
  ],
  "Bear Ghost": [
   "Rock"
@@ -304,6 +320,7 @@
   "Dance",
   "Pop"
  ],
+ "Charlene Kaye's 40th birthday party!": [],
  "Charlene Kaye’s 40th birthday party!": [],
  "Charlie Parr": [],
  "Charlie Puth": [
@@ -320,6 +337,7 @@
   "Punk & Metal",
   "Indie"
  ],
+ "Chatroom": [],
  "Chelsea Plank": [],
  "Cherch & Friends": [],
  "Chicks in the Office": [],
@@ -329,12 +347,24 @@
  ],
  "Children under 1 enter free": [],
  "Chow Lee": [],
+ "Chris Kasper": [],
  "Christian Lee Hutson": [
   "Country & Folk"
  ],
  "Christopher Ardra": [],
  "Cigarettes @ Sunset": [],
  "Clarissa Bitar Vinyl Listening Party": [],
+ "Cody Currie": [
+  "Dance"
+ ],
+ "Cody Currie (open to close)": [],
+ "Colleen Green": [
+  "Indie",
+  "Pop"
+ ],
+ "Combust": [
+  "Punk & Metal"
+ ],
  "Concrete Husband": [],
  "Content Blocks (": [],
  "Coraline": [],
@@ -346,6 +376,11 @@
  "CupcakKe": [
   "Rap"
  ],
+ "Cut Copy": [
+  "Pop",
+  "Indie"
+ ],
+ "Cut Copy (dj)": [],
  "Cypress Hill": [
   "Rap",
   "Punk & Metal"
@@ -368,6 +403,7 @@
   "Rap",
   "Dance"
  ],
+ "DJ_Dave": [],
  "DON TETTO": [
   "Latin"
  ],
@@ -402,14 +438,20 @@
   "Jazz"
  ],
  "Dead Sullivan": [],
+ "Deerhoof": [
+  "Indie",
+  "Pop"
+ ],
  "Defeated Sanity": [
   "Punk & Metal"
  ],
  "Derrick Gee's Radio Hour": [],
+ "Dev Lemons": [],
  "Dexter and the Moonrocks": [],
  "Diles que no me maten": [],
  "Diplo's Run Club": [],
  "Diplo's Run Club -York": [],
+ "Disco Bambino": [],
  "Disney Worlds Collide Concert": [],
  "Diva Bleach": [],
  "Do Si Don'tcha": [],
@@ -438,6 +480,9 @@
   "Pop"
  ],
  "Duffy x Uhlmann": [],
+ "Dusky": [
+  "Dance"
+ ],
  "Dylan Gossett & Charles Wesley Godwin": [],
  "EPIK HIGH": [],
  "ESTEMAN & DANIELA SPALLA": [],
@@ -445,6 +490,7 @@
  "Earl Sweatshirt & MIKE": [],
  "Earl Sweatshirt & MIKE Home on the Range": [],
  "Earlybirds Club": [],
+ "Ebril": [],
  "Ecca Vandal": [
   "Rock",
   "Rap"
@@ -470,6 +516,9 @@
  "Eloise": [],
  "Elora": [],
  "Elsewhere": [],
+ "Emancipator": [
+  "Dance"
+ ],
  "Emma Andersen": [],
  "EmmaLee and the Dream": [],
  "Emo Night Karaoke (21+)": [],
@@ -506,10 +555,14 @@
  "Featuring NORAH JONES": [],
  "Fetch Tiger": [],
  "Few Faces": [],
+ "Flava D": [
+  "Dance"
+ ],
  "Flørist": [],
  "Folk Night Out": [],
  "Fox Stevenson & Mystery Skulls": [],
  "Foxtide": [],
+ "Franc Moody DJ Set": [],
  "Francesca Fiorentini and Matt Lieb": [],
  "Francis Mercier": [],
  "Francis of Delirium": [
@@ -517,6 +570,9 @@
   "Rock"
  ],
  "Francisca Valenzuela": [],
+ "Freak Slug": [
+  "Indie"
+ ],
  "Freedom Attic": [],
  "Friko": [
   "Rock",
@@ -532,6 +588,10 @@
  "Fruit Punch": [],
  "Fudge": [],
  "Funsucker": [],
+ "Fury": [
+  "Punk & Metal"
+ ],
+ "Fury (Celebrating 10 Years of Paramount)": [],
  "GFOTY takes over NYC": [],
  "GIRL NOISE Music Festival": [],
  "GRYFFIN": [
@@ -569,6 +629,10 @@
   "Country & Folk",
   "Indie"
  ],
+ "Gilla Band": [
+  "Indie",
+  "Punk & Metal"
+ ],
  "Gimme Gimme Disco": [],
  "Giovannie and the Hired Guns": [
   "Rock"
@@ -604,6 +668,10 @@
   "Dance"
  ],
  "Grupo Duelo": [],
+ "Guerilla Toss": [
+  "Punk & Metal",
+  "Indie"
+ ],
  "Gully Boys": [],
  "Guster": [
   "Rock",
@@ -688,6 +756,10 @@
   "Pop"
  ],
  "Ian Sweet": [],
+ "Ida": [
+  "Indie",
+  "Country & Folk"
+ ],
  "If You’re Really From New York": [],
  "Igorrr": [
   "Dance",
@@ -699,9 +771,11 @@
  "Il Volo": [
   "Pop"
  ],
+ "Ilykimchi": [],
  "Imminence": [
   "Punk & Metal"
  ],
+ "Improvement Movement": [],
  "Ingrid Andress": [
   "Country & Folk"
  ],
@@ -712,6 +786,10 @@
  "Integrate": [
   "Dance"
  ],
+ "Internet Girl": [
+  "Indie"
+ ],
+ "Into It": [],
  "It Entirely From Memory": [],
  "Ivri": [
   "Indie"
@@ -741,6 +819,7 @@
  "Jalen Ngonda": [
   "R&B"
  ],
+ "James Ivy": [],
  "Jamila Woods": [
   "R&B",
   "Country & Folk"
@@ -801,6 +880,7 @@
   "Pop"
  ],
  "Josh & Aaron Do Improv (Feat": [],
+ "Jubilee": [],
  "Judah & The Lion": [],
  "Juelz": [
   "Dance",
@@ -867,12 +947,14 @@
   "Pop"
  ],
  "Kranium": [],
+ "Krithi": [],
  "Kruder & Dorfmeister": [
   "Dance",
   "Jazz"
  ],
  "Kurt Braunohler": [],
  "Kyle Gordon": [],
+ "Kyle Hume": [],
  "Kyle Schuesler": [],
  "Kyle Waves": [],
  "Kylie Cantrall": [],
@@ -882,11 +964,13 @@
  ],
  "LAU NOAH'S \"A DECADE OF MIRACLES\"": [],
  "LAUNDRY DAY": [],
+ "LILLA": [],
  "LYNY": [
   "Rap",
   "Dance"
  ],
  "La Securite": [],
+ "Ladler": [],
  "Lady Heroine": [],
  "Lakecia Benjamin": [
   "Jazz"
@@ -936,6 +1020,10 @@
   "Dance",
   "Pop"
  ],
+ "Lime Garden": [
+  "Punk & Metal",
+  "Indie"
+ ],
  "Lindsey Stirling": [
   "Dance"
  ],
@@ -943,6 +1031,9 @@
  "Little Barrie": [],
  "Little Spoon": [],
  "Liz Cooper": [],
+ "Loft": [
+  "Dance"
+ ],
  "Lolo Zouaï": [
   "R&B",
   "Pop"
@@ -972,6 +1063,9 @@
   "Latin"
  ],
  "Luke Kidgell": [],
+ "Luna": [
+  "Indie"
+ ],
  "MANCHESTER FOREVER": [],
  "MARIA BAMFORD": [],
  "MC Lyte": [
@@ -980,6 +1074,7 @@
  ],
  "MICO": [],
  "MIRA MIRA": [],
+ "MIRCHI": [],
  "MORAL KIOSK (R.E.M.) & BASTARDS OF YOUNG (REPLACEMENTS)": [],
  "MUSIC!": [],
  "Mac DeMarco": [
@@ -992,15 +1087,26 @@
  ],
  "Madds Buckley": [],
  "Madds Buckley 2026/2027": [],
+ "Madi Diaz": [
+  "Country & Folk"
+ ],
  "Madra Salach": [],
  "Magenta Wave": [],
  "Maggie FM": [],
  "Maggie FM, Shearing, Raybody": [],
+ "Magi Merlin": [
+  "R&B",
+  "Dance"
+ ],
  "Maher Zain": [
   "R&B"
  ],
+ "Maiya": [],
  "Mal Sounds": [],
  "Mal Sounds, TALIA, Isa Reyes": [],
+ "Malibu": [
+  "Dance"
+ ],
  "Man/Woman/Chainsaw": [
   "Indie",
   "Punk & Metal"
@@ -1009,6 +1115,7 @@
   "Country & Folk"
  ],
  "Margaux": [],
+ "Marsolo": [],
  "MaryAnne Muglia": [],
  "Masaaki": [],
  "Mathame": [
@@ -1147,6 +1254,10 @@
  "Oliver Malcolm": [],
  "Olivia O'Brien": [],
  "Omer Adam": [],
+ "Omni": [
+  "Rock",
+  "Punk & Metal"
+ ],
  "Once More": [
   "Punk & Metal"
  ],
@@ -1176,6 +1287,7 @@
   "Indie"
  ],
  "Our Wicked Lady": [],
+ "Out & Abt": [],
  "Overmono": [
   "Dance"
  ],
@@ -1197,6 +1309,7 @@
  ],
  "Pair of Sloths": [],
  "Pam Grossman": [],
+ "Pan Arcadia": [],
  "Panopticon": [
   "Punk & Metal",
   "Country & Folk"
@@ -1256,6 +1369,9 @@
  "Pontiac Flare": [],
  "Pontiac Flare, Benny P, Funsucker": [],
  "Post Sex Nachos": [],
+ "Prawn": [
+  "Punk & Metal"
+ ],
  "Presented by New Balance": [],
  "Pretty Girl": [
   "Dance"
@@ -1299,6 +1415,7 @@
  "ROA": [
   "Pop"
  ],
+ "RSVP)": [],
  "RYAL": [],
  "Raaginder": [],
  "Raaginder be:coming USA": [],
@@ -1336,6 +1453,7 @@
  "Richard Finger": [],
  "Richard Perez": [],
  "Rio Amor & Friends": [],
+ "Riria": [],
  "Rise Against Ricochet": [],
  "Rishab Sharma": [],
  "Rising Appalachia": [
@@ -1358,6 +1476,7 @@
   "Punk & Metal",
   "Dance"
  ],
+ "Rocketship": [],
  "Rocky Horror": [],
  "Rocky Horror Picture Show": [],
  "Rocky™": [],
@@ -1399,6 +1518,7 @@
  "Salon Parcha Featuring Ella Bric & Special Guests": [],
  "Salsa Groove": [],
  "Sam & Louise Sullivan": [],
+ "Sam Quealy": [],
  "Samantha Fish": [
   "Jazz",
   "Country & Folk"
@@ -1412,6 +1532,8 @@
   "Punk & Metal",
   "Rock"
  ],
+ "Sasababy": [],
+ "Sassy 009": [],
  "Sawyer Hill": [],
  "Sayso Talent": [],
  "Scarys on the Wall": [],
@@ -1483,13 +1605,22 @@
  "Skilla Baby": [
   "Rap"
  ],
+ "Slash n' Spray": [],
  "Slash n’ Spray": [],
  "Slayyyter": [
   "Pop",
   "Dance"
  ],
  "Slimdan": [],
+ "Slow Magic": [
+  "Dance"
+ ],
  "Smidley": [],
+ "Snakehips": [],
+ "Sofie Royer": [
+  "Pop",
+  "Rock"
+ ],
  "Somi": [],
  "Son Rompe Pera": [
   "Latin",
@@ -1506,11 +1637,21 @@
  "Spencer Krug": [],
  "Sphinx Virtuosi": [],
  "Spin Out": [],
+ "Sports": [
+  "Indie"
+ ],
+ "Squirrel Flower": [
+  "Country & Folk",
+  "Rock"
+ ],
  "Stanley Simmons": [],
  "Star 80": [],
  "Starbomb": [
   "Pop",
   "Rap"
+ ],
+ "Static Dress": [
+  "Punk & Metal"
  ],
  "Stefon Harris": [
   "Jazz"
@@ -1629,6 +1770,7 @@
   "Punk & Metal",
   "Rock"
  ],
+ "The Bones of J.R": [],
  "The Burkharts": [],
  "The Cactus Blossoms": [
   "Country & Folk"
@@ -1656,6 +1798,8 @@
   "Indie"
  ],
  "The Great Gig": [],
+ "The Hails": [],
+ "The Hall": [],
  "The High Society New Orleans Jazz Band": [],
  "The Hold Steady": [
   "Indie",
@@ -1664,6 +1808,10 @@
  "The Jayhawks": [
   "Country & Folk",
   "Rock"
+ ],
+ "The Jungle Giants": [
+  "Indie",
+  "Dance"
  ],
  "The King of Having Fun on": [],
  "The Linda Lindas": [
@@ -1762,6 +1910,7 @@
   "R&B"
  ],
  "Tiana Major9": [],
+ "Tim Atlas": [],
  "Titonton Duvanté": [],
  "Tobiahs": [],
  "Todd-O-Phonic Todd": [],
@@ -1781,10 +1930,12 @@
   "Jazz",
   "Dance"
  ],
+ "Tootsie's Video Vault 7": [],
  "Tootsie’s Video Vault 7": [],
  "Tracey Nelson": [],
  "Trance, Bro! Winter Festival (21+)": [],
  "Trans Music Archive": [],
+ "Tre Reynolds": [],
  "Tricky": [
   "Rap",
   "Dance"
@@ -1806,6 +1957,7 @@
  ],
  "Tul8te": [],
  "Two Cuzzos": [],
+ "Tye Turner": [],
  "Tōth": [],
  "UNFILTERED": [],
  "Uncle Acid & The Deadbeats": [
@@ -1865,6 +2017,10 @@
   "Indie",
   "Country & Folk"
  ],
+ "Whipped Cream": [
+  "Dance",
+  "Rap"
+ ],
  "White China": [],
  "White Denim": [
   "Rock",
@@ -1886,6 +2042,8 @@
  "Wynonna Judd": [
   "Country & Folk"
  ],
+ "X-Coast": [],
+ "X-Coast (open to close)": [],
  "XngHan&Xoul": [],
  "Y2K Party": [],
  "YANKEL THE ROOSTER": [],
@@ -1902,8 +2060,10 @@
  "Yuki Chiba / FIRST NORTH AMERICA": [],
  "Yunchan Lim": [],
  "Zach Kyle": [],
+ "Zone One": [],
  "Zoso": [],
  "Zoso The Ultimate Led Zeppelin Experience": [],
+ "bed": [],
  "bunii": [
   "Rap",
   "Rock"
@@ -1912,7 +2072,9 @@
   "Pop"
  ],
  "confetti x khel": [],
+ "cootie catcher": [],
  "cortex": [],
+ "daine": [],
  "dakota jones": [],
  "deca joins": [],
  "emma who?": [],
@@ -1936,6 +2098,7 @@
  "inti figgis-vizueta": [],
  "inti figgis-vizueta’s Music for Transitions": [],
  "inti figgis-vizueta’s Music for Transitions with Andrew Yee and Rothko String Quartet": [],
+ "j ember": [],
  "jigitz": [],
  "jill mccracken": [],
  "jiwon": [],
@@ -1944,6 +2107,9 @@
  "lastfm:\"Actually, It Is Rocket Science\"": [],
  "lastfm:& 444": [],
  "lastfm:20 Years of Nekrogoblikon with Special Guests Aborted": [],
+ "lastfm:6 SENSE": [
+  "Dance"
+ ],
  "lastfm:90's Cover Night": [],
  "lastfm:9AM Banger": [],
  "lastfm:@NICKCHEO the *": [],
@@ -1958,6 +2124,7 @@
   "Dance"
  ],
  "lastfm:AJ McLean presents Alexander James": [],
+ "lastfm:ANA.GHA": [],
  "lastfm:ANDY BOAY": [
   "Indie",
   "Rock"
@@ -1996,6 +2163,10 @@
  "lastfm:Allman Betts Family Revival": [],
  "lastfm:Alune Wade & Family Affair": [],
  "lastfm:Alune Wade & Family Affair / faiith (presented by the JGI)": [],
+ "lastfm:Ami Taf Ra": [
+  "Indie",
+  "Jazz"
+ ],
  "lastfm:Amsterdam presents Charlotte Greve": [],
  "lastfm:An Evening": [],
  "lastfm:An Evening With God Street Wine": [],
@@ -2043,6 +2214,7 @@
   "Rock"
  ],
  "lastfm:BIG FAMOUS": [],
+ "lastfm:BKG": [],
  "lastfm:BOOTS! MONSTER MASH": [],
  "lastfm:BURAY": [
   "Pop"
@@ -2122,6 +2294,7 @@
  "lastfm:Candy Crush": [],
  "lastfm:Carly Pearce - Honest Woman": [],
  "lastfm:Cauley": [],
+ "lastfm:Charlene Kaye's 40th birthday party!": [],
  "lastfm:Charlene Kaye’s 40th birthday party!": [],
  "lastfm:Charlie Parr": [
   "Country & Folk",
@@ -2133,6 +2306,7 @@
   "Country & Folk",
   "Pop"
  ],
+ "lastfm:Chatroom": [],
  "lastfm:Chelsea Plank": [],
  "lastfm:Cherch & Friends": [],
  "lastfm:Chicks in the Office": [],
@@ -2140,8 +2314,12 @@
  "lastfm:Chow Lee": [
   "Rap"
  ],
+ "lastfm:Chris Kasper": [
+  "Country & Folk"
+ ],
  "lastfm:Christopher Ardra": [],
  "lastfm:Clarissa Bitar Vinyl Listening Party": [],
+ "lastfm:Cody Currie (open to close)": [],
  "lastfm:Concrete Husband": [
   "Dance",
   "Indie"
@@ -2154,6 +2332,7 @@
   "Dance"
  ],
  "lastfm:Croz Boyce [Avey Tare and Geologist of Animal Collective]": [],
+ "lastfm:Cut Copy (dj)": [],
  "lastfm:D Savage": [
   "Rap"
  ],
@@ -2170,6 +2349,9 @@
  "lastfm:DJ Greenie of Lotus": [],
  "lastfm:DJ Lawyer": [],
  "lastfm:DJ Meredith Marks": [],
+ "lastfm:DJ_Dave": [
+  "Dance"
+ ],
  "lastfm:DON TETTO IN NEW YORK": [],
  "lastfm:DOUBLE STANDARD": [
   "Punk & Metal"
@@ -2212,6 +2394,10 @@
  ],
  "lastfm:Dead Gowns, Helenor": [],
  "lastfm:Derrick Gee's Radio Hour": [],
+ "lastfm:Dev Lemons": [
+  "Indie",
+  "R&B"
+ ],
  "lastfm:Dexter and the Moonrocks": [
   "Rock",
   "Punk & Metal"
@@ -2222,6 +2408,10 @@
  ],
  "lastfm:Diplo's Run Club": [],
  "lastfm:Diplo's Run Club -York": [],
+ "lastfm:Disco Bambino": [
+  "Dance",
+  "Pop"
+ ],
  "lastfm:Disney Worlds Collide Concert": [],
  "lastfm:Diva Bleach": [
   "Punk & Metal",
@@ -2254,6 +2444,10 @@
  "lastfm:Earl Sweatshirt & MIKE": [],
  "lastfm:Earl Sweatshirt & MIKE Home on the Range": [],
  "lastfm:Earlybirds Club": [],
+ "lastfm:Ebril": [
+  "Punk & Metal",
+  "Dance"
+ ],
  "lastfm:Effy": [
   "Dance"
  ],
@@ -2307,6 +2501,7 @@
  ],
  "lastfm:Folk Night Out": [],
  "lastfm:Fox Stevenson & Mystery Skulls": [],
+ "lastfm:Franc Moody DJ Set": [],
  "lastfm:Francesca Fiorentini and Matt Lieb": [],
  "lastfm:Francis Mercier": [
   "Dance",
@@ -2319,6 +2514,7 @@
  "lastfm:Freedom Attic": [],
  "lastfm:Fruit Juice": [],
  "lastfm:Funsucker": [],
+ "lastfm:Fury (Celebrating 10 Years of Paramount)": [],
  "lastfm:GFOTY takes over NYC": [],
  "lastfm:GIRL NOISE Music Festival": [],
  "lastfm:GZA (Performing Liquid Swords) w/ Phunky Nomads & Keznamdi": [],
@@ -2415,7 +2611,16 @@
   "Indie"
  ],
  "lastfm:If You’re Really From New York": [],
+ "lastfm:Ilykimchi": [
+  "Pop",
+  "Dance"
+ ],
+ "lastfm:Improvement Movement": [
+  "Indie",
+  "Rock"
+ ],
  "lastfm:Ingrid Michaelson 20th Annual Holiday Hop": [],
+ "lastfm:Into It": [],
  "lastfm:It Entirely From Memory": [],
  "lastfm:JAHSON PAYNTER": [],
  "lastfm:JENNY ROSERO": [],
@@ -2427,6 +2632,10 @@
  "lastfm:Jacob Tierney": [],
  "lastfm:Jai'Len Josey": [
   "R&B"
+ ],
+ "lastfm:James Ivy": [
+  "Indie",
+  "Rock"
  ],
  "lastfm:Jasper Llewellyn": [],
  "lastfm:Jawdropped": [
@@ -2460,6 +2669,9 @@
   "Rock"
  ],
  "lastfm:Josh & Aaron Do Improv (Feat": [],
+ "lastfm:Jubilee": [
+  "Rap"
+ ],
  "lastfm:Judah & The Lion": [
   "Country & Folk",
   "Rock"
@@ -2513,8 +2725,13 @@
  "lastfm:Kranium": [
   "Punk & Metal"
  ],
+ "lastfm:Krithi": [],
  "lastfm:Kurt Braunohler": [],
  "lastfm:Kyle Gordon": [],
+ "lastfm:Kyle Hume": [
+  "Indie",
+  "Pop"
+ ],
  "lastfm:Kyle Waves": [],
  "lastfm:Kylie Cantrall": [
   "Pop"
@@ -2524,7 +2741,11 @@
   "Pop",
   "Indie"
  ],
+ "lastfm:LILLA": [
+  "Pop"
+ ],
  "lastfm:La Securite": [],
+ "lastfm:Ladler": [],
  "lastfm:Lady Heroine": [
   "Rock",
   "Dance"
@@ -2599,6 +2820,7 @@
  "lastfm:MIRA MIRA": [
   "Dance"
  ],
+ "lastfm:MIRCHI": [],
  "lastfm:MORAL KIOSK (R.E.M.) & BASTARDS OF YOUNG (REPLACEMENTS)": [],
  "lastfm:MUSIC!": [],
  "lastfm:Mackeeper": [
@@ -2614,10 +2836,16 @@
  "lastfm:Magenta Wave": [],
  "lastfm:Maggie FM": [],
  "lastfm:Maggie FM, Shearing, Raybody": [],
+ "lastfm:Maiya": [
+  "Dance"
+ ],
  "lastfm:Mal Sounds": [],
  "lastfm:Mal Sounds, TALIA, Isa Reyes": [],
  "lastfm:Margaux": [
   "Indie"
+ ],
+ "lastfm:Marsolo": [
+  "Dance"
  ],
  "lastfm:MaryAnne Muglia": [],
  "lastfm:Masaaki": [],
@@ -2739,6 +2967,7 @@
  "lastfm:Osees ft": [],
  "lastfm:Oteil Burbridge Performing with LaMP": [],
  "lastfm:Our Wicked Lady": [],
+ "lastfm:Out & Abt": [],
  "lastfm:Ovrkast": [],
  "lastfm:Owen Riegling": [
   "Country & Folk"
@@ -2755,6 +2984,10 @@
  ],
  "lastfm:Pair of Sloths": [],
  "lastfm:Pam Grossman": [],
+ "lastfm:Pan Arcadia": [
+  "Dance",
+  "Rock"
+ ],
  "lastfm:Parachute": [
   "Pop",
   "Dance"
@@ -2798,6 +3031,7 @@
  "lastfm:Puss N Boots": [
   "Country & Folk"
  ],
+ "lastfm:RSVP)": [],
  "lastfm:RYAL": [
   "Pop",
   "Indie"
@@ -2835,6 +3069,7 @@
  ],
  "lastfm:Richard Perez": [],
  "lastfm:Rio Amor & Friends": [],
+ "lastfm:Riria": [],
  "lastfm:Rise Against Ricochet": [],
  "lastfm:Rishab Sharma": [],
  "lastfm:Rising Appalachia with support from Viv & Riley": [],
@@ -2845,6 +3080,9 @@
  "lastfm:Road To Trotamundo": [],
  "lastfm:Robert Lester Folsom": [
   "Country & Folk"
+ ],
+ "lastfm:Rocketship": [
+  "Indie"
  ],
  "lastfm:Rocky Horror": [
   "Dance"
@@ -2860,11 +3098,20 @@
  "lastfm:Salon Parcha Featuring Ella Bric & Special Guests": [],
  "lastfm:Salsa Groove": [],
  "lastfm:Sam & Louise Sullivan": [],
+ "lastfm:Sam Quealy": [
+  "Pop",
+  "Dance"
+ ],
  "lastfm:Samy Sharif": [],
  "lastfm:Samy Sharif, Cauley": [],
  "lastfm:Sanctuary Park": [],
  "lastfm:Santos Bravos": [
   "Latin",
+  "Pop"
+ ],
+ "lastfm:Sasababy": [],
+ "lastfm:Sassy 009": [
+  "Dance",
   "Pop"
  ],
  "lastfm:Sawyer Hill": [
@@ -2896,6 +3143,7 @@
   "Punk & Metal",
   "Dance"
  ],
+ "lastfm:Slash n' Spray": [],
  "lastfm:Slash n’ Spray": [],
  "lastfm:Slimdan": [
   "Indie",
@@ -2904,6 +3152,10 @@
  "lastfm:Smidley": [
   "Indie",
   "Rock"
+ ],
+ "lastfm:Snakehips": [
+  "Dance",
+  "Indie"
  ],
  "lastfm:Somi": [
   "Jazz",
@@ -3006,6 +3258,7 @@
  "lastfm:The Blue Dot": [
   "Punk & Metal"
  ],
+ "lastfm:The Bones of J.R": [],
  "lastfm:The Courettes": [
   "Dance",
   "Rock"
@@ -3024,6 +3277,11 @@
  ],
  "lastfm:The George Lucas Talk Show": [],
  "lastfm:The Great Gig": [],
+ "lastfm:The Hails": [
+  "Indie",
+  "Pop"
+ ],
+ "lastfm:The Hall": [],
  "lastfm:The High Society New Orleans Jazz Band": [],
  "lastfm:The King of Having Fun on": [],
  "lastfm:The Moth StorySLAM": [],
@@ -3088,6 +3346,10 @@
   "R&B",
   "Pop"
  ],
+ "lastfm:Tim Atlas": [
+  "Indie",
+  "Country & Folk"
+ ],
  "lastfm:Titonton Duvanté": [
   "Dance"
  ],
@@ -3102,13 +3364,16 @@
  ],
  "lastfm:Tony Seltzer": [],
  "lastfm:Tony Seltzer, Wadari, Doula": [],
+ "lastfm:Tootsie's Video Vault 7": [],
  "lastfm:Tootsie’s Video Vault 7": [],
  "lastfm:Trance, Bro! Winter Festival (21+)": [],
  "lastfm:Trans Music Archive": [],
+ "lastfm:Tre Reynolds": [],
  "lastfm:Tul8te": [
   "Rap"
  ],
  "lastfm:Two Cuzzos": [],
+ "lastfm:Tye Turner": [],
  "lastfm:Tōth": [
   "Indie"
  ],
@@ -3171,6 +3436,10 @@
  "lastfm:Wrath Across North America": [],
  "lastfm:Wrecked": [],
  "lastfm:Wyatt Cenac": [],
+ "lastfm:X-Coast": [
+  "Dance"
+ ],
+ "lastfm:X-Coast (open to close)": [],
  "lastfm:XngHan&Xoul": [
   "Pop",
   "Dance"
@@ -3194,12 +3463,25 @@
  "lastfm:Yuki Chiba / FIRST NORTH AMERICA": [],
  "lastfm:Yunchan Lim": [],
  "lastfm:Zach Kyle": [],
+ "lastfm:Zone One": [],
  "lastfm:Zoso": [],
  "lastfm:Zoso The Ultimate Led Zeppelin Experience": [],
+ "lastfm:bed": [
+  "Rock",
+  "Indie"
+ ],
  "lastfm:confetti x khel": [],
+ "lastfm:cootie catcher": [
+  "Indie",
+  "Punk & Metal"
+ ],
  "lastfm:cortex": [
   "Jazz",
   "Punk & Metal"
+ ],
+ "lastfm:daine": [
+  "Pop",
+  "Dance"
  ],
  "lastfm:dakota jones": [
   "Jazz",
@@ -3216,6 +3498,9 @@
  "lastfm:inti figgis-vizueta": [],
  "lastfm:inti figgis-vizueta’s Music for Transitions": [],
  "lastfm:inti figgis-vizueta’s Music for Transitions with Andrew Yee and Rothko String Quartet": [],
+ "lastfm:j ember": [
+  "Indie"
+ ],
  "lastfm:jigitz": [
   "Pop",
   "Dance"

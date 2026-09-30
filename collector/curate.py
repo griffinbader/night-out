@@ -54,9 +54,9 @@ TOUR_CUTS = [
 ]
 
 STRIP = re.compile(
-    r"\s*[\(\[][^)\]]*(?:set|release|solo|18\+|21\+|all ages|album|ep\b|show|party|tour|live|sold out|night \d|band|performing|presented)[^)\]]*[\)\]]"
+    r"\s*[\(\[][^)\]]*(?:set|release|solo|18\+|21\+|all ages|album|ep\b|show|party|tour|live|sold out|night \d|band|performing|presented|dj|open to close|all night|celebrating|b2b set)[^)\]]*[\)\]]"
     r"|\s*\([^)]*$"                             # dangling "(presented by the J…"
-    r"|\s+(?-i:Solo)$|\s+(?:live!?|in nyc|nyc)$",   # "Jeff Tweedy Solo" (but not the rapper AKAI SOLO)
+    r"|\s+(?-i:Solo)$|\s+(?:live!?|in nyc|nyc|dj set|\(?dj\)?)$",   # "Jeff Tweedy Solo" (but not the rapper AKAI SOLO)
     re.I,
 )
 

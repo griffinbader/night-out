@@ -621,6 +621,37 @@ def src_seatgeek():
     return out
 
 
+def src_eventbrite(path, venue, only_venue_name=None):
+    """Eventbrite API (official, private token) — a venue's or organizer's live events."""
+    token = os.environ.get("EVENTBRITE_TOKEN") or _env_value("EVENTBRITE_TOKEN")
+    if not token:
+        raise RuntimeError("no EVENTBRITE_TOKEN — skipped")
+    events, cont = [], None
+    while True:
+        q = {"status": "live", "order_by": "start_asc", "expand": "venue,ticket_availability"}
+        if cont:
+            q["continuation"] = cont
+        req = urllib.request.Request(f"https://www.eventbriteapi.com/v3/{path}?" + urllib.parse.urlencode(q),
+                                     headers={"Authorization": f"Bearer {token}", "User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.load(r)
+        events += data.get("events", [])
+        if not data.get("pagination", {}).get("has_more_items"):
+            break
+        cont = data["pagination"]["continuation"]
+        time.sleep(0.3)
+    out = []
+    for e in events:
+        vname = (e.get("venue") or {}).get("name") or ""
+        if only_venue_name and only_venue_name.lower() not in vname.lower():
+            continue  # e.g. Elsewhere also sells shows it promotes at other venues
+        price = ((e.get("ticket_availability") or {}).get("minimum_ticket_price") or {}).get("major_value")
+        head, support = split_lineup(clean_title(e["name"]["text"]), commas=True)
+        out.append(show(venue, head, e["start"]["local"][:16], support, price=price_num(price),
+                        image=(e.get("logo") or {}).get("url"), url=e.get("url"), source="eventbrite"))
+    return out
+
+
 def _env_value(name):
     env = ROOT / ".env"
     if env.exists():
@@ -632,6 +663,8 @@ def _env_value(name):
 
 SOURCES = [
     ("Ticketmaster API (official listings for Ticketmaster/TicketWeb venues)", src_ticketmaster),
+    ("Eventbrite API: Elsewhere", lambda: src_eventbrite("organizers/105655500371/events/", "elsewhere", only_venue_name="Elsewhere")),
+    ("Eventbrite API: Littlefield", lambda: src_eventbrite("venues/35241107/events/", "littlefield")),
     ("Irving Plaza", lambda: src_jsonld("https://www.irvingplaza.com/", "irving")),
     ("Brooklyn Paramount", lambda: src_jsonld("https://www.brooklynparamount.com/", "paramount")),
     ("Warsaw", lambda: src_jsonld("https://www.warsawconcerts.com/", "warsaw")),
@@ -674,6 +707,7 @@ NOT_MUSIC = re.compile(
 
 
 VENUE_SIZE = {v["id"]: v["size"] for v in VENUES}
+OFFICIAL = ("Ticketmaster API", "Eventbrite API")  # official feeds win; venue websites are the backup
 VENUE_GENRE = {v["id"]: v.get("genre") for v in VENUES}
 
 
@@ -700,7 +734,7 @@ def main():
     for label, fn in SOURCES:
         try:
             got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
-                   and (fn is src_ticketmaster or s["venue"] not in official)
+                   and (label.startswith(OFFICIAL) or s["venue"] not in official)
                    and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
             for s in got:
                 s["id"] = show_id(s)
@@ -709,8 +743,8 @@ def main():
                     continue  # same arena show from a second feed
                 big_slots.add(slot)
                 fresh.setdefault(s["id"], s)  # first source wins on duplicates
-            if fn is src_ticketmaster:
-                official = {s["venue"] for s in got}
+            if label.startswith(OFFICIAL):
+                official |= {s["venue"] for s in got}
             report.append(f"  ✓ {label}: {len(got)} shows")
         except Exception as e:  # one broken site shouldn't stop the rest
             report.append(f"  ✗ {label}: {type(e).__name__}: {e}")
