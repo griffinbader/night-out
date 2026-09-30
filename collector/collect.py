@@ -24,9 +24,10 @@ from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).parent))
+import ai_reader  # noqa: E402
 from curate import curate  # noqa: E402
 from genres import tag_shows  # noqa: E402
-from venues import BOWERY_NAMES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_SITES, VENUES  # noqa: E402
+from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_SITES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "shows.js"
@@ -770,8 +771,11 @@ def src_seatgeek():
             v = e.get("venue") or {}
             venue = SEATGEEK_VENUES.get(v.get("id")) or _our_venue(v.get("name"), (v.get("location") or {}).get("lat"),
                                                                     (v.get("location") or {}).get("lon"))
+            if not venue:
+                _note_candidate(v.get("name"), "seatgeek", (v.get("location") or {}).get("lat"), (v.get("location") or {}).get("lon"))
+                continue
             link = VENUE_SITES.get(venue) or (e.get("url") if venue in fallback else None)
-            if not venue or not link or (e.get("time_tbd") and e.get("date_tbd")):
+            if not link or (e.get("time_tbd") and e.get("date_tbd")):
                 continue
             performers = sorted(e.get("performers", []), key=lambda p: not p.get("primary"))
             acts = [p["name"] for p in performers] or [e.get("short_title") or e["title"]]
@@ -842,7 +846,11 @@ def src_ticketmaster_mirror():
                 venue = _our_venue(v.get("name"), float(loc["latitude"]) if loc.get("latitude") else None,
                                    float(loc["longitude"]) if loc.get("longitude") else None)
                 start = e.get("dates", {}).get("start", {})
-                if not venue or not start.get("localDate") or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
+                if not venue:
+                    _note_candidate(v.get("name"), "ticketmaster", float(loc["latitude"]) if loc.get("latitude") else None,
+                                    float(loc["longitude"]) if loc.get("longitude") else None)
+                    continue
+                if not start.get("localDate") or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
                     continue
                 if SKIP_TM.search(e["name"]):
                     continue
@@ -862,6 +870,34 @@ def src_ticketmaster_mirror():
             if info.get("number", 0) + 1 >= info.get("totalPages", 1) or page >= 4:
                 break
             page += 1
+    return out
+
+
+AI_REPORT = []
+CANDIDATES = {}  # music venues seen in citywide sweeps that aren't on Shindig yet: name -> info
+
+
+def _note_candidate(name, source, lat=None, lng=None):
+    if not name:
+        return
+    c = CANDIDATES.setdefault(re.sub(r"[^a-z0-9]", "", name.lower())[:30],
+                              {"name": name, "events": 0, "sources": set(), "lat": lat, "lng": lng})
+    c["events"] += 1
+    c["sources"].add(source)
+
+
+def src_ai():
+    """Browser + Claude for venue calendars no platform reader understands (see ai_reader.py)."""
+    events, report = ai_reader.read_venues({v["id"]: v for v in VENUES}, UA)
+    AI_REPORT.extend(report)
+    out = []
+    for e in events:
+        if not e.get("date"):
+            continue
+        clock = e.get("time") or "20:00"
+        out.append(show(e["venue"], e["headliner"], f"{e['date']}T{clock[:5]}", e.get("support") or [],
+                        price=price_num(e.get("base_price")) if e.get("base_price") else None,
+                        url=e.get("ticket_url") or VENUE_SITES.get(e["venue"]), source="ai-reader"))
     return out
 
 
@@ -885,6 +921,7 @@ SOURCES = [
     ("Full calendar: Union Pool", lambda: src_dice_widget("https://www.union-pool.com/calendar", {"*": "unionpool"})),
     ("Full calendar: The Sultan Room", lambda: src_dice_widget("https://thesultanroom.com/",
         {"Rooftop": "sultanroof", "Turk": None, "*": "sultan"})),
+    ("Full calendar: Saint Vitus", lambda: src_dice_widget("https://www.saintvitusbar.com/", {"*": "saintvitus"})),
     ("Union Pool (DICE)", lambda: src_jsonld("https://dice.fm/venue/union-pool-nbvl", "unionpool")),
     ("The Sultan Room (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-e27w", "sultan")),
     ("Sultan Room Rooftop (DICE)", lambda: src_jsonld("https://dice.fm/venue/the-sultan-room-rooftop-x57a", "sultanroof")),
@@ -915,6 +952,7 @@ SOURCES = [
     ("Melrose Ballroom", lambda: src_squarespace_events("https://www.melroseballroom.com/events", "melrose")),
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
+    ("AI reader (venue pages no other reader understands)", src_ai),
     ("SeatGeek API (fills any shows the sources above missed)", src_seatgeek),
     ("Ticketmaster citywide (fills the rest; resale-only listings link to the venue)", src_ticketmaster_mirror),
 ]
@@ -931,6 +969,96 @@ NOT_MUSIC = re.compile(
 
 VENUE_SIZE = {v["id"]: v["size"] for v in VENUES}
 VENUE_GENRE = {v["id"]: v.get("genre") for v in VENUES}
+
+
+# How much to trust each venue's count, based on where its shows came from.
+COMPLETE_SOURCES = {"ticketmaster", "eventbrite", "bowery", "dice-widget", "lpr", "sobs", "publicrecords", "brooklynbowl",
+                    "venuepilot", "seetickets-wp", "holo", "nationalsawdust", "barclays", "sonyhall", "kings", "bluenote",
+                    "palladium", "pier17", "squarespace", "eventbrite-widget", "mercuryeast", "elsewhere", "jsonld"}
+FILL_SOURCES = {"seatgeek", "ticketmaster-mirror"}
+
+
+NOT_VENUES = re.compile(r"new jersey|nj\b|newark|jersey city|hoboken|long island|belmont|elmont|ubs arena|prudential|"
+                        r"metlife|rutherford|englewood|bergen|american dream|stadium tour|online|virtual|tba|tbd", re.I)
+
+
+def track_venue_health(shows):
+    """Openings and closings. data/venue_health.json remembers, per venue, the last run that found
+    upcoming shows and whether its website loaded; data/venue_candidates.json lists venues that keep
+    appearing in citywide listings but aren't on Shindig yet."""
+    path = ROOT / "data" / "venue_health.json"
+    health = json.loads(path.read_text()) if path.exists() else {}
+    today = datetime.now(NYC).strftime("%Y-%m-%d")
+    counts = {}
+    for s in shows:
+        counts[s["venue"]] = counts.get(s["venue"], 0) + 1
+    notes = []
+    for v in VENUES:
+        h = health.setdefault(v["id"], {"first_checked": today, "site_failures": 0})
+        if counts.get(v["id"]):
+            h["last_shows_seen"] = today
+        site = VENUE_SITES.get(v["id"])
+        if site:
+            try:
+                req = urllib.request.Request(site, headers={"User-Agent": UA})
+                urllib.request.urlopen(req, timeout=20).close()
+                h["site_failures"] = 0
+            except urllib.error.HTTPError as e:
+                h["site_failures"] = 0 if e.code in (401, 403, 405, 429) else h.get("site_failures", 0) + 1  # blocked ≠ gone
+            except Exception:
+                h["site_failures"] = h.get("site_failures", 0) + 1
+        last = h.get("last_shows_seen") or h["first_checked"]
+        quiet_days = (datetime.fromisoformat(today) - datetime.fromisoformat(last)).days
+        if quiet_days >= 14:
+            notes.append(f"    {v['name']}: no upcoming shows from any source for {quiet_days} days — closed or on break?")
+        if h.get("site_failures", 0) >= 3:
+            notes.append(f"    {v['name']}: website hasn't loaded for {h['site_failures']} runs — check if it's still open")
+    path.write_text(json.dumps(health, indent=1, sort_keys=True))
+
+    cands = [dict(c, sources=sorted(c["sources"])) for k, c in CANDIDATES.items()
+             if c["events"] >= 3 and not NOT_VENUES.search(c["name"])
+             and not any(k.startswith(x) for x in IGNORED_CANDIDATES)]
+    cands.sort(key=lambda c: -c["events"])
+    (ROOT / "data" / "venue_candidates.json").write_text(json.dumps(cands, indent=1, ensure_ascii=False))
+    print("\n  venue health (possible closings):" if notes else "\n  venue health: no closing signals")
+    for n in notes:
+        print(n)
+    if cands:
+        print(f"  possible new venues (not on Shindig, 3+ music events in citywide listings): {len(cands)}")
+        for c in cands[:15]:
+            print(f"    {c['name'][:36]:36} {c['events']:3} events  ({', '.join(c['sources'])})")
+
+
+def write_coverage(shows):
+    """data/coverage.json + a printed list of venues whose counts are probably incomplete."""
+    by_venue = {}
+    for s in shows:
+        by_venue.setdefault(s["venue"], {}).setdefault(s["source"], 0)
+        by_venue[s["venue"]][s["source"]] += 1
+    rows = []
+    for v in VENUES:
+        src = by_venue.get(v["id"], {})
+        total = sum(src.values())
+        main = sum(n for k, n in src.items() if k in COMPLETE_SOURCES)
+        dice_capped = v["id"] in {"knockdown", "xanadu", "silo"} or (v["id"] == "saintvitus" and not src.get("dice-widget"))
+        if total == 0:
+            level = "none: no shows found"
+        elif dice_capped and src.get("jsonld", 0) >= 25:
+            level = "capped: DICE venue page stops at 30 shows"
+        elif main / total >= 0.6:
+            level = "good: from an official feed or the venue's full calendar"
+        elif src.get("ai-reader", 0) / total >= 0.5:
+            level = "ai: read from the venue's page by the AI reader"
+        elif sum(src.get(k, 0) for k in FILL_SOURCES) / total >= 0.5:
+            level = "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+        else:
+            level = "mixed"
+        rows.append({"venue": v["id"], "name": v["name"], "shows": total, "sources": src, "confidence": level})
+    (ROOT / "data" / "coverage.json").write_text(json.dumps(rows, indent=1, ensure_ascii=False))
+    weak = [r for r in rows if not r["confidence"].startswith("good")]
+    print(f"\n  coverage: {len(rows) - len(weak)}/{len(rows)} venues good; check these:")
+    for r in sorted(weak, key=lambda r: r["confidence"]):
+        print(f"    {r['name'][:28]:28} {r['shows']:3}  {r['confidence']}")
 
 
 def _act_key(name):
@@ -1010,7 +1138,9 @@ def main():
     OUT.write_text("// Generated by collector/collect.py — do not edit by hand.\nwindow.NIGHT_OUT = "
                    + json.dumps(payload, ensure_ascii=False, indent=0) + ";\n")
 
-    print("\n".join(report))
+    print("\n".join(report + AI_REPORT))
+    write_coverage(list(fresh.values()))
+    track_venue_health(list(fresh.values()))
     print(f"\n{len(fresh)} upcoming shows (+{len(past)} past) -> {OUT.relative_to(ROOT)}")
 
 

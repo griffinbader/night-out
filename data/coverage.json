@@ -1,0 +1,650 @@
+[
+ {
+  "venue": "babys",
+  "name": "Baby's All Right",
+  "shows": 29,
+  "sources": {
+   "seatgeek": 17,
+   "ticketmaster-mirror": 12
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "nc101",
+  "name": "Nightclub 101",
+  "shows": 79,
+  "sources": {
+   "ticketmaster": 74,
+   "ticketmaster-mirror": 5
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "mercury",
+  "name": "Mercury Lounge",
+  "shows": 133,
+  "sources": {
+   "ticketmaster": 96,
+   "seatgeek": 4,
+   "ticketmaster-mirror": 33
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "bowery",
+  "name": "Bowery Ballroom",
+  "shows": 68,
+  "sources": {
+   "ticketmaster": 64,
+   "mercuryeast": 2,
+   "seatgeek": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "webster",
+  "name": "Webster Hall",
+  "shows": 47,
+  "sources": {
+   "bowery": 44,
+   "seatgeek": 2,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "irving",
+  "name": "Irving Plaza",
+  "shows": 86,
+  "sources": {
+   "ticketmaster": 50,
+   "seatgeek": 36
+  },
+  "confidence": "mixed"
+ },
+ {
+  "venue": "paramount",
+  "name": "Brooklyn Paramount",
+  "shows": 57,
+  "sources": {
+   "ticketmaster": 56,
+   "seatgeek": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "steel",
+  "name": "Brooklyn Steel",
+  "shows": 36,
+  "sources": {
+   "bowery": 35,
+   "seatgeek": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "lpr",
+  "name": "LPR",
+  "shows": 93,
+  "sources": {
+   "lpr": 82,
+   "seatgeek": 2,
+   "ticketmaster-mirror": 9
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "sultan",
+  "name": "The Sultan Room",
+  "shows": 26,
+  "sources": {
+   "jsonld": 24,
+   "seatgeek": 1,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "sultanroof",
+  "name": "The Sultan Room Rooftop",
+  "shows": 8,
+  "sources": {
+   "jsonld": 8
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "unionpool",
+  "name": "Union Pool",
+  "shows": 30,
+  "sources": {
+   "jsonld": 30
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "bowl",
+  "name": "Brooklyn Bowl",
+  "shows": 45,
+  "sources": {
+   "ticketmaster": 41,
+   "brooklynbowl": 1,
+   "seatgeek": 3
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "mhow",
+  "name": "Music Hall of Williamsburg",
+  "shows": 35,
+  "sources": {
+   "bowery": 35
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "racket",
+  "name": "Racket",
+  "shows": 37,
+  "sources": {
+   "bowery": 37
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "gramercy",
+  "name": "Gramercy Theatre",
+  "shows": 27,
+  "sources": {
+   "ticketmaster": 26,
+   "seatgeek": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "elsewhere",
+  "name": "Elsewhere",
+  "shows": 68,
+  "sources": {
+   "eventbrite": 62,
+   "elsewhere": 4,
+   "seatgeek": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "warsaw",
+  "name": "Warsaw",
+  "shows": 37,
+  "sources": {
+   "ticketmaster": 37
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "markethotel",
+  "name": "Market Hotel",
+  "shows": 9,
+  "sources": {
+   "venuepilot": 8,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "sawdust",
+  "name": "National Sawdust",
+  "shows": 27,
+  "sources": {
+   "nationalsawdust": 27
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "publicrecords",
+  "name": "Public Records",
+  "shows": 50,
+  "sources": {
+   "publicrecords": 48,
+   "seatgeek": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "tveye",
+  "name": "TV Eye",
+  "shows": 10,
+  "sources": {
+   "seetickets-wp": 7,
+   "seatgeek": 3
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "holo",
+  "name": "H0L0",
+  "shows": 7,
+  "sources": {
+   "holo": 7
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "sonyhall",
+  "name": "Sony Hall",
+  "shows": 33,
+  "sources": {
+   "ticketmaster": 33
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "bluenote",
+  "name": "Blue Note",
+  "shows": 113,
+  "sources": {
+   "ticketmaster": 103,
+   "ticketmaster-mirror": 10
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "palladium",
+  "name": "Palladium Times Square",
+  "shows": 16,
+  "sources": {
+   "ticketmaster": 14,
+   "palladium": 1,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "pacha",
+  "name": "Pacha NYC",
+  "shows": 15,
+  "sources": {
+   "seatgeek": 15
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "unitedpalace",
+  "name": "United Palace",
+  "shows": 7,
+  "sources": {
+   "seatgeek": 7
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "pier17",
+  "name": "The Rooftop at Pier 17",
+  "shows": 8,
+  "sources": {
+   "ticketmaster": 8
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "storehouse",
+  "name": "Brooklyn Storehouse",
+  "shows": 6,
+  "sources": {
+   "seatgeek": 6
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "colden",
+  "name": "Colden Auditorium",
+  "shows": 6,
+  "sources": {
+   "ticketmaster": 6
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "lefrak",
+  "name": "LeFrak Concert Hall",
+  "shows": 3,
+  "sources": {
+   "ticketmaster": 3
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "stgeorge",
+  "name": "St. George Theatre",
+  "shows": 7,
+  "sources": {
+   "ticketmaster": 7
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "lehman",
+  "name": "Lehman Center",
+  "shows": 5,
+  "sources": {
+   "ticketmaster": 5
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "citywinery",
+  "name": "City Winery",
+  "shows": 7,
+  "sources": {
+   "seatgeek": 6,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "bellhouse",
+  "name": "The Bell House",
+  "shows": 22,
+  "sources": {
+   "ticketmaster": 1,
+   "jsonld": 19,
+   "seatgeek": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "littlefield",
+  "name": "Littlefield",
+  "shows": 32,
+  "sources": {
+   "eventbrite": 11,
+   "eventbrite-widget": 21
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "saintvitus",
+  "name": "Saint Vitus",
+  "shows": 29,
+  "sources": {
+   "jsonld": 29
+  },
+  "confidence": "capped: DICE venue page stops at 30 shows"
+ },
+ {
+  "venue": "pioneerworks",
+  "name": "Pioneer Works",
+  "shows": 3,
+  "sources": {
+   "seatgeek": 2,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "scott99",
+  "name": "99 Scott",
+  "shows": 2,
+  "sources": {
+   "seatgeek": 2
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "crownhill",
+  "name": "Crown Hill Theatre",
+  "shows": 2,
+  "sources": {
+   "seatgeek": 2
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "roughtrade",
+  "name": "Rough Trade Below",
+  "shows": 1,
+  "sources": {
+   "seatgeek": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "sobs",
+  "name": "SOB's",
+  "shows": 24,
+  "sources": {
+   "sobs": 24
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "xanadu",
+  "name": "Xanadu",
+  "shows": 31,
+  "sources": {
+   "jsonld": 30,
+   "seatgeek": 1
+  },
+  "confidence": "capped: DICE venue page stops at 30 shows"
+ },
+ {
+  "venue": "nowadays",
+  "name": "Nowadays",
+  "shows": 1,
+  "sources": {
+   "seatgeek": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "melrose",
+  "name": "Melrose Ballroom",
+  "shows": 7,
+  "sources": {
+   "squarespace": 7
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "silo",
+  "name": "SILO",
+  "shows": 30,
+  "sources": {
+   "jsonld": 30
+  },
+  "confidence": "capped: DICE venue page stops at 30 shows"
+ },
+ {
+  "venue": "basementny",
+  "name": "Basement",
+  "shows": 1,
+  "sources": {
+   "seatgeek": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "apollo",
+  "name": "Apollo Theater",
+  "shows": 2,
+  "sources": {
+   "ticketmaster": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "ethical",
+  "name": "NY Society for Ethical Culture",
+  "shows": 1,
+  "sources": {
+   "seatgeek": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "citifield",
+  "name": "Citi Field",
+  "shows": 0,
+  "sources": {},
+  "confidence": "none: no shows found"
+ },
+ {
+  "venue": "terminal5",
+  "name": "Terminal 5",
+  "shows": 28,
+  "sources": {
+   "bowery": 27,
+   "seatgeek": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "knockdown",
+  "name": "Knockdown Center",
+  "shows": 33,
+  "sources": {
+   "bowery": 5,
+   "jsonld": 28
+  },
+  "confidence": "capped: DICE venue page stops at 30 shows"
+ },
+ {
+  "venue": "kings",
+  "name": "Kings Theatre",
+  "shows": 13,
+  "sources": {
+   "ticketmaster": 3,
+   "bowery": 3,
+   "kings": 4,
+   "seatgeek": 2,
+   "ticketmaster-mirror": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "townhall",
+  "name": "The Town Hall",
+  "shows": 23,
+  "sources": {
+   "ticketmaster": 18,
+   "bowery": 2,
+   "seatgeek": 3
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "beacon",
+  "name": "Beacon Theatre",
+  "shows": 15,
+  "sources": {
+   "ticketmaster": 14,
+   "seatgeek": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "monarch",
+  "name": "Brooklyn Monarch",
+  "shows": 3,
+  "sources": {
+   "bowery": 1,
+   "seatgeek": 2
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "meadows",
+  "name": "The Meadows",
+  "shows": 2,
+  "sources": {
+   "bowery": 1,
+   "seatgeek": 1
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ },
+ {
+  "venue": "kbridge",
+  "name": "Under the K Bridge Park",
+  "shows": 1,
+  "sources": {
+   "bowery": 1
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "hammerstein",
+  "name": "Hammerstein Ballroom",
+  "shows": 9,
+  "sources": {
+   "ticketmaster": 7,
+   "seatgeek": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "foresthills",
+  "name": "Forest Hills Stadium",
+  "shows": 6,
+  "sources": {
+   "bowery": 6
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "flushing",
+  "name": "Flushing Meadows Corona Park",
+  "shows": 2,
+  "sources": {
+   "bowery": 2
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "barclays",
+  "name": "Barclays Center",
+  "shows": 20,
+  "sources": {
+   "ticketmaster": 20
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "msg",
+  "name": "Madison Square Garden",
+  "shows": 33,
+  "sources": {
+   "ticketmaster": 26,
+   "seatgeek": 7
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "msgtheater",
+  "name": "The Theater at MSG",
+  "shows": 7,
+  "sources": {
+   "ticketmaster": 7
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "radiocity",
+  "name": "Radio City Music Hall",
+  "shows": 5,
+  "sources": {
+   "ticketmaster": 5
+  },
+  "confidence": "good: from an official feed or the venue's full calendar"
+ },
+ {
+  "venue": "carnegie",
+  "name": "Carnegie Hall",
+  "shows": 27,
+  "sources": {
+   "bowery": 6,
+   "seatgeek": 12,
+   "ticketmaster-mirror": 9
+  },
+  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+ }
+]

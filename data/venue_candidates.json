@@ -1,0 +1,158 @@
+[
+ {
+  "name": "Birdland Jazz Club",
+  "events": 212,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.7590167,
+  "lng": -73.9896861
+ },
+ {
+  "name": "Birdland Theater",
+  "events": 178,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.7590167,
+  "lng": -73.9896861
+ },
+ {
+  "name": "Birdland",
+  "events": 82,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.7593,
+  "lng": -73.990196
+ },
+ {
+  "name": "Bowery Palace",
+  "events": 53,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.7257,
+  "lng": -73.991673
+ },
+ {
+  "name": "Lucinda's",
+  "events": 52,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.728329,
+  "lng": -73.982199
+ },
+ {
+  "name": "BrownstoneJAZZ",
+  "events": 45,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.6815228,
+  "lng": -73.947016
+ },
+ {
+  "name": "David Geffen Hall",
+  "events": 36,
+  "sources": [
+   "seatgeek",
+   "ticketmaster"
+  ],
+  "lat": 40.7729,
+  "lng": -73.9831
+ },
+ {
+  "name": "Wild Horses",
+  "events": 28,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.725689,
+  "lng": -73.991692
+ },
+ {
+  "name": "Iridium",
+  "events": 27,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.761816,
+  "lng": -73.983389
+ },
+ {
+  "name": "Hill Country Live",
+  "events": 8,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.7442495,
+  "lng": -73.9903775
+ },
+ {
+  "name": "What's Left Records",
+  "events": 4,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.752789,
+  "lng": -73.983745
+ },
+ {
+  "name": "Cosmic Arts",
+  "events": 4,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.754331,
+  "lng": -73.99539
+ },
+ {
+  "name": "Capital One City Parks Foundation SummerStage",
+  "events": 3,
+  "sources": [
+   "seatgeek",
+   "ticketmaster"
+  ],
+  "lat": 40.7373,
+  "lng": -74.0054
+ },
+ {
+  "name": "HK Hall",
+  "events": 3,
+  "sources": [
+   "seatgeek",
+   "ticketmaster"
+  ],
+  "lat": 40.765,
+  "lng": -73.996
+ },
+ {
+  "name": "Cafe Carlyle",
+  "events": 3,
+  "sources": [
+   "seatgeek"
+  ],
+  "lat": 40.7744,
+  "lng": -73.9635
+ },
+ {
+  "name": "Bull Shooters",
+  "events": 3,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.758451,
+  "lng": -73.983265
+ },
+ {
+  "name": "Ellen's Stardust Theater",
+  "events": 3,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.76203129021,
+  "lng": -73.98329513095
+ }
+]

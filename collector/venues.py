@@ -38,7 +38,6 @@ VENUES = [
     dict(id="bluenote", name="Blue Note", borough="Manhattan", hood="Greenwich Village", size="small", vibes=["Sitting", "Intimate", "Chill"], genre="Jazz", lat=40.7309, lng=-74.0007),
     dict(id="palladium", name="Palladium Times Square", borough="Manhattan", hood="Times Square", size="large", vibes=[], lat=40.7576, lng=-73.9858),
     dict(id="pacha", name="Pacha NYC", borough="Manhattan", hood="Hell's Kitchen", size="large", vibes=["Throw ass"], genre="Dance", lat=40.76367, lng=-73.99744),
-    dict(id="cielo", name="Cielo", borough="Manhattan", hood="Meatpacking District", size="small", vibes=["Throw ass"], genre="Dance", lat=40.7397, lng=-74.007),
     dict(id="unitedpalace", name="United Palace", borough="Manhattan", hood="Washington Heights", size="large", vibes=["Sitting", "Big room"], lat=40.8465, lng=-73.9379),
     dict(id="pier17", name="The Rooftop at Pier 17", borough="Manhattan", hood="Seaport", size="large", vibes=["Big room"], lat=40.7063, lng=-74.0038),
     dict(id="storehouse", name="Brooklyn Storehouse", borough="Brooklyn", hood="Navy Yard", size="large", vibes=["Big room", "Throw ass"], genre="Dance", lat=40.6998, lng=-73.9745),
@@ -113,7 +112,6 @@ TICKETMASTER_VENUES = {
 
 # SeatGeek venue ids -> our venue ids (official SeatGeek Platform API, concerts only).
 SEATGEEK_VENUES = {3731: "pacha",
-                   9001: "cielo",
                    1410: "unitedpalace",
                    462992: "storehouse",
                    522350: "colden",
@@ -139,7 +137,7 @@ SEATGEEK_VENUES = {3731: "pacha",
 VENUE_SITES = {
     "msg": "https://www.msg.com/madison-square-garden", "msgtheater": "https://www.msg.com/the-theater-at-madison-square-garden",
     "radiocity": "https://www.msg.com/radio-city-music-hall", "beacon": "https://www.msg.com/beacon-theatre",
-    "babys": "https://babysallright.com/", "pacha": "https://www.pachanyc.com/", "cielo": "https://www.cieloclub.com/",
+    "babys": "https://babysallright.com/", "pacha": "https://www.pachanyc.com/",
     "unitedpalace": "https://www.unitedpalace.org/", "storehouse": "https://brooklynstorehouse.com/",
     "colden": "https://kupferbergcenter.org/events/", "lefrak": "https://kupferbergcenter.org/events/",
     "stgeorge": "https://stgeorgetheatre.com/events/", "lehman": "https://www.lehmancenter.org/",
@@ -165,4 +163,11 @@ VENUE_SITES = {
     "palladium": "https://www.palladiumtimessquare.com/", "pier17": "https://rooftopatpier17.com/", "sonyhall": "https://sonyhall.com/shows/",
     "bellhouse": "https://www.thebellhouseny.com/", "nc101": "https://www.nightclub101.com/", "foresthills": "https://foresthillsstadium.com/",
     "saintvitus": "https://www.saintvitusbar.com/",
+}
+
+# Venues the new-venue watch should never suggest: closed, turned down, not music venues, or outside NYC.
+IGNORED_CANDIDATES = {
+    "cielo", "cuttingroom", "drom", "boweryelectric", "rockwoodmusichall", "jazzatlincolncenter", "nebula",
+    "superioringredients", "230 5thave", "2305thave", "booththeatre", "palacetheatreny", "54below",
+    "loewsjerseytheatre", "williamscenter", "bergenperformingartscenter", "centralparkwollmanrink",
 }

@@ -1,0 +1,336 @@
+{
+ "apollo": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "babys": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "barclays": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "basementny": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "beacon": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "bellhouse": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "bluenote": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "bowery": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "bowl": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "carnegie": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 1
+ },
+ "citifield": {
+  "first_checked": "2026-09-30",
+  "site_failures": 0
+ },
+ "citywinery": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "colden": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "crownhill": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "elsewhere": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "ethical": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "flushing": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "foresthills": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "gramercy": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "hammerstein": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 2
+ },
+ "holo": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "irving": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "kbridge": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "kings": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 2
+ },
+ "knockdown": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "lefrak": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "lehman": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "littlefield": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "lpr": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "markethotel": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "meadows": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "melrose": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "mercury": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "mhow": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "monarch": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "msg": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "msgtheater": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 2
+ },
+ "nc101": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "nowadays": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "pacha": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 2
+ },
+ "palladium": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "paramount": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "pier17": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "pioneerworks": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "publicrecords": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "racket": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "radiocity": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "roughtrade": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "saintvitus": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "sawdust": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "scott99": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "silo": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 2
+ },
+ "sobs": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "sonyhall": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 2
+ },
+ "steel": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "stgeorge": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "storehouse": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "sultan": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "sultanroof": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "terminal5": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "townhall": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "tveye": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "unionpool": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "unitedpalace": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "warsaw": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "webster": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
+ "xanadu": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ }
+}
