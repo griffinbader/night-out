@@ -76,6 +76,7 @@
  "Advance Base": [],
  "Aerobicide": [],
  "Afrobeat Nights NYC": [],
+ "Agriculture": [],
  "Ahmed Spins": [],
  "Ak’chamel": [],
  "Alana Springsteen": [],
@@ -396,6 +397,10 @@
   "Country & Folk",
   "Rock"
  ],
+ "Caspian": [
+  "Indie",
+  "Rock"
+ ],
  "Castle Rat": [
   "Punk & Metal",
   "Rock"
@@ -535,6 +540,9 @@
  "Daniil Trifonov": [],
  "Dark Dazey": [],
  "Dark Dazey, scared, DJ Female and Heinrich": [],
+ "Darkest Hour": [
+  "Punk & Metal"
+ ],
  "Darla Dean Lewis": [],
  "Darryl Rahn": [],
  "Dating Disaster Stories NYC!": [],
@@ -659,6 +667,10 @@
   "Dance"
  ],
  "Emma Andersen": [],
+ "Emma Ruth Rundle": [
+  "Country & Folk",
+  "Indie"
+ ],
  "EmmaLee and the Dream": [],
  "Emo Night Karaoke (21+)": [],
  "Emo Nite": [],
@@ -685,6 +697,7 @@
   "Jazz",
   "Rap"
  ],
+ "F.G.S": [],
  "FAWN RIDGE": [
   "Indie"
  ],
@@ -1025,6 +1038,9 @@
  "Integrate": [
   "Dance"
  ],
+ "Integrity": [
+  "Punk & Metal"
+ ],
  "Inter Arma": [
   "Punk & Metal",
   "Rock"
@@ -1231,6 +1247,10 @@
   "Indie"
  ],
  "Kranium": [],
+ "Kristeen Young": [
+  "Pop",
+  "Dance"
+ ],
  "Krithi": [],
  "Kruder & Dorfmeister": [
   "Dance",
@@ -1256,6 +1276,7 @@
  "LAUNDRY DAY": [],
  "LEANNE GALLATI": [],
  "LILLA": [],
+ "LUCY (Cooper B": [],
  "LUCY BRIGHT": [],
  "LYNY": [
   "Rap",
@@ -1432,6 +1453,7 @@
   "Indie"
  ],
  "Mantra Collective Vol": [],
+ "Mareux": [],
  "Margaret Glaspy": [
   "Country & Folk"
  ],
@@ -1720,6 +1742,7 @@
  ],
  "Ph0": [],
  "Phoebe Robinson": [],
+ "Pig Destroyer 'Prowler In The Yard'": [],
  "Pigeons Playing Ping Pong": [
   "Rock",
   "Jazz"
@@ -2401,6 +2424,9 @@
  ],
  "UNFILTERED": [],
  "Uncle Jeb's Farm": [],
+ "Undeath": [
+  "Punk & Metal"
+ ],
  "Universal Temple of the Arts Staten Island JAZZ Festival": [],
  "Unsane": [
   "Indie",
@@ -2486,6 +2512,10 @@
  "Y2K Party": [],
  "YANKEL THE ROOSTER": [],
  "YHWH Nailgun": [],
+ "YOB": [
+  "Punk & Metal",
+  "Rock"
+ ],
  "Yachtley Crew": [
   "Rock"
  ],
@@ -2609,6 +2639,7 @@
  ],
  "lastfm:Aerobicide": [],
  "lastfm:Afrobeat Nights NYC": [],
+ "lastfm:Agriculture": [],
  "lastfm:Ahmed Spins": [
   "Dance"
  ],
@@ -3065,6 +3096,7 @@
   "Pop"
  ],
  "lastfm:Exploding In Sound 15th Anniversary": [],
+ "lastfm:F.G.S": [],
  "lastfm:FENNE LILY": [
   "Country & Folk"
  ],
@@ -3408,6 +3440,7 @@
  "lastfm:LILLA": [
   "Pop"
  ],
+ "lastfm:LUCY (Cooper B": [],
  "lastfm:LUCY BRIGHT": [],
  "lastfm:La Securite": [],
  "lastfm:Labiahead (all women Radiohead)": [],
@@ -3534,6 +3567,10 @@
  "lastfm:Mal Sounds": [],
  "lastfm:Mal Sounds, TALIA, Isa Reyes": [],
  "lastfm:Mantra Collective Vol": [],
+ "lastfm:Mareux": [
+  "Pop",
+  "Dance"
+ ],
  "lastfm:Margaux": [
   "Indie"
  ],
@@ -3741,6 +3778,7 @@
   "Punk & Metal"
  ],
  "lastfm:Phoebe Robinson": [],
+ "lastfm:Pig Destroyer 'Prowler In The Yard'": [],
  "lastfm:Piranhana": [],
  "lastfm:Played by The Rock and Roll Playhouse": [],
  "lastfm:Playland": [

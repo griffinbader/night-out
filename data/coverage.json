@@ -96,10 +96,9 @@
  {
   "venue": "sultan",
   "name": "The Sultan Room",
-  "shows": 26,
+  "shows": 38,
   "sources": {
-   "jsonld": 24,
-   "seatgeek": 1,
+   "dice-widget": 37,
    "ticketmaster-mirror": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -107,18 +106,18 @@
  {
   "venue": "sultanroof",
   "name": "The Sultan Room Rooftop",
-  "shows": 8,
+  "shows": 9,
   "sources": {
-   "jsonld": 8
+   "dice-widget": 9
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "unionpool",
   "name": "Union Pool",
-  "shows": 30,
+  "shows": 43,
   "sources": {
-   "jsonld": 30
+   "dice-widget": 43
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -365,11 +364,11 @@
  {
   "venue": "saintvitus",
   "name": "Saint Vitus",
-  "shows": 29,
+  "shows": 43,
   "sources": {
-   "jsonld": 29
+   "dice-widget": 43
   },
-  "confidence": "capped: DICE venue page stops at 30 shows"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "pioneerworks",
