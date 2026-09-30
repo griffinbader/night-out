@@ -105,6 +105,7 @@ TICKETMASTER_VENUES = {
     "KovZpZAFdJtA": "townhall", "KovZpZAIetFA": "bowl", "KovZpZAEAE6A": "hammerstein",
     "KovZpaFtpe": "palladium", "KovZpZAatEFA": "pier17",
     "KovZpZAJEa6A": "kings",
+    "KovZ917ARQ0": "lehman", "KovZpZAIdJ1A": "colden", "KovZ917AG0V": "lefrak",
     "KovZpZA7AAEA": "msg", "KovZpZA7kvlA": "msgtheater", "KovZpZAE7vdA": "radiocity", "KovZpZAEAd6A": "beacon",
     "KovZpZA7AAIA": "apollo", "KovZ917AJw7": "apollo", "KovZ917AJsB": "apollo",
     "KovZpa4PZe": "stgeorge", "KovZpZAalvtA": "citifield",

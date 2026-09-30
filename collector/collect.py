@@ -13,6 +13,7 @@ import re
 import subprocess
 import sys
 import time
+from difflib import SequenceMatcher
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -818,6 +819,52 @@ def src_eventbrite(path, venue, only_venue_name=None):
     return out
 
 
+def src_ticketmaster_mirror():
+    """Every NYC music event Ticketmaster knows about, including shows it only lists for resale
+    (their official sale is on a system we can't read, like See Tickets). Used last, just to fill
+    shows the other sources missed, and always linked to the venue's own site — never resale."""
+    key = os.environ.get("TICKETMASTER_API_KEY") or _env_value("TICKETMASTER_API_KEY")
+    if not key:
+        raise RuntimeError("no TICKETMASTER_API_KEY — skipped")
+    out, now = [], datetime.now(NYC).date()
+    for w in range(0, DAYS_AHEAD, 7):  # weekly windows: the API stops at 1,000 results per query
+        a, b = now + timedelta(days=w), now + timedelta(days=w + 7)
+        page = 0
+        while True:
+            q = urllib.parse.urlencode({"apikey": key, "classificationName": "music", "latlong": "40.73,-73.94",
+                                        "radius": 13, "unit": "miles", "size": 200, "page": page,
+                                        "startDateTime": f"{a}T00:00:00Z", "endDateTime": f"{b}T00:00:00Z"})
+            data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q, api=True))
+            time.sleep(0.25)
+            for e in (data.get("_embedded") or {}).get("events", []):
+                v = ((e.get("_embedded") or {}).get("venues") or [{}])[0]
+                loc = v.get("location") or {}
+                venue = _our_venue(v.get("name"), float(loc["latitude"]) if loc.get("latitude") else None,
+                                   float(loc["longitude"]) if loc.get("longitude") else None)
+                start = e.get("dates", {}).get("start", {})
+                if not venue or not start.get("localDate") or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
+                    continue
+                if SKIP_TM.search(e["name"]):
+                    continue
+                acts = [x["name"] for x in (e.get("_embedded") or {}).get("attractions", [])]
+                if not acts:
+                    h, sup = split_lineup(clean_title(e["name"]), commas=VENUE_SIZE.get(venue) != "large")
+                    acts = [h] + sup
+                official = not re.search(r"ticketmaster\.com/event/Z", e.get("url", ""))
+                imgs = sorted((i for i in e.get("images", []) if i.get("ratio") == "16_9"), key=lambda i: -i.get("width", 0))
+                img = next((i["url"] for i in reversed(imgs) if i.get("width", 0) >= 640), imgs[0]["url"] if imgs else None)
+                genres = [c.get(k, {}).get("name", "") for c in e.get("classifications", []) for k in ("genre", "subGenre")]
+                out.append(show(venue, acts[0], f"{start['localDate']}T{(start.get('localTime') or '20:00')[:5]}", acts[1:],
+                                image=img, url=e.get("url") if official else VENUE_SITES.get(venue),
+                                genres=[g for g in genres if g and g.lower() not in ("undefined", "other")],
+                                source="ticketmaster-mirror"))
+            info = data.get("page", {})
+            if info.get("number", 0) + 1 >= info.get("totalPages", 1) or page >= 4:
+                break
+            page += 1
+    return out
+
+
 def _env_value(name):
     env = ROOT / ".env"
     if env.exists():
@@ -852,6 +899,8 @@ SOURCES = [
     ("Saint Vitus (DICE)", lambda: src_jsonld("https://dice.fm/venue/saint-vitus-rgrv", "saintvitus")),
     ("Knockdown Center (DICE)", lambda: src_jsonld("https://dice.fm/venue/knockdown-center-e776", "knockdown")),
     ("Knockdown Center Ruins (DICE)", lambda: src_jsonld("https://dice.fm/venue/ruins-at-knockdown-center-owog", "knockdown")),
+    ("Xanadu (DICE)", lambda: src_jsonld("https://dice.fm/venue/xanadu-5knl", "xanadu")),
+    ("SILO (DICE)", lambda: src_jsonld("https://dice.fm/venue/silo-brooklyn-eb72", "silo")),
     ("Market Hotel", lambda: src_venuepilot(100, "markethotel")),
     ("TV Eye", lambda: src_seetickets_wp("https://tveyenyc.com/", "tveye")),
     ("H0L0", src_holo),
@@ -866,7 +915,8 @@ SOURCES = [
     ("Melrose Ballroom", lambda: src_squarespace_events("https://www.melroseballroom.com/events", "melrose")),
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
-    ("SeatGeek API (fills any dates the sources above missed)", src_seatgeek),
+    ("SeatGeek API (fills any shows the sources above missed)", src_seatgeek),
+    ("Ticketmaster citywide (fills the rest; resale-only listings link to the venue)", src_ticketmaster_mirror),
 ]
 
 # ---------------------------------------------------------------- main
@@ -881,6 +931,10 @@ NOT_MUSIC = re.compile(
 
 VENUE_SIZE = {v["id"]: v["size"] for v in VENUES}
 VENUE_GENRE = {v["id"]: v.get("genre") for v in VENUES}
+
+
+def _act_key(name):
+    return re.sub(r"[^a-z0-9]", "", clean_title(name).lower().replace("the ", ""))[:24] or "?"
 
 
 def show_id(s):
@@ -904,11 +958,19 @@ def main():
     fresh, report, big_slots = {}, [], set()
     # Sources run in priority order (official feeds first). A later source only fills in
     # venue-dates that the earlier ones didn't have, so gaps in one feed get covered by the next.
-    covered = set()
+    covered = {}  # (venue, date) -> shows already listed by higher-priority sources
+
+    def already_listed(s):
+        for other in covered.get((s["venue"], s["start"][:10]), []):
+            a, b = _act_key(s["artist"]), _act_key(other["artist"])
+            if s["start"] == other["start"] or a in b or b in a or SequenceMatcher(None, a, b).ratio() > 0.6:
+                return True  # same show under a slightly different name, or same slot
+        return False
+
     for label, fn in SOURCES:
         try:
             got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
-                   and (s["venue"], s["start"][:10]) not in covered
+                   and not already_listed(s)
                    and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
             for s in got:
                 s["id"] = show_id(s)
@@ -917,7 +979,8 @@ def main():
                     continue  # same arena show from a second feed
                 big_slots.add(slot)
                 fresh.setdefault(s["id"], s)  # first source wins on duplicates
-            covered |= {(s["venue"], s["start"][:10]) for s in got}
+            for s in got:
+                covered.setdefault((s["venue"], s["start"][:10]), []).append(s)
             report.append(f"  ✓ {label}: {len(got)} shows")
         except Exception as e:  # one broken site shouldn't stop the rest
             report.append(f"  ✗ {label}: {type(e).__name__}: {e}")
