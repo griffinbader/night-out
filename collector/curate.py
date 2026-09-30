@@ -44,7 +44,7 @@ TOUR_CUTS = [
     r"co-headliner?|european|farewell|reunion|anniversary|album|release))*\s+tour\b.*$",
     r"\s+on tour$",
     r"\s+live(?:\s+in\s+[\w ]+|\s+20\d\d)?$",   # "Giles Corey Live in New York"
-    r"\s+album release\b.*$",                   # "THE CENTRAL PARK FIVE Album Release presented by …"
+    r"\s+(?:album|lp|ep|record|single) release\b.*$",  # "Dazies LP Release Show", "… Album Release presented by …"
     r"\s+\|\s+.*$",                              # "Allan Rayman | HOTEL ALLAN"
     r"\s+[–—-]\s+.*$",                            # "Parachute – The Way it Was", "The Wrecks - Finally"
     r"\s*[“\"].*$",                               # 'Bit Brigade "The Legend of Zelda" + …'
@@ -56,7 +56,7 @@ TOUR_CUTS = [
 STRIP = re.compile(
     r"\s*[\(\[][^)\]]*(?:set|release|solo|18\+|21\+|all ages|album|ep\b|show|party|tour|live|sold out|night \d|band|performing|presented)[^)\]]*[\)\]]"
     r"|\s*\([^)]*$"                             # dangling "(presented by the J…"
-    r"|\s+(?:solo|live!?|in nyc|nyc)$",
+    r"|\s+(?-i:Solo)$|\s+(?:live!?|in nyc|nyc)$",   # "Jeff Tweedy Solo" (but not the rapper AKAI SOLO)
     re.I,
 )
 
@@ -97,7 +97,7 @@ NOT_ARTIST = re.compile(
     r"women.s game|freeski|rocket science|\bsalon\b|premiere|a new musical|\bmusical\b|winter festival|"
     r"\bgala\b|benefit(?:ing)?\b|fundraiser|modular society|shagshop|club 1bd|9am banger|revelation nights|"
     r"back to the \d0s|candlelight|tribute night|\bthe \d0'?s\b|music festival|\bshowcase\b|for families|"
-    r"^x\s|\bkoom\b|\bconference\b|\bsummit\b|takeover|orchestra concert|symphonic (?:tribute|tour)|video game|\bin concert\b",
+    r"^x\s|\bkoom\b|\bconference\b|\bsummit\b|takeover|variety show|battle of|jingle ball|orchestra concert|symphonic (?:tribute|tour)|video game|\bin concert\b",
     re.I,
 )
 

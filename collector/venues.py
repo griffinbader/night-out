@@ -97,17 +97,20 @@ BOWERY_NAMES = {
 }
 
 # Ticketmaster Discovery API venue ids -> our venue ids (filled in once we have an API key).
-TICKETMASTER_VENUES = {}
+TICKETMASTER_VENUES = {
+    "KovZ917AYEJ": "nc101",
+    "KovZpZA7AAEA": "msg", "KovZpZA7kvlA": "msgtheater", "KovZpZAE7vdA": "radiocity", "KovZpZAEAd6A": "beacon",
+    "KovZpZA7AAIA": "apollo", "KovZ917AJw7": "apollo", "KovZ917AJsB": "apollo",
+    "KovZpa4PZe": "stgeorge", "KovZpZAalvtA": "citifield",
+}
 
 # SeatGeek venue ids -> our venue ids (official SeatGeek Platform API, concerts only).
-SEATGEEK_VENUES = {93: "msg", 2513: "msgtheater", 4348: "radiocity", 414: "beacon",
-                   3731: "pacha",
+SEATGEEK_VENUES = {3731: "pacha",
                    9001: "cielo",
                    1410: "unitedpalace",
                    462992: "storehouse",
                    522350: "colden",
                    372451: "lefrak",
-                   781: "stgeorge",
                    3086: "lehman",
                    4730: "citywinery",
                    7929: "saintvitus",
@@ -119,10 +122,7 @@ SEATGEEK_VENUES = {93: "msg", 2513: "msgtheater", 4348: "radiocity", 414: "beaco
                    430407: "nowadays",
                    521776: "silo",
                    467045: "basementny",
-                   522048: "apollo",
-                   1608140: "apollo",
                    1366: "ethical",
-                   3: "citifield",
                    774: "carnegie",
                    994: "carnegie",
                    56718: "babys",

@@ -569,7 +569,10 @@ def src_ticketmaster():
             if not start.get("localDate") or SKIP_TM.search(e["name"]) or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
                 continue
             acts = [a["name"] for a in (e.get("_embedded") or {}).get("attractions", [])]
-            head = acts[0] if acts else e["name"]
+            if not acts:  # small clubs often put the whole lineup in the title: "A, B, C"
+                h, sup = split_lineup(clean_title(e["name"]), commas=VENUE_SIZE.get(venue) != "large")
+                acts = [h] + sup
+            head = acts[0]
             imgs = sorted((i for i in e.get("images", []) if i.get("ratio") == "16_9"), key=lambda i: -i.get("width", 0))
             img = next((i["url"] for i in reversed(imgs) if i.get("width", 0) >= 640), imgs[0]["url"] if imgs else None)
             genres = [c.get(k, {}).get("name", "") for c in e.get("classifications", []) for k in ("genre", "subGenre")]
@@ -648,7 +651,7 @@ SOURCES = [
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
     ("SeatGeek API (venues without their own readable calendar)", src_seatgeek),
-    ("Ticketmaster API", src_ticketmaster),
+    ("Ticketmaster API (Nightclub 101, MSG, Radio City, Beacon, Apollo, St. George, Citi Field)", src_ticketmaster),
 ]
 
 # ---------------------------------------------------------------- main
