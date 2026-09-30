@@ -274,6 +274,33 @@ function rangePanel() {
   </div>`;
 }
 
+// ---------- Home screen app ----------
+const IS_APP = window.navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+const IS_IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const IN_APP_BROWSER = /FBAN|FBAV|Instagram|Line\/|Snapchat|TikTok|LinkedInApp|Twitter/i.test(navigator.userAgent);
+let installPrompt = null; // Android/Chrome: the browser's own install dialog
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installPrompt = e; if (state.tab === 'discover') renderDiscover(); });
+window.addEventListener('appinstalled', () => { installPrompt = null; save('no.installed', true); render(); });
+
+const SHARE_ICON = '<svg class="ios-share" viewBox="0 0 24 24" aria-label="Share"><path d="M12 3v12M8 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 11H5v10h14V11h-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function installCard() {
+  if (IS_APP || load('no.installed', false)) return '';
+  const snoozed = +(load('no.installLater', 0)); // "Not now" hides it for 3 days
+  if (Date.now() - snoozed < 3 * DAY) return '';
+  let how;
+  if (IS_IOS && IN_APP_BROWSER) how = `Open this page in Safari (tap ⋯ then <b>Open in browser</b>), then add it to your home screen.`;
+  else if (IS_IOS) how = `In Safari, tap ${SHARE_ICON} <b>Share</b> (on newer iPhones it's under <b>⋯</b>), then <b>Add to Home Screen</b>.`;
+  else if (installPrompt) how = `Install it and shindig opens like an app.`;
+  else return '';
+  return `<div class="install-card">
+    <img src="img/apple-touch-icon.png" alt="" width="44" height="44">
+    <div><b>Put shindig on your home screen</b><p>${how}</p>
+      <div class="install-actions">${installPrompt ? '<button class="btn install-go" data-install>Install</button>' : ''}<button class="text-link" data-install-later>Not now</button></div>
+    </div>
+  </div>`;
+}
+
 // First visit: a quick note on what this is. Hidden once dismissed or signed in.
 function welcomeCard() {
   if (load('no.welcomed', false) || Account.me.profile) return '';
@@ -286,7 +313,7 @@ function welcomeCard() {
 
 function renderDiscover() {
   view.innerHTML = `
-    ${welcomeCard()}
+    ${welcomeCard() || installCard()}
     <h2>Where's the <em>music</em>?</h2>
     <div class="when">${datePicker()}${WHENS.map(([k, l]) => `<button data-when="${k}" class="${state.when === k ? 'on' : ''}">${l}</button>`).join('')}</div>
     ${rangePanel()}
@@ -461,7 +488,12 @@ function accountPanel(pitch) {
       <div class="sent-box">
         <span class="sent-icon" aria-hidden="true">✉</span>
         <b>Check your email</b>
-        <p>We sent a sign-in link to <strong>${esc(linkSentTo)}</strong>. Open it on this device and you're in.</p>
+        <p>We sent a sign-in email to <strong>${esc(linkSentTo)}</strong>. Enter the code from it here${IS_APP ? '' : ', or tap the link in it on this device'}.</p>
+        <form class="code-form" data-form="code">
+          <input name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6,8}" maxlength="8" placeholder="Code" aria-label="Sign-in code" required>
+          <button class="btn" type="submit">Sign in</button>
+        </form>
+        <div class="form-msg" id="code-msg"></div>
       </div>
       <button class="text-link" data-resend-email>Use a different email</button>
     </div>`;
@@ -596,12 +628,12 @@ async function handleLink() {
   const params = new URLSearchParams(location.hash.slice(1));
   if (params.get('invite')) {
     try { localStorage.setItem('no.invite', params.get('invite')); } catch { /* fine */ }
-    history.replaceState(null, '', BASE_URL);
+    history.replaceState(null, '', location.pathname + location.search);
     await tryPendingInvite();
   }
   if (params.get('show')) {
     const id = params.get('show');
-    history.replaceState(null, '', BASE_URL);
+    history.replaceState(null, '', location.pathname + location.search);
     if (showFor(id)) openSheet(id); else toast('That show isn’t listed anymore.');
   }
 }
@@ -616,12 +648,14 @@ async function tryPendingInvite() {
   try {
     const who = await Account.acceptInvite(code);
     try { localStorage.removeItem('no.invite'); } catch { /* fine */ }
+    save('no.inviteDone', code);
     invitePending = null;
     state.tab = 'friends';
     render();
     toast(who?.self ? 'That’s your own invite link!' : `You and ${who.display_name} are now friends`);
   } catch (err) {
     try { localStorage.removeItem('no.invite'); } catch { /* fine */ }
+    save('no.inviteDone', code);
     invitePending = null;
     toast(err.message);
   }
@@ -715,6 +749,12 @@ document.addEventListener('click', e => {
   }
   if (t.dataset.close !== undefined) return closeSheet();
   if (t.dataset.resendEmail !== undefined) { linkSentTo = null; return render(); }
+  if (t.dataset.installLater !== undefined) { save('no.installLater', Date.now()); return render(); }
+  if (t.dataset.install !== undefined && installPrompt) {
+    installPrompt.prompt();
+    installPrompt.userChoice.finally(() => { installPrompt = null; render(); });
+    return;
+  }
   if (t.dataset.reportOpen) return openReport(t.dataset.reportOpen);
   if (t.dataset.missing !== undefined) return openMissing();
   if (t.dataset.welcome) {
@@ -791,6 +831,9 @@ document.addEventListener('submit', async e => {
       await Account.sendLink(f.get('email').trim());
       linkSentTo = f.get('email').trim();
       return render();
+    } else if (form.dataset.form === 'code') {
+      await Account.verifyCode(linkSentTo, f.get('code').replace(/\D/g, ''));
+      linkSentTo = null; // signed in: the account change redraws the page
     } else if (form.dataset.form === 'profile') {
       await Account.createProfile(f.get('username').trim().toLowerCase(), f.get('display').trim(), f.get('color'));
     } else if (form.dataset.form === 'report') {
@@ -810,7 +853,7 @@ document.addEventListener('submit', async e => {
       else { await Account.addFriend(person.id); }
     }
   } catch (err) {
-    msg({ signin: 'signin-msg', profile: 'profile-msg', find: 'find-result', report: 'report-msg', missing: 'missing-msg' }[form.dataset.form], err.message || 'Something went wrong.');
+    msg({ signin: 'signin-msg', code: 'code-msg', profile: 'profile-msg', find: 'find-result', report: 'report-msg', missing: 'missing-msg' }[form.dataset.form], err.message || 'Something went wrong.');
   } finally {
     if (button?.isConnected) button.disabled = false;
   }
@@ -855,13 +898,16 @@ Account.onChange(async () => {
   if (sheetId) openSheet(sheetId);
 });
 
-// Personal links for the test group look like ...?r=alex. Remember the first one this browser arrived with.
-const refParam = new URLSearchParams(location.search).get('r');
-if (refParam) {
-  if (!load('no.ref', null)) save('no.ref', refParam.slice(0, 64));
-  history.replaceState(null, '', location.pathname + location.hash);
+// Personal links look like shindig.show/?r=alex&i=INVITECODE. They stay in the address on purpose: an iPhone
+// home-screen app opens the exact link it was added from, and it can't see what Safari saved.
+const linkParams = new URLSearchParams(location.search);
+const refParam = linkParams.get('r');
+if (refParam && !load('no.ref', null)) save('no.ref', refParam.slice(0, 64));
+const inviteParam = linkParams.get('i');
+if (inviteParam && load('no.inviteDone', null) !== inviteParam) {
+  try { localStorage.setItem('no.invite', inviteParam); } catch { /* fine */ }
 }
 
 render();
-Account.init().then(() => { Account.logVisit(load('no.ref', null)); handleLink(); });
+Account.init().then(() => { Account.logVisit(load('no.ref', null), IS_APP); tryPendingInvite().then(handleLink); });
 window.addEventListener('hashchange', handleLink);

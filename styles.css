@@ -485,3 +485,24 @@ button.date-chip.on { color: var(--paper); }
 .account-card .sent-box p { color: var(--black); font-size: 15px; max-width: 30ch; }
 .sent-box strong { overflow-wrap: anywhere; }
 .sent-card .text-link { align-self: center; margin-top: 4px; }
+
+/* ---------- Home screen app ---------- */
+.install-card {
+  display: flex; gap: 12px; align-items: flex-start; margin: 16px 0 4px; padding: 14px;
+  background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.install-card img { border-radius: 10px; border: 2px solid var(--ink); flex: none; }
+.install-card b { font: 800 17px var(--display); }
+.install-card p { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.install-card p b { font-family: inherit; font-size: 14px; font-weight: 700; color: var(--ink); }
+.ios-share { width: 17px; height: 17px; vertical-align: -3px; color: var(--ink); }
+.install-actions { display: flex; align-items: center; gap: 14px; margin-top: 10px; }
+.install-go { background: var(--yellow); color: var(--black); }
+.install-actions .text-link { font-size: 12px; }
+.code-form { display: flex; gap: 8px; width: 100%; max-width: 280px; margin-top: 6px; }
+.code-form input {
+  flex: 1; min-width: 0; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--black); background: var(--white);
+  color: var(--black); font: 700 20px var(--mono); letter-spacing: .15em; text-align: center;
+}
+.code-form .btn { background: var(--black); color: var(--white); border-color: var(--black); padding: 10px 16px; font-size: 15px; }
+.sent-box .form-msg { color: var(--black); }

@@ -7,13 +7,14 @@ You should see "Success. No rows returned." Until this runs, visits aren't logge
 
 ## Personal links
 
-Add `?r=` and a short name to the link you send each person. Put it before your invite code so they also land as your friend:
+Send each person a link with their name (`r=`) and your invite code (`i=`):
 
 ```
-https://shindig.show/?r=alex#invite=YOURCODE
+https://shindig.show/?r=alex&i=YOURCODE
 ```
 
 Get YOURCODE from Friends → Invite friends (it's the part after `#invite=`). The name after `r=` is only for you. Use first names or anything you'll recognize.
+Both stay in the address on purpose: if they add shindig to their iPhone home screen from that page, the home-screen app keeps the name and the invite.
 
 ## Reading the results
 
@@ -25,6 +26,7 @@ Open **SQL Editor → New snippet**, paste a query, click **Run**.
 select
   coalesce(max(p.display_name), max(v.ref), 'unknown ' || left(v.device_id, 6)) as who,
   max(v.ref) as link,
+  bool_or(coalesce(v.installed, false)) as home_screen,
   count(distinct (v.visited_at at time zone 'America/New_York')::date) as days_visited,
   count(*) as visits,
   min(v.visited_at at time zone 'America/New_York') as first_visit,

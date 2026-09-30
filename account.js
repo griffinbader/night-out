@@ -93,6 +93,12 @@ const Account = (() => {
       if (error) throw error;
     },
 
+    // The code in the sign-in email. Needed on iPhone home-screen apps, where the email link opens Safari instead.
+    async verifyCode(email, token) {
+      const { error } = await db.auth.verifyOtp({ email, token, type: 'email' });
+      if (error) throw new Error(/expired|invalid/i.test(error.message) ? 'That code didn’t work. Check it, or send a new one.' : error.message);
+    },
+
     async signOut() { await db.auth.signOut(); },
 
     // Permanently removes the account: sign-in record, profile, plans and friend connections.
@@ -167,12 +173,17 @@ const Account = (() => {
     },
 
     // Visit log for the test group: one row per device every 30 minutes at most (supabase/testing.sql).
-    async logVisit(ref) {
+    async logVisit(ref, installed = false) {
       if (!db) return;
       const last = +(localGet('no.lastVisit') || 0);
       if (Date.now() - last < 30 * 60e3) return;
       localSet('no.lastVisit', String(Date.now()));
-      const { error } = await db.from('visits').insert({ device_id: deviceId(), user_id: me.user?.id || null, ref: ref || null });
+      const row = { device_id: deviceId(), user_id: me.user?.id || null, ref: ref || null, installed };
+      let { error } = await db.from('visits').insert(row);
+      if (error && /installed/.test(error.message)) { // database not updated for the installed column yet
+        delete row.installed;
+        ({ error } = await db.from('visits').insert(row));
+      }
       if (error) console.warn('visit not logged', error.message);
     },
 

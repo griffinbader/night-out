@@ -34,3 +34,6 @@ create policy "send a report" on public.reports for insert to anon, authenticate
   with check (user_id is null or user_id = auth.uid());
 
 grant insert on public.visits, public.reports to anon, authenticated;
+
+-- Added later: whether the visit came from the home-screen app.
+alter table public.visits add column if not exists installed boolean;
