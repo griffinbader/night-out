@@ -253,8 +253,15 @@ def src_lpr():
         link = re.search(r'class="eventSingleLink" href="([^"]+)"', block)
         presenters = re.search(r"<h4 class='presenters[^']*'>(.*?)</h4>", block, re.S)
         head, support = split_lineup(text(name.group(1)), commas=True)
+        price = None
+        if link and day >= datetime.now(NYC).strftime("%Y-%m-%d"):
+            try:  # LPR prints the base ticket price on each show's page ("Event Ticket: $25")
+                m = re.search(r"Event Ticket:\s*\$\s?(\d+)", text(fetch(link.group(1))))
+                price = int(m.group(1)) if m else None
+            except Exception:
+                pass
         out.append(show("lpr", head, f"{day}T{clock}", support, tagline=text(presenters.group(1)) if presenters else "",
-                        image=img.group(1) if img else None, url=link.group(1) if link else None, source="lpr"))
+                        price=price, image=img.group(1) if img else None, url=link.group(1) if link else None, source="lpr"))
     return out
 
 

@@ -397,3 +397,7 @@ html, body { overflow-x: hidden; }
   .chip { padding: 4px 10px; font-size: 12.5px; }
   .top { margin: 0 calc(-1 * max(16px, env(safe-area-inset-left))); padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
 }
+
+.price-divider { margin: 36px 0 4px; padding-top: 18px; border-top: 2px dashed var(--ink); display: flex; flex-direction: column; gap: 2px; }
+.price-divider b { font: 800 22px var(--display); letter-spacing: -.5px; }
+.price-divider span { font: 500 12px var(--mono); color: var(--muted); text-transform: uppercase; }

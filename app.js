@@ -75,7 +75,7 @@ function matches(s, skip = '') {
   if (skip !== 'genre' && state.genres.size && !s.genres.some(g => state.genres.has(g))) return false;
   if (skip !== 'vibe' && state.vibes.size && !s.vibes.some(v => state.vibes.has(v))) return false;
   if (state.maxPrice != null) {
-    if (s.price == null || s.price > state.maxPrice) return false;  // base (pre-fee) prices only
+    if (s.price != null && s.price > state.maxPrice) return false;  // base (pre-fee) prices; unknown prices go last
   }
   if (state.query) {
     const q = state.query.toLowerCase();
@@ -273,13 +273,21 @@ function renderList() {
     el.innerHTML = head + `<div class="empty"><b>Nothing matches</b>Try a wider timeframe or fewer filters.</div>`;
     return;
   }
-  let html = head, lastDay = '';
-  for (const s of list) {
-    const k = midnight(s.start).getTime();
-    if (k !== lastDay) { html += `<div class="day"><span class="day-name">${dayLabel(s.start)}</span><span class="day-date">${s.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span></div>`; lastDay = k; }
-    html += card(s);
-  }
-  el.innerHTML = html;
+  const byDay = shows => {
+    let out = '', lastDay = '';
+    for (const s of shows) {
+      const k = midnight(s.start).getTime();
+      if (k !== lastDay) { out += `<div class="day"><span class="day-name">${dayLabel(s.start)}</span><span class="day-date">${s.start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span></div>`; lastDay = k; }
+      out += card(s);
+    }
+    return out;
+  };
+  if (state.maxPrice == null) { el.innerHTML = head + byDay(list); return; }
+  // Price filter on: shows with a known base price first, then the rest under their own heading
+  const priced = list.filter(s => s.price != null), unpriced = list.filter(s => s.price == null);
+  el.innerHTML = head
+    + (priced.length ? byDay(priced) : `<div class="empty"><b>No listed prices in range</b>Shows without a listed price are below.</div>`)
+    + (unpriced.length ? `<div class="price-divider"><b>Price not listed</b><span>${unpriced.length} show${unpriced.length === 1 ? '' : 's'} · check the ticket link</span></div>${byDay(unpriced)}` : '');
 }
 
 // ---------- Map ----------
