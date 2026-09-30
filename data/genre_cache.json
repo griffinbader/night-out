@@ -33,6 +33,10 @@
  "AJ LEE & BLUE SUMMIT": [
   "Country & Folk"
  ],
+ "AJ McLean": [
+  "Pop",
+  "Country & Folk"
+ ],
  "AJ McLean presents Alexander James": [],
  "AJJ": [
   "Country & Folk",
@@ -104,6 +108,7 @@
   "Pop"
  ],
  "Ami Taf Ra": [],
+ "Amit Tandon": [],
  "Amsterdam presents Charlotte Greve": [],
  "Amtrac": [
   "Dance"
@@ -151,6 +156,7 @@
   "Latin",
   "Rap"
  ],
+ "Arde Bogota": [],
  "Arde Bogotá": [
   "Rock"
  ],
@@ -214,6 +220,10 @@
  "BURAY": [],
  "BUSY'S DEAD COLLECTIVE": [],
  "Babe America": [],
+ "Baby Bugs": [
+  "Country & Folk",
+  "Rock"
+ ],
  "Baby Jane": [],
  "Baby Jane's": [],
  "Back to the Barre": [],
@@ -427,6 +437,7 @@
  "Coraline": [],
  "Corey Fonville": [],
  "Cortex": [],
+ "Countess Luann de Lesseps": [],
  "Courtney Bailey": [],
  "Cropsey Halloween": [],
  "Croz Boyce": [],
@@ -503,6 +514,9 @@
   "Jazz"
  ],
  "Dead Sullivan": [],
+ "Decent Criminal": [
+  "Punk & Metal"
+ ],
  "Deerhoof": [
   "Indie",
   "Pop"
@@ -684,6 +698,7 @@
   "Rock",
   "Pop"
  ],
+ "Friqtao": [],
  "Frog": [
   "Indie"
  ],
@@ -764,6 +779,7 @@
   "Punk & Metal",
   "Rock"
  ],
+ "Glykeria": [],
  "God Street Wine": [
   "Rock",
   "Jazz"
@@ -1027,6 +1043,7 @@
  ],
  "Jo Firestone": [],
  "Joe Mande Con Amici": [],
+ "John C": [],
  "John Carroll Kirby": [
   "Jazz"
  ],
@@ -1044,6 +1061,7 @@
  ],
  "Josh & Aaron Do Improv (Feat": [],
  "Josh Johnson": [],
+ "Joshua Henry": [],
  "Jubilee": [],
  "Judah & The Lion": [],
  "Juelz": [
@@ -1101,6 +1119,10 @@
  "Kiefer": [
   "Rap",
   "Jazz"
+ ],
+ "King Princess": [
+  "Pop",
+  "Indie"
  ],
  "King of Drag": [],
  "King of the World": [],
@@ -1190,6 +1212,7 @@
  "Leanne Gallati": [],
  "Lee Emi": [],
  "Lee Emi (Emilee Petersmark of The Crane Wives)": [],
+ "Leire": [],
  "Lennon Stella": [
   "Pop"
  ],
@@ -1323,6 +1346,7 @@
  "Mark Guiliana": [
   "Jazz"
  ],
+ "Marron": [],
  "Marsolo": [],
  "MaryAnne Muglia": [],
  "Masaaki": [],
@@ -1338,6 +1362,9 @@
   "Rock"
  ],
  "Matt Bloyd": [],
+ "Matt Rogers": [
+  "Pop"
+ ],
  "Matthew Danger Lippman": [],
  "May Shining Windows": [],
  "Mayv": [],
@@ -1476,6 +1503,7 @@
  "OUTLINE": [
   "Dance"
  ],
+ "Octave Cat": [],
  "October Community Listening Happy Hour with Paola Prestini": [],
  "Oldstar": [],
  "Oliver Malcolm": [],
@@ -1864,11 +1892,16 @@
  "Sounds of Bollywood": [],
  "Space Bacon & Dizgo": [],
  "Space Bacon & Dizgo w/ DJ Greenie of Lotus": [],
+ "Spanish Love Songs": [
+  "Punk & Metal",
+  "Rock"
+ ],
  "Special Guests": [],
  "Special Guests!": [],
  "Spencer Krug": [],
  "Sphinx Virtuosi": [],
  "Spin Out": [],
+ "Spin Out With Me": [],
  "Sports": [
   "Indie"
  ],
@@ -2145,6 +2178,7 @@
   "Pop"
  ],
  "The Wrecks - Finally": [],
+ "The9amBanger": [],
  "Theo Katzman": [],
  "Theophobia": [],
  "This Is Lorelei": [],
@@ -2436,6 +2470,7 @@
   "Indie",
   "Jazz"
  ],
+ "lastfm:Amit Tandon": [],
  "lastfm:Amsterdam presents Charlotte Greve": [],
  "lastfm:An Evening": [],
  "lastfm:An Evening With God Street Wine": [],
@@ -2459,6 +2494,7 @@
  "lastfm:Anjoli Simone": [],
  "lastfm:Anthony Roth Costanzo": [],
  "lastfm:Apollo Music Cafe": [],
+ "lastfm:Arde Bogota": [],
  "lastfm:Arkose": [],
  "lastfm:Arlo": [
   "Indie",
@@ -2634,6 +2670,7 @@
   "Jazz",
   "Indie"
  ],
+ "lastfm:Countess Luann de Lesseps": [],
  "lastfm:Courtney Bailey": [],
  "lastfm:Cropsey Halloween": [],
  "lastfm:Croz Boyce": [
@@ -2848,6 +2885,7 @@
   "Comedy"
  ],
  "lastfm:Freedom Attic": [],
+ "lastfm:Friqtao": [],
  "lastfm:Fruit Juice": [],
  "lastfm:Funk Tribu": [
   "Dance",
@@ -2869,6 +2907,9 @@
   "Indie"
  ],
  "lastfm:Gimme Gimme Disco": [],
+ "lastfm:Glykeria": [
+  "Country & Folk"
+ ],
  "lastfm:Golden Era Rave - 2010's EDM Classics": [],
  "lastfm:Good Time Mystery Vision": [],
  "lastfm:Gorgeous Gorgeous Halloween": [],
@@ -3030,6 +3071,9 @@
  "lastfm:Jessie’s Girl": [],
  "lastfm:Jo Firestone": [],
  "lastfm:Joe Mande Con Amici": [],
+ "lastfm:John C": [
+  "Rap"
+ ],
  "lastfm:Johnny Blue Skies & the Dark Clouds": [],
  "lastfm:Johnny Pemberton": [],
  "lastfm:Jon McLaughlin": [
@@ -3044,6 +3088,7 @@
  "lastfm:Josh Johnson": [
   "Jazz"
  ],
+ "lastfm:Joshua Henry": [],
  "lastfm:Jubilee": [
   "Rap"
  ],
@@ -3168,6 +3213,10 @@
  "lastfm:Leanne Gallati": [],
  "lastfm:Lee Emi": [],
  "lastfm:Lee Emi (Emilee Petersmark of The Crane Wives)": [],
+ "lastfm:Leire": [
+  "Pop",
+  "Indie"
+ ],
  "lastfm:Lesson 001": [],
  "lastfm:Level 1 Freeski Film": [],
  "lastfm:Lewis OfMan": [
@@ -3257,6 +3306,9 @@
  "lastfm:Mantra Collective Vol": [],
  "lastfm:Margaux": [
   "Indie"
+ ],
+ "lastfm:Marron": [
+  "Pop"
  ],
  "lastfm:Marsolo": [
   "Dance"
@@ -3371,6 +3423,10 @@
  "lastfm:Nogu Svelo!": [],
  "lastfm:Numero Group": [],
  "lastfm:OCTAVE CAT": [
+  "Jazz",
+  "Dance"
+ ],
+ "lastfm:Octave Cat": [
   "Jazz",
   "Dance"
  ],
@@ -3624,6 +3680,7 @@
   "Rock",
   "Pop"
  ],
+ "lastfm:Spin Out With Me": [],
  "lastfm:Stanley Simmons": [
   "Pop",
   "Rock"
@@ -3794,6 +3851,7 @@
  "lastfm:The Women’s Game": [],
  "lastfm:The Wordless Music Orchestra": [],
  "lastfm:The Wrecks - Finally": [],
+ "lastfm:The9amBanger": [],
  "lastfm:Theo Katzman": [
   "Pop",
   "Indie"

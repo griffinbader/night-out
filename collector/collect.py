@@ -740,31 +740,48 @@ def src_ticketmaster():
     return out
 
 
+def _our_venue(name, lat=None, lng=None):
+    n = re.sub(r"[^a-z0-9]", "", (name or "").lower())
+    for v in VENUES:
+        k = re.sub(r"[^a-z0-9]", "", v["name"].lower())
+        if k and (k in n or n in k):
+            return v["id"]
+    if lat and lng:
+        for v in VENUES:
+            if v.get("lat") and abs(v["lat"] - lat) < 0.0012 and abs(v["lng"] - lng) < 0.0015:
+                return v["id"]
+    return None
+
+
 def src_seatgeek():
-    """SeatGeek Platform API (official, free key) — concerts only, so no Knicks/Rangers/Rockettes."""
+    """SeatGeek Platform API (official, free key): every NYC concert in one sweep, matched to our venues.
+    Runs last, so it only fills dates nothing else had. Links go to the venue's own site, never resale."""
     key = os.environ.get("SEATGEEK_CLIENT_ID") or _env_value("SEATGEEK_CLIENT_ID")
     if not key:
         raise RuntimeError("no SEATGEEK_CLIENT_ID — skipped")
-    out = []
-    for sg_id, venue in SEATGEEK_VENUES.items():
-        page = 1
-        while True:
-            q = urllib.parse.urlencode({"client_id": key, "venue.id": sg_id, "taxonomies.name": "concert",
-                                        "per_page": 100, "page": page, "sort": "datetime_local.asc"})
-            data = json.loads(fetch("https://api.seatgeek.com/2/events?" + q, api=True))
-            for e in data.get("events", []):
-                if e.get("time_tbd") and e.get("date_tbd"):
-                    continue
-                performers = sorted(e.get("performers", []), key=lambda p: not p.get("primary"))
-                acts = [p["name"] for p in performers] or [e.get("short_title") or e["title"]]
-                genres = [g["name"] for p in performers[:1] for g in (p.get("genres") or [])]
-                out.append(show(venue, acts[0], e["datetime_local"][:16], acts[1:],
-                                tagline=e["title"] if e["title"] not in (acts[0], e.get("short_title")) else "",
-                                url=VENUE_SITES.get(venue) or e.get("url"), genres=genres, source="seatgeek"))
-            meta = data.get("meta", {})
-            if page * meta.get("per_page", 100) >= meta.get("total", 0):
-                break
-            page += 1
+    fallback = set(SEATGEEK_VENUES.values())
+    out, page = [], 1
+    while page <= 40:
+        q = urllib.parse.urlencode({"client_id": key, "lat": 40.73, "lon": -73.94, "range": "13mi",
+                                    "taxonomies.name": "concert", "per_page": 100, "page": page})
+        data = json.loads(fetch("https://api.seatgeek.com/2/events?" + q, api=True))
+        for e in data.get("events", []):
+            v = e.get("venue") or {}
+            venue = SEATGEEK_VENUES.get(v.get("id")) or _our_venue(v.get("name"), (v.get("location") or {}).get("lat"),
+                                                                    (v.get("location") or {}).get("lon"))
+            link = VENUE_SITES.get(venue) or (e.get("url") if venue in fallback else None)
+            if not venue or not link or (e.get("time_tbd") and e.get("date_tbd")):
+                continue
+            performers = sorted(e.get("performers", []), key=lambda p: not p.get("primary"))
+            acts = [p["name"] for p in performers] or [e.get("short_title") or e["title"]]
+            genres = [g["name"] for p in performers[:1] for g in (p.get("genres") or [])]
+            out.append(show(venue, acts[0], e["datetime_local"][:16], acts[1:],
+                            tagline=e["title"] if e["title"] not in (acts[0], e.get("short_title")) else "",
+                            url=link, genres=genres, source="seatgeek"))
+        meta = data.get("meta", {})
+        if not data.get("events") or page * meta.get("per_page", 100) >= meta.get("total", 0):
+            break
+        page += 1
     return out
 
 
@@ -849,7 +866,7 @@ SOURCES = [
     ("Melrose Ballroom", lambda: src_squarespace_events("https://www.melroseballroom.com/events", "melrose")),
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
-    ("SeatGeek API (venues without their own readable calendar)", src_seatgeek),
+    ("SeatGeek API (fills any dates the sources above missed)", src_seatgeek),
 ]
 
 # ---------------------------------------------------------------- main
@@ -863,7 +880,6 @@ NOT_MUSIC = re.compile(
 
 
 VENUE_SIZE = {v["id"]: v["size"] for v in VENUES}
-OFFICIAL = ("Ticketmaster API", "Eventbrite API", "Full calendar")  # these win; other readers are the backup
 VENUE_GENRE = {v["id"]: v.get("genre") for v in VENUES}
 
 
@@ -886,11 +902,13 @@ def main():
     oldest = (now - timedelta(days=KEEP_PAST_DAYS)).strftime("%Y-%m-%d")
 
     fresh, report, big_slots = {}, [], set()
-    official = set()  # venues already covered by Ticketmaster — their own sites are only a backup
+    # Sources run in priority order (official feeds first). A later source only fills in
+    # venue-dates that the earlier ones didn't have, so gaps in one feed get covered by the next.
+    covered = set()
     for label, fn in SOURCES:
         try:
             got = [s for s in fn() if today <= s["start"][:10] <= horizon and s["artist"]
-                   and (label.startswith(OFFICIAL) or s["venue"] not in official)
+                   and (s["venue"], s["start"][:10]) not in covered
                    and not NOT_MUSIC.search(f"{s['artist']} {s['tagline']}")]
             for s in got:
                 s["id"] = show_id(s)
@@ -899,8 +917,7 @@ def main():
                     continue  # same arena show from a second feed
                 big_slots.add(slot)
                 fresh.setdefault(s["id"], s)  # first source wins on duplicates
-            if label.startswith(OFFICIAL):
-                official |= {s["venue"] for s in got}
+            covered |= {(s["venue"], s["start"][:10]) for s in got}
             report.append(f"  ✓ {label}: {len(got)} shows")
         except Exception as e:  # one broken site shouldn't stop the rest
             report.append(f"  ✗ {label}: {type(e).__name__}: {e}")
