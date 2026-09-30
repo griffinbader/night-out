@@ -138,6 +138,7 @@ def curate(shows, log=print):
     exclude = [_key(x) for x in OVERRIDES["exclude"]]
     rename = {_key(k): v for k, v in OVERRIDES["rename"].items()}
     series = {_key(x) for x in OVERRIDES.get("series", [])}
+    exclude_exact = {_key(x) for x in OVERRIDES.get("exclude_exact", [])}
     keep, dropped = [], []
     for s in shows:
         raw = s["artist"]
@@ -162,7 +163,7 @@ def curate(shows, log=print):
                 continue
         blob = f"{raw} {s.get('tagline', '')}"
         rule_hit = NOT_ARTIST.search(raw) or NOT_ARTIST_SUBTITLE.search(s.get("tagline", ""))
-        if any(x and x in _key(blob) for x in exclude) or (k not in rename and rule_hit):
+        if any(x and x in _key(blob) for x in exclude) or _key(s["artist"]) in exclude_exact or (k not in rename and rule_hit):
             dropped.append(raw)
             continue
         keep.append(s)

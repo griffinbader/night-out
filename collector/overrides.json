@@ -1,5 +1,5 @@
 {
-  "_about": "Judgment calls the rules can't make. 'exclude': listing text (title or tagline) that means it's not an artist show. 'rename': exact listing title -> the artist to headline. 'series': party/series names billed above the real artists; the artist is taken from the lineup or subtitle.",
+  "_about": "Judgment calls the rules can't make. 'exclude': listing text (title or tagline) that means it's not an artist show. 'rename': exact listing title -> the artist to headline. 'series': party/series names billed above the real artists; the artist is taken from the lineup or subtitle. 'exclude_exact': headlines dropped only on an exact match (short names that could be part of a real band's name).",
   "exclude": [
     "Do Si Don'tcha",
     "Music of Bob Marley + More for Kids",
@@ -169,5 +169,19 @@
     "Elsewhere",
     "not without friends",
     "H0L0"
+  ],
+  "exclude_exact": [
+    "Improvement Movement",
+    "19:26",
+    "Love 2 Love",
+    "Send It Up",
+    "Home & Abroad",
+    "Wrecked",
+    "EXOPOCALYPSE",
+    "Words and Guitar",
+    "Lettuce Cook",
+    "POSTCARD",
+    "The Legends",
+    "Chello & Friends"
   ]
 }

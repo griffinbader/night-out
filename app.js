@@ -22,6 +22,8 @@ const state = {
   from: null,      // 'YYYY-MM-DD' start of a picked date range
   to: null,        // 'YYYY-MM-DD' end of it (same as from for a single day)
   rangeOpen: false,
+  calMonth: null,  // first day of the month the calendar shows, 'YYYY-MM-01'
+  picking: false,  // true after the first tap: the next tap sets the end of the range
   limit: 80,       // cards drawn so far; more load as you scroll
   boroughs: new Set(),
   hoods: new Set(),
@@ -235,18 +237,40 @@ function datePicker() {
   return `<button class="date-chip ${on ? 'on' : ''}" data-range-toggle aria-expanded="${state.rangeOpen}" title="Pick dates">📅${on ? ' ' + rangeLabel() : ''}</button>`;
 }
 
+// Dropdown calendar: tap a day for that night, tap a second day to make it a range.
 function rangePanel() {
   if (!state.rangeOpen) return '';
-  const first = isoDay(new Date());
-  const last = SHOWS.length ? isoDay(SHOWS[SHOWS.length - 1].start) : '';
-  return `<div class="range-panel">
-    <label>From<input type="date" id="range-from" min="${first}" max="${last}" value="${state.from || ''}"></label>
-    <label>To<input type="date" id="range-to" min="${state.from || first}" max="${last}" value="${state.to || ''}"></label>
-    <div class="range-actions">
-      <button class="btn range-apply" data-range-apply>Show these dates</button>
-      ${state.when === 'range' ? '<button class="btn" data-range-clear>Clear</button>' : ''}
+  const today = isoDay(new Date());
+  const last = SHOWS.length ? isoDay(SHOWS[SHOWS.length - 1].start) : today;
+  const month = new Date((state.calMonth || (state.from || today).slice(0, 7) + '-01') + 'T00:00');
+  const first = new Date(month), lead = first.getDay();
+  const days = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  const withShows = new Set(SHOWS.map(s => isoDay(s.start)));
+  const from = state.when === 'range' ? state.from : null, to = state.when === 'range' ? (state.to || state.from) : null;
+  let cells = '<span></span>'.repeat(lead);
+  for (let d = 1; d <= days; d++) {
+    const iso = isoDay(new Date(month.getFullYear(), month.getMonth(), d));
+    const off = iso < today || iso > last;
+    const cls = [
+      from && iso >= from && iso <= to ? 'in' : '', iso === from ? 'start' : '', iso === to ? 'end' : '',
+      iso === today ? 'today' : '', withShows.has(iso) ? 'has' : '',
+    ].join(' ');
+    cells += `<button class="cal-day ${cls}" data-cal-day="${iso}" ${off ? 'disabled' : ''}>${d}</button>`;
+  }
+  const monthIso = d => isoDay(d).slice(0, 8) + '01';
+  const prev = monthIso(new Date(month.getFullYear(), month.getMonth() - 1, 1));
+  const next = monthIso(new Date(month.getFullYear(), month.getMonth() + 1, 1));
+  return `<div class="cal">
+    <div class="cal-head">
+      <button class="cal-nav" data-cal-month="${prev}" ${prev < today.slice(0, 8) + '01' ? 'disabled' : ''} aria-label="Previous month">‹</button>
+      <b>${month.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</b>
+      <button class="cal-nav" data-cal-month="${next}" ${next > last ? 'disabled' : ''} aria-label="Next month">›</button>
     </div>
-    <p class="range-hint">Leave "To" empty for a single day.</p>
+    <div class="cal-grid">${['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(x => `<span class="cal-dow">${x}</span>`).join('')}${cells}</div>
+    <div class="cal-foot">
+      <span>${state.picking ? 'Tap another day to make it a range' : 'Tap a day, or two days for a range'}</span>
+      <span>${state.when === 'range' ? '<button class="btn" data-range-clear>Clear</button>' : ''}<button class="btn cal-done" data-range-toggle>Done</button></span>
+    </div>
   </div>`;
 }
 
@@ -254,9 +278,8 @@ function rangePanel() {
 function welcomeCard() {
   if (load('no.welcomed', false) || Account.me.profile) return '';
   return `<div class="welcome">
-    <p><b>New here?</b> Shindig lists live music at NYC venues, pulled from venue calendars and ticket sites every morning.
-    Pick a night, filter by borough, genre or vibe, and tap any show for tickets.</p>
-    <p>Sign in to mark what you're going to and see where your friends are headed.</p>
+    <p>Shindig compiles every concert happening in NYC. Pick a night, filter by borough, genre, vibe, or price, and tap any show for tickets.</p>
+    <p>Sign in to see where your friends are headed and mark where you are too.</p>
     <div class="welcome-actions">${Account.enabled ? '<button class="btn welcome-signin" data-welcome="signin">Sign in</button>' : ''}<button class="btn" data-welcome="ok">Got it</button></div>
   </div>`;
 }
@@ -707,16 +730,21 @@ document.addEventListener('click', e => {
     state.rangeOpen = false; state.limit = 80;
     return renderDiscover();
   }
-  if (t.dataset.rangeToggle !== undefined) { state.rangeOpen = !state.rangeOpen; return renderDiscover(); }
-  if (t.dataset.rangeApply !== undefined) {
-    const from = document.getElementById('range-from').value, to = document.getElementById('range-to').value;
-    if (!from) { document.getElementById('range-from').focus(); return; }
-    state.from = from; state.to = to && to >= from ? to : from;
-    state.when = 'range'; state.rangeOpen = false; state.limit = 80;
+  if (t.dataset.rangeToggle !== undefined) { state.rangeOpen = !state.rangeOpen; state.picking = false; return renderDiscover(); }
+  if (t.dataset.calMonth) { state.calMonth = t.dataset.calMonth; return renderDiscover(); }
+  if (t.dataset.calDay) {
+    const day = t.dataset.calDay;
+    if (state.picking && state.when === 'range' && day !== state.from) {
+      [state.from, state.to] = day < state.from ? [day, state.from] : [state.from, day];
+      state.picking = false; state.rangeOpen = false; // range picked: close
+    } else {
+      state.from = state.to = day; state.picking = true; // one night so far; a second tap extends it
+    }
+    state.when = 'range'; state.calMonth = day.slice(0, 8) + '01'; state.limit = 80;
     return renderDiscover();
   }
   if (t.dataset.rangeClear !== undefined) {
-    state.when = null; state.from = state.to = null; state.rangeOpen = false; state.limit = 80;
+    state.when = null; state.from = state.to = null; state.picking = false; state.limit = 80;
     return renderDiscover();
   }
   if (t.dataset.chip) {
@@ -776,11 +804,6 @@ document.addEventListener('submit', async e => {
 
 document.addEventListener('change', e => {
   if (e.target.id === 'price-range') { renderControls(); renderList(); return; }
-  if (e.target.id === 'range-from') { // "To" can't be before "From"
-    const to = document.getElementById('range-to');
-    to.min = e.target.value;
-    if (to.value && to.value < e.target.value) to.value = '';
-  }
 });
 
 document.addEventListener('input', e => {
