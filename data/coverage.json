@@ -12,9 +12,9 @@
  {
   "venue": "nc101",
   "name": "Nightclub 101",
-  "shows": 78,
+  "shows": 77,
   "sources": {
-   "ticketmaster": 78
+   "ticketmaster": 77
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -92,9 +92,9 @@
  {
   "venue": "sultan",
   "name": "The Sultan Room",
-  "shows": 39,
+  "shows": 38,
   "sources": {
-   "dice-widget": 39
+   "dice-widget": 38
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -205,10 +205,10 @@
  {
   "venue": "tveye",
   "name": "TV Eye",
-  "shows": 11,
+  "shows": 10,
   "sources": {
    "dice-widget": 2,
-   "seetickets-wp": 6,
+   "seetickets-wp": 5,
    "seatgeek": 3
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -344,9 +344,10 @@
  {
   "venue": "littlefield",
   "name": "Littlefield",
-  "shows": 11,
+  "shows": 27,
   "sources": {
-   "eventbrite": 11
+   "eventbrite": 10,
+   "eventbrite-widget": 17
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -399,19 +400,19 @@
  {
   "venue": "sobs",
   "name": "SOB's",
-  "shows": 22,
+  "shows": 20,
   "sources": {
-   "sobs": 22
+   "sobs": 20
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "xanadu",
   "name": "Xanadu",
-  "shows": 8,
+  "shows": 6,
   "sources": {
    "lpr": 3,
-   "jsonld": 4,
+   "jsonld": 2,
    "seatgeek": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -446,11 +447,9 @@
  {
   "venue": "basementny",
   "name": "Basement",
-  "shows": 1,
-  "sources": {
-   "seatgeek": 1
-  },
-  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+  "shows": 0,
+  "sources": {},
+  "confidence": "none: no shows found"
  },
  {
   "venue": "apollo",
@@ -496,10 +495,10 @@
  {
   "venue": "knockdown",
   "name": "Knockdown Center",
-  "shows": 41,
+  "shows": 40,
   "sources": {
    "bowery": 13,
-   "jsonld": 27,
+   "jsonld": 26,
    "seatgeek": 1
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
