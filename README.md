@@ -3,7 +3,7 @@
 Find live music in NYC tonight, this weekend, or whenever — filtered by borough, neighborhood, vibe and genre.
 Not a ticketing platform: every show links out to the venue's own ticket page.
 
-**Live:** https://griffinbader.github.io/night-out/ — listings refresh every morning via GitHub Actions (`.github/workflows/collect.yml`).
+**Live:** https://shindig.show/ — listings refresh every morning via GitHub Actions (`.github/workflows/collect.yml`).
 
 ## Run it
 - Collect fresh listings: `python3 collector/collect.py` (writes `data/shows.js`)

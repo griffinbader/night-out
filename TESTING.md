@@ -10,7 +10,7 @@ You should see "Success. No rows returned." Until this runs, visits aren't logge
 Add `?r=` and a short name to the link you send each person. Put it before your invite code so they also land as your friend:
 
 ```
-https://griffinbader.github.io/night-out/?r=alex#invite=YOURCODE
+https://shindig.show/?r=alex#invite=YOURCODE
 ```
 
 Get YOURCODE from Friends → Invite friends (it's the part after `#invite=`). The name after `r=` is only for you. Use first names or anything you'll recognize.

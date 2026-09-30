@@ -9,8 +9,10 @@ Project: https://supabase.com/dashboard/project/ieguinuslxfspuhxfaiq
 
 ## Step 2 — Sign-in link destinations
 1. Left sidebar → **Authentication** → **URL Configuration**
-2. **Site URL:** `https://griffinbader.github.io/night-out/`
+2. **Site URL:** `https://shindig.show/`
 3. **Redirect URLs** → Add URL, one at a time:
+   - `https://shindig.show/`
+   - `https://www.shindig.show/`
    - `https://griffinbader.github.io/night-out/`
    - `http://localhost:5173/`
 4. **Save**
