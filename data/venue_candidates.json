@@ -73,6 +73,15 @@
   "lng": -74.0054
  },
  {
+  "name": "Carnegie Hall - Judy & Arthur Zankel Hall",
+  "events": 3,
+  "sources": [
+   "seatgeek"
+  ],
+  "lat": 40.765,
+  "lng": -73.9799
+ },
+ {
   "name": "HK Hall",
   "events": 3,
   "sources": [

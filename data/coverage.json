@@ -93,10 +93,9 @@
  {
   "venue": "sultan",
   "name": "The Sultan Room",
-  "shows": 39,
+  "shows": 38,
   "sources": {
-   "dice-widget": 38,
-   "ticketmaster-mirror": 1
+   "dice-widget": 38
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -178,11 +177,12 @@
  {
   "venue": "markethotel",
   "name": "Market Hotel",
-  "shows": 1,
+  "shows": 9,
   "sources": {
+   "venuepilot": 8,
    "ticketmaster-mirror": 1
   },
-  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "sawdust",
@@ -456,6 +456,13 @@
  {
   "venue": "apollo",
   "name": "Apollo Theater",
+  "shows": 0,
+  "sources": {},
+  "confidence": "none: no shows found"
+ },
+ {
+  "venue": "apollovictoria",
+  "name": "The Apollo Stages at the Victoria",
   "shows": 2,
   "sources": {
    "ticketmaster": 2
@@ -601,10 +608,9 @@
  {
   "venue": "msg",
   "name": "Madison Square Garden",
-  "shows": 33,
+  "shows": 26,
   "sources": {
-   "ticketmaster": 26,
-   "seatgeek": 7
+   "ticketmaster": 26
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -629,10 +635,10 @@
  {
   "venue": "carnegie",
   "name": "Carnegie Hall",
-  "shows": 27,
+  "shows": 24,
   "sources": {
    "bowery": 6,
-   "seatgeek": 12,
+   "seatgeek": 9,
    "ticketmaster-mirror": 9
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"

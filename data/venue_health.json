@@ -4,6 +4,11 @@
   "last_shows_seen": "2026-09-30",
   "site_failures": 0
  },
+ "apollovictoria": {
+  "first_checked": "2026-09-30",
+  "last_shows_seen": "2026-09-30",
+  "site_failures": 0
+ },
  "babys": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
@@ -96,7 +101,7 @@
  "hammerstein": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 4
+  "site_failures": 5
  },
  "holo": {
   "first_checked": "2026-09-30",
@@ -171,7 +176,7 @@
  "monarch": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 2
+  "site_failures": 3
  },
  "msg": {
   "first_checked": "2026-09-30",
@@ -181,7 +186,7 @@
  "msgtheater": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 4
+  "site_failures": 5
  },
  "nc101": {
   "first_checked": "2026-09-30",
@@ -196,7 +201,7 @@
  "pacha": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 4
+  "site_failures": 5
  },
  "palladium": {
   "first_checked": "2026-09-30",
@@ -256,7 +261,7 @@
  "silo": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 4
+  "site_failures": 5
  },
  "sobs": {
   "first_checked": "2026-09-30",
