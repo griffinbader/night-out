@@ -742,16 +742,23 @@ def src_ticketmaster():
     return out
 
 
+# Other names the ticketing sites use for our venues (lowercase letters and digits only).
+VENUE_ALIASES = {"lepoissonrouge": "lpr", "theapollos": "apollo", "apollos": "apollo"}
+
+
 def _our_venue(name, lat=None, lng=None):
+    """Match a ticketing site's venue name to one of ours by name only. Matching by map location pulled in
+    neighbors (Daryl Roth Theatre as Irving Plaza, Berlin as Mercury Lounge), so lat/lng are ignored."""
     n = re.sub(r"[^a-z0-9]", "", (name or "").lower())
+    if not n:
+        return None
+    for alias, vid in VENUE_ALIASES.items():
+        if n.startswith(alias):
+            return vid
     for v in VENUES:
         k = re.sub(r"[^a-z0-9]", "", v["name"].lower())
-        if k and (k in n or n in k):
+        if n == k or (len(k) >= 6 and k in n) or (len(n) >= 6 and n in k):
             return v["id"]
-    if lat and lng:
-        for v in VENUES:
-            if v.get("lat") and abs(v["lat"] - lat) < 0.0012 and abs(v["lng"] - lng) < 0.0015:
-                return v["id"]
     return None
 
 

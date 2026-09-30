@@ -170,6 +170,10 @@ IGNORED_CANDIDATES = {
     "cielo", "cuttingroom", "drom", "boweryelectric", "rockwoodmusichall", "jazzatlincolncenter", "nebula",
     "superioringredients", "230 5thave", "2305thave", "booththeatre", "palacetheatreny", "54below",
     "loewsjerseytheatre", "williamscenter", "bergenperformingartscenter", "centralparkwollmanrink",
+    # Griffin passed on these 2026-09-30
+    "birdland", "bowerypalace", "lucindas", "brownstonejazz", "davidgeffenhall", "wildhorses", "iridium",
+    # theaters that SeatGeek mislabels as concerts
+    "magicmiketheater", "palacetheatre", "darylroththeatre",
 }
 
 # Outdoor / seasonal venues: months without shows are normal, so the closing watch ignores quiet stretches.
