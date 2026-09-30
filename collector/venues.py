@@ -171,3 +171,6 @@ IGNORED_CANDIDATES = {
     "superioringredients", "230 5thave", "2305thave", "booththeatre", "palacetheatreny", "54below",
     "loewsjerseytheatre", "williamscenter", "bergenperformingartscenter", "centralparkwollmanrink",
 }
+
+# Outdoor / seasonal venues: months without shows are normal, so the closing watch ignores quiet stretches.
+SEASONAL_VENUES = {"foresthills", "pier17", "meadows", "kbridge", "flushing", "citifield"}

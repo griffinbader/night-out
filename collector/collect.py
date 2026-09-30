@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import ai_reader  # noqa: E402
 from curate import curate  # noqa: E402
 from genres import tag_shows  # noqa: E402
-from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_SITES, VENUES  # noqa: E402
+from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEASONAL_VENUES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_SITES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "shows.js"
@@ -983,7 +983,8 @@ NOT_VENUES = re.compile(r"new jersey|nj\b|newark|jersey city|hoboken|long island
 
 
 def track_venue_health(shows):
-    """Openings and closings. data/venue_health.json remembers, per venue, the last run that found
+    """Openings and closings — flags for a person to review; nothing is removed automatically.
+    data/venue_health.json remembers, per venue, the last run that found
     upcoming shows and whether its website loaded; data/venue_candidates.json lists venues that keep
     appearing in citywide listings but aren't on Shindig yet."""
     path = ROOT / "data" / "venue_health.json"
@@ -1009,8 +1010,9 @@ def track_venue_health(shows):
                 h["site_failures"] = h.get("site_failures", 0) + 1
         last = h.get("last_shows_seen") or h["first_checked"]
         quiet_days = (datetime.fromisoformat(today) - datetime.fromisoformat(last)).days
-        if quiet_days >= 14:
-            notes.append(f"    {v['name']}: no upcoming shows from any source for {quiet_days} days — closed or on break?")
+        # Only ever a prompt to check, never an automatic removal. Seasonal (outdoor) venues are skipped.
+        if quiet_days >= 14 and v["id"] not in SEASONAL_VENUES:
+            notes.append(f"    {v['name']}: no upcoming shows from any source for {quiet_days} days — worth checking")
         if h.get("site_failures", 0) >= 3:
             notes.append(f"    {v['name']}: website hasn't loaded for {h['site_failures']} runs — check if it's still open")
     path.write_text(json.dumps(health, indent=1, sort_keys=True))
