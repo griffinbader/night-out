@@ -68,3 +68,6 @@ BOWERY_NAMES = {
 
 # Ticketmaster Discovery API venue ids -> our venue ids (filled in once we have an API key).
 TICKETMASTER_VENUES = {}
+
+# SeatGeek venue ids -> our venue ids (official SeatGeek Platform API, concerts only).
+SEATGEEK_VENUES = {93: "msg", 2513: "msgtheater", 4348: "radiocity", 414: "beacon"}

@@ -24,7 +24,7 @@ from zoneinfo import ZoneInfo
 sys.path.insert(0, str(Path(__file__).parent))
 from curate import curate  # noqa: E402
 from genres import tag_shows  # noqa: E402
-from venues import BOWERY_NAMES, TICKETMASTER_VENUES, VENUES  # noqa: E402
+from venues import BOWERY_NAMES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "shows.js"
@@ -52,8 +52,9 @@ def allowed(url):
     return _robots[host].can_fetch("*", url)
 
 
-def fetch(url):
-    if not allowed(url):
+def fetch(url, api=False):
+    # api=True: an official API we're signed up for with our own key, so crawler rules don't apply
+    if not api and not allowed(url):
         raise RuntimeError(f"robots.txt disallows {url}")
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Encoding": "gzip"})
     try:
@@ -455,7 +456,7 @@ def src_ticketmaster():
     for tm_id, venue in TICKETMASTER_VENUES.items():
         q = urllib.parse.urlencode({"apikey": key, "venueId": tm_id, "classificationName": "music",
                                     "size": 200, "sort": "date,asc", "countryCode": "US"})
-        data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q))
+        data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q, api=True))
         for e in (data.get("_embedded") or {}).get("events", []):
             start = e.get("dates", {}).get("start", {})
             if not start.get("localDate") or SKIP_TM.search(e["name"]) or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
@@ -470,6 +471,34 @@ def src_ticketmaster():
                             tagline=e["name"] if e["name"] != head else "", price=round(price) if price else None,
                             image=img, url=e.get("url"),
                             genres=[g for g in genres if g and g.lower() not in ("undefined", "other")], source="ticketmaster"))
+    return out
+
+
+def src_seatgeek():
+    """SeatGeek Platform API (official, free key) — concerts only, so no Knicks/Rangers/Rockettes."""
+    key = os.environ.get("SEATGEEK_CLIENT_ID") or _env_value("SEATGEEK_CLIENT_ID")
+    if not key:
+        raise RuntimeError("no SEATGEEK_CLIENT_ID — skipped")
+    out = []
+    for sg_id, venue in SEATGEEK_VENUES.items():
+        page = 1
+        while True:
+            q = urllib.parse.urlencode({"client_id": key, "venue.id": sg_id, "taxonomies.name": "concert",
+                                        "per_page": 100, "page": page, "sort": "datetime_local.asc"})
+            data = json.loads(fetch("https://api.seatgeek.com/2/events?" + q, api=True))
+            for e in data.get("events", []):
+                if e.get("time_tbd") and e.get("date_tbd"):
+                    continue
+                performers = sorted(e.get("performers", []), key=lambda p: not p.get("primary"))
+                acts = [p["name"] for p in performers] or [e.get("short_title") or e["title"]]
+                genres = [g["name"] for p in performers[:1] for g in (p.get("genres") or [])]
+                out.append(show(venue, acts[0], e["datetime_local"][:16], acts[1:],
+                                tagline=e["title"] if e["title"] not in (acts[0], e.get("short_title")) else "",
+                                url=e.get("url"), genres=genres, source="seatgeek"))
+            meta = data.get("meta", {})
+            if page * meta.get("per_page", 100) >= meta.get("total", 0):
+                break
+            page += 1
     return out
 
 
@@ -504,7 +533,8 @@ SOURCES = [
     ("Barclays Center", src_barclays),
     ("Sony Hall", src_sony_hall),
     ("Kings Theatre", src_kings_theatre),
-    ("Ticketmaster API (MSG, Radio City, Beacon)", src_ticketmaster),
+    ("SeatGeek API (MSG, Radio City, Beacon)", src_seatgeek),
+    ("Ticketmaster API", src_ticketmaster),
 ]
 
 # ---------------------------------------------------------------- main

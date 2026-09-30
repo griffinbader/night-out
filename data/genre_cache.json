@@ -56,6 +56,7 @@
   "Country & Folk",
   "Pop"
  ],
+ "Allman Betts Family Revival": [],
  "Alune Wade & Family Affair": [],
  "Alune Wade & Family Affair / faiith (presented by the JGI)": [],
  "Alyssa Grace": [
@@ -155,6 +156,7 @@
  ],
  "Band of Silver": [],
  "Banda AL9": [],
+ "Banshee": [],
  "Basement": [
   "Punk & Metal",
   "Rock"
@@ -223,9 +225,11 @@
   "Indie",
   "Rock"
  ],
+ "Busy's Dead Collective": [],
  "C*NT PUNK": [],
  "CARISTA": [],
  "CEG Presents SIMRIT": [],
+ "CHRONO TRIGGER Orchestra Concert": [],
  "CLUB 1BD Halloween": [],
  "CRADLE OF FILTH": [
   "Punk & Metal"
@@ -449,6 +453,7 @@
  "Gapyear": [
   "Punk & Metal"
  ],
+ "Gary Owen": [],
  "Gayathri Krishnan": [],
  "George Clanton": [
   "Pop",
@@ -552,6 +557,9 @@
  ],
  "Iguana Death Cult": [
   "Punk & Metal"
+ ],
+ "Il Volo": [
+  "Pop"
  ],
  "Ingrid Andress": [
   "Country & Folk"
@@ -658,6 +666,7 @@
  "KOOM Stage 2026": [],
  "Kapo": [],
  "Kara Üzüm": [],
+ "Karan Aujla": [],
  "Katie Martucci": [],
  "Keenan O’Meara": [],
  "Kelela": [
@@ -710,6 +719,7 @@
  "Lauren Sanderson": [],
  "Lawrence": [],
  "Lazy Horse": [],
+ "Lea Michele": [],
  "Leanne Gallati": [],
  "Lee Emi": [],
  "Lee Emi (Emilee Petersmark of The Crane Wives)": [],
@@ -745,6 +755,7 @@
  ],
  "Loren Connors": [],
  "Louie Vega & Anané": [],
+ "Louis Prince": [],
  "Loukeman": [],
  "Love Actually": [],
  "Love in the Club": [],
@@ -855,6 +866,7 @@
  "NINE VICIOUS": [],
  "NOTD": [],
  "Nali": [],
+ "Nate Mercereau": [],
  "Nathan Farrell": [],
  "Nectarine Girl": [],
  "Neighbour Andy": [],
@@ -892,6 +904,7 @@
  "October Community Listening Happy Hour with Paola Prestini": [],
  "Oldstar": [],
  "Olivia O'Brien": [],
+ "Omer Adam": [],
  "Open Mike Eagle": [
   "Rap"
  ],
@@ -1135,6 +1148,10 @@
  "Seun Kuti & Egypt 80": [
   "Jazz"
  ],
+ "Shaboozey": [
+  "Country & Folk",
+  "Rap"
+ ],
  "Shagshop Rooftop": [],
  "Shakey Graves": [
   "Country & Folk",
@@ -1264,6 +1281,7 @@
  ],
  "Teton Gravity Research presents \"Actually, It Is Rocket Science\"": [],
  "The 2016 Party": [],
+ "The Allman Betts Band": [],
  "The Atrium": [],
  "The Avalanches": [
   "Dance",
@@ -1445,6 +1463,10 @@
   "Punk & Metal"
  ],
  "Ushka": [],
+ "Victoria Monet": [
+  "R&B",
+  "Jazz"
+ ],
  "Vince Staples": [
   "Rap"
  ],
@@ -1587,6 +1609,7 @@
  "lastfm:Allan Rayman": [
   "R&B"
  ],
+ "lastfm:Allman Betts Family Revival": [],
  "lastfm:Alune Wade & Family Affair": [],
  "lastfm:Alune Wade & Family Affair / faiith (presented by the JGI)": [],
  "lastfm:Amsterdam presents Charlotte Greve": [],
@@ -1633,6 +1656,10 @@
  "lastfm:Banda AL9": [
   "Rock"
  ],
+ "lastfm:Banshee": [
+  "Punk & Metal",
+  "Country & Folk"
+ ],
  "lastfm:Bebe Stockwell": [],
  "lastfm:Beka Gochiashvili": [
   "Jazz"
@@ -1672,9 +1699,11 @@
   "Indie",
   "Country & Folk"
  ],
+ "lastfm:Busy's Dead Collective": [],
  "lastfm:C*NT PUNK": [],
  "lastfm:CARISTA": [],
  "lastfm:CEG Presents SIMRIT": [],
+ "lastfm:CHRONO TRIGGER Orchestra Concert": [],
  "lastfm:CLUB 1BD Halloween": [],
  "lastfm:Caleb Wheeler Curtis & Jason Moran": [],
  "lastfm:Candlelight": [],
@@ -1828,6 +1857,7 @@
  "lastfm:GFOTY takes over NYC": [],
  "lastfm:GIRL NOISE Music Festival": [],
  "lastfm:GZA (Performing Liquid Swords) w/ Phunky Nomads & Keznamdi": [],
+ "lastfm:Gary Owen": [],
  "lastfm:Gimme Gimme Disco": [],
  "lastfm:Golden Era Rave - 2010's EDM Classics": [],
  "lastfm:Good Time Mystery Vision": [],
@@ -1952,6 +1982,9 @@
   "Country & Folk"
  ],
  "lastfm:Kara Üzüm": [],
+ "lastfm:Karan Aujla": [
+  "Rap"
+ ],
  "lastfm:Katie Martucci": [],
  "lastfm:Keenan O’Meara": [],
  "lastfm:Kelela -avatar": [],
@@ -1988,6 +2021,9 @@
   "Dance"
  ],
  "lastfm:Lazy Horse": [],
+ "lastfm:Lea Michele": [
+  "Pop"
+ ],
  "lastfm:Leanne Gallati": [],
  "lastfm:Lee Emi": [],
  "lastfm:Lee Emi (Emilee Petersmark of The Crane Wives)": [],
@@ -2017,6 +2053,9 @@
   "Jazz"
  ],
  "lastfm:Louie Vega & Anané": [],
+ "lastfm:Louis Prince": [
+  "Indie"
+ ],
  "lastfm:Loukeman": [
   "Dance"
  ],
@@ -2086,6 +2125,10 @@
  "lastfm:NOTD": [
   "Dance"
  ],
+ "lastfm:Nate Mercereau": [
+  "Indie",
+  "Jazz"
+ ],
  "lastfm:Nathan Farrell": [
   "R&B",
   "Jazz"
@@ -2107,6 +2150,9 @@
  "lastfm:Olivia O'Brien": [
   "Pop",
   "Dance"
+ ],
+ "lastfm:Omer Adam": [
+  "Pop"
  ],
  "lastfm:Opera Praktikos": [],
  "lastfm:Opera Praktikos’ La Sonnambula": [],
@@ -2314,6 +2360,10 @@
  ],
  "lastfm:Teton Gravity Research presents \"Actually, It Is Rocket Science\"": [],
  "lastfm:The 2016 Party": [],
+ "lastfm:The Allman Betts Band": [
+  "Rock",
+  "Jazz"
+ ],
  "lastfm:The Atrium": [],
  "lastfm:The Blasting Company plays Over The Garden Wall": [],
  "lastfm:The Blue Dot": [
