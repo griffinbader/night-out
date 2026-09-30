@@ -450,10 +450,22 @@ function renderFriends() {
 // ---------- Account panel (sign in / pick a username / signed-in bar) ----------
 const COLORS = ['#ffd23f', '#ff9ccf', '#22c07a', '#b8a2ff', '#6f86ff', '#ff9f1c', '#ff4d2e'];
 
+let linkSentTo = null; // email we just sent a sign-in link to
+
 function accountPanel(pitch) {
   const { me } = Account;
   if (!Account.enabled) return '';
   if (!me.ready) return '<div class="empty">Loading…</div>';
+  if (!me.user && linkSentTo) {
+    return `<div class="account-card sent-card">
+      <div class="sent-box">
+        <span class="sent-icon" aria-hidden="true">✉</span>
+        <b>Check your email</b>
+        <p>We sent a sign-in link to <strong>${esc(linkSentTo)}</strong>. Open it on this device and you're in.</p>
+      </div>
+      <button class="text-link" data-resend-email>Use a different email</button>
+    </div>`;
+  }
   if (!me.user) {
     return `<form class="account-card" data-form="signin">
       <b>Sign in to shindig</b>
@@ -702,6 +714,7 @@ document.addEventListener('click', e => {
     return;
   }
   if (t.dataset.close !== undefined) return closeSheet();
+  if (t.dataset.resendEmail !== undefined) { linkSentTo = null; return render(); }
   if (t.dataset.reportOpen) return openReport(t.dataset.reportOpen);
   if (t.dataset.missing !== undefined) return openMissing();
   if (t.dataset.welcome) {
@@ -776,7 +789,8 @@ document.addEventListener('submit', async e => {
   try {
     if (form.dataset.form === 'signin') {
       await Account.sendLink(f.get('email').trim());
-      msg('signin-msg', 'Check your email for the sign-in link.');
+      linkSentTo = f.get('email').trim();
+      return render();
     } else if (form.dataset.form === 'profile') {
       await Account.createProfile(f.get('username').trim().toLowerCase(), f.get('display').trim(), f.get('color'));
     } else if (form.dataset.form === 'report') {
