@@ -278,7 +278,7 @@ function rangePanel() {
 function welcomeCard() {
   if (load('no.welcomed', false) || Account.me.profile) return '';
   return `<div class="welcome">
-    <p>Shindig compiles every concert happening in NYC. Pick a night, filter by borough, genre, vibe, or price, and tap any show for tickets.</p>
+    <p><b>New here?</b> shindig compiles every concert happening in NYC. Pick a night, filter by borough, genre, vibe, or price, and tap any show for tickets.</p>
     <p>Sign in to see where your friends are headed and mark where you are too.</p>
     <div class="welcome-actions">${Account.enabled ? '<button class="btn welcome-signin" data-welcome="signin">Sign in</button>' : ''}<button class="btn" data-welcome="ok">Got it</button></div>
   </div>`;
@@ -456,7 +456,7 @@ function accountPanel(pitch) {
   if (!me.ready) return '<div class="empty">Loading…</div>';
   if (!me.user) {
     return `<form class="account-card" data-form="signin">
-      <b>Sign in to Shindig</b>
+      <b>Sign in to shindig</b>
       <p>${pitch} No password needed, we'll email you a sign-in link.</p>
       <input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
       <button class="btn primary" type="submit">Email me a link</button>
@@ -543,7 +543,7 @@ async function shareLink({ title, text, url }) {
 
 function shareShow(s) {
   const when = `${dayLabel(s.start) === 'Tonight' ? 'tonight' : fmtDate(s.start)}`;
-  shareLink({ title: `${plain(s.artist)} · Shindig`, text: `${plain(s.artist)} at ${s.venue.name}, ${when}`, url: showLink(s) });
+  shareLink({ title: `${plain(s.artist)} · shindig`, text: `${plain(s.artist)} at ${s.venue.name}, ${when}`, url: showLink(s) });
 }
 
 // Calendar: .ics file (Apple Calendar / Outlook) or a Google Calendar link. Shows default to 3 hours.
@@ -555,7 +555,7 @@ function calendarDetails(s) {
   const where = [s.venue.name, s.venue.hood, s.venue.borough, 'NY'].filter((x, i, a) => x && a.indexOf(x) === i).join(', ');
   const lineup = [plain(s.artist), ...s.support.map(plain)].join(', ');
   return { title: `${plain(s.artist)} at ${s.venue.name}`, where, start: calStamp(s.start), end: calStamp(end),
-    details: `${lineup}\n${s.url ? 'Tickets: ' + plain(s.url) + '\n' : ''}On Shindig: ${showLink(s)}` };
+    details: `${lineup}\n${s.url ? 'Tickets: ' + plain(s.url) + '\n' : ''}On shindig: ${showLink(s)}` };
 }
 
 function downloadIcs(s) {
@@ -640,7 +640,7 @@ function openSheet(id) {
       ${s.start >= midnight() ? `<button class="btn" data-ics="${s.id}">+ Apple / Outlook</button>
       <a class="btn" href="${googleCalUrl(s)}" target="_blank" rel="noopener">+ Google Calendar</a>` : ''}
     </div>
-    <p class="note">Shindig doesn't sell tickets. This opens the venue's own ticket page.</p>
+    <p class="note">shindig doesn't sell tickets. This opens the venue's own ticket page.</p>
     <div id="report-box"><button class="text-link" data-report-open="${s.id}">Something wrong with this listing?</button></div>
   </div>`;
   sheet.classList.remove('hidden');
@@ -711,7 +711,7 @@ document.addEventListener('click', e => {
   }
   if (t.dataset.signout !== undefined) return Account.signOut();
   if (t.dataset.deleteAccount !== undefined) {
-    const ok = confirm('Delete your Shindig account? This permanently removes your profile, plans, show history and friends. It can’t be undone.');
+    const ok = confirm('Delete your shindig account? This permanently removes your profile, plans, show history and friends. It can’t be undone.');
     if (ok) Account.deleteAccount().then(() => toast('Your account was deleted.')).catch(err => toast(err.message));
     return;
   }
@@ -719,7 +719,7 @@ document.addEventListener('click', e => {
   if (t.dataset.ics) return downloadIcs(showFor(t.dataset.ics));
   if (t.dataset.invite !== undefined) {
     return Account.inviteLink()
-      .then(url => shareLink({ title: 'Come to shows with me on Shindig', text: `${plain(Account.me.profile.display_name)} invited you to Shindig. See where they’re going and find shows in NYC.`, url }))
+      .then(url => shareLink({ title: 'Come to shows with me on shindig', text: `${plain(Account.me.profile.display_name)} invited you to shindig. See where they’re going and find shows in NYC.`, url }))
       .catch(err => toast(err.message));
   }
   if (t.dataset.add) return Account.addFriend(t.dataset.add);
