@@ -36,7 +36,7 @@ function vibesFor(show, venue, hour) {
   if (/punk|metal/.test(g)) vibes.add('Mosh Pit');
   if (/jazz|folk/.test(g)) vibes.add('Chill');
   if (hour >= 22 || hour < 5) vibes.add('Late Night'); // 10pm or later, including after-midnight sets
-  if (venue.size === 'small' && !vibes.has('Mosh Pit')) vibes.add('Intimate');
+  if (venue.cap && venue.cap <= 400 && !vibes.has('Mosh Pit')) vibes.add('Intimate'); // 400 capacity or under
   if (venue.outdoor || show.outdoor) vibes.add('Rooftop / Outdoor');
   if (show.rising) vibes.add('Up & Coming'); // small following on Last.fm, small room (collector/genres.py)
   return VIBE_PRIORITY.filter(v => vibes.has(v)); // all of them, for filtering; cards show the first three

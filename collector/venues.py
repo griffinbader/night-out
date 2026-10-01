@@ -1,41 +1,41 @@
 """Every venue Shindig knows about.
 
 borough / hood power the location filters. size is small (<400), medium (<1000)
-or large. vibes are the venue's baseline feel ("Big Room" = 2,500+ capacity, "Seated" = seated shows); shows add more based on time/genre.
+or large; cap = approximate capacity for small rooms ("Intimate" = 400 or under). vibes are the venue's baseline feel ("Big Room" = 2,500+ capacity, "Seated" = seated shows); shows add more based on time/genre.
 lat/lng (from OpenStreetMap) place the venue on the map.
 """
 
 VENUES = [
     # --- Your original list ---
-    dict(id="babys", name="Baby's All Right", borough="Brooklyn", hood="Williamsburg", size="small", vibes=["Intimate"], lat=40.70997, lng=-73.96342),
-    dict(id="nc101", name="Nightclub 101", borough="Manhattan", hood="East Village", size="small", vibes=["Hips Movin'"], lat=40.72585, lng=-73.98404),
-    dict(id="mercury", name="Mercury Lounge", borough="Manhattan", hood="Lower East Side", size="small", vibes=["Intimate"], lat=40.7221, lng=-73.98679),
+    dict(id="babys", name="Baby's All Right", borough="Brooklyn", hood="Williamsburg", size="small", cap=280, vibes=["Intimate"], lat=40.70997, lng=-73.96342),
+    dict(id="nc101", name="Nightclub 101", borough="Manhattan", hood="East Village", size="small", cap=250, vibes=["Hips Movin'"], lat=40.72585, lng=-73.98404),
+    dict(id="mercury", name="Mercury Lounge", borough="Manhattan", hood="Lower East Side", size="small", cap=250, vibes=["Intimate"], lat=40.7221, lng=-73.98679),
     dict(id="bowery", name="Bowery Ballroom", borough="Manhattan", hood="Lower East Side", size="medium", vibes=[], lat=40.72044, lng=-73.99333),
     dict(id="webster", name="Webster Hall", borough="Manhattan", hood="East Village", size="large", vibes=[], lat=40.73176, lng=-73.98909),
     dict(id="irving", name="Irving Plaza", borough="Manhattan", hood="Union Square", size="large", vibes=[], lat=40.73491, lng=-73.98827),
     dict(id="paramount", name="Brooklyn Paramount", borough="Brooklyn", hood="Downtown Brooklyn", size="large", vibes=["Big Room"], lat=40.69004, lng=-73.98173),
     dict(id="steel", name="Brooklyn Steel", borough="Brooklyn", hood="East Williamsburg", size="large", vibes=[], lat=40.71939, lng=-73.93875),
     dict(id="lpr", name="LPR", borough="Manhattan", hood="Greenwich Village", size="medium", vibes=[], lat=40.72843, lng=-73.99988),
-    dict(id="sultan", name="The Sultan Room", borough="Brooklyn", hood="Bushwick", size="small", vibes=["Intimate"], lat=40.70555, lng=-73.92234),
-    dict(id="sultanroof", name="The Sultan Room Rooftop", borough="Brooklyn", hood="Bushwick", size="small", outdoor=True, vibes=["Chill"], lat=40.70555, lng=-73.92234),
-    dict(id="unionpool", name="Union Pool", borough="Brooklyn", hood="Williamsburg", size="small", vibes=[], lat=40.71565, lng=-73.95199),
+    dict(id="sultan", name="The Sultan Room", borough="Brooklyn", hood="Bushwick", size="small", cap=200, vibes=["Intimate"], lat=40.70555, lng=-73.92234),
+    dict(id="sultanroof", name="The Sultan Room Rooftop", borough="Brooklyn", hood="Bushwick", size="small", cap=150, outdoor=True, vibes=["Chill"], lat=40.70555, lng=-73.92234),
+    dict(id="unionpool", name="Union Pool", borough="Brooklyn", hood="Williamsburg", size="small", cap=250, vibes=[], lat=40.71565, lng=-73.95199),
     dict(id="bowl", name="Brooklyn Bowl", borough="Brooklyn", hood="Williamsburg", size="medium", vibes=["Hips Movin'"], lat=40.72205, lng=-73.95755),
     dict(id="mhow", name="Music Hall of Williamsburg", borough="Brooklyn", hood="Williamsburg", size="medium", vibes=[], lat=40.71915, lng=-73.96178),
-    dict(id="racket", name="Racket", borough="Manhattan", hood="Chelsea", size="small", vibes=[], lat=40.74305, lng=-74.00574),
+    dict(id="racket", name="Racket", borough="Manhattan", hood="Chelsea", size="small", cap=650, vibes=[], lat=40.74305, lng=-74.00574),
     dict(id="gramercy", name="Gramercy Theatre", borough="Manhattan", hood="Gramercy", size="medium", vibes=[], lat=40.73987, lng=-73.98494),
     dict(id="elsewhere", name="Elsewhere", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Hips Movin'"], genre="Dance", lat=40.70948, lng=-73.92324),
     dict(id="warsaw", name="Warsaw", borough="Brooklyn", hood="Greenpoint", size="medium", vibes=[], lat=40.72254, lng=-73.94832),
 
     # --- Added Sept 30 ---
-    dict(id="markethotel", name="Market Hotel", borough="Brooklyn", hood="Bushwick", size="medium", vibes=[], lat=40.69693, lng=-73.93459),
-    dict(id="sawdust", name="National Sawdust", borough="Brooklyn", hood="Williamsburg", size="small", vibes=["Seated", "Intimate", "Chill"], lat=40.71897, lng=-73.96124),
-    dict(id="publicrecords", name="Public Records", borough="Brooklyn", hood="Gowanus", size="small", vibes=["Hips Movin'"], genre="Dance", lat=40.68217, lng=-73.98639),
-    dict(id="tveye", name="TV Eye", borough="Queens", hood="Ridgewood", size="small", vibes=[], lat=40.69791, lng=-73.90533),
-    dict(id="holo", name="H0L0", borough="Queens", hood="Ridgewood", size="small", vibes=["Hips Movin'"], genre="Dance", lat=40.69428, lng=-73.90218),
+    dict(id="markethotel", name="Market Hotel", borough="Brooklyn", hood="Bushwick", size="medium", cap=400, vibes=[], lat=40.69693, lng=-73.93459),
+    dict(id="sawdust", name="National Sawdust", borough="Brooklyn", hood="Williamsburg", size="small", cap=350, vibes=["Seated", "Intimate", "Chill"], lat=40.71897, lng=-73.96124),
+    dict(id="publicrecords", name="Public Records", borough="Brooklyn", hood="Gowanus", size="small", cap=300, vibes=["Hips Movin'"], genre="Dance", lat=40.68217, lng=-73.98639),
+    dict(id="tveye", name="TV Eye", borough="Queens", hood="Ridgewood", size="small", cap=280, vibes=[], lat=40.69791, lng=-73.90533),
+    dict(id="holo", name="H0L0", borough="Queens", hood="Ridgewood", size="small", cap=300, vibes=["Hips Movin'"], genre="Dance", lat=40.69428, lng=-73.90218),
     dict(id="sonyhall", name="Sony Hall", borough="Manhattan", hood="Times Square", size="medium", vibes=[], lat=40.75965, lng=-73.98701),
 
     # --- Added Oct 1 via the SeatGeek API (music venues ~200+ capacity) ---
-    dict(id="bluenote", name="Blue Note", borough="Manhattan", hood="Greenwich Village", size="small", vibes=["Seated", "Intimate", "Chill"], genre="Jazz", lat=40.7309, lng=-74.0007),
+    dict(id="bluenote", name="Blue Note", borough="Manhattan", hood="Greenwich Village", size="small", cap=200, vibes=["Seated", "Intimate", "Chill"], genre="Jazz", lat=40.7309, lng=-74.0007),
     dict(id="palladium", name="Palladium Times Square", borough="Manhattan", hood="Times Square", size="large", vibes=[], lat=40.7576, lng=-73.9858),
     dict(id="pacha", name="Pacha NYC", borough="Manhattan", hood="Hell's Kitchen", size="large", vibes=["Hips Movin'"], genre="Dance", lat=40.76367, lng=-73.99744),
     dict(id="unitedpalace", name="United Palace", borough="Manhattan", hood="Washington Heights", size="large", vibes=["Seated", "Big Room"], lat=40.8465, lng=-73.9379),
@@ -45,14 +45,14 @@ VENUES = [
     dict(id="lefrak", name="LeFrak Concert Hall", borough="Queens", hood="Flushing", size="medium", vibes=["Seated", "Chill"], lat=40.7377, lng=-73.8157),
     dict(id="stgeorge", name="St. George Theatre", borough="Staten Island", hood="St. George", size="large", vibes=["Seated", "Big Room"], lat=40.6418, lng=-74.0773),
     dict(id="lehman", name="Lehman Center", borough="Bronx", hood="Bedford Park", size="large", vibes=["Seated"], lat=40.8749, lng=-73.8932),
-    dict(id="citywinery", name="City Winery", borough="Manhattan", hood="Hudson Square", size="medium", vibes=["Seated", "Intimate", "Chill"], lat=40.7263, lng=-74.006),
+    dict(id="citywinery", name="City Winery", borough="Manhattan", hood="Hudson Square", size="medium", cap=350, vibes=["Seated", "Intimate", "Chill"], lat=40.7263, lng=-74.006),
     dict(id="bellhouse", name="The Bell House", borough="Brooklyn", hood="Gowanus", size="medium", vibes=[], lat=40.6735, lng=-73.9916),
-    dict(id="littlefield", name="Littlefield", borough="Brooklyn", hood="Gowanus", size="small", vibes=["Intimate"], lat=40.67842, lng=-73.98332),
-    dict(id="saintvitus", name="Saint Vitus", borough="Brooklyn", hood="Greenpoint", size="small", vibes=[], lat=40.7368, lng=-73.9551),
+    dict(id="littlefield", name="Littlefield", borough="Brooklyn", hood="Gowanus", size="small", cap=300, vibes=["Intimate"], lat=40.67842, lng=-73.98332),
+    dict(id="saintvitus", name="Saint Vitus", borough="Brooklyn", hood="Greenpoint", size="small", cap=250, vibes=[], lat=40.7368, lng=-73.9551),
     dict(id="pioneerworks", name="Pioneer Works", borough="Brooklyn", hood="Red Hook", size="medium", vibes=[], lat=40.6792, lng=-74.0122),
     dict(id="scott99", name="99 Scott", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Hips Movin'"], genre="Dance", lat=40.7106, lng=-73.9234),
     dict(id="crownhill", name="Crown Hill Theatre", borough="Brooklyn", hood="Crown Heights", size="medium", vibes=[], lat=40.6731, lng=-73.9504),
-    dict(id="roughtrade", name="Rough Trade Below", borough="Manhattan", hood="Midtown", size="small", vibes=["Intimate"], lat=40.75929, lng=-73.97958),
+    dict(id="roughtrade", name="Rough Trade Below", borough="Manhattan", hood="Midtown", size="small", cap=250, vibes=["Intimate"], lat=40.75929, lng=-73.97958),
     dict(id="sobs", name="SOB's", borough="Manhattan", hood="Hudson Square", size="medium", vibes=["Hips Movin'"], lat=40.7285, lng=-74.0051),
     dict(id="xanadu", name="Xanadu", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Hips Movin'"], lat=40.72089, lng=-73.95554),
     dict(id="nowadays", name="Nowadays", borough="Queens", hood="Ridgewood", size="medium", vibes=["Hips Movin'"], genre="Dance", lat=40.6929, lng=-73.9015),
@@ -60,7 +60,7 @@ VENUES = [
     dict(id="silo", name="SILO", borough="Brooklyn", hood="Bushwick", size="medium", vibes=["Hips Movin'"], genre="Dance", lat=40.7105, lng=-73.9229),
     dict(id="basementny", name="Basement", borough="Queens", hood="Maspeth", size="medium", vibes=["Hips Movin'"], genre="Dance", lat=40.7157, lng=-73.9143),
     dict(id="apollo", name="Apollo Theater", borough="Manhattan", hood="Harlem", size="large", vibes=["Seated"], lat=40.8097, lng=-73.9496),
-    dict(id="apollovictoria", name="The Apollo Stages at the Victoria", borough="Manhattan", hood="Harlem", size="small", vibes=["Seated", "Intimate"], lat=40.80956, lng=-73.94901),
+    dict(id="apollovictoria", name="The Apollo Stages at the Victoria", borough="Manhattan", hood="Harlem", size="small", cap=200, vibes=["Seated", "Intimate"], lat=40.80956, lng=-73.94901),
     dict(id="ethical", name="NY Society for Ethical Culture", borough="Manhattan", hood="Upper West Side", size="medium", vibes=["Seated", "Chill"], lat=40.7711, lng=-73.9801),
     dict(id="citifield", name="Citi Field", borough="Queens", hood="Flushing", size="large", outdoor=True, vibes=["Big Room"], lat=40.7577, lng=-73.8456),
 
