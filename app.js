@@ -206,7 +206,7 @@ function card(s) {
       <div class="where">${s.venue.name} <span class="boro">· ${s.venue.hood === s.venue.borough ? s.venue.borough : `${s.venue.hood}, ${s.venue.borough}`}</span></div>
       <div class="tags">
         ${s.genres.map(g => `<span class="tag genre">${g}</span>`).join('')}
-        ${s.vibes.map(v => `<span class="tag">${v}</span>`).join('')}
+        ${s.vibes.slice(0, 3).map(v => `<span class="tag">${v}</span>`).join('')}
       </div>
       <div class="card-foot">
         ${s.price != null ? `<span class="price ${s.price === 0 ? 'free' : ''}">${priceLabel(s.price)}</span>` : '<span></span>'}

@@ -27,7 +27,7 @@ from zoneinfo import ZoneInfo
 sys.path.insert(0, str(Path(__file__).parent))
 import ai_reader  # noqa: E402
 from curate import curate  # noqa: E402
-from genres import tag_shows  # noqa: E402
+from genres import mark_groove, mark_rising, tag_shows  # noqa: E402
 from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEASONAL_VENUES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_NAMES, VENUE_SITES, VENUES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -288,9 +288,12 @@ def src_elsewhere():
         cents = e.get("representative_ticket_price")
         imgs = e.get("image_urls") or []
         img = imgs[0] if imgs else None  # signed URLs: must be used exactly as given
+        rooftop = any("rooftop" in (r or "").lower() for r in e.get("venues") or [])
         out.append(show("elsewhere", artists[0], local_iso(e["start_date"]), artists[1:],
                         price=round(int(cents) / 100) if cents else None, image=img,
                         url=e.get("ticket_url"), genres=e.get("genres") or [], source="elsewhere"))
+        if rooftop:
+            out[-1]["outdoor"] = True
     return out
 
 
@@ -780,12 +783,14 @@ def src_ticketmaster():
                 break
             page += 1
         for e in events:
+            if not e.get("name"):
+                continue  # Ticketmaster occasionally sends an event with no name
             start = e.get("dates", {}).get("start", {})
             if re.search(r"ticketmaster\.com/event/Z", e.get("url", "")):
                 continue  # resale-only listing, not the official sale
             if not start.get("localDate") or SKIP_TM.search(e["name"]) or e.get("dates", {}).get("status", {}).get("code") == "cancelled":
                 continue
-            acts = [a["name"] for a in (e.get("_embedded") or {}).get("attractions", [])]
+            acts = [a["name"] for a in (e.get("_embedded") or {}).get("attractions", []) if a.get("name")]
             if not acts:  # small clubs often put the whole lineup in the title: "A, B, C"
                 h, sup = split_lineup(clean_title(e["name"]), commas=VENUE_SIZE.get(venue) != "large")
                 acts = [h] + sup
@@ -924,6 +929,8 @@ def src_ticketmaster_mirror():
             data = json.loads(fetch("https://app.ticketmaster.com/discovery/v2/events.json?" + q, api=True))
             time.sleep(0.25)
             for e in (data.get("_embedded") or {}).get("events", []):
+                if not e.get("name"):
+                    continue
                 v = ((e.get("_embedded") or {}).get("venues") or [{}])[0]
                 loc = v.get("location") or {}
                 venue = TICKETMASTER_VENUES.get(v.get("id")) or _our_venue(
@@ -938,7 +945,7 @@ def src_ticketmaster_mirror():
                     continue
                 if SKIP_TM.search(e["name"]):
                     continue
-                acts = [x["name"] for x in (e.get("_embedded") or {}).get("attractions", [])]
+                acts = [x["name"] for x in (e.get("_embedded") or {}).get("attractions", []) if x.get("name")]
                 if not acts:
                     h, sup = split_lineup(clean_title(e["name"]), commas=VENUE_SIZE.get(venue) != "large")
                     acts = [h] + sup
@@ -1171,6 +1178,19 @@ def load_existing():
     return json.loads(raw[raw.index("{"):raw.rindex("}") + 1]).get("shows", [])
 
 
+def outdoor_season():
+    """Rooftop / Outdoor filter goes away when the next week is all cold (highs below 40°F). Open-Meteo: free, no key."""
+    try:
+        q = urllib.parse.urlencode({"latitude": 40.73, "longitude": -73.94, "daily": "temperature_2m_max",
+                                    "temperature_unit": "fahrenheit", "timezone": "America/New_York", "forecast_days": 7})
+        highs = json.loads(fetch("https://api.open-meteo.com/v1/forecast?" + q, api=True))["daily"]["temperature_2m_max"]
+        print(f"  next 7 days' highs (°F): {highs}")
+        return any(h is not None and h >= 40 for h in highs)
+    except Exception as e:
+        print(f"  weather check failed ({e}); keeping Rooftop / Outdoor on")
+        return True
+
+
 def drop_cross_venue_duplicates(fresh):
     """The same act can't play two of our venues within 3 hours of each other. When two sources disagree
     (a moved show, a presenter's feed listing an off-site show), keep the higher-priority source's venue."""
@@ -1248,13 +1268,16 @@ def main():
         if not s["genres"] and VENUE_GENRE.get(s["venue"]):
             s["genres"] = [VENUE_GENRE[s["venue"]]]
     report.append(f"\n  genres: {tagged}/{len(fresh)} shows tagged")
+    report.append(f"  up & coming: {mark_rising(list(fresh.values()), VENUE_SIZE)} shows")
+    report.append(f"  funk / disco / groove (outside Dance): {mark_groove(list(fresh.values()))} shows")
 
     # keep past shows from earlier runs (history), drop anything stale
     past = [s for s in load_existing() if oldest <= s["start"][:10] < today and s["id"] not in fresh]
     shows = sorted(past + list(fresh.values()), key=lambda s: s["start"])
 
     OUT.parent.mkdir(exist_ok=True)
-    payload = {"updated": now.strftime("%Y-%m-%dT%H:%M"), "venues": VENUES, "shows": shows}
+    payload = {"updated": now.strftime("%Y-%m-%dT%H:%M"), "venues": VENUES, "shows": shows,
+               "outdoorSeason": outdoor_season()}
     OUT.write_text("// Generated by collector/collect.py — do not edit by hand.\nwindow.NIGHT_OUT = "
                    + json.dumps(payload, ensure_ascii=False, indent=0) + ";\n")
 

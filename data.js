@@ -2,7 +2,9 @@
 // Friends come from accounts (account.js).
 
 const BOROUGHS = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
-const VIBES = ['Intimate', 'Throw Ass', 'Sweaty & Loud', 'Chill', 'Sitting', 'Big Room', 'Late Night'];
+// Filter order. Cards show at most three, most distinctive first (VIBE_PRIORITY).
+const ALL_VIBES = ['Up & Coming', 'Intimate', "Hips Movin'", 'Mosh Pit', 'Chill', 'Seated', 'Big Room', 'Late Night', 'Rooftop / Outdoor'];
+const VIBE_PRIORITY = ['Up & Coming', 'Mosh Pit', 'Rooftop / Outdoor', "Hips Movin'", 'Late Night', 'Big Room', 'Seated', 'Chill', 'Intimate'];
 
 
 // Small deterministic random helpers (used for artwork and sample friends).
@@ -30,12 +32,14 @@ const venueById = Object.fromEntries(VENUES.map(v => [v.id, v]));
 function vibesFor(show, venue, hour) {
   const vibes = new Set(venue.vibes);
   const g = show.genres.join(' ').toLowerCase();
-  if (/dance/.test(g)) vibes.add('Throw Ass');
-  if (/punk|metal/.test(g)) vibes.add('Sweaty & Loud');
+  if (/dance/.test(g) || show.groove) vibes.add("Hips Movin'"); // dance, plus funk / disco / groove acts
+  if (/punk|metal/.test(g)) vibes.add('Mosh Pit');
   if (/jazz|folk/.test(g)) vibes.add('Chill');
   if (hour >= 22 || hour < 5) vibes.add('Late Night'); // 10pm or later, including after-midnight sets
-  if (venue.size === 'small' && !vibes.has('Sweaty & Loud')) vibes.add('Intimate');
-  return [...vibes].slice(0, 3);
+  if (venue.size === 'small' && !vibes.has('Mosh Pit')) vibes.add('Intimate');
+  if (venue.outdoor || show.outdoor) vibes.add('Rooftop / Outdoor');
+  if (show.rising) vibes.add('Up & Coming'); // small following on Last.fm, small room (collector/genres.py)
+  return VIBE_PRIORITY.filter(v => vibes.has(v)); // all of them, for filtering; cards show the first three
 }
 
 const SHOWS = RAW.shows
@@ -56,8 +60,13 @@ const SHOWS = RAW.shows
   })
   .sort((a, b) => a.start - b.start);
 
+// Rooftop / Outdoor only appears as a filter in season: the collector turns it off when the week ahead is
+// all cold, and it also hides when fewer than 3 outdoor shows are coming up in the next two weeks.
+const outdoorSoon = SHOWS.filter(s => s.vibes.includes('Rooftop / Outdoor') && s.start - Date.now() < 14 * 864e5 && s.start >= Date.now() - 864e5).length;
+const VIBES = ALL_VIBES.filter(v => v !== 'Rooftop / Outdoor' || (RAW.outdoorSeason !== false && outdoorSoon >= 3));
+
 // Broad genres, in the order they appear as filters (set in collector/genres.py).
-const GENRE_ORDER = ['Pop', 'Rap', 'R&B', 'Indie', 'Rock', 'Punk & Metal', 'Dance', 'Jazz', 'Country & Folk', 'Latin'];
+const GENRE_ORDER = ['Pop', 'Rap', 'R&B', 'Indie', 'Rock', 'Punk & Metal', 'Dance', 'Jazz', 'Country & Folk', 'Latin', 'Afro & Caribbean'];
 const GENRES = GENRE_ORDER.filter(g => SHOWS.some(s => s.genres.includes(g)));
 
 const UPDATED = RAW.updated ? new Date(RAW.updated) : null;

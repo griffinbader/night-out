@@ -21,9 +21,12 @@ UA = "Shindig/0.1 ( griffin@ctownsounds.com )"  # MusicBrainz asks for a contact
 BUCKETS = [
     ("Punk & Metal", ["metal", "doom", "sludge", "grindcore", "djent", "deathcore", "metalcore", "punk",
                       "hardcore", "emo", "screamo", "oi", "riot grrrl", "post-hardcore", "ska"]),
+    ("Afro & Caribbean", ["afrobeats", "afrobeat", "afropop", "afro-pop", "afro house", "amapiano", "afroswing", "highlife",
+                          "dancehall", "reggae", "roots reggae", "dub", "lovers rock", "rocksteady", "soca", "calypso",
+                          "kompa", "konpa", "zouk", "bouyon", "ghana", "nigeria", "nigerian", "jamaica", "jamaican", "trinidad"]),
     ("Rap", ["hip hop", "hip-hop", "rap", "trap", "drill", "grime", "boom bap"]),
     ("R&B", ["r&b", "rnb", "soul", "neo soul", "gospel", "motown", "quiet storm"]),
-    ("Jazz", ["jazz", "funk", "jam band", "jam", "bebop", "swing", "fusion", "afrobeat", "blues"]),
+    ("Jazz", ["jazz", "funk", "jam band", "jam", "bebop", "swing", "fusion", "blues"]),
     ("Dance", ["electronic", "electronica", "house", "techno", "edm", "dubstep", "drum and bass", "dnb",
                "garage", "breakbeat", "trance", "idm", "synthwave", "dance", "disco", "club", "bass", "ambient"]),
     ("Latin", ["latin", "reggaeton", "cumbia", "salsa", "bachata", "corrido", "regional mexican", "bossa",
@@ -39,6 +42,10 @@ GENRES = [b for b, _ in BUCKETS]
 
 def bucket_for(tag):
     t = tag.lower()
+    if re.search(r"hip[- ]?hop|\brap\b", t):
+        return "Rap"  # "hardcore hip hop" is rap, not punk
+    if re.search(r"reggaeton|dembow|latin trap", t):
+        return "Latin"
     if re.search(r"post[- ]?punk|art[- ]punk|dance[- ]punk|punk[- ]funk", t):
         return "Indie"  # post-punk & co. sound indie/rock, not like a mosh pit
     for name, words in BUCKETS:
@@ -173,7 +180,10 @@ def tag_shows(shows, log=print):
     tagged = 0
     for i, s in enumerate(shows):
         venue_tags = bucketize([(g, 3) for g in s.get("genres", [])])
-        genres = venue_tags or lookup(s["artist"], cache, fm_key)
+        if s.get("source", "").startswith("ticketmaster"):  # TM files DJs under "Rock"/"Pop": artist tags first
+            genres = lookup(s["artist"], cache, fm_key) or venue_tags
+        else:
+            genres = venue_tags or lookup(s["artist"], cache, fm_key)
         if not genres:
             for opener in s["support"][:2]:
                 genres = lookup(opener, cache, fm_key)
@@ -185,3 +195,119 @@ def tag_shows(shows, log=print):
             save_cache(cache)  # keep progress if interrupted
     save_cache(cache)
     return tagged
+
+
+# ------------------------------------------------------------ Up & Coming
+
+# A headliner with a real but small following, playing a small or medium room. Last.fm listener counts are the
+# yardstick. Jazz, dance and Latin artists are left out: Last.fm undercounts them badly, so established names
+# there would look "new".
+RISING_MIN, RISING_MAX = 1_000, 75_000
+RISING_SINCE_YEARS = 10  # and the act started within this many years (MusicBrainz), so veterans with a small
+                         # Last.fm following (Wynonna Judd, Krallice) don't count as "new"
+RISING_GENRES = {"Indie", "Rock", "Pop", "Rap", "R&B", "Punk & Metal", "Country & Folk"}
+LISTENERS_MAX_AGE_DAYS = 30
+
+
+def lastfm_listeners(name, key):
+    time.sleep(0.25)
+    q = urllib.parse.urlencode({"method": "artist.getinfo", "artist": name, "api_key": key,
+                                "format": "json", "autocorrect": 0})
+    req = urllib.request.Request("https://ws.audioscrobbler.com/2.0/?" + q, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        data = json.load(r)
+    if data.get("error"):
+        return 0  # Last.fm doesn't know this name
+    return int(((data.get("artist") or {}).get("stats") or {}).get("listeners") or 0)
+
+
+def musicbrainz_begin_year(name):
+    """Year the act started, from MusicBrainz (exact name match only). None if unknown."""
+    wait = 1.1 - (time.time() - _last_call[0])
+    if wait > 0:
+        time.sleep(wait)
+    _last_call[0] = time.time()
+    q = urllib.parse.urlencode({"query": f'artist:"{name}"', "fmt": "json", "limit": 5})
+    req = urllib.request.Request("https://musicbrainz.org/ws/2/artist/?" + q, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        results = json.load(r).get("artists", [])
+    for a in results:
+        if _norm(a["name"]) == _norm(name):
+            begin = (a.get("life-span") or {}).get("begin") or ""
+            return int(begin[:4]) if begin[:4].isdigit() else None
+    return None
+
+
+GROOVE_TAG = re.compile(r"funk|disco|groov|boogie|afrobeat|go-go|\bhouse\b|nu[- ]jazz|acid jazz|^dance$", re.I)
+NOT_GROOVE = re.compile(r"punk|dancehall|metal|lidarr|_", re.I)  # also skips library-software junk tags  # "dance-punk", "funk metal" and dancehall aren't hips-movin'
+
+
+AFRO_CARIB = re.compile(r"afrobeat|afropop|afro-pop|afroswing|amapiano|highlife|dancehall|reggae(?!ton)|^dub$|soca|calypso|kompa|konpa|zouk|bouyon|lovers rock", re.I)
+
+
+def is_groove(tags):
+    return any(GROOVE_TAG.search(t) and not NOT_GROOVE.search(t) for t in tags[:6])
+
+
+def mark_groove(shows, log=print):
+    """show['groove'] = True for funk, disco and groove acts (on top of everything tagged Dance)."""
+    fm_key = lastfm_key()
+    if not fm_key:
+        return 0
+    cache = load_cache()
+    count = 0
+    for s in shows:
+        name = clean_name(s["artist"])
+        ck = "fmtags:" + name  # raw top tags, so the groove rule can change without asking Last.fm again
+        if ck not in cache:
+            try:
+                cache[ck] = [t for t, w in lastfm_tags(name, fm_key)[:8]]
+            except Exception:
+                continue
+        tags = [t for t in cache[ck] if not re.search(r"lidarr|_", t)]
+        afro = any(AFRO_CARIB.search(t) for t in tags[:2]) or (
+            any(AFRO_CARIB.search(t) for t in tags[:4]) and "Dance" not in s["genres"])  # a techno DJ with one dancehall tag isn't
+        if afro and "Afro & Caribbean" not in s["genres"]:
+            s["genres"] = ["Afro & Caribbean"] + [g for g in s["genres"] if g not in ("Jazz", "Punk & Metal")][:1]
+        if "Dance" not in s["genres"] and is_groove(tags):
+            s["groove"] = True
+            count += 1
+    save_cache(cache)
+    return count
+
+
+def mark_rising(shows, venue_size, log=print):
+    """Sets show['rising'] = True for Up & Coming shows. Listener counts are cached for a month."""
+    fm_key = lastfm_key()
+    if not fm_key:
+        return 0
+    cache = load_cache()
+    today = time.strftime("%Y-%m-%d")
+    count = 0
+    for s in shows:
+        if venue_size.get(s["venue"]) == "large" or not RISING_GENRES & set(s.get("genres") or []):
+            continue
+        if set(s["genres"]) & {"Jazz", "Dance", "Latin"}:
+            continue  # e.g. ["Jazz", "R&B"]: Last.fm would still undercount them
+        name = clean_name(s["artist"])
+        ck = "listeners:" + name
+        hit = cache.get(ck)
+        fresh = hit and (time.mktime(time.strptime(today, "%Y-%m-%d")) - time.mktime(time.strptime(hit["at"], "%Y-%m-%d"))) < LISTENERS_MAX_AGE_DAYS * 86400
+        if not fresh:
+            try:
+                cache[ck] = {"n": lastfm_listeners(name, fm_key), "at": today}
+            except Exception:
+                continue  # network hiccup: try next run
+        if not RISING_MIN <= cache[ck]["n"] <= RISING_MAX:
+            continue
+        yk = "began:" + name
+        if yk not in cache:
+            try:
+                cache[yk] = musicbrainz_begin_year(name)
+            except Exception:
+                continue
+        if cache[yk] and int(today[:4]) - cache[yk] <= RISING_SINCE_YEARS:
+            s["rising"] = True
+            count += 1
+    save_cache(cache)
+    return count
