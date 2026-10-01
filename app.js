@@ -480,7 +480,7 @@ function drawMap(list) {
 function renderFriends() {
   const { me } = Account;
   if (!me.profile) {
-    view.innerHTML = `<h2><em>Friends</em></h2>
+    view.innerHTML = `<h2>My <em>Peeps</em></h2>
       ${invitePending ? '<div class="invite-note">You’ve been invited! Sign in and you’ll be connected automatically.</div>' : ''}
       ${accountPanel(invitePending ? 'Your friend is waiting on the other side.' : 'See where your friends are going. Sign in to add them.')}`;
     return;
@@ -502,7 +502,7 @@ function renderFriends() {
   const person = (p, action) => `<div class="person">${avatar(p, 'lg')}<div><b>${esc(p.display_name)}</b><span>@${p.username}</span></div>${action}</div>`;
 
   view.innerHTML = `
-    <h2><em>Friends</em></h2>
+    <h2>My <em>Peeps</em></h2>
     <button class="btn primary invite-btn" data-invite>Invite friends</button>
     <form class="add-friend" data-form="find">
       <input class="search" name="username" placeholder="Add a friend by @username" autocomplete="off" autocapitalize="none" required>
@@ -590,7 +590,7 @@ function renderMine() {
   const thisYear = history.filter(s => s.start.getFullYear() === now.getFullYear());
 
   view.innerHTML = `
-    <h2><em>Nights</em></h2>
+    <h2>My <em>Nights</em></h2>
     ${accountPanel('Save your plans and show history to your account, on every device.')}
     <div class="stats">
       <div class="stat"><b>${thisYear.length}</b><span>shows this year</span></div>
