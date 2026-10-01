@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-  <link rel="stylesheet" href="styles.css?v=42">
+  <link rel="stylesheet" href="styles.css?v=43">
 </head>
 <body>
   <div class="app">
@@ -47,13 +47,31 @@
 
   <div id="sheet" class="sheet hidden" role="dialog" aria-modal="true"></div>
 
+  <!-- Phones (iPhone home-screen apps especially) keep an old copy of this page. On open and whenever the app
+       comes back, compare with version.txt; if there's a newer build, load it under a fresh address. -->
+  <script>
+    window.APP_VERSION = '43';
+    (function () {
+      function check() {
+        fetch('version.txt?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (v) {
+          v = v.trim();
+          if (!v || v === window.APP_VERSION) return;
+          try { if (sessionStorage.getItem('no.reloadedFor') === v) return; sessionStorage.setItem('no.reloadedFor', v); } catch (e) {}
+          var q = new URLSearchParams(location.search); q.set('_v', v);
+          location.replace(location.pathname + '?' + q.toString() + location.hash);
+        }).catch(function () {});
+      }
+      check();
+      document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') check(); });
+    })();
+  </script>
   <!-- listings change daily: ask for a fresh copy instead of a phone's saved one -->
   <script>document.write('<script src="data/shows.js?t=' + Math.floor(Date.now() / 60000) + '"><\/script>');</script>
-  <script src="data.js?v=42"></script>
+  <script src="data.js?v=43"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-  <script src="config.js?v=42"></script>
+  <script src="config.js?v=43"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="account.js?v=42"></script>
-  <script src="app.js?v=42"></script>
+  <script src="account.js?v=43"></script>
+  <script src="app.js?v=43"></script>
 </body>
 </html>
