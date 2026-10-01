@@ -503,7 +503,9 @@ function renderFriends() {
 
   view.innerHTML = `
     <h2>My <em>Peeps</em></h2>
-    <button class="btn primary invite-btn" data-invite>Invite friends</button>
+    <div class="invite-row"><button class="btn primary invite-btn" data-invite>Invite friends</button>
+      <button class="text-link" data-copy-invite>Copy my invite link</button></div>
+    <div id="invite-link-box"></div>
     <form class="add-friend" data-form="find">
       <input class="search" name="username" placeholder="Add a friend by @username" autocomplete="off" autocapitalize="none" required>
       <button class="btn primary" type="submit">Add</button>
@@ -827,6 +829,14 @@ document.addEventListener('click', e => {
     return Account.inviteLink()
       .then(url => shareLink({ title: 'Come to shows with me on shindig', text: `${plain(Account.me.profile.display_name)} invited you to shindig. See where they’re going and find shows in NYC.`, url }))
       .catch(err => toast(err.message));
+  }
+  if (t.dataset.copyInvite !== undefined) { // just the link, shown on screen too (share sheets sometimes copy only the message)
+    return Account.inviteLink().then(async url => {
+      document.getElementById('invite-link-box').innerHTML =
+        `<input class="search invite-link" readonly value="${esc(url)}" aria-label="Your invite link" onclick="this.select()">`;
+      try { await navigator.clipboard.writeText(url); toast('Invite link copied'); }
+      catch { const el = document.querySelector('.invite-link'); el.focus(); el.select(); toast('Press and hold the link to copy it'); }
+    }).catch(err => toast(err.message));
   }
   if (t.dataset.add) return Account.addFriend(t.dataset.add);
   if (t.dataset.unadd) return Account.removeFriend(t.dataset.unadd);
