@@ -193,6 +193,32 @@ function badgeDay(d) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
+// Show page photo: the whole image, never cropped. Leftover space is filled with a blurred copy of it.
+// Image services (DICE uses imgix) often hand us a square crop of a taller poster; ask for the whole thing.
+function fullImage(url) {
+  try {
+    const u = new URL(url.replace(/&amp;/g, '&'));
+    if (!/imgix\.net$/.test(u.hostname)) return url;
+    ['rect', 'h', 'w', 'fit', 'crop', 'ar'].forEach(k => u.searchParams.delete(k));
+    u.searchParams.set('w', '1000'); u.searchParams.set('fit', 'max');
+    return esc(u.toString());
+  } catch { return url; }
+}
+
+// Wide photos keep a wide frame; tall posters get up to a square one so they aren't tiny.
+function fitHero(img) {
+  const ratio = img.naturalWidth / img.naturalHeight;
+  if (ratio) img.closest('.hero').style.aspectRatio = String(Math.min(16 / 9, Math.max(1, ratio)));
+}
+
+function heroArt(s) {
+  if (!s.image) return art(s);
+  s = { ...s, image: fullImage(s.image) };
+  return `${art({ ...s, image: null })}
+    <img class="hero-blur" src="${s.image}" alt="" aria-hidden="true" onerror="this.remove()">
+    <img class="hero-photo" src="${s.image}" alt="${s.artist}" onload="fitHero(this)" onerror="this.previousElementSibling?.remove(); this.remove()">`;
+}
+
 function card(s) {
   const t = fmtTime(s.start);
   return `<article class="card" data-open="${s.id}">
@@ -677,7 +703,7 @@ function openSheet(id) {
   const t = fmtTime(s.start);
   sheet.innerHTML = `<div class="sheet-body">
     <div class="hero">
-      ${art(s)}
+      ${heroArt(s)}
       <button class="sheet-close" data-close aria-label="Close">✕</button>
     </div>
     <div class="when-line">${dayLabel(s.start)} · ${fmtDate(s.start)} · ${t.h} ${t.ap}</div>
