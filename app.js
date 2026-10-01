@@ -135,13 +135,22 @@ function faces(ids, max = 3) {
   return `<div class="faces"><div class="face-stack">${people.slice(0, max).map(p => avatar(p)).join('')}</div>${label}</div>`;
 }
 
+// On a show you've marked: who can see it.
+function privacyToggle(s) {
+  if (!Account.me.profile || !(going.has(s.id) || interested.has(s.id)) || s.start < midnight()) return '';
+  const priv = Account.isPrivate(s.id);
+  return `<button class="privacy-toggle" data-privacy="${s.id}" aria-pressed="${priv}">
+    ${priv ? '🔒 Only you can see this' : '👥 Your friends can see this'}<span>${priv ? 'Show friends' : 'Make private'}</span></button>`;
+}
+
 function actionButtons(s) {
   if (s.start < midnight()) {
     return going.has(s.id) ? `<span class="went">✓ You went</span>` : '';
   }
+  const lock = Account.me.profile && Account.isPrivate(s.id) ? ' 🔒' : '';
   return `<div class="actions">
-    <button class="btn interested ${interested.has(s.id) ? 'on' : ''}" data-act="interested" data-id="${s.id}">${interested.has(s.id) ? '★ Interested' : '☆ Interested'}</button>
-    <button class="btn going ${going.has(s.id) ? 'on' : ''}" data-act="going" data-id="${s.id}">${going.has(s.id) ? '✓ Going' : 'Going'}</button>
+    <button class="btn interested ${interested.has(s.id) ? 'on' : ''}" data-act="interested" data-id="${s.id}">${interested.has(s.id) ? `★ Interested${lock}` : '☆ Interested'}</button>
+    <button class="btn going ${going.has(s.id) ? 'on' : ''}" data-act="going" data-id="${s.id}">${going.has(s.id) ? `✓ Going${lock}` : 'Going'}</button>
   </div>`;
 }
 
@@ -558,7 +567,11 @@ function accountPanel(pitch) {
 }
 
 function accountFooter() {
-  return Account.me.profile ? '<p class="danger-zone"><button data-delete-account>Delete my account</button></p>' : '';
+  if (!Account.me.profile) return '';
+  const priv = !!Account.me.profile.plans_private;
+  return `<label class="privacy-setting"><input type="checkbox" data-privacy-default ${priv ? 'checked' : ''}>
+      <span><b>Keep my plans private</b>New Going and Interested picks are only visible to you. You can still share any show one at a time.</span></label>
+    <p class="danger-zone"><button data-delete-account>Delete my account</button></p>`;
 }
 
 // ---------- My Shows ----------
@@ -715,6 +728,7 @@ function openSheet(id) {
     ${s.price != null ? `<span class="price ${s.price === 0 ? 'free' : ''}">${s.price === 0 ? 'Free show' : `From $${s.price}`}</span>` : ''}
     ${friendsAt(s).length ? `<p>${faces(friendsAt(s), 6)}</p>` : ''}
     ${actionButtons(s)}
+    ${privacyToggle(s)}
     ${s.url ? `<a class="ticket-link" href="${s.url}" target="_blank" rel="noopener">Tickets &amp; info ↗</a>` : ''}
     <div class="sheet-tools">
       <button class="btn" data-share="${s.id}">Send to a friend</button>
@@ -783,6 +797,10 @@ document.addEventListener('click', e => {
     return;
   }
   if (t.dataset.close !== undefined) return closeSheet();
+  if (t.dataset.privacy) {
+    const id = t.dataset.privacy;
+    return Account.setPlanPrivate(id, !Account.isPrivate(id)).then(() => openSheet(id)).catch(err => toast(err.message));
+  }
   if (t.dataset.resendEmail !== undefined) { linkSentTo = null; return render(); }
   if (t.dataset.installLater !== undefined) { save('no.installLater', Date.now()); return render(); }
   if (t.dataset.install !== undefined && installPrompt) {
@@ -895,6 +913,12 @@ document.addEventListener('submit', async e => {
 });
 
 document.addEventListener('change', e => {
+  if (e.target.matches('[data-privacy-default]')) {
+    Account.setPlansPrivateDefault(e.target.checked)
+      .then(() => toast(e.target.checked ? 'New plans will be private' : 'New plans will be visible to friends'))
+      .catch(err => { e.target.checked = !e.target.checked; toast(err.message); });
+    return;
+  }
   if (e.target.id === 'price-range') { renderControls(); renderList(); return; }
 });
 

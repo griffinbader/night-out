@@ -26,6 +26,8 @@ const Account = (() => {
     return id;
   };
 
+  const privacy = new Map(); // show id -> private, remembered while switching between going and interested
+
   const listeners = [];
   const changed = () => listeners.forEach(fn => fn());
 
@@ -43,7 +45,7 @@ const Account = (() => {
     me.user = session?.user || null;
     me.profile = null; me.friends = []; me.incoming = []; me.outgoing = []; me.friendPlans = []; me.myPlans = [];
     if (me.user) {
-      const { data: profile } = await db.from('profiles').select(PROFILE_COLS).eq('id', me.user.id).maybeSingle();
+      const { data: profile } = await db.from('profiles').select(PROFILE_COLS + ', plans_private').eq('id', me.user.id).maybeSingle();
       me.profile = profile;
       if (profile) await loadSocial();
     }
@@ -118,9 +120,12 @@ const Account = (() => {
     async setPlan(show, status) {
       if (!me.profile) return;
       const uid = me.user.id;
+      const existing = me.myPlans.find(p => p.show_id === show.id);
+      if (existing) privacy.set(show.id, !!existing.private); // switching going <-> interested keeps its privacy
       me.myPlans = me.myPlans.filter(p => p.show_id !== show.id);
       if (status) {
-        const row = { user_id: uid, show_id: show.id, status, show: snapshot(show), show_start: show.start.toISOString(), updated_at: new Date().toISOString() };
+        const row = { user_id: uid, show_id: show.id, status, show: snapshot(show), show_start: show.start.toISOString(),
+          updated_at: new Date().toISOString(), private: privacy.get(show.id) ?? !!me.profile.plans_private };
         me.myPlans.push(row);
         const { error } = await db.from('plans').upsert(row);
         if (error) console.error(error);
@@ -136,11 +141,33 @@ const Account = (() => {
       const uid = me.user.id;
       const rows = items.map(({ show, status }) => ({
         user_id: uid, show_id: show.id, status, show: snapshot(show), show_start: show.start.toISOString(),
+        private: !!me.profile.plans_private,
       }));
       const { error } = await db.from('plans').upsert(rows, { ignoreDuplicates: true });
       if (error) console.error(error);
       await loadSocial(); changed();
     },
+
+    // One plan: visible to friends, or only to you.
+    async setPlanPrivate(showId, isPrivate) {
+      const plan = me.myPlans.find(p => p.show_id === showId);
+      if (!plan) return;
+      plan.private = isPrivate;
+      privacy.set(showId, isPrivate);
+      const { error } = await db.from('plans').update({ private: isPrivate }).eq('user_id', me.user.id).eq('show_id', showId);
+      if (error) throw new Error('Couldn’t change that. Try again.');
+      changed();
+    },
+
+    // Account setting: whether new plans start private.
+    async setPlansPrivateDefault(isPrivate) {
+      const { error } = await db.from('profiles').update({ plans_private: isPrivate }).eq('id', me.user.id);
+      if (error) throw new Error('Couldn’t save that setting. Try again.');
+      me.profile.plans_private = isPrivate;
+      changed();
+    },
+
+    isPrivate: showId => !!me.myPlans.find(p => p.show_id === showId)?.private,
 
     async inviteLink() {
       const { data, error } = await db.rpc('my_invite_code');
