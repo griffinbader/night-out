@@ -513,7 +513,8 @@ def src_lincoln_center():
         out.append(show("lcatrium", head, f"{day:%Y-%m-%d}T{parse_clock(when.group(2)) or '19:30'}", support,
                         price=0 if "Free_LC_Presents" in b else None, image=img.group(1) if img else None,
                         url="https://www.lincolncenter.org" + t.group(1) if t.group(1).startswith("/") else t.group(1),
-                        genres=[x.title() for x in labels - {"MUSIC", "ALL AGES", "NYC DEBUT", "U.S. DEBUT", "LINCOLN CENTER", "OUTDOOR"}],
+                        genres=[x.title() for x in labels - {"MUSIC", "ALL AGES", "NYC DEBUT", "U.S. DEBUT", "LINCOLN CENTER", "OUTDOOR",
+                                                              "SOCIAL DANCE", "IN-PERSON", "INDOOR"}],  # format labels, not genres
                         source="lincolncenter"))
     return out
 
