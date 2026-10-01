@@ -2,7 +2,7 @@
 // Friends come from accounts (account.js).
 
 const BOROUGHS = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
-const VIBES = ['Intimate', 'Throw ass', 'Sweaty & loud', 'Chill', 'Sitting', 'Big room', 'Late night'];
+const VIBES = ['Intimate', 'Throw Ass', 'Sweaty & Loud', 'Chill', 'Sitting', 'Big Room', 'Late Night'];
 
 
 // Small deterministic random helpers (used for artwork and sample friends).
@@ -30,11 +30,11 @@ const venueById = Object.fromEntries(VENUES.map(v => [v.id, v]));
 function vibesFor(show, venue, hour) {
   const vibes = new Set(venue.vibes);
   const g = show.genres.join(' ').toLowerCase();
-  if (/dance/.test(g)) vibes.add('Throw ass');
-  if (/punk|metal/.test(g)) vibes.add('Sweaty & loud');
+  if (/dance/.test(g)) vibes.add('Throw Ass');
+  if (/punk|metal/.test(g)) vibes.add('Sweaty & Loud');
   if (/jazz|folk/.test(g)) vibes.add('Chill');
-  if (hour >= 22 || hour < 5) vibes.add('Late night'); // 10pm or later, including after-midnight sets
-  if (venue.size === 'small' && !vibes.has('Sweaty & loud')) vibes.add('Intimate');
+  if (hour >= 22 || hour < 5) vibes.add('Late Night'); // 10pm or later, including after-midnight sets
+  if (venue.size === 'small' && !vibes.has('Sweaty & Loud')) vibes.add('Intimate');
   return [...vibes].slice(0, 3);
 }
 

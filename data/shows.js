@@ -21,7 +21,7 @@ window.NIGHT_OUT = {
 "hood": "East Village",
 "size": "small",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "lat": 40.72585,
 "lng": -73.98404
@@ -75,7 +75,7 @@ window.NIGHT_OUT = {
 "hood": "Downtown Brooklyn",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.69004,
 "lng": -73.98173
@@ -131,7 +131,7 @@ window.NIGHT_OUT = {
 "hood": "Williamsburg",
 "size": "small",
 "vibes": [
-"Sweaty & loud"
+"Sweaty & Loud"
 ],
 "lat": 40.71565,
 "lng": -73.95199
@@ -143,7 +143,7 @@ window.NIGHT_OUT = {
 "hood": "Williamsburg",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "lat": 40.72205,
 "lng": -73.95755
@@ -165,7 +165,7 @@ window.NIGHT_OUT = {
 "hood": "Chelsea",
 "size": "small",
 "vibes": [
-"Sweaty & loud"
+"Sweaty & Loud"
 ],
 "lat": 40.74305,
 "lng": -74.00574
@@ -187,7 +187,7 @@ window.NIGHT_OUT = {
 "hood": "Bushwick",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.70948,
@@ -200,7 +200,7 @@ window.NIGHT_OUT = {
 "hood": "Greenpoint",
 "size": "medium",
 "vibes": [
-"Sweaty & loud"
+"Sweaty & Loud"
 ],
 "lat": 40.72254,
 "lng": -73.94832
@@ -212,7 +212,7 @@ window.NIGHT_OUT = {
 "hood": "Bushwick",
 "size": "medium",
 "vibes": [
-"Sweaty & loud"
+"Sweaty & Loud"
 ],
 "lat": 40.69693,
 "lng": -73.93459
@@ -238,7 +238,7 @@ window.NIGHT_OUT = {
 "hood": "Gowanus",
 "size": "small",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.68217,
@@ -251,7 +251,7 @@ window.NIGHT_OUT = {
 "hood": "Ridgewood",
 "size": "small",
 "vibes": [
-"Sweaty & loud"
+"Sweaty & Loud"
 ],
 "lat": 40.69791,
 "lng": -73.90533
@@ -263,7 +263,7 @@ window.NIGHT_OUT = {
 "hood": "Ridgewood",
 "size": "small",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.69428,
@@ -311,7 +311,7 @@ window.NIGHT_OUT = {
 "hood": "Hell's Kitchen",
 "size": "large",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.76367,
@@ -325,7 +325,7 @@ window.NIGHT_OUT = {
 "size": "large",
 "vibes": [
 "Sitting",
-"Big room"
+"Big Room"
 ],
 "lat": 40.8465,
 "lng": -73.9379
@@ -337,7 +337,7 @@ window.NIGHT_OUT = {
 "hood": "Seaport",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.7063,
 "lng": -74.0038
@@ -349,8 +349,8 @@ window.NIGHT_OUT = {
 "hood": "Navy Yard",
 "size": "large",
 "vibes": [
-"Big room",
-"Throw ass"
+"Big Room",
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.6998,
@@ -389,7 +389,7 @@ window.NIGHT_OUT = {
 "size": "large",
 "vibes": [
 "Sitting",
-"Big room"
+"Big Room"
 ],
 "lat": 40.6418,
 "lng": -74.0773
@@ -449,7 +449,7 @@ window.NIGHT_OUT = {
 "hood": "Greenpoint",
 "size": "small",
 "vibes": [
-"Sweaty & loud"
+"Sweaty & Loud"
 ],
 "lat": 40.7368,
 "lng": -73.9551
@@ -471,7 +471,7 @@ window.NIGHT_OUT = {
 "hood": "Bushwick",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.7106,
@@ -506,7 +506,7 @@ window.NIGHT_OUT = {
 "hood": "Hudson Square",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "lat": 40.7285,
 "lng": -74.0051
@@ -518,7 +518,7 @@ window.NIGHT_OUT = {
 "hood": "Bushwick",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "lat": 40.72089,
 "lng": -73.95554
@@ -530,7 +530,7 @@ window.NIGHT_OUT = {
 "hood": "Ridgewood",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.6929,
@@ -553,7 +553,7 @@ window.NIGHT_OUT = {
 "hood": "Bushwick",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.7105,
@@ -566,7 +566,7 @@ window.NIGHT_OUT = {
 "hood": "Maspeth",
 "size": "medium",
 "vibes": [
-"Throw ass"
+"Throw Ass"
 ],
 "genre": "Dance",
 "lat": 40.7157,
@@ -617,7 +617,7 @@ window.NIGHT_OUT = {
 "hood": "Flushing",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.7577,
 "lng": -73.8456
@@ -629,7 +629,7 @@ window.NIGHT_OUT = {
 "hood": "Hell's Kitchen",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.76975,
 "lng": -73.99274
@@ -641,8 +641,8 @@ window.NIGHT_OUT = {
 "hood": "Maspeth",
 "size": "large",
 "vibes": [
-"Big room",
-"Throw ass"
+"Big Room",
+"Throw Ass"
 ],
 "lat": 40.71528,
 "lng": -73.91367
@@ -655,7 +655,7 @@ window.NIGHT_OUT = {
 "size": "large",
 "vibes": [
 "Sitting",
-"Big room"
+"Big Room"
 ],
 "lat": 40.64597,
 "lng": -73.95797
@@ -681,7 +681,7 @@ window.NIGHT_OUT = {
 "size": "large",
 "vibes": [
 "Sitting",
-"Big room"
+"Big Room"
 ],
 "lat": 40.78049,
 "lng": -73.98113
@@ -693,7 +693,7 @@ window.NIGHT_OUT = {
 "hood": "East Williamsburg",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.71094,
 "lng": -73.93625
@@ -705,7 +705,7 @@ window.NIGHT_OUT = {
 "hood": "East Williamsburg",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.71089,
 "lng": -73.93662
@@ -717,7 +717,7 @@ window.NIGHT_OUT = {
 "hood": "Greenpoint",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.72543,
 "lng": -73.93228
@@ -729,7 +729,7 @@ window.NIGHT_OUT = {
 "hood": "Midtown",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.75294,
 "lng": -73.99412
@@ -741,7 +741,7 @@ window.NIGHT_OUT = {
 "hood": "Forest Hills",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.71986,
 "lng": -73.84676
@@ -753,7 +753,7 @@ window.NIGHT_OUT = {
 "hood": "Corona",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.74057,
 "lng": -73.84283
@@ -765,7 +765,7 @@ window.NIGHT_OUT = {
 "hood": "Prospect Heights",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.68251,
 "lng": -73.97525
@@ -777,7 +777,7 @@ window.NIGHT_OUT = {
 "hood": "Midtown",
 "size": "large",
 "vibes": [
-"Big room"
+"Big Room"
 ],
 "lat": 40.75051,
 "lng": -73.99352
@@ -790,7 +790,7 @@ window.NIGHT_OUT = {
 "size": "large",
 "vibes": [
 "Sitting",
-"Big room"
+"Big Room"
 ],
 "lat": 40.75051,
 "lng": -73.99352
@@ -803,7 +803,7 @@ window.NIGHT_OUT = {
 "size": "large",
 "vibes": [
 "Sitting",
-"Big room"
+"Big Room"
 ],
 "lat": 40.76013,
 "lng": -73.98002
