@@ -523,3 +523,8 @@ button.date-chip.on { color: var(--paper); }
 .privacy-setting input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--red); flex: none; }
 .privacy-setting span { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: var(--muted); line-height: 1.4; }
 .privacy-setting b { font: 800 16px var(--display); color: var(--ink); }
+
+/* iPhones zoom in on any text box under 16px and stay zoomed, cutting off the page edges. Never go below 16. */
+input, textarea, select, .search { font-size: 16px; }
+.code-form input { font-size: 20px; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
