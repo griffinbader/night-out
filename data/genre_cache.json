@@ -341,6 +341,10 @@
   "Country & Folk"
  ],
  "Beka Gochiashvili": [],
+ "Belinda Carlisle": [
+  "Pop",
+  "Rock"
+ ],
  "Ben Caplan": [],
  "Ben Kessler": [],
  "Ben Vaughn Quintet": [],
@@ -1587,6 +1591,7 @@
  "Joy Oladokun": [
   "Country & Folk"
  ],
+ "Joyful Noise": [],
  "Joé Dwet Filé": [],
  "Jubilee": [],
  "Judah & The Lion": [],
@@ -2492,6 +2497,10 @@
   "Rock"
  ],
  "Rio Amor & Friends": [],
+ "Ripe": [
+  "Jazz",
+  "Pop"
+ ],
  "Riria": [],
  "Rise Against": [
   "Punk & Metal",
@@ -2612,6 +2621,9 @@
  ],
  "San Holo TRUE LOVE IN A MADE UP": [],
  "Sanctuary Park": [],
+ "Santiago Cruz": [
+  "Latin"
+ ],
  "Santos Bravos": [],
  "Saosin": [
   "Punk & Metal",
@@ -2910,6 +2922,7 @@
  "THE DOODIE BABY": [],
  "THE HOUSE IS ON FIRE": [],
  "THE PINK RAMBO": [],
+ "THE SLOPPY BOYS": [],
  "THE SOMETHING SPECIALS": [
   "Indie"
  ],
@@ -3617,6 +3630,7 @@
  "began:Joe Jordan": 1996,
  "began:Jordan Galland": 1980,
  "began:Josie Edwards": null,
+ "began:Joyful Noise": null,
  "began:June McDoom": null,
  "began:Kaspiyskiy gruz": null,
  "began:Keenan TreVon": null,
@@ -4368,6 +4382,12 @@
   "georgian",
   "georgia",
   "georgian jazz"
+ ],
+ "fmtags:Belinda Carlisle": [
+  "pop",
+  "80s",
+  "female vocalists",
+  "new wave"
  ],
  "fmtags:Ben Kessler": [],
  "fmtags:Ben Vaughn Quintet": [],
@@ -6615,6 +6635,12 @@
   "pop",
   "indie"
  ],
+ "fmtags:Joyful Noise": [
+  "70s",
+  "rock",
+  "Jesus Movement",
+  "christian"
+ ],
  "fmtags:Joé Dwet Filé": [
   "french",
   "Konpa"
@@ -8353,12 +8379,17 @@
   "EDM",
   "Brostep"
  ],
+ "fmtags:Rincón Tropical Vol": [],
  "fmtags:Ringo Starr & His All-Starr Band": [
   "classic rock",
   "80s",
   "pop"
  ],
  "fmtags:Rio Amor & Friends": [],
+ "fmtags:Ripe": [
+  "heavy metal",
+  "Power metal"
+ ],
  "fmtags:Riria": [],
  "fmtags:Rise Against": [
   "punk rock",
@@ -9058,6 +9089,11 @@
   "lounge punk"
  ],
  "fmtags:THE PINK RAMBO": [],
+ "fmtags:THE SLOPPY BOYS": [
+  "punk rock",
+  "Garage Rock",
+  "Garage Punk"
+ ],
  "fmtags:THE SOMETHING SPECIALS": [
   "soft rock",
   "folk",
@@ -11291,6 +11327,9 @@
   "Country & Folk",
   "Indie"
  ],
+ "lastfm:Joyful Noise": [
+  "Rock"
+ ],
  "lastfm:Joé Dwet Filé": [
   "Afro & Caribbean"
  ],
@@ -12177,6 +12216,10 @@
  "lastfm:THE DOODIE BABY": [],
  "lastfm:THE HOUSE IS ON FIRE": [],
  "lastfm:THE PINK RAMBO": [],
+ "lastfm:THE SLOPPY BOYS": [
+  "Punk & Metal",
+  "Dance"
+ ],
  "lastfm:TIANA MAJOR9": [
   "R&B",
   "Pop"
@@ -13737,6 +13780,10 @@
  "listeners:Joy Oladokun": {
   "at": "2026-09-30",
   "n": 267447
+ },
+ "listeners:Joyful Noise": {
+  "at": "2026-10-01",
+  "n": 3683
  },
  "listeners:Julia Jacklin": {
   "at": "2026-09-30",

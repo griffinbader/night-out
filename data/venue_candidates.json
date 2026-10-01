@@ -1,7 +1,7 @@
 [
  {
   "name": "Berlin",
-  "events": 47,
+  "events": 43,
   "sources": [
    "ticketmaster"
   ],
@@ -10,7 +10,7 @@
  },
  {
   "name": "Cafe Wha?",
-  "events": 17,
+  "events": 14,
   "sources": [
    "ticketmaster"
   ],
@@ -110,15 +110,6 @@
   "lng": -73.983265
  },
  {
-  "name": "The Greene Space",
-  "events": 3,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.72744098,
-  "lng": -74.00501248
- },
- {
   "name": "Ellen's Stardust Theater",
   "events": 3,
   "sources": [
@@ -126,5 +117,14 @@
   ],
   "lat": 40.76203129021,
   "lng": -73.98329513095
+ },
+ {
+  "name": "The Venue @ Hard Rock Hotel NY",
+  "events": 3,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.7598393911,
+  "lng": -73.98346483149
  }
 ]
