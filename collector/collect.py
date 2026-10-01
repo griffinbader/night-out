@@ -481,6 +481,43 @@ def src_sobs():
     return out
 
 
+LC_SKIP = {"FAMILY-FRIENDLY", "WORKSHOP", "FILM", "THEATER", "TALK", "CLASS", "KIDS", "SPOKEN WORD", "DRAG", "CABARET",
+           "DANCE", "MUSICAL THEATER", "READING", "PARTICIPATORY", "TRIVIA"}  # "DANCE" = a dance performance; "SOCIAL DANCE" (live band, people dance) is kept
+LC_MUSIC = re.compile(r"MUSIC|JAZZ|INDIE|ROCK|POP|HIP-HOP|R&B|SOUL|FOLK|BLUES|SALSA|LATIN|ELECTRONIC|EXPERIMENTAL|"
+                      r"SONGWRITER|COUNTRY|AMERICANA|PUNK|FUNK|REGGAE|AFRO|SOCIAL DANCE")
+
+
+def src_lincoln_center():
+    """Lincoln Center's own listings (Lincoln Center Presents): free music nights at the David Rubenstein Atrium.
+    Each card is labeled (MUSIC, JAZZ, INDIE...); only MUSIC cards at the Atrium, minus family/film/talk events."""
+    page = fetch("https://www.lincolncenter.org/series/lincoln-center-presents")
+    now = datetime.now(NYC)
+    out, seen = [], set()
+    for b in page.split('<div class="event-with-image-and-description')[1:]:
+        d = re.search(r'<h4 class="event-date">\s*([^<]+?)\s*</h4>', b)
+        t = re.search(r'<h2 class="event-title"><a href="([^"]+)">([^<]+)</a>', b)
+        v = re.search(r'more-venue-info">.*?<a [^>]*>([^<]+)</a>', b, re.S)
+        labels = {x.strip().upper() for x in re.findall(r'show-icons-item-text">\s*([^<]+?)\s*<', b)}
+        when = re.match(r"[A-Z][a-z]+, ([A-Z][a-z]+ \d{1,2}) at (\d{1,2}(?::\d\d)?\s*[ap]m)", d.group(1) if d else "")
+        if not (t and when and v) or _our_venue(text(v.group(1))) != "lcatrium" or not any(LC_MUSIC.search(x) for x in labels) or labels & LC_SKIP:
+            continue
+        day = datetime.strptime(f"{when.group(1)} {now.year}", "%B %d %Y")
+        if day.date() < (now - timedelta(days=30)).date():
+            day = day.replace(year=now.year + 1)
+        title = text(t.group(2))
+        if (title, day.date()) in seen:
+            continue
+        seen.add((title, day.date()))
+        head, support = split_lineup(clean_title(title), commas=True)
+        img = re.search(r'<img src="(https://images\.lincolncenter\.org/[^"]+)"', b)
+        out.append(show("lcatrium", head, f"{day:%Y-%m-%d}T{parse_clock(when.group(2)) or '19:30'}", support,
+                        price=0 if "Free_LC_Presents" in b else None, image=img.group(1) if img else None,
+                        url="https://www.lincolncenter.org" + t.group(1) if t.group(1).startswith("/") else t.group(1),
+                        genres=[x.title() for x in labels - {"MUSIC", "ALL AGES", "NYC DEBUT", "U.S. DEBUT", "LINCOLN CENTER", "OUTDOOR"}],
+                        source="lincolncenter"))
+    return out
+
+
 def src_squarespace_events(url, venue):
     """Squarespace event pages publish their calendar as JSON (?format=json)."""
     data = json.loads(fetch(url + ("&" if "?" in url else "?") + "format=json"))
@@ -1041,6 +1078,7 @@ SOURCES = [
     ("The Rooftop at Pier 17", src_pier17),
     ("SOB's", src_wp_sobs),
     ("Melrose Ballroom", lambda: src_squarespace_events("https://www.melroseballroom.com/events", "melrose")),
+    ("Lincoln Center: David Rubenstein Atrium", src_lincoln_center),
     ("Littlefield", lambda: src_eventbrite_widget("https://littlefieldnyc.com/all-shows/", "littlefield")),
     ("The Bell House", lambda: src_jsonld("https://www.thebellhouseny.com/", "bellhouse")),
     ("AI reader (venue pages no other reader understands)", src_ai),

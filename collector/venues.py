@@ -62,6 +62,7 @@ VENUES = [
     dict(id="apollo", name="Apollo Theater", borough="Manhattan", hood="Harlem", size="large", vibes=["Seated"], lat=40.8097, lng=-73.9496),
     dict(id="apollovictoria", name="The Apollo Stages at the Victoria", borough="Manhattan", hood="Harlem", size="small", cap=200, vibes=["Seated", "Intimate"], lat=40.80956, lng=-73.94901),
     dict(id="ethical", name="NY Society for Ethical Culture", borough="Manhattan", hood="Upper West Side", size="medium", vibes=["Seated", "Chill"], lat=40.7711, lng=-73.9801),
+    dict(id="lcatrium", name="David Rubenstein Atrium at Lincoln Center", borough="Manhattan", hood="Upper West Side", size="medium", vibes=[], lat=40.77296, lng=-73.98266),
     dict(id="citifield", name="Citi Field", borough="Queens", hood="Flushing", size="large", outdoor=True, vibes=["Big Room"], lat=40.7577, lng=-73.8456),
 
     # --- Other NYC venues that come with the Bowery Presents feed ---
@@ -146,7 +147,7 @@ VENUE_SITES = {
     "pioneerworks": "https://pioneerworks.org/", "scott99": "https://www.99scott.com/", "crownhill": "https://crownhilltheatre.com/calendar",
     "roughtrade": "https://www.roughtrade.com/", "xanadu": "https://www.xanadu.nyc/", "nowadays": "https://nowadays.nyc/",
     "silo": "https://www.silo-brooklyn.com/", "basementny": "https://basementny.net/", "apollo": "https://www.apollotheater.org/", "apollovictoria": "https://www.apollotheater.org/",
-    "ethical": "https://www.ethicalsociety.org/", "citifield": "https://www.mlb.com/mets/tickets/concerts",
+    "ethical": "https://www.ethicalsociety.org/", "lcatrium": "https://www.lincolncenter.org/venue/atrium", "citifield": "https://www.mlb.com/mets/tickets/concerts",
     "carnegie": "https://www.carnegiehall.org/calendar",
     "tveye": "https://tveyenyc.com/", "monarch": "https://www.brooklynmonarch.com/", "meadows": "https://www.themeadowsnyc.com/",
     "kbridge": "https://www.underthekbridge.com/", "knockdown": "https://knockdown.center/", "markethotel": "https://www.markethotel.org/calendar",
@@ -202,6 +203,6 @@ VENUE_NAMES = {
     "The Meadows - Brooklyn": "meadows", "Mercury Lounge - New York": "mercury",
     "The Brooklyn Monarch": "monarch", "Night Club 101": "nc101",
     "Palladium Times Square": "palladium", "The Rooftop at Pier 17": "pier17",
-    "Racket NYC": "racket", "SILO Brooklyn": "silo", "Saint Vitus Bar": "saintvitus", "S.O.B.'s": "sobs", "SOB's - Sounds Of Brazil": "sobs",
+    "Racket NYC": "racket", "SILO Brooklyn": "silo", "David Rubenstein Atrium": "lcatrium", "Saint Vitus Bar": "saintvitus", "S.O.B.'s": "sobs", "SOB's - Sounds Of Brazil": "sobs",
     "The Sultan Room - Rooftop": "sultanroof", "The Town Hall - New York": "townhall", "Town Hall": "townhall",
 }
