@@ -358,7 +358,7 @@ function welcomeCard() {
 function renderDiscover() {
   view.innerHTML = `
     ${welcomeCard() || installCard()}
-    <h2>Where's the <em>music</em>?</h2>
+    <h2>What's <em>happening</em>?</h2>
     <div class="when">${datePicker()}${WHENS.map(([k, l]) => `<button data-when="${k}" class="${state.when === k ? 'on' : ''}">${l}</button>`).join('')}</div>
     ${rangePanel()}
     <div id="controls"></div>
