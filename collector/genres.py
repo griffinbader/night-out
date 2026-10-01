@@ -44,6 +44,8 @@ def bucket_for(tag):
     t = tag.lower()
     if re.search(r"hip[- ]?hop|\brap\b", t):
         return "Rap"  # "hardcore hip hop" is rap, not punk
+    if re.search(r"pop[- ]?punk|easycore", t):
+        return "Rock"  # pop punk is its own thing, not punk (Griffin's call)
     if re.search(r"reggaeton|dembow|latin trap", t):
         return "Latin"
     if re.search(r"post[- ]?punk|art[- ]punk|dance[- ]punk|punk[- ]funk", t):
@@ -245,6 +247,10 @@ NOT_GROOVE = re.compile(r"punk|dancehall|metal|lidarr|_", re.I)  # also skips li
 AFRO_CARIB = re.compile(r"afrobeat|afropop|afro-pop|afroswing|amapiano|highlife|dancehall|reggae(?!ton)|^dub$|soca|calypso|kompa|konpa|zouk|bouyon|lovers rock", re.I)
 
 
+POP_PUNK = re.compile(r"pop[- ]?punk|easycore", re.I)
+HARD = re.compile(r"hardcore|metal|^punk$|punk rock|thrash|grind", re.I)
+
+
 def is_groove(tags):
     return any(GROOVE_TAG.search(t) and not NOT_GROOVE.search(t) for t in tags[:6])
 
@@ -269,6 +275,10 @@ def mark_groove(shows, log=print):
             any(AFRO_CARIB.search(t) for t in tags[:4]) and "Dance" not in s["genres"])  # a techno DJ with one dancehall tag isn't
         if afro and "Afro & Caribbean" not in s["genres"]:
             s["genres"] = ["Afro & Caribbean"] + [g for g in s["genres"] if g not in ("Jazz", "Punk & Metal")][:1]
+        # artists sorted into Punk & Metal before the pop-punk rule: re-check against their raw tags
+        if "Punk & Metal" in s["genres"] and any(POP_PUNK.search(t) for t in tags[:2]) \
+                and not any(HARD.search(t) for t in tags[:3]):
+            s["genres"] = list(dict.fromkeys(["Rock" if g == "Punk & Metal" else g for g in s["genres"]]))
         if "Dance" not in s["genres"] and is_groove(tags):
             s["groove"] = True
             count += 1
