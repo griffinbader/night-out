@@ -1,7 +1,7 @@
 {
  "near_misses": {
-  "Daryl Roth Theatre": "looks like Irving Plaza but isn't an exact known name — not matched",
   "Berlin NYC": "looks like Mercury Lounge but isn't an exact known name — not matched",
+  "Daryl Roth Theatre": "looks like Irving Plaza but isn't an exact known name — not matched",
   "The Greene Space NYC": "looks like City Winery but isn't an exact known name — not matched",
   "The Chocolate Factory - Brooklyn": "looks like Elsewhere but isn't an exact known name — not matched",
   "Carnegie Hall - Judy & Arthur Zankel Hall": "looks like Carnegie Hall but isn't an exact known name — not matched",
@@ -30,7 +30,7 @@
   "Elsewhere Presents: Ak’chamel @ Market Hotel (w/ Ecology Homestones) — Elsewhere feed, but at '1140 Myrtle Avenue, Brooklyn, NY 11221'; skipped",
   "Elsewhere Presents: Chanel Beads @ Knockdown Center — Elsewhere feed, but at '52-19 Flushing Avenue 1, Queens, NY 11378'; skipped",
   "Elsewhere Presents: Loukeman @ Market Hotel — Elsewhere feed, but at '1140 Myrtle Avenue, Brooklyn, NY 11221'; skipped",
-  "Elsewhere x H0L0: not without friends: Luke Alessi, William Kiss + more — Elsewhere feed, but at '10-90 Wyckoff Avenue, Queens, NY 11385'; skipped",
+  "ElsewherexH0L0: not without friends:Luke Alessi+William Kiss +Jordan Brando — Elsewhere feed, but at '10-90 Wyckoff Avenue, Queens, NY 11385'; skipped",
   "Fruit Juice 2026-10-31: listed at sultanroof (jsonld) and sultan (dice-widget); kept sultan",
   "Gorgeous Gorgeous Halloween 2026-10-30: listed at sultanroof (jsonld) and sultan (dice-widget); kept sultan",
   "Kali Malone presents Burning Song — LPR feed, room ['first-unitarian-church']; skipped",

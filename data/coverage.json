@@ -2,9 +2,9 @@
  {
   "venue": "babys",
   "name": "Baby's All Right",
-  "shows": 29,
+  "shows": 28,
   "sources": {
-   "seatgeek": 17,
+   "seatgeek": 16,
    "ticketmaster-mirror": 12
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
@@ -21,18 +21,18 @@
  {
   "venue": "mercury",
   "name": "Mercury Lounge",
-  "shows": 99,
+  "shows": 100,
   "sources": {
-   "ticketmaster": 99
+   "ticketmaster": 100
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "bowery",
   "name": "Bowery Ballroom",
-  "shows": 68,
+  "shows": 67,
   "sources": {
-   "ticketmaster": 64,
+   "ticketmaster": 63,
    "mercuryeast": 2,
    "seatgeek": 2
   },
@@ -52,10 +52,9 @@
  {
   "venue": "irving",
   "name": "Irving Plaza",
-  "shows": 51,
+  "shows": 50,
   "sources": {
-   "ticketmaster": 50,
-   "seatgeek": 1
+   "ticketmaster": 50
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -74,7 +73,7 @@
   "shows": 40,
   "sources": {
    "bowery": 39,
-   "seatgeek": 1
+   "ticketmaster-mirror": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -94,7 +93,8 @@
   "name": "The Sultan Room",
   "shows": 38,
   "sources": {
-   "dice-widget": 38
+   "dice-widget": 37,
+   "jsonld": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -103,7 +103,8 @@
   "name": "The Sultan Room Rooftop",
   "shows": 9,
   "sources": {
-   "dice-widget": 9
+   "dice-widget": 8,
+   "jsonld": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -195,9 +196,9 @@
  {
   "venue": "publicrecords",
   "name": "Public Records",
-  "shows": 50,
+  "shows": 49,
   "sources": {
-   "publicrecords": 48,
+   "publicrecords": 47,
    "seatgeek": 2
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -400,9 +401,9 @@
  {
   "venue": "sobs",
   "name": "SOB's",
-  "shows": 20,
+  "shows": 22,
   "sources": {
-   "sobs": 20
+   "sobs": 22
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -498,8 +499,7 @@
   "shows": 40,
   "sources": {
    "bowery": 13,
-   "jsonld": 26,
-   "seatgeek": 1
+   "jsonld": 27
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
  },
@@ -634,8 +634,8 @@
   "shows": 24,
   "sources": {
    "bowery": 6,
-   "seatgeek": 9,
-   "ticketmaster-mirror": 9
+   "seatgeek": 8,
+   "ticketmaster-mirror": 10
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  }

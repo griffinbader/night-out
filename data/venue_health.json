@@ -101,7 +101,7 @@
  "hammerstein": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 8
+  "site_failures": 9
  },
  "holo": {
   "first_checked": "2026-09-30",
@@ -176,7 +176,7 @@
  "monarch": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 6
+  "site_failures": 7
  },
  "msg": {
   "first_checked": "2026-09-30",
@@ -186,7 +186,7 @@
  "msgtheater": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 8
+  "site_failures": 9
  },
  "nc101": {
   "first_checked": "2026-09-30",
@@ -201,7 +201,7 @@
  "pacha": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 8
+  "site_failures": 9
  },
  "palladium": {
   "first_checked": "2026-09-30",
@@ -261,7 +261,7 @@
  "silo": {
   "first_checked": "2026-09-30",
   "last_shows_seen": "2026-09-30",
-  "site_failures": 8
+  "site_failures": 9
  },
  "sobs": {
   "first_checked": "2026-09-30",
