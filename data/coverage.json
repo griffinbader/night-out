@@ -194,11 +194,12 @@
  {
   "venue": "publicrecords",
   "name": "Public Records",
-  "shows": 4,
+  "shows": 49,
   "sources": {
-   "seatgeek": 4
+   "publicrecords": 47,
+   "seatgeek": 2
   },
-  "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
+  "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "tveye",
