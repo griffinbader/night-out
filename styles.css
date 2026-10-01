@@ -389,7 +389,15 @@ a.brand { text-decoration: none; color: var(--ink); }
   padding-right: max(16px, env(safe-area-inset-right));
 }
 html, body { overflow-x: hidden; }
-.when, .chips { flex-wrap: wrap; overflow: visible; padding-right: 0; }
+/* Filter rows are one-line sliders that run to the screen edges (swipe sideways); the first button lines up with
+   the page text and the last one can scroll fully into view. */
+.when, .chips {
+  flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left))); margin-right: calc(-1 * max(16px, env(safe-area-inset-right)));
+  padding-left: max(16px, env(safe-area-inset-left)); padding-right: 0; /* end space comes from the last button's margin (Safari ignores end padding here) */
+  scroll-padding-left: max(16px, env(safe-area-inset-left));
+}
+.when > *:last-child, .chips > *:last-child { margin-right: max(16px, env(safe-area-inset-right)); }
 .card { margin-right: 4px; }  /* room for the hard shadow */
 .sheet-body { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
 @media (max-width: 420px) {
