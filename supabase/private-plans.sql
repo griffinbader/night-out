@@ -9,3 +9,6 @@ drop policy if exists "see own and friends' plans" on public.plans;
 create policy "see own and friends' plans" on public.plans
   for select to authenticated
   using (user_id = auth.uid() or (not private and public.are_friends(auth.uid(), user_id)));
+
+-- profiles only exposes listed columns (invites.sql keeps invite codes private), so allow this one too.
+grant select (plans_private) on public.profiles to authenticated;
