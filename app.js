@@ -184,12 +184,21 @@ function art(s) {
 // Filled color for each selected chip, so filters feel like stickers.
 const CHIP_COLORS = { borough: '#ffd23f', hood: '#ff9f1c', vibe: '#ff9ccf', genre: '#b8a2ff', price: '#22c07a' };
 
+// Badge on each show image: Tonight / Tomorrow / weekday within the week / date after that.
+function badgeDay(d) {
+  const diff = Math.round((midnight(d) - midnight()) / DAY);
+  if (diff === 0) return 'Tonight';
+  if (diff === 1) return 'Tomorrow';
+  if (diff < 7) return d.toLocaleDateString('en-US', { weekday: 'short' });
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
 function card(s) {
   const t = fmtTime(s.start);
   return `<article class="card" data-open="${s.id}">
     <div class="thumb">
       ${art(s)}
-      <div class="time">${t.h}${t.ap.toLowerCase()}</div>
+      <div class="time">${badgeDay(s.start)}</div>
     </div>
     <div>
       <div class="artist">${s.artist}</div>
