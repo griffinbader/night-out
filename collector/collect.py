@@ -26,7 +26,7 @@ from zoneinfo import ZoneInfo
 
 sys.path.insert(0, str(Path(__file__).parent))
 import ai_reader  # noqa: E402
-from curate import curate  # noqa: E402
+from curate import OVERRIDES, curate  # noqa: E402
 from genres import mark_groove, mark_rising, tag_shows  # noqa: E402
 from venues import BOWERY_NAMES, IGNORED_CANDIDATES, SEASONAL_VENUES, SEATGEEK_VENUES, TICKETMASTER_VENUES, VENUE_NAMES, VENUE_SITES, VENUES  # noqa: E402
 
@@ -1264,12 +1264,19 @@ def main():
     for k in comics:  # music databases say this performer is a comedian / podcaster, not a musician
         dropped.append(fresh.pop(k)["artist"])
     (ROOT / "data" / "dropped.txt").write_text("\n".join(sorted(set(dropped))) + "\n")
+    genre_fixes = {k.lower(): v for k, v in OVERRIDES.get("genres", {}).items()}
+    for s in fresh.values():  # Griffin's manual genre calls (collector/overrides.json) beat the databases
+        if s["artist"].lower() in genre_fixes:
+            s["genres"] = genre_fixes[s["artist"].lower()]
     for s in fresh.values():  # club venues: untagged nights are almost always dance music
         if not s["genres"] and VENUE_GENRE.get(s["venue"]):
             s["genres"] = [VENUE_GENRE[s["venue"]]]
     report.append(f"\n  genres: {tagged}/{len(fresh)} shows tagged")
     report.append(f"  up & coming: {mark_rising(list(fresh.values()), VENUE_SIZE)} shows")
     report.append(f"  funk / disco / groove (outside Dance): {mark_groove(list(fresh.values()))} shows")
+    for s in fresh.values():  # manual calls stay final even after the Last.fm passes
+        if s["artist"].lower() in genre_fixes:
+            s["genres"] = genre_fixes[s["artist"].lower()]
 
     # keep past shows from earlier runs (history), drop anything stale
     past = [s for s in load_existing() if oldest <= s["start"][:10] < today and s["id"] not in fresh]

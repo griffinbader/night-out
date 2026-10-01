@@ -1,5 +1,5 @@
 {
-  "_about": "Judgment calls the rules can't make. 'exclude': listing text (title or tagline) that means it's not an artist show. 'rename': exact listing title -> the artist to headline. 'series': party/series names billed above the real artists; the artist is taken from the lineup or subtitle. 'exclude_exact': headlines dropped only on an exact match (short names that could be part of a real band's name).",
+  "_about": "Judgment calls the rules can't make. 'exclude': listing text (title or tagline) that means it's not an artist show. 'rename': exact listing title -> the artist to headline. 'series': party/series names billed above the real artists; the artist is taken from the lineup or subtitle. 'exclude_exact': headlines dropped only on an exact match (short names that could be part of a real band's name). 'genres': artist -> the genres to show, when the music databases get it wrong (exact headliner name, any case).",
   "exclude": [
     "Do Si Don'tcha",
     "Music of Bob Marley + More for Kids",
@@ -183,5 +183,11 @@
     "POSTCARD",
     "The Legends",
     "Chello & Friends"
-  ]
+  ],
+  "genres": {
+    "WILLOW": [
+      "R&B",
+      "Pop"
+    ]
+  }
 }
