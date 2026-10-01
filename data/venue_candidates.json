@@ -36,15 +36,6 @@
   "lng": -73.9903775
  },
  {
-  "name": "Berlin NYC",
-  "events": 4,
-  "sources": [
-   "seatgeek"
-  ],
-  "lat": 40.723,
-  "lng": -73.9861
- },
- {
   "name": "What's Left Records",
   "events": 4,
   "sources": [
@@ -71,6 +62,15 @@
   ],
   "lat": 40.7373,
   "lng": -74.0054
+ },
+ {
+  "name": "Berlin NYC",
+  "events": 3,
+  "sources": [
+   "seatgeek"
+  ],
+  "lat": 40.723,
+  "lng": -73.9861
  },
  {
   "name": "Carnegie Hall - Judy & Arthur Zankel Hall",

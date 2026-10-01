@@ -91,29 +91,27 @@
  {
   "venue": "sultan",
   "name": "The Sultan Room",
-  "shows": 38,
+  "shows": 37,
   "sources": {
-   "dice-widget": 37,
-   "jsonld": 1
+   "dice-widget": 37
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "sultanroof",
   "name": "The Sultan Room Rooftop",
-  "shows": 9,
+  "shows": 8,
   "sources": {
-   "dice-widget": 8,
-   "jsonld": 1
+   "dice-widget": 8
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "unionpool",
   "name": "Union Pool",
-  "shows": 43,
+  "shows": 42,
   "sources": {
-   "dice-widget": 43
+   "dice-widget": 42
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -496,10 +494,10 @@
  {
   "venue": "knockdown",
   "name": "Knockdown Center",
-  "shows": 40,
+  "shows": 39,
   "sources": {
    "bowery": 13,
-   "jsonld": 27
+   "jsonld": 26
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
  },
