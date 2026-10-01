@@ -45,8 +45,13 @@ const Account = (() => {
     me.user = session?.user || null;
     me.profile = null; me.friends = []; me.incoming = []; me.outgoing = []; me.friendPlans = []; me.myPlans = [];
     if (me.user) {
-      const { data: profile } = await db.from('profiles').select(PROFILE_COLS + ', plans_private').eq('id', me.user.id).maybeSingle();
+      const { data: profile, error } = await db.from('profiles').select(PROFILE_COLS).eq('id', me.user.id).maybeSingle();
+      if (error) { console.error(error); me.ready = true; return changed(); } // never mistake a failed read for "no profile yet"
       me.profile = profile;
+      if (profile) { // optional setting: a missing permission must not break sign-in
+        const { data: extra } = await db.from('profiles').select('plans_private').eq('id', me.user.id).maybeSingle();
+        profile.plans_private = !!extra?.plans_private;
+      }
       if (profile) await loadSocial();
     }
     me.ready = true;
@@ -112,6 +117,7 @@ const Account = (() => {
 
     async createProfile(username, displayName, color) {
       const { error } = await db.from('profiles').insert({ id: me.user.id, username, display_name: displayName, color });
+      if (error?.code === '23505' && /pkey/.test(error.message)) { await refresh(); return; } // you already have a profile
       if (error) throw new Error(error.code === '23505' ? 'That username is taken.' : error.message);
       await refresh();
     },
