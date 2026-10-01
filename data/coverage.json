@@ -343,9 +343,10 @@
  {
   "venue": "littlefield",
   "name": "Littlefield",
-  "shows": 11,
+  "shows": 28,
   "sources": {
-   "eventbrite": 11
+   "eventbrite": 11,
+   "eventbrite-widget": 17
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -436,9 +437,9 @@
  {
   "venue": "silo",
   "name": "SILO",
-  "shows": 21,
+  "shows": 22,
   "sources": {
-   "jsonld": 21
+   "jsonld": 22
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },

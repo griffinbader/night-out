@@ -1,7 +1,7 @@
 [
  {
   "name": "Berlin",
-  "events": 43,
+  "events": 42,
   "sources": [
    "ticketmaster"
   ],
@@ -10,7 +10,7 @@
  },
  {
   "name": "Cafe Wha?",
-  "events": 14,
+  "events": 13,
   "sources": [
    "ticketmaster"
   ],
