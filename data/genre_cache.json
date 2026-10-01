@@ -252,6 +252,7 @@
  ],
  "Axel Boman": [],
  "B.Miles": [],
+ "B3K INVITES NY": [],
  "BAILEN": [
   "Country & Folk"
  ],
@@ -825,6 +826,7 @@
  ],
  "Dollar Roses": [],
  "Dom Dolla": [],
+ "Dominican Saturdays": [],
  "Don Omar": [
   "Latin"
  ],
@@ -838,6 +840,10 @@
  ],
  "Donny Benét": [
   "Dance"
+ ],
+ "Dorian Electra": [
+  "Pop",
+  "Indie"
  ],
  "Dos Santos": [
   "Rock",
@@ -933,6 +939,7 @@
  "Emei": [
   "Pop"
  ],
+ "Emilia y Pablo": [],
  "Emma Andersen": [],
  "Emma Ruth Rundle": [
   "Country & Folk",
@@ -1395,6 +1402,10 @@
  "Incendiary": [
   "Punk & Metal"
  ],
+ "Infinity Song": [
+  "Rock",
+  "Country & Folk"
+ ],
  "Ingrid Andress": [
   "Country & Folk"
  ],
@@ -1593,6 +1604,7 @@
  ],
  "Joyful Noise": [],
  "Joé Dwet Filé": [],
+ "Ju Percussion": [],
  "Jubilee": [],
  "Judah & The Lion": [],
  "Juelz": [
@@ -1640,6 +1652,7 @@
  "Keenan O’Meara": [],
  "Keenan Te": [],
  "Keenan TreVon": [],
+ "Keith": [],
  "Kelela": [
   "Rap",
   "R&B"
@@ -1871,6 +1884,7 @@
   "Pop"
  ],
  "Lucy Bright": [],
+ "Lucy Dacus All Request Set": [],
  "Ludovico Einaudi": [
   "Dance"
  ],
@@ -1897,6 +1911,7 @@
   "Afro & Caribbean",
   "Rap"
  ],
+ "MC Hammersmith": [],
  "MC Lyte": [
   "Rap",
   "R&B"
@@ -2307,6 +2322,7 @@
   "Punk & Metal",
   "Country & Folk"
  ],
+ "Paper Skies": [],
  "Parachute": [],
  "Parachute – The Way it Was": [],
  "Pardoner": [
@@ -2599,6 +2615,7 @@
   "Indie",
   "Rock"
  ],
+ "Sak Pasé": [],
  "Sally Boy": [],
  "Salon Parcha Featuring Ella Bric & Special Guests": [],
  "Salsa Groove": [],
@@ -2771,10 +2788,14 @@
   "Pop",
   "Rap"
  ],
+ "SosMula": [
+  "Punk & Metal"
+ ],
  "Soul Supper": [],
  "Soundbath with Charlotte & Kirk Douglas": [],
  "Soundbath with Franck Raharinosy, Sara Auster, and Nigol Koulajian": [],
  "Sounds of Bollywood": [],
+ "South House vs Naija House": [],
  "Space Bacon": [
   "Jazz"
  ],
@@ -2919,6 +2940,7 @@
  ],
  "THE BOUNCING SOULS 'Born To Be": [],
  "THE CENTRAL PARK FIVE": [],
+ "THE COLOR IS OFF": [],
  "THE DOODIE BABY": [],
  "THE HOUSE IS ON FIRE": [],
  "THE PINK RAMBO": [],
@@ -3583,6 +3605,7 @@
  "began:Effigies": null,
  "began:Eggy": 2016,
  "began:Elanor Moss": null,
+ "began:Elisapie": 1977,
  "began:Elizabeth Nichols": null,
  "began:Eric Benet": null,
  "began:Evil Island": 2025,
@@ -3677,6 +3700,7 @@
  "began:My Wonderful Boyfriend": null,
  "began:NERVY": 2014,
  "began:NOAH RICHARDSON": null,
+ "began:Nicolás y Los Fumadores": null,
  "began:Ninth Key": 2026,
  "began:Noah Richardson": null,
  "began:Olivia Barton": null,
@@ -3712,6 +3736,7 @@
  "began:Silly Goose": null,
  "began:Smidley": null,
  "began:Solids": 2015,
+ "began:SosMula": 1994,
  "began:Stanley Simmons": null,
  "began:Steven Page": 1970,
  "began:Storefront Church": 2016,
@@ -3764,6 +3789,7 @@
   "Rap",
   "Rock"
  ],
+ "claire rousay & Martyna Basta": [],
  "confetti": [
   "Pop"
  ],
@@ -4196,6 +4222,7 @@
   "electronic",
   "minimal techno"
  ],
+ "fmtags:B3K INVITES NY": [],
  "fmtags:BAILEN": [
   "indie rock",
   "alternative",
@@ -4461,6 +4488,7 @@
   "country"
  ],
  "fmtags:Blonde Otter": [],
+ "fmtags:Blossom & The Shrub-Tones": [],
  "fmtags:Blu DeTiger": [
   "indie pop",
   "dance",
@@ -4889,6 +4917,7 @@
   "rapcore",
   "hip hop"
  ],
+ "fmtags:César Orozco & SonAhead": [],
  "fmtags:D": [
   "visual kei",
   "J-rock",
@@ -4937,6 +4966,7 @@
   "USA",
   "All"
  ],
+ "fmtags:DJ Road Dog": [],
  "fmtags:DJ Shadow": [
   "trip-hop",
   "electronic",
@@ -5191,6 +5221,7 @@
   "House",
   "electronic"
  ],
+ "fmtags:Dominican Saturdays": [],
  "fmtags:Don Omar": [
   "Reggaeton",
   "latin",
@@ -5384,6 +5415,12 @@
   "Hip-Hop",
   "electronica"
  ],
+ "fmtags:Elisapie": [
+  "folk",
+  "Canadian",
+  "singer-songwriter",
+  "female vocalists"
+ ],
  "fmtags:Elizabeth Nichols": [
   "country",
   "singer-songwriter",
@@ -5409,6 +5446,7 @@
   "indie pop",
   "USA"
  ],
+ "fmtags:Emilia y Pablo": [],
  "fmtags:Emma Ruth Rundle": [
   "folk",
   "drone",
@@ -5802,6 +5840,7 @@
   "indie pop",
   "indie rock"
  ],
+ "fmtags:Gerardo Contino": [],
  "fmtags:Ghostly Kisses": [
   "dream pop",
   "electronic",
@@ -6651,6 +6690,7 @@
   "french",
   "Konpa"
  ],
+ "fmtags:Ju Percussion": [],
  "fmtags:Juana Molina": [
   "folk",
   "female vocalists",
@@ -6781,6 +6821,13 @@
   "jazz",
   "Jazz Hop",
   "beats",
+  "electronic"
+ ],
+ "fmtags:Kim Petras": [
+  "pop",
+  "german",
+  "electropop",
+  "female vocalists",
   "electronic"
  ],
  "fmtags:King & Queen of the Cypher": [],
@@ -7154,6 +7201,7 @@
   "art pop"
  ],
  "fmtags:Lucy Bright": [],
+ "fmtags:Lucy Dacus All Request Set": [],
  "fmtags:Ludovico Einaudi": [
   "piano",
   "Classical",
@@ -7165,6 +7213,7 @@
   "bachata",
   "merengue"
  ],
+ "fmtags:Luisito Gómez & Calle 107": [],
  "fmtags:Luke Alessi": [
   "australian",
   "House"
@@ -7201,6 +7250,14 @@
   "Hip-Hop",
   "jewish",
   "hasidic reggae"
+ ],
+ "fmtags:MC Hammersmith": [
+  "rap",
+  "comedy",
+  "satire",
+  "british",
+  "britain",
+  "United Kingdom"
  ],
  "fmtags:MC Lyte": [
   "Hip-Hop",
@@ -7490,6 +7547,12 @@
   "indie rock",
   "alternative"
  ],
+ "fmtags:Mei Semones": [
+  "indie pop",
+  "jazz",
+  "Bossa Nova",
+  "japanese"
+ ],
  "fmtags:Menahan Street Band": [
   "funk",
   "soul",
@@ -7747,6 +7810,12 @@
  ],
  "fmtags:Nice as F*#k": [],
  "fmtags:Nicoletta Todesco": [],
+ "fmtags:Nicolás y Los Fumadores": [
+  "shoegaze",
+  "Colombia",
+  "colombian",
+  "rock"
+ ],
  "fmtags:Night Lovell": [
   "cloud rap",
   "Hip-Hop",
@@ -8013,6 +8082,11 @@
   "atmospheric black metal",
   "anarchist black metal",
   "rabm"
+ ],
+ "fmtags:Paper Skies": [
+  "canada",
+  "dubstep",
+  "Color bass"
  ],
  "fmtags:Parachute": [
   "pop",
@@ -8539,6 +8613,7 @@
   "indie folk",
   "Philadelphia"
  ],
+ "fmtags:Sak Pasé": [],
  "fmtags:Sam Quealy": [
   "electropop",
   "techno",
@@ -8846,6 +8921,7 @@
   "pop",
   "indie"
  ],
+ "fmtags:Sole Blue": [],
  "fmtags:Solids": [
   "noise pop",
   "shoegaze",
@@ -8871,7 +8947,13 @@
   "female vocalist",
   "electronic"
  ],
+ "fmtags:SosMula": [
+  "rap",
+  "Trap Metal",
+  "Hip-Hop"
+ ],
  "fmtags:Soul Supper": [],
+ "fmtags:South House vs Naija House": [],
  "fmtags:Space Bacon": [
   "psychedelic",
   "jazz",
@@ -9094,6 +9176,7 @@
  "fmtags:THE BLUE DOT": [
   "lounge punk"
  ],
+ "fmtags:THE COLOR IS OFF": [],
  "fmtags:THE PINK RAMBO": [],
  "fmtags:THE SLOPPY BOYS": [
   "punk rock",
@@ -9699,6 +9782,12 @@
   "nu jazz",
   "dance"
  ],
+ "fmtags:Topaz Jones": [
+  "hip hop",
+  "soul",
+  "Hip-Hop",
+  "funk"
+ ],
  "fmtags:Torche": [
   "Sludge",
   "Stoner Rock",
@@ -10152,6 +10241,7 @@
   "indie rock",
   "6yari"
  ],
+ "fmtags:claire rousay & Martyna Basta": [],
  "fmtags:confetti": [
   "indie pop",
   "twee",
@@ -10205,6 +10295,14 @@
   "noise rock",
   "slacker rock",
   "indie"
+ ],
+ "fmtags:frau": [
+  "indonesian",
+  "indie",
+  "female vocalist",
+  "pianist",
+  "female vocalists",
+  "indonesia"
  ],
  "fmtags:gavn!": [
   "pop",
@@ -10290,6 +10388,12 @@
   "emo-pop",
   "electronic"
  ],
+ "fmtags:suhREEtah": [
+  "rap",
+  "alternative",
+  "jazz rap",
+  "female rapper"
+ ],
  "fmtags:the Mountain Goats": [
   "folk",
   "indie",
@@ -10330,6 +10434,7 @@
   "pop",
   "alternative"
  ],
+ "frau": [],
  "ft": [
   "Rap"
  ],
@@ -10543,6 +10648,7 @@
   "Pop",
   "Indie"
  ],
+ "lastfm:B3K INVITES NY": [],
  "lastfm:BANDA AL9": [
   "Rock"
  ],
@@ -10896,6 +11002,7 @@
  "lastfm:Dom Dolla": [
   "Dance"
  ],
+ "lastfm:Dominican Saturdays": [],
  "lastfm:Donna The Buffalo & Assembly of Dust": [],
  "lastfm:Doula": [
   "Rap",
@@ -10969,6 +11076,7 @@
   "Dance",
   "Indie"
  ],
+ "lastfm:Emilia y Pablo": [],
  "lastfm:EmmaLee and the Dream": [],
  "lastfm:Emo Night Karaoke (21+)": [],
  "lastfm:Emo Nite": [],
@@ -11339,6 +11447,7 @@
  "lastfm:Joé Dwet Filé": [
   "Afro & Caribbean"
  ],
+ "lastfm:Ju Percussion": [],
  "lastfm:Jubilee": [
   "Rap"
  ],
@@ -11382,6 +11491,10 @@
  "lastfm:Keenan O’Meara": [],
  "lastfm:Keenan Te": [],
  "lastfm:Keenan TreVon": [],
+ "lastfm:Keith": [
+  "Rock",
+  "Pop"
+ ],
  "lastfm:Kelela -avatar": [],
  "lastfm:Kelsey Lu": [
   "Pop",
@@ -11556,6 +11669,7 @@
  "lastfm:Lovers Rock Reggae": [],
  "lastfm:Lovie": [],
  "lastfm:Lucy Bright": [],
+ "lastfm:Lucy Dacus All Request Set": [],
  "lastfm:Luke Kidgell": [],
  "lastfm:MANAS": [
   "Pop",
@@ -11568,6 +11682,9 @@
   "Jazz"
  ],
  "lastfm:MARYANNE MUGLIA": [],
+ "lastfm:MC Hammersmith": [
+  "Rap"
+ ],
  "lastfm:MELTING POT ALL-STARS": [],
  "lastfm:MICO": [
   "Punk & Metal"
@@ -11865,6 +11982,9 @@
   "Dance",
   "Rock"
  ],
+ "lastfm:Paper Skies": [
+  "Dance"
+ ],
  "lastfm:Parachute": [
   "Pop",
   "Dance"
@@ -12027,6 +12147,7 @@
  "lastfm:SIMRIT": [],
  "lastfm:SUPERTALL": [],
  "lastfm:Sabri Sisters": [],
+ "lastfm:Sak Pasé": [],
  "lastfm:Salon Parcha Featuring Ella Bric & Special Guests": [],
  "lastfm:Salsa Groove": [],
  "lastfm:Sam & Louise Sullivan": [],
@@ -12131,6 +12252,7 @@
  "lastfm:Soundbath with Charlotte & Kirk Douglas": [],
  "lastfm:Soundbath with Franck Raharinosy, Sara Auster, and Nigol Koulajian": [],
  "lastfm:Sounds of Bollywood": [],
+ "lastfm:South House vs Naija House": [],
  "lastfm:Space Bacon & Dizgo": [],
  "lastfm:Space Bacon & Dizgo w/ DJ Greenie of Lotus": [],
  "lastfm:Special Guests": [
@@ -12219,6 +12341,7 @@
  ],
  "lastfm:THE BOUNCING SOULS 'Born To Be": [],
  "lastfm:THE CENTRAL PARK FIVE": [],
+ "lastfm:THE COLOR IS OFF": [],
  "lastfm:THE DOODIE BABY": [],
  "lastfm:THE HOUSE IS ON FIRE": [],
  "lastfm:THE PINK RAMBO": [],
@@ -12603,6 +12726,7 @@
   "Indie"
  ],
  "lastfm:bobbyy": [],
+ "lastfm:claire rousay & Martyna Basta": [],
  "lastfm:confetti x khel": [],
  "lastfm:cootie catcher": [
   "Indie",
@@ -12630,6 +12754,9 @@
  ],
  "lastfm:faiith": [],
  "lastfm:featuring: Steve Kimock": [],
+ "lastfm:frau": [
+  "Indie"
+ ],
  "lastfm:gabrielle hope": [
   "Country & Folk"
  ],
@@ -13139,6 +13266,10 @@
   "at": "2026-09-30",
   "n": 0
  },
+ "listeners:DJ Road Dog": {
+  "at": "2026-10-01",
+  "n": 0
+ },
  "listeners:DOWNTOWN BOYS": {
   "at": "2026-10-01",
   "n": 42154
@@ -13274,6 +13405,10 @@
  "listeners:Elanor Moss": {
   "at": "2026-09-30",
   "n": 8875
+ },
+ "listeners:Elisapie": {
+  "at": "2026-10-01",
+  "n": 29464
  },
  "listeners:Elizabeth Nichols": {
   "at": "2026-09-30",
@@ -14007,6 +14142,10 @@
   "at": "2026-09-30",
   "n": 974080
  },
+ "listeners:MC Hammersmith": {
+  "at": "2026-10-01",
+  "n": 1539
+ },
  "listeners:MC Lyte": {
   "at": "2026-09-30",
   "n": 197609
@@ -14230,6 +14369,10 @@
  "listeners:Nice as F*#k": {
   "at": "2026-09-30",
   "n": 4
+ },
+ "listeners:Nicolás y Los Fumadores": {
+  "at": "2026-10-01",
+  "n": 29970
  },
  "listeners:Night Lovell": {
   "at": "2026-09-30",
@@ -14599,6 +14742,10 @@
   "at": "2026-09-30",
   "n": 94940
  },
+ "listeners:SosMula": {
+  "at": "2026-10-01",
+  "n": 68503
+ },
  "listeners:Soul Supper": {
   "at": "2026-09-30",
   "n": 0
@@ -14943,6 +15090,10 @@
   "at": "2026-09-30",
   "n": 98979
  },
+ "listeners:Topaz Jones": {
+  "at": "2026-10-01",
+  "n": 173766
+ },
  "listeners:Torche": {
   "at": "2026-09-30",
   "n": 215306
@@ -15139,6 +15290,10 @@
   "at": "2026-09-30",
   "n": 137943
  },
+ "listeners:claire rousay & Martyna Basta": {
+  "at": "2026-10-01",
+  "n": 115
+ },
  "listeners:confetti": {
   "at": "2026-09-30",
   "n": 371764
@@ -15158,6 +15313,10 @@
  "listeners:ezcodylee": {
   "at": "2026-09-30",
   "n": 72544
+ },
+ "listeners:frau": {
+  "at": "2026-10-01",
+  "n": 25014
  },
  "listeners:gavn!": {
   "at": "2026-09-30",

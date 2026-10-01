@@ -126,5 +126,14 @@
   ],
   "lat": 40.7598393911,
   "lng": -73.98346483149
+ },
+ {
+  "name": "Queens Theatre in the Park",
+  "events": 3,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.74426,
+  "lng": -73.844427
  }
 ]

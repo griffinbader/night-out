@@ -12,18 +12,18 @@
  {
   "venue": "nc101",
   "name": "Nightclub 101",
-  "shows": 75,
+  "shows": 76,
   "sources": {
-   "ticketmaster": 75
+   "ticketmaster": 76
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "mercury",
   "name": "Mercury Lounge",
-  "shows": 98,
+  "shows": 97,
   "sources": {
-   "ticketmaster": 98
+   "ticketmaster": 97
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -41,10 +41,10 @@
  {
   "venue": "webster",
   "name": "Webster Hall",
-  "shows": 46,
+  "shows": 47,
   "sources": {
    "dice-widget": 2,
-   "bowery": 42,
+   "bowery": 43,
    "seatgeek": 2
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -70,9 +70,9 @@
  {
   "venue": "steel",
   "name": "Brooklyn Steel",
-  "shows": 40,
+  "shows": 41,
   "sources": {
-   "bowery": 39,
+   "bowery": 40,
    "ticketmaster-mirror": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -138,9 +138,9 @@
  {
   "venue": "racket",
   "name": "Racket",
-  "shows": 36,
+  "shows": 37,
   "sources": {
-   "bowery": 36
+   "bowery": 37
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -156,9 +156,9 @@
  {
   "venue": "elsewhere",
   "name": "Elsewhere",
-  "shows": 62,
+  "shows": 63,
   "sources": {
-   "eventbrite": 62
+   "eventbrite": 63
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -204,10 +204,10 @@
  {
   "venue": "tveye",
   "name": "TV Eye",
-  "shows": 9,
+  "shows": 10,
   "sources": {
    "dice-widget": 2,
-   "seetickets-wp": 4,
+   "seetickets-wp": 5,
    "seatgeek": 3
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -333,20 +333,20 @@
  {
   "venue": "bellhouse",
   "name": "The Bell House",
-  "shows": 3,
+  "shows": 4,
   "sources": {
    "ticketmaster": 1,
-   "seatgeek": 2
+   "seatgeek": 3
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
  {
   "venue": "littlefield",
   "name": "Littlefield",
-  "shows": 28,
+  "shows": 27,
   "sources": {
    "eventbrite": 11,
-   "eventbrite-widget": 17
+   "eventbrite-widget": 16
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -364,8 +364,7 @@
   "name": "Pioneer Works",
   "shows": 3,
   "sources": {
-   "seatgeek": 2,
-   "ticketmaster-mirror": 1
+   "seatgeek": 3
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
@@ -399,9 +398,9 @@
  {
   "venue": "sobs",
   "name": "SOB's",
-  "shows": 22,
+  "shows": 24,
   "sources": {
-   "sobs": 22
+   "sobs": 24
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -476,6 +475,15 @@
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
+  "venue": "lcatrium",
+  "name": "David Rubenstein Atrium at Lincoln Center",
+  "shows": 13,
+  "sources": {
+   "lincolncenter": 13
+  },
+  "confidence": "mixed"
+ },
+ {
   "venue": "citifield",
   "name": "Citi Field",
   "shows": 0,
@@ -494,10 +502,11 @@
  {
   "venue": "knockdown",
   "name": "Knockdown Center",
-  "shows": 39,
+  "shows": 40,
   "sources": {
    "bowery": 13,
-   "jsonld": 26
+   "jsonld": 26,
+   "seatgeek": 1
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
  },
