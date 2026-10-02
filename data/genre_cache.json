@@ -88,6 +88,7 @@
  "Aerobicide": [],
  "Afrobeat Nights NYC": [],
  "After": [],
+ "Aged Inventory": [],
  "Agriculture": [],
  "Ahmed Spins": [],
  "Aida Cuevas": [],
@@ -683,6 +684,7 @@
   "Rap",
   "Punk & Metal"
  ],
+ "César Orozco & SonAhead": [],
  "D Savage": [],
  "DAKOTA JONES": [],
  "DANNA": [],
@@ -830,6 +832,7 @@
  "Don Omar": [
   "Latin"
  ],
+ "Don't Hold Your Breath": [],
  "Donis": [
   "Country & Folk"
  ],
@@ -933,6 +936,7 @@
  "Eloise": [],
  "Elora": [],
  "Elsewhere": [],
+ "Elsewhere New Year's Eve": [],
  "Emancipator": [
   "Dance"
  ],
@@ -1149,6 +1153,7 @@
   "Dance"
  ],
  "Georgia Gets By": [],
+ "Gerardo Contino": [],
  "Giant Rooks": [
   "Rock",
   "Indie"
@@ -2600,6 +2605,7 @@
   "Rock",
   "Punk & Metal"
  ],
+ "SPFDJ": [],
  "SPY": [
   "Dance",
   "Jazz"
@@ -3461,6 +3467,10 @@
  "Wild Pink": [
   "Indie"
  ],
+ "Wilder Maker": [
+  "Indie",
+  "Country & Folk"
+ ],
  "Will Dempsey": [],
  "Will Linley": [],
  "Will Varley": [
@@ -3469,6 +3479,7 @@
  "Willi Carlisle": [
   "Country & Folk"
  ],
+ "William Black New Year's Eve": [],
  "Willy Soul (skate)": [],
  "Wilmah": [],
  "Wind Walkers": [],
@@ -3765,6 +3776,7 @@
  "began:Washer": 2013,
  "began:When Chai Met Toast": 2016,
  "began:Whores": 2010,
+ "began:Wilder Maker": null,
  "began:Will Dempsey": null,
  "began:Will Varley": 1987,
  "began:Willi Carlisle": 1989,
@@ -3777,6 +3789,7 @@
  "began:cootie catcher": 2021,
  "began:eldon": null,
  "began:ezcodylee": 2004,
+ "began:frau": 1990,
  "began:hongjoin": null,
  "began:j ember": null,
  "began:saoirse dream": 2000,
@@ -3931,6 +3944,7 @@
   "electro"
  ],
  "fmtags:After": [],
+ "fmtags:Aged Inventory": [],
  "fmtags:Agriculture": [],
  "fmtags:Ahmed Spins": [
   "deep house",
@@ -5234,6 +5248,7 @@
   "detroit",
   "soul"
  ],
+ "fmtags:Don't Hold Your Breath": [],
  "fmtags:Donna the Buffalo": [
   "americana",
   "country",
@@ -5433,6 +5448,7 @@
   "indie pop",
   "indie"
  ],
+ "fmtags:Elsewhere New Year's Eve": [],
  "fmtags:Emancipator": [
   "trip-hop",
   "downtempo",
@@ -8240,6 +8256,13 @@
   "hip hop",
   "cloud rap"
  ],
+ "fmtags:Powerplant": [
+  "egg punk",
+  "synthpunk",
+  "Garage Punk",
+  "post-punk",
+  "synth punk"
+ ],
  "fmtags:Prateek Kuhad": [
   "Indian",
   "acoustic",
@@ -10063,6 +10086,12 @@
  "fmtags:Wild Pink": [
   "indie rock"
  ],
+ "fmtags:Wilder Maker": [
+  "indie rock",
+  "rock",
+  "Playful",
+  "guitar"
+ ],
  "fmtags:Will Dempsey": [
   "country",
   "country rock",
@@ -10079,6 +10108,7 @@
   "country",
   "singer-songwriter"
  ],
+ "fmtags:William Black New Year's Eve": [],
  "fmtags:Wilmah": [],
  "fmtags:Wind Walkers": [
   "post-hardcore",
@@ -10541,6 +10571,7 @@
  "lastfm:Aerobicide": [],
  "lastfm:Afrobeat Nights NYC": [],
  "lastfm:After": [],
+ "lastfm:Aged Inventory": [],
  "lastfm:Agriculture": [],
  "lastfm:Ahmed Spins": [
   "Dance"
@@ -10865,6 +10896,7 @@
  "lastfm:Croz Boyce [Avey Tare and Geologist of Animal Collective]": [],
  "lastfm:CruCast": [],
  "lastfm:Cut Copy (dj)": [],
+ "lastfm:César Orozco & SonAhead": [],
  "lastfm:D Savage": [
   "Rap"
  ],
@@ -11003,6 +11035,7 @@
   "Dance"
  ],
  "lastfm:Dominican Saturdays": [],
+ "lastfm:Don't Hold Your Breath": [],
  "lastfm:Donna The Buffalo & Assembly of Dust": [],
  "lastfm:Doula": [
   "Rap",
@@ -11076,6 +11109,7 @@
   "Dance",
   "Indie"
  ],
+ "lastfm:Elsewhere New Year's Eve": [],
  "lastfm:Emilia y Pablo": [],
  "lastfm:EmmaLee and the Dream": [],
  "lastfm:Emo Night Karaoke (21+)": [],
@@ -11183,6 +11217,7 @@
  "lastfm:Georgia Gets By": [
   "Indie"
  ],
+ "lastfm:Gerardo Contino": [],
  "lastfm:Gimme Gimme Disco": [],
  "lastfm:Girl Tones": [
   "Dance",
@@ -12145,6 +12180,9 @@
  "lastfm:SERGE CLIVIO AND FRIENDS 6": [],
  "lastfm:SILOWEEN": [],
  "lastfm:SIMRIT": [],
+ "lastfm:SPFDJ": [
+  "Dance"
+ ],
  "lastfm:SUPERTALL": [],
  "lastfm:Sabri Sisters": [],
  "lastfm:Sak Pasé": [],
@@ -12652,6 +12690,7 @@
  "lastfm:Will Dempsey": [
   "Country & Folk"
  ],
+ "lastfm:William Black New Year's Eve": [],
  "lastfm:Willy Soul (skate)": [],
  "lastfm:Wilmah": [],
  "lastfm:Wind Walkers": [
@@ -12801,6 +12840,7 @@
  "lastfm:moony": [
   "Dance"
  ],
+ "lastfm:more TBA": [],
  "lastfm:muein": [],
  "lastfm:prat": [],
  "lastfm:saoirse dream, Anita Velveeta, Estelle Allen": [],
@@ -14542,6 +14582,10 @@
   "at": "2026-09-30",
   "n": 583078
  },
+ "listeners:Powerplant": {
+  "at": "2026-10-02",
+  "n": 94543
+ },
  "listeners:Pretty Sick": {
   "at": "2026-09-30",
   "n": 476387
@@ -15206,6 +15250,10 @@
   "at": "2026-09-30",
   "n": 110978
  },
+ "listeners:Wilder Maker": {
+  "at": "2026-10-02",
+  "n": 10494
+ },
  "listeners:Will Dempsey": {
   "at": "2026-09-30",
   "n": 9192
@@ -15387,6 +15435,7 @@
  "mary in the junkyard": [],
  "memories": [],
  "moony": [],
+ "more TBA": [],
  "muein": [],
  "nimino": [
   "Dance"

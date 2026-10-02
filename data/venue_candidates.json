@@ -1,7 +1,7 @@
 [
  {
   "name": "Berlin",
-  "events": 42,
+  "events": 43,
   "sources": [
    "ticketmaster"
   ],
@@ -19,7 +19,7 @@
  },
  {
   "name": "The Bitter End",
-  "events": 11,
+  "events": 10,
   "sources": [
    "ticketmaster"
   ],
@@ -28,7 +28,7 @@
  },
  {
   "name": "Hill Country Live",
-  "events": 7,
+  "events": 8,
   "sources": [
    "ticketmaster"
   ],
@@ -45,6 +45,15 @@
   "lng": -73.983745
  },
  {
+  "name": "Ellen's Stardust Theater",
+  "events": 4,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.76203129021,
+  "lng": -73.98329513095
+ },
+ {
   "name": "Cosmic Arts",
   "events": 4,
   "sources": [
@@ -52,16 +61,6 @@
   ],
   "lat": 40.754331,
   "lng": -73.99539
- },
- {
-  "name": "Capital One City Parks Foundation SummerStage",
-  "events": 3,
-  "sources": [
-   "seatgeek",
-   "ticketmaster"
-  ],
-  "lat": 40.7373,
-  "lng": -74.0054
  },
  {
   "name": "Berlin NYC",
@@ -101,6 +100,16 @@
   "lng": -73.9635
  },
  {
+  "name": "Marquee New York",
+  "events": 3,
+  "sources": [
+   "seatgeek",
+   "ticketmaster"
+  ],
+  "lat": 40.75,
+  "lng": -74.0028
+ },
+ {
   "name": "Bull Shooters",
   "events": 3,
   "sources": [
@@ -110,24 +119,6 @@
   "lng": -73.983265
  },
  {
-  "name": "Ellen's Stardust Theater",
-  "events": 3,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.76203129021,
-  "lng": -73.98329513095
- },
- {
-  "name": "The Venue @ Hard Rock Hotel NY",
-  "events": 3,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.7598393911,
-  "lng": -73.98346483149
- },
- {
   "name": "Queens Theatre in the Park",
   "events": 3,
   "sources": [
@@ -135,5 +126,14 @@
   ],
   "lat": 40.74426,
   "lng": -73.844427
+ },
+ {
+  "name": "Gold Sounds",
+  "events": 3,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.702624,
+  "lng": -73.929611
  }
 ]
