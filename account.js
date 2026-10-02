@@ -3,7 +3,7 @@
 // your own plans and those of mutual friends.
 
 const Account = (() => {
-  const PROFILE_COLS = 'id, username, display_name, color';
+  const PROFILE_COLS = 'id, username, display_name, color, avatar';
   const cfg = window.NIGHT_OUT_CONFIG || {};
   const db = window.supabase && cfg.supabaseUrl ? window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey) : null;
 
@@ -113,6 +113,36 @@ const Account = (() => {
       const { error } = await db.rpc('delete_my_account');
       if (error) throw new Error('Couldn’t delete your account. Try again, or email griffin@ctownsounds.com.');
       await db.auth.signOut();
+    },
+
+    // Join with just a name and a character: a guest account on this phone, no email (Supabase anonymous sign-in).
+    // Email can be added later from Profile to keep the account on other devices.
+    async join(displayName, avatarEmoji) {
+      if (!me.user) {
+        const { error } = await db.auth.signInAnonymously();
+        if (error) throw new Error('Couldn’t start your account. Try again in a moment.');
+        const { data: { session } } = await db.auth.getSession();
+        me.user = session?.user || null;
+      }
+      const base = displayName.toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g, '').slice(0, 14) || 'friend';
+      const palette = ['#ffd23f', '#ff9ccf', '#22c07a', '#b8a2ff', '#6f86ff', '#ff9f1c', '#ff4d2e'];
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      for (let tries = 0; tries < 6; tries++) { // usernames are made for people; retry on the rare clash
+        const username = (base.length >= 3 ? base : base + 'fan') + '_' + Math.floor(100 + Math.random() * 900);
+        const { error } = await db.from('profiles').insert({ id: me.user.id, username, display_name: displayName, color, avatar: avatarEmoji });
+        if (!error) return refresh();
+        if (error.code === '23505' && /pkey/.test(error.message)) return refresh(); // already has a profile
+        if (error.code !== '23505') throw new Error(error.message);
+      }
+      throw new Error('Couldn’t save that. Try again.');
+    },
+
+    isGuest: () => !!me.user?.is_anonymous,
+
+    // Guests: attach an email so the account works on other phones. Supabase emails a confirmation link.
+    async addEmail(email) {
+      const { error } = await db.auth.updateUser({ email });
+      if (error) throw new Error(/already/i.test(error.message) ? 'That email already has a shindig account. Sign out and sign in with it instead.' : error.message);
     },
 
     async createProfile(username, displayName, color) {

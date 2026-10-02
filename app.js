@@ -125,7 +125,7 @@ function fromSnapshot(id, snap) {
 
 const showFor = id => byId[id] || snapshots[id];
 const friendsAt = s => friendGoing[s.id] || [];
-const avatar = (p, cls = '') => `<span class="face ${cls}" style="background:${p.color}">${esc(p.display_name)[0].toUpperCase()}</span>`;
+const avatar = (p, cls = '') => `<span class="face ${cls} ${p.avatar ? 'emoji' : ''}" style="background:${p.color}">${p.avatar ? esc(p.avatar) : esc(p.display_name)[0].toUpperCase()}</span>`;
 
 function faces(ids, max = 3) {
   const people = ids.map(Account.profileById).filter(Boolean);
@@ -328,6 +328,57 @@ window.addEventListener('appinstalled', () => { installPrompt = null; save('no.i
 
 const SHARE_ICON = '<svg class="ios-share" viewBox="0 0 24 24" aria-label="Share"><path d="M12 3v12M8 7l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 11H5v10h14V11h-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+// ---------- First-visit guide: putting shindig on the home screen (iPhone) ----------
+const IOS_MAJOR = +((navigator.userAgent.match(/OS (\d+)_/) || [])[1] || 0);
+const IS_IOS_CHROME = /CriOS/.test(navigator.userAgent);
+const PLUS_ICON = '<svg class="ios-share" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+function guideSteps() {
+  if (IN_APP_BROWSER) return { arrow: 'top-right', steps: [
+    `Tap <b>⋯</b> or the compass at the top or bottom of this screen`,
+    `Tap <b>Open in Safari</b>`,
+    `Then you'll see how to add shindig to your home screen`] };
+  if (IS_IOS_CHROME) return { arrow: 'top-right', steps: [
+    `Tap ${SHARE_ICON} <b>Share</b> at the top right, next to the address`,
+    `Tap ${PLUS_ICON} <b>Add to Home Screen</b>`,
+    `Tap <b>Add</b>`] };
+  if (IOS_MAJOR >= 26) return { arrow: 'bottom-right', steps: [
+    `Tap <b>⋯</b> at the bottom right`,
+    `Tap ${SHARE_ICON} <b>Share</b>`,
+    `Scroll down, tap ${PLUS_ICON} <b>Add to Home Screen</b> (under <b>View More</b> if you don't see it)`,
+    `Tap <b>Add</b>`] };
+  return { arrow: 'bottom-center', steps: [
+    `Tap ${SHARE_ICON} <b>Share</b> at the bottom of the screen`,
+    `Scroll down, tap ${PLUS_ICON} <b>Add to Home Screen</b>`,
+    `Tap <b>Add</b> in the top right`] };
+}
+
+function openGuide() {
+  const { arrow, steps } = guideSteps();
+  const el = document.createElement('div');
+  el.id = 'guide';
+  el.innerHTML = `<div class="guide-card">
+      <img src="img/icon-192.png" alt="" width="64" height="64">
+      <h3>Get the shindig app</h3>
+      <p>Add it to your home screen, then open it from there. ${steps.length} quick taps:</p>
+      <ol>${steps.map(x => `<li><span>${x}</span></li>`).join('')}</ol>
+      <button class="btn guide-later" data-guide-later>Skip for now</button>
+    </div>
+    <div class="guide-arrow ${arrow}" aria-hidden="true">${arrow.startsWith('top') ? '↑' : '↓'}</div>`;
+  document.body.appendChild(el);
+}
+const closeGuide = () => document.getElementById('guide')?.remove();
+
+// Join pop-up: name + character.
+function openJoin() {
+  if (!Account.enabled || Account.me.profile) return;
+  sheet.innerHTML = `<div class="sheet-body join-sheet">
+    <button class="sheet-close" data-close aria-label="Close">✕</button>
+    ${joinForm(invitePending ? 'Your friend is already on here.' : '')}
+  </div>`;
+  sheet.classList.remove('hidden');
+}
+
 function installCard() {
   if (IS_APP || load('no.installed', false)) return '';
   const snoozed = +(load('no.installLater', 0)); // "Not now" hides it for 3 days
@@ -350,8 +401,8 @@ function welcomeCard() {
   if (load('no.welcomed', false) || Account.me.profile) return '';
   return `<div class="welcome">
     <p><b>New here?</b> shindig compiles every concert happening in NYC. Pick a night, filter by borough, genre, vibe, or price, and tap any show for tickets.</p>
-    <p>Sign in to see where your friends are headed and mark where you are too.</p>
-    <div class="welcome-actions">${Account.enabled ? '<button class="btn welcome-signin" data-welcome="signin">Sign in</button>' : ''}<button class="btn" data-welcome="ok">Got it</button></div>
+    <p>Join to see where your friends are headed and mark where you are too. It takes 5 seconds, no email.</p>
+    <div class="welcome-actions">${Account.enabled ? '<button class="btn welcome-signin" data-join>Join</button>' : ''}<button class="btn" data-welcome="ok">Got it</button></div>
   </div>`;
 }
 
@@ -520,10 +571,28 @@ function renderFriends() {
     ${me.friends.length ? `<h3>Friends</h3>${me.friends.map(p => person(p, `<button class="btn" data-unadd="${p.id}">Remove</button>`)).join('')}` : ''}`;
 }
 
-// ---------- Account panel (sign in / pick a username / signed-in bar) ----------
+// ---------- Account panel (join / sign in / signed-in bar) ----------
 const COLORS = ['#ffd23f', '#ff9ccf', '#22c07a', '#b8a2ff', '#6f86ff', '#ff9f1c', '#ff4d2e'];
+const CHARACTERS = ['🎸', '🥁', '🎤', '🎹', '🎺', '🎷', '🎧', '🪩', '🎻', '🪕', '🦄', '🐸', '🦖', '🐙', '👽', '🤠', '🌵', '🍒', '🔥', '⚡️', '🌙', '💿', '🛼', '🍕'];
+let showEmailSignin = false; // "already have an account?" path
+
+// Joining: a name and a character. That's it.
+function joinForm(pitch) {
+  return `<form class="account-card join-card" data-form="join">
+    <b>${pitch ? 'Join shindig' : 'Welcome to shindig'}</b>
+    <p>${pitch || ''} Pick a name and a character. No email or password.</p>
+    <input class="search" name="display" placeholder="Your first name" maxlength="40" autocomplete="given-name" required>
+    <div class="characters" role="radiogroup" aria-label="Pick a character">
+      ${CHARACTERS.map((c, i) => `<label><input type="radio" name="avatar" value="${c}" ${i ? '' : 'checked'}><span>${c}</span></label>`).join('')}
+    </div>
+    <button class="btn primary join-go" type="submit">Let's go</button>
+    <div class="form-msg" id="join-msg"></div>
+    ${Account.me.user ? '' : '<button type="button" class="text-link" data-email-signin="on">Already have an account? Sign in with email</button>'}
+  </form>`;
+}
 
 let linkSentTo = null; // email we just sent a sign-in link to
+let emailAdded = null;  // guest who just asked to attach an email
 
 function accountPanel(pitch) {
   const { me } = Account;
@@ -544,13 +613,15 @@ function accountPanel(pitch) {
       <button class="text-link" data-resend-email>Use a different email</button>
     </div>`;
   }
+  if ((!me.user && !showEmailSignin) || (me.user && !me.profile)) return joinForm(pitch);
   if (!me.user) {
     return `<form class="account-card" data-form="signin">
-      <b>Sign in to shindig</b>
-      <p>${pitch} No password needed, we'll email you a sign-in link.</p>
+      <b>Sign in with email</b>
+      <p>For accounts you've already made. We'll email you a code.</p>
       <input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required>
       <button class="btn primary" type="submit">Email me a link</button>
       <div class="form-msg" id="signin-msg"></div>
+      <button type="button" class="text-link" data-email-signin="off">New here? Join without email</button>
     </form>`;
   }
   if (!me.profile) {
@@ -564,8 +635,13 @@ function accountPanel(pitch) {
       <div class="form-msg" id="profile-msg"></div>
     </form>`;
   }
+  const guestBox = Account.isGuest() ? (emailAdded
+    ? `<p class="note">Check ${esc(emailAdded)} and tap the link to finish saving your account.</p>`
+    : `<form class="add-email" data-form="addemail"><p><b>Using shindig on another phone too?</b> Add your email so you can sign in there. Optional.</p>
+        <div class="add-email-row"><input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required><button class="btn" type="submit">Add</button></div>
+        <div class="form-msg" id="addemail-msg"></div></form>`) : '';
   return `<div class="account-bar">${avatar(me.profile, 'lg')}<div><b>${esc(me.profile.display_name)}</b><span>@${me.profile.username}</span></div>
-    <button class="btn" data-signout>Sign out</button></div>`;
+    ${Account.isGuest() ? '' : '<button class="btn" data-signout>Sign out</button>'}</div>${guestBox}`;
 }
 
 function accountFooter() {
@@ -694,15 +770,14 @@ async function tryPendingInvite() {
   try { code = localStorage.getItem('no.invite'); } catch { /* fine */ }
   invitePending = code;
   if (!code || !Account.me.ready) return render();
-  if (!Account.me.profile) { state.tab = 'friends'; return render(); } // sign in first, then we connect
+  if (!Account.me.profile) return render(); // join first, then we connect
   try {
     const who = await Account.acceptInvite(code);
     try { localStorage.removeItem('no.invite'); } catch { /* fine */ }
     save('no.inviteDone', code);
     invitePending = null;
-    state.tab = 'friends';
     render();
-    toast(who?.self ? 'That’s your own invite link!' : `You and ${who.display_name} are now friends`);
+    if (!who?.self) setTimeout(() => toast(`You and ${who.display_name} are now friends`), 2800);
   } catch (err) {
     try { localStorage.removeItem('no.invite'); } catch { /* fine */ }
     save('no.inviteDone', code);
@@ -804,6 +879,9 @@ document.addEventListener('click', e => {
     return Account.setPlanPrivate(id, !Account.isPrivate(id)).then(() => openSheet(id)).catch(err => toast(err.message));
   }
   if (t.dataset.resendEmail !== undefined) { linkSentTo = null; return render(); }
+  if (t.dataset.emailSignin) { showEmailSignin = t.dataset.emailSignin === 'on'; return render(); }
+  if (t.dataset.join !== undefined) return openJoin();
+  if (t.dataset.guideLater !== undefined) { save('no.guideSeen', Date.now()); closeGuide(); if (!Account.me.profile) openJoin(); return; }
   if (t.dataset.installLater !== undefined) { save('no.installLater', Date.now()); return render(); }
   if (t.dataset.install !== undefined && installPrompt) {
     installPrompt.prompt();
@@ -894,6 +972,18 @@ document.addEventListener('submit', async e => {
       await Account.sendLink(f.get('email').trim());
       linkSentTo = f.get('email').trim();
       return render();
+    } else if (form.dataset.form === 'join') {
+      await Account.join(f.get('display').trim(), f.get('avatar') || '🎸');
+      closeSheet();
+      state.tab = 'discover'; window.scrollTo(0, 0);
+      save('no.welcomed', true);
+      render();
+      toast(`You're in, ${f.get('display').trim()}! Here's what's happening`);
+      return;
+    } else if (form.dataset.form === 'addemail') {
+      await Account.addEmail(f.get('email').trim());
+      emailAdded = f.get('email').trim();
+      return render();
     } else if (form.dataset.form === 'code') {
       await Account.verifyCode(linkSentTo, f.get('code').replace(/\D/g, ''));
       linkSentTo = null; // signed in: the account change redraws the page
@@ -916,7 +1006,7 @@ document.addEventListener('submit', async e => {
       else { await Account.addFriend(person.id); }
     }
   } catch (err) {
-    msg({ signin: 'signin-msg', code: 'code-msg', profile: 'profile-msg', find: 'find-result', report: 'report-msg', missing: 'missing-msg' }[form.dataset.form], err.message || 'Something went wrong.');
+    msg({ join: 'join-msg', addemail: 'addemail-msg', signin: 'signin-msg', code: 'code-msg', profile: 'profile-msg', find: 'find-result', report: 'report-msg', missing: 'missing-msg' }[form.dataset.form], err.message || 'Something went wrong.');
   } finally {
     if (button?.isConnected) button.disabled = false;
   }
@@ -978,5 +1068,12 @@ if (inviteParam && load('no.inviteDone', null) !== inviteParam) {
 }
 
 render();
-Account.init().then(() => { Account.logVisit(load('no.ref', null), IS_APP); tryPendingInvite().then(handleLink); });
+Account.init().then(() => {
+  Account.logVisit(load('no.ref', null), IS_APP);
+  tryPendingInvite().then(handleLink).then(() => {
+    if (location.hash.includes('show=')) return; // opened a shared show: let them see it first
+    if (IS_IOS && !IS_APP && !Account.me.profile && !load('no.guideSeen', 0)) openGuide();
+    else if (IS_APP && Account.enabled && !Account.me.profile) openJoin(); // first open from the home screen
+  });
+});
 window.addEventListener('hashchange', handleLink);

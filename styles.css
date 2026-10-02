@@ -540,3 +540,62 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .invite-row .invite-btn { margin-bottom: 0; }
 .invite-row .text-link { font: 500 12px var(--mono); color: var(--muted); }
 .invite-link { margin: 0 0 14px; font: 500 14px var(--mono) !important; font-size: 16px !important; }
+
+/* ---------- Clearer tabs ---------- */
+.tabs button { display: inline-flex; align-items: center; gap: 4px; border: 2px solid var(--ink); }
+.tabs button:not(.active) { opacity: .85; }
+.tabs .tab-ico { font-size: 14px; line-height: 1; }
+@media (max-width: 380px) { .tabs .tab-ico { display: none; } }
+
+/* ---------- Characters ---------- */
+.face.emoji { font-size: 1.1em; line-height: 1; }
+.characters { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 2px 0 4px; }
+.characters label { cursor: pointer; }
+.characters input { position: absolute; opacity: 0; pointer-events: none; }
+.characters span {
+  display: flex; align-items: center; justify-content: center; aspect-ratio: 1; font-size: 24px;
+  border: 2px solid var(--line); border-radius: 12px; background: var(--paper); transition: transform .1s;
+}
+.characters input:checked + span { background: var(--yellow); border-color: var(--ink); transform: scale(1.08); box-shadow: 2px 2px 0 var(--ink); }
+.characters input:focus-visible + span { outline: 2px solid var(--red); }
+.join-card .join-go { align-self: stretch; text-align: center; font-size: 17px; padding: 12px 18px; }
+.join-card .text-link, .account-card .text-link { align-self: center; font: 500 12px var(--mono); color: var(--muted); margin-top: 4px; }
+.join-sheet { position: relative; padding-top: 52px; }
+.add-email { margin: 0 0 18px; padding: 12px 14px; border: 2px dashed var(--ink); border-radius: 12px; }
+.add-email p { margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+.add-email p b { color: var(--ink); }
+.add-email-row { display: flex; gap: 8px; }
+.add-email-row .search { margin: 0; flex: 1; min-width: 0; }
+
+/* ---------- Home-screen guide ---------- */
+#guide {
+  position: fixed; inset: 0; z-index: 40; background: rgba(8, 7, 6, .88); display: flex; align-items: center; justify-content: center;
+  padding: 20px; animation: up .25s ease-out;
+}
+.guide-card {
+  width: 100%; max-width: 380px; background: var(--card); border: 2px solid var(--ink); border-radius: 20px; box-shadow: var(--shadow);
+  padding: 22px 20px 18px; text-align: center;
+}
+.guide-card img { border-radius: 14px; border: 2px solid var(--ink); }
+.guide-card h3 { margin: 12px 0 6px; font-size: 26px; }
+.guide-card > p { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+.guide-card ol { text-align: left; margin: 0 0 18px; padding: 0; list-style: none; counter-reset: step; }
+.guide-card li { counter-increment: step; display: flex; gap: 10px; align-items: baseline; padding: 9px 0; border-top: 1.5px solid var(--line); font-size: 16px; line-height: 1.4; }
+.guide-card li::before {
+  content: counter(step); flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--yellow); color: var(--black);
+  font: 800 13px/24px var(--display); text-align: center; transform: translateY(-1px);
+}
+.guide-card .ios-share { width: 19px; height: 19px; vertical-align: -4px; }
+.guide-later { background: none; color: var(--muted); border-color: var(--muted); }
+.guide-arrow {
+  position: fixed; font: 800 54px/1 var(--display); color: var(--yellow); text-shadow: 3px 3px 0 #000;
+  animation: nudge 1s ease-in-out infinite;
+}
+.guide-arrow.bottom-center { bottom: 6px; left: 50%; margin-left: -16px; }
+.guide-arrow.bottom-right { bottom: 6px; right: 26px; }
+.guide-arrow.top-right { top: 6px; right: 22px; }
+@keyframes nudge { 50% { transform: translateY(10px); } }
+.guide-arrow.top-right { animation-name: nudge-up; }
+@keyframes nudge-up { 50% { transform: translateY(-10px); } }
+.account-card.join-card .btn.join-go { align-self: stretch; text-align: center; }
+.join-sheet .account-card { border: 0; box-shadow: none; padding: 0; background: none; }
