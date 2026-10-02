@@ -388,6 +388,7 @@ function installCard() {
   else if (IS_IOS) how = `In Safari, tap ${SHARE_ICON} <b>Share</b> (on newer iPhones it's under <b>⋯</b>), then <b>Add to Home Screen</b>.`;
   else if (installPrompt) how = `Install it and shindig opens like an app.`;
   else return '';
+  if (IS_IOS && Account.me.profile) how += ' Open it from there and pick your name once more (the app and Safari keep separate accounts).';
   return `<div class="install-card">
     <img src="img/apple-touch-icon.png" alt="" width="44" height="44">
     <div><b>Put shindig on your home screen</b><p>${how}</p>
