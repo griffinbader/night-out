@@ -599,3 +599,5 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 @keyframes nudge-up { 50% { transform: translateY(-10px); } }
 .account-card.join-card .btn.join-go { align-self: stretch; text-align: center; }
 .join-sheet .account-card { border: 0; box-shadow: none; padding: 0; background: none; }
+.confirm-note { margin: 0 0 18px; padding: 10px 12px; border: 2px dashed var(--ink); border-radius: 12px; font: 400 13px/1.45 inherit; font-family: inherit; color: var(--muted); }
+.confirm-note b { color: var(--ink); }

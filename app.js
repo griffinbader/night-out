@@ -581,8 +581,9 @@ let showEmailSignin = false; // "already have an account?" path
 function joinForm(pitch) {
   return `<form class="account-card join-card" data-form="join">
     <b>${pitch ? 'Join shindig' : 'Welcome to shindig'}</b>
-    <p>${pitch || ''} Pick a name and a character. No email or password.</p>
+    <p>${pitch || ''} Pick a name and a character. No password, no code to wait for.</p>
     <input class="search" name="display" placeholder="Your first name" maxlength="40" autocomplete="given-name" required>
+    ${Account.me.user ? '' : `<input class="search" type="email" name="email" placeholder="Your email" autocomplete="email" required>`}
     <div class="characters" role="radiogroup" aria-label="Pick a character">
       ${CHARACTERS.map((c, i) => `<label><input type="radio" name="avatar" value="${c}" ${i ? '' : 'checked'}><span>${c}</span></label>`).join('')}
     </div>
@@ -636,8 +637,9 @@ function accountPanel(pitch) {
       <div class="form-msg" id="profile-msg"></div>
     </form>`;
   }
-  const guestBox = Account.isGuest() ? (emailAdded
-    ? `<p class="note">Check ${esc(emailAdded)} and tap the link to finish saving your account.</p>`
+  const pending = emailAdded || Account.pendingEmail();
+  const guestBox = Account.isGuest() ? (pending
+    ? `<p class="note confirm-note">📬 Tap the link we sent to <b>${esc(pending)}</b> to lock in your account, so you can sign in on other phones too.</p>`
     : `<form class="add-email" data-form="addemail"><p><b>Using shindig on another phone too?</b> Add your email so you can sign in there. Optional.</p>
         <div class="add-email-row"><input class="search" type="email" name="email" placeholder="you@email.com" autocomplete="email" required><button class="btn" type="submit">Add</button></div>
         <div class="form-msg" id="addemail-msg"></div></form>`) : '';
@@ -678,7 +680,7 @@ function renderMine() {
       <div class="stat text"><b>${topOf(history.flatMap(s => s.genres))}</b><span>top genre</span></div>
     </div>
     <h3>Going</h3>
-    ${upcoming.length ? upcoming.map(card).join('') : '<div class="empty"><b>No plans yet</b>Tap “Going” on a show in Discover.</div>'}
+    ${upcoming.length ? upcoming.map(card).join('') : '<div class="empty"><b>No plans yet</b>Tap “Going” on a show in Shows.</div>'}
     ${maybe.length ? `<h3>Interested</h3>${maybe.map(card).join('')}` : ''}
     <h3>History</h3>
     ${history.length ? '' : '<div class="empty"><b>Nothing yet</b>Shows you mark “Going” land here after the night.</div>'}
@@ -974,7 +976,14 @@ document.addEventListener('submit', async e => {
       linkSentTo = f.get('email').trim();
       return render();
     } else if (form.dataset.form === 'join') {
-      await Account.join(f.get('display').trim(), f.get('avatar') || '🎸');
+      const email = (f.get('email') || '').trim();
+      const result = await Account.join(f.get('display').trim(), f.get('avatar') || '🎸', email);
+      if (result === 'existing') { // that email already has an account: sign them in to it instead
+        linkSentTo = email; showEmailSignin = true;
+        closeSheet(); state.tab = 'mine'; render();
+        toast('You already have an account. Enter the code we just emailed you.');
+        return;
+      }
       closeSheet();
       state.tab = 'discover'; window.scrollTo(0, 0);
       save('no.welcomed', true);
