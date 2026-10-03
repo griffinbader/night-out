@@ -1,7 +1,7 @@
 [
  {
   "name": "Berlin",
-  "events": 43,
+  "events": 41,
   "sources": [
    "ticketmaster"
   ],
@@ -10,7 +10,7 @@
  },
  {
   "name": "Cafe Wha?",
-  "events": 13,
+  "events": 12,
   "sources": [
    "ticketmaster"
   ],
@@ -34,6 +34,15 @@
   ],
   "lat": 40.7442495,
   "lng": -73.9903775
+ },
+ {
+  "name": "Zone One at Elsewhere",
+  "events": 6,
+  "sources": [
+   "ticketmaster"
+  ],
+  "lat": 40.704399,
+  "lng": -73.921204
  },
  {
   "name": "What's Left Records",
@@ -110,6 +119,16 @@
   "lng": -74.0028
  },
  {
+  "name": "Joanne Trattoria",
+  "events": 3,
+  "sources": [
+   "seatgeek",
+   "ticketmaster"
+  ],
+  "lat": 40.77469,
+  "lng": -73.980316
+ },
+ {
   "name": "Bull Shooters",
   "events": 3,
   "sources": [
@@ -117,23 +136,5 @@
   ],
   "lat": 40.758451,
   "lng": -73.983265
- },
- {
-  "name": "Queens Theatre in the Park",
-  "events": 3,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.74426,
-  "lng": -73.844427
- },
- {
-  "name": "Gold Sounds",
-  "events": 3,
-  "sources": [
-   "ticketmaster"
-  ],
-  "lat": 40.702624,
-  "lng": -73.929611
  }
 ]

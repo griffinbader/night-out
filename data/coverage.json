@@ -12,28 +12,28 @@
  {
   "venue": "nc101",
   "name": "Nightclub 101",
-  "shows": 73,
+  "shows": 71,
   "sources": {
-   "ticketmaster": 73
+   "ticketmaster": 71
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "mercury",
   "name": "Mercury Lounge",
-  "shows": 95,
+  "shows": 97,
   "sources": {
-   "ticketmaster": 95
+   "ticketmaster": 97
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "bowery",
   "name": "Bowery Ballroom",
-  "shows": 67,
+  "shows": 66,
   "sources": {
-   "ticketmaster": 64,
-   "mercuryeast": 1,
+   "ticketmaster": 62,
+   "mercuryeast": 2,
    "seatgeek": 2
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -41,9 +41,9 @@
  {
   "venue": "webster",
   "name": "Webster Hall",
-  "shows": 46,
+  "shows": 45,
   "sources": {
-   "dice-widget": 2,
+   "dice-widget": 1,
    "bowery": 42,
    "seatgeek": 2
   },
@@ -52,27 +52,28 @@
  {
   "venue": "irving",
   "name": "Irving Plaza",
-  "shows": 48,
+  "shows": 47,
   "sources": {
-   "ticketmaster": 48
+   "ticketmaster": 46,
+   "seatgeek": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "paramount",
   "name": "Brooklyn Paramount",
-  "shows": 54,
+  "shows": 53,
   "sources": {
-   "ticketmaster": 54
+   "ticketmaster": 53
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "steel",
   "name": "Brooklyn Steel",
-  "shows": 41,
+  "shows": 40,
   "sources": {
-   "bowery": 41
+   "bowery": 40
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -99,9 +100,9 @@
  {
   "venue": "sultanroof",
   "name": "The Sultan Room Rooftop",
-  "shows": 8,
+  "shows": 7,
   "sources": {
-   "dice-widget": 8
+   "dice-widget": 7
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -117,9 +118,9 @@
  {
   "venue": "bowl",
   "name": "Brooklyn Bowl",
-  "shows": 46,
+  "shows": 45,
   "sources": {
-   "ticketmaster": 42,
+   "ticketmaster": 41,
    "brooklynbowl": 1,
    "seatgeek": 3
   },
@@ -128,9 +129,9 @@
  {
   "venue": "mhow",
   "name": "Music Hall of Williamsburg",
-  "shows": 32,
+  "shows": 31,
   "sources": {
-   "bowery": 32
+   "bowery": 31
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -146,27 +147,28 @@
  {
   "venue": "gramercy",
   "name": "Gramercy Theatre",
-  "shows": 25,
+  "shows": 24,
   "sources": {
-   "ticketmaster": 25
+   "ticketmaster": 24
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "elsewhere",
   "name": "Elsewhere",
-  "shows": 62,
+  "shows": 60,
   "sources": {
-   "eventbrite": 62
+   "eventbrite": 59,
+   "elsewhere": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "warsaw",
   "name": "Warsaw",
-  "shows": 36,
+  "shows": 35,
   "sources": {
-   "ticketmaster": 36
+   "ticketmaster": 35
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -193,9 +195,9 @@
  {
   "venue": "publicrecords",
   "name": "Public Records",
-  "shows": 48,
+  "shows": 46,
   "sources": {
-   "publicrecords": 46,
+   "publicrecords": 44,
    "seatgeek": 2
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -203,10 +205,10 @@
  {
   "venue": "tveye",
   "name": "TV Eye",
-  "shows": 10,
+  "shows": 9,
   "sources": {
    "dice-widget": 2,
-   "seetickets-wp": 5,
+   "seetickets-wp": 4,
    "seatgeek": 3
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -232,18 +234,18 @@
  {
   "venue": "bluenote",
   "name": "Blue Note",
-  "shows": 105,
+  "shows": 106,
   "sources": {
-   "ticketmaster": 105
+   "ticketmaster": 106
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "palladium",
   "name": "Palladium Times Square",
-  "shows": 16,
+  "shows": 15,
   "sources": {
-   "ticketmaster": 15,
+   "ticketmaster": 14,
    "palladium": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -251,18 +253,18 @@
  {
   "venue": "pacha",
   "name": "Pacha NYC",
-  "shows": 14,
+  "shows": 13,
   "sources": {
-   "seatgeek": 14
+   "seatgeek": 13
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
  {
   "venue": "unitedpalace",
   "name": "United Palace",
-  "shows": 7,
+  "shows": 6,
   "sources": {
-   "seatgeek": 7
+   "seatgeek": 6
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
@@ -278,18 +280,18 @@
  {
   "venue": "storehouse",
   "name": "Brooklyn Storehouse",
-  "shows": 6,
+  "shows": 5,
   "sources": {
-   "seatgeek": 6
+   "seatgeek": 5
   },
   "confidence": "fill-in only: SeatGeek/Ticketmaster mirrors, likely incomplete"
  },
  {
   "venue": "colden",
   "name": "Colden Auditorium",
-  "shows": 5,
+  "shows": 4,
   "sources": {
-   "ticketmaster": 5
+   "ticketmaster": 4
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -344,17 +346,17 @@
   "name": "Littlefield",
   "shows": 28,
   "sources": {
-   "eventbrite": 11,
-   "eventbrite-widget": 17
+   "eventbrite": 10,
+   "eventbrite-widget": 18
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "saintvitus",
   "name": "Saint Vitus",
-  "shows": 39,
+  "shows": 38,
   "sources": {
-   "dice-widget": 39
+   "dice-widget": 38
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -426,18 +428,18 @@
  {
   "venue": "melrose",
   "name": "Melrose Ballroom",
-  "shows": 8,
+  "shows": 9,
   "sources": {
-   "squarespace": 8
+   "squarespace": 9
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "silo",
   "name": "SILO",
-  "shows": 22,
+  "shows": 21,
   "sources": {
-   "jsonld": 22
+   "jsonld": 21
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -458,9 +460,9 @@
  {
   "venue": "apollovictoria",
   "name": "The Apollo Stages at the Victoria",
-  "shows": 2,
+  "shows": 1,
   "sources": {
-   "ticketmaster": 2
+   "ticketmaster": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -492,30 +494,30 @@
  {
   "venue": "terminal5",
   "name": "Terminal 5",
-  "shows": 26,
+  "shows": 25,
   "sources": {
-   "bowery": 26
+   "bowery": 25
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "knockdown",
   "name": "Knockdown Center",
-  "shows": 39,
+  "shows": 38,
   "sources": {
    "bowery": 12,
-   "jsonld": 27
+   "jsonld": 26
   },
   "confidence": "capped: DICE venue page stops at 30 shows"
  },
  {
   "venue": "kings",
   "name": "Kings Theatre",
-  "shows": 13,
+  "shows": 12,
   "sources": {
    "ticketmaster": 3,
    "bowery": 3,
-   "kings": 4,
+   "kings": 3,
    "seatgeek": 2,
    "ticketmaster-mirror": 1
   },
@@ -534,9 +536,9 @@
  {
   "venue": "beacon",
   "name": "Beacon Theatre",
-  "shows": 13,
+  "shows": 12,
   "sources": {
-   "ticketmaster": 12,
+   "ticketmaster": 11,
    "seatgeek": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
@@ -582,36 +584,36 @@
  {
   "venue": "foresthills",
   "name": "Forest Hills Stadium",
-  "shows": 5,
+  "shows": 4,
   "sources": {
-   "bowery": 5
+   "bowery": 4
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "flushing",
   "name": "Flushing Meadows Corona Park",
-  "shows": 2,
+  "shows": 1,
   "sources": {
-   "bowery": 2
+   "bowery": 1
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "barclays",
   "name": "Barclays Center",
-  "shows": 19,
+  "shows": 18,
   "sources": {
-   "ticketmaster": 19
+   "ticketmaster": 18
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
  {
   "venue": "msg",
   "name": "Madison Square Garden",
-  "shows": 25,
+  "shows": 24,
   "sources": {
-   "ticketmaster": 25
+   "ticketmaster": 24
   },
   "confidence": "good: from an official feed or the venue's full calendar"
  },
@@ -636,9 +638,9 @@
  {
   "venue": "carnegie",
   "name": "Carnegie Hall",
-  "shows": 22,
+  "shows": 21,
   "sources": {
-   "bowery": 5,
+   "bowery": 4,
    "seatgeek": 8,
    "ticketmaster-mirror": 9
   },

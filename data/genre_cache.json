@@ -86,6 +86,7 @@
  "Adult Open Skate (skate)": [],
  "Advance Base": [],
  "Aerobicide": [],
+ "AfroDesi New York": [],
  "Afrobeat Nights NYC": [],
  "After": [],
  "Aged Inventory": [],
@@ -161,6 +162,7 @@
  "An Evening of Mud with Remi Wolf": [],
  "An Evening with Lord Huron": [],
  "An Intimate Evening With Tamar Braxton": [],
+ "An Italian Disco Revolution": [],
  "Ana Gasteyer": [],
  "Anacondaz": [],
  "Anacondaz Concert in New York": [],
@@ -230,6 +232,7 @@
  "Artist-Busy's Dead Collective": [],
  "Asha Banks": [],
  "Asif Ali": [],
+ "At Risk": [],
  "Au/Ra": [
   "Dance",
   "Pop"
@@ -506,6 +509,7 @@
  "CEG Presents SIMRIT": [],
  "CELINE DESSBERG": [],
  "CHRONO TRIGGER Orchestra Concert": [],
+ "CLOSE YOUR EYES NEW YORK-PLATINUM": [],
  "CLUB 1BD Halloween": [],
  "COLETTE MARCH": [],
  "CONFETTI": [
@@ -648,11 +652,13 @@
  "Concrete Husband": [],
  "Connor Bracken": [],
  "Content Blocks (": [],
+ "Copper Cross": [],
  "Coraline": [],
  "Corey Fonville": [],
  "Cortex": [],
  "Countess Luann de Lesseps": [],
  "Courtney Bailey": [],
+ "Coyle Girelli": [],
  "Cradle of Filth": [
   "Punk & Metal"
  ],
@@ -702,7 +708,9 @@
  "DJ Golden Hour": [],
  "DJ Greenie of Lotus": [],
  "DJ Harvey": [],
+ "DJ Heavy Flow": [],
  "DJ Lawyer": [],
+ "DJ Lord Fascinator": [],
  "DJ Meredith Marks": [],
  "DJ Pauly D": [
   "Dance"
@@ -1019,6 +1027,10 @@
  "Featuring NORAH JONES": [],
  "Fela Kuti Birthday Tribute": [],
  "Fetch Tiger": [],
+ "Fever": [
+  "Rock",
+  "Dance"
+ ],
  "Few Faces": [],
  "FiFi Zhang": [],
  "Firebunny": [],
@@ -1108,6 +1120,7 @@
  "Fury (Celebrating 10 Years of Paramount)": [],
  "GENA aka Liv.e & Karriem Riggins": [],
  "GENESI": [],
+ "GENIAS": [],
  "GFOTY takes over NYC": [],
  "GHOSTWOMAN": [
   "Rock",
@@ -1280,6 +1293,7 @@
  "Hannah Cole, Evil Adeline": [],
  "Hannah Ishizaki, Chiori Miyagawa, and Mark Campbell": [],
  "Harlem Gospel Choir": [],
+ "Harry Potter And The Goblet of Fire Entirely From Memory": [],
  "Harry Styles": [
   "Pop",
   "Rock"
@@ -1693,6 +1707,7 @@
  "Kit Kin": [],
  "Kita Rose": [],
  "Klein": [],
+ "Knew Them When Fest": [],
  "Knocked Loose": [
   "Punk & Metal"
  ],
@@ -1997,6 +2012,7 @@
   "Indie"
  ],
  "Mantra Collective Vol": [],
+ "Many Shining Windows": [],
  "Marc Rebillet": [
   "R&B",
   "Dance"
@@ -2138,6 +2154,7 @@
  "Morley": [],
  "Morrissey Blvd": [],
  "Mortified NYC": [],
+ "Mother Soki": [],
  "Motifv": [],
  "Mountain Grass Unit": [],
  "Movements": [
@@ -2180,6 +2197,9 @@
   "Rock"
  ],
  "Nekrogoblikon": [
+  "Punk & Metal"
+ ],
+ "Neon Nightmare": [
   "Punk & Metal"
  ],
  "Nervous Records": [],
@@ -2578,6 +2598,7 @@
   "Dance",
   "Pop"
  ],
+ "SARAHKAY": [],
  "SASHA DOBSON": [
   "Jazz"
  ],
@@ -2605,6 +2626,7 @@
   "Rock",
   "Punk & Metal"
  ],
+ "SNOWMEN": [],
  "SPFDJ": [],
  "SPY": [
   "Dance",
@@ -2902,6 +2924,10 @@
  "Sueco": [
   "Punk & Metal",
   "Rap"
+ ],
+ "Sullivan King": [
+  "Dance",
+  "Punk & Metal"
  ],
  "Sunday Afterglow (skate)": [],
  "Sunday Skate Club": [],
@@ -3500,6 +3526,7 @@
  "XngHan&Xoul": [],
  "Y2K Party": [],
  "YANKEL THE ROOSTER": [],
+ "YAOI★ the rave": [],
  "YHWH Nailgun": [],
  "YOB": [
   "Punk & Metal",
@@ -3598,6 +3625,7 @@
  "began:Chasing Abbey": null,
  "began:Coco Smith": null,
  "began:Corey Fonville": null,
+ "began:Coyle Girelli": null,
  "began:D Savage": 1998,
  "began:DANNA": null,
  "began:DOWNTOWN BOYS": 2011,
@@ -3686,6 +3714,7 @@
  "began:Lily Seabird": null,
  "began:Louis Prince": null,
  "began:MARIS": 1999,
+ "began:MC Hammersmith": null,
  "began:Mackeeper": null,
  "began:Madra Salach": null,
  "began:Magenta Wave": 2024,
@@ -3711,6 +3740,7 @@
  "began:My Wonderful Boyfriend": null,
  "began:NERVY": 2014,
  "began:NOAH RICHARDSON": null,
+ "began:Neon Nightmare": null,
  "began:Nicolás y Los Fumadores": null,
  "began:Ninth Key": 2026,
  "began:Noah Richardson": null,
@@ -3741,6 +3771,7 @@
  "began:Rising Appalachia": 2000,
  "began:Rozzi": 1991,
  "began:Ryman Leon": null,
+ "began:SNOWMEN": null,
  "began:Shae Universe": null,
  "began:Shanghai Qiutian": null,
  "began:Sharkswimmer": null,
@@ -3936,6 +3967,7 @@
   "pop"
  ],
  "fmtags:Aerobicide": [],
+ "fmtags:AfroDesi New York": [],
  "fmtags:Afrojack": [
   "House",
   "electro house",
@@ -4054,6 +4086,7 @@
   "synthpop",
   "dance"
  ],
+ "fmtags:An Italian Disco Revolution": [],
  "fmtags:Ana Gasteyer": [
   "Musical theatre",
   "Favorite Artists",
@@ -4190,6 +4223,14 @@
   "indie folk",
   "IndieFolk",
   "polinacore"
+ ],
+ "fmtags:At Risk": [
+  "punk",
+  "rock",
+  "Punk-Rock",
+  "punk rock",
+  "Need to Rate",
+  "hardcore"
  ],
  "fmtags:Au/Ra": [
   "pop",
@@ -4663,6 +4704,7 @@
  ],
  "fmtags:Busy's Dead Collective": [],
  "fmtags:CELINE DESSBERG": [],
+ "fmtags:CLOSE YOUR EYES NEW YORK-PLATINUM": [],
  "fmtags:COLETTE MARCH": [
   "pop",
   "electropop",
@@ -4866,6 +4908,7 @@
   "electronic"
  ],
  "fmtags:Con C de Cuba": [],
+ "fmtags:Copper Cross": [],
  "fmtags:Corey Fonville": [],
  "fmtags:Cortex": [
   "post-punk",
@@ -4881,6 +4924,12 @@
   "alternative",
   "Canadian",
   "indie"
+ ],
+ "fmtags:Coyle Girelli": [
+  "dream pop",
+  "indie folk",
+  "soft rock",
+  "orchestral indie"
  ],
  "fmtags:Cradle of Filth": [
   "black metal",
@@ -4972,7 +5021,9 @@
   "space disco",
   "disco edits"
  ],
+ "fmtags:DJ Heavy Flow": [],
  "fmtags:DJ Lenny Kaye!": [],
+ "fmtags:DJ Lord Fascinator": [],
  "fmtags:DJ Meredith Marks": [],
  "fmtags:DJ Pauly D": [
   "House",
@@ -5612,6 +5663,12 @@
   "arabic",
   "hip hop"
  ],
+ "fmtags:Fever": [
+  "black metal",
+  "dark ambient",
+  "thailand",
+  "Disco"
+ ],
  "fmtags:FiFi Zhang": [
   "electronic",
   "chinese",
@@ -6073,6 +6130,7 @@
  ],
  "fmtags:Hannah Ishizaki, Chiori Miyagawa, and Mark Campbell": [],
  "fmtags:Harlem Gospel Choir": [],
+ "fmtags:Harry Potter And The Goblet of Fire Entirely From Memory": [],
  "fmtags:Harry Styles": [
   "pop",
   "rock",
@@ -6870,6 +6928,7 @@
   "electronic"
  ],
  "fmtags:Kita Rose": [],
+ "fmtags:Knew Them When Fest": [],
  "fmtags:Knocked Loose": [
   "hardcore",
   "metalcore",
@@ -7704,6 +7763,12 @@
  ],
  "fmtags:Morrissey Blvd": [],
  "fmtags:Mortified NYC": [],
+ "fmtags:Mother Soki": [
+  "dream pop",
+  "alternative",
+  "Minnesota",
+  "Lo-Fi"
+ ],
  "fmtags:Mountain Grass Unit": [
   "bluegrass",
   "USA",
@@ -7795,6 +7860,10 @@
   "Melodic Death Metal",
   "Goblin Metal",
   "Power metal"
+ ],
+ "fmtags:Neon Nightmare": [
+  "doom metal",
+  "Gothic Metal"
  ],
  "fmtags:Neurosis": [
   "Sludge",
@@ -8578,6 +8647,7 @@
   "singer-songwriter",
   "female vocalists"
  ],
+ "fmtags:SARAHKAY": [],
  "fmtags:SE ESTÁ HACIENDO TARDE": [],
  "fmtags:SHE KEEPS BEES": [
   "blues",
@@ -8609,6 +8679,12 @@
   "space rock",
   "heavy psych",
   "france"
+ ],
+ "fmtags:SNOWMEN": [
+  "hard rock",
+  "AOR",
+  "US rock",
+  "discweekly"
  ],
  "fmtags:SPY": [
   "hardcore",
@@ -9126,6 +9202,10 @@
   "metalcore",
   "grindcore"
  ],
+ "fmtags:Sullivan King": [
+  "Brostep",
+  "dubstep"
+ ],
  "fmtags:Supertaste": [
   "Disco",
   "USA"
@@ -9512,6 +9592,13 @@
   "folk",
   "sea shanty",
   "shanties"
+ ],
+ "fmtags:The Mall": [
+  "dance",
+  "electronic",
+  "post-punk",
+  "minimal wave",
+  "experimental"
  ],
  "fmtags:The Menzingers": [
   "punk rock",
@@ -10150,6 +10237,7 @@
   "deep house",
   "techno"
  ],
+ "fmtags:YAOI★ the rave": [],
  "fmtags:YHWH Nailgun": [
   "noise rock",
   "experimental",
@@ -10569,6 +10657,7 @@
   "Pop"
  ],
  "lastfm:Aerobicide": [],
+ "lastfm:AfroDesi New York": [],
  "lastfm:Afrobeat Nights NYC": [],
  "lastfm:After": [],
  "lastfm:Aged Inventory": [],
@@ -10618,6 +10707,7 @@
  "lastfm:An Evening of Mud with Remi Wolf": [],
  "lastfm:An Evening with Lord Huron": [],
  "lastfm:An Intimate Evening With Tamar Braxton": [],
+ "lastfm:An Italian Disco Revolution": [],
  "lastfm:Ana Gasteyer": [],
  "lastfm:Anacondaz": [
   "Rap"
@@ -10662,6 +10752,10 @@
   "Country & Folk"
  ],
  "lastfm:Asif Ali": [],
+ "lastfm:At Risk": [
+  "Punk & Metal",
+  "Rock"
+ ],
  "lastfm:Aubory Bugg": [
   "Country & Folk"
  ],
@@ -10805,6 +10899,7 @@
  "lastfm:CEG Presents SIMRIT": [],
  "lastfm:CELINE DESSBERG": [],
  "lastfm:CHRONO TRIGGER Orchestra Concert": [],
+ "lastfm:CLOSE YOUR EYES NEW YORK-PLATINUM": [],
  "lastfm:CLUB 1BD Halloween": [],
  "lastfm:COLETTE MARCH": [
   "Pop",
@@ -10880,6 +10975,7 @@
   "Indie"
  ],
  "lastfm:Connor Bracken": [],
+ "lastfm:Copper Cross": [],
  "lastfm:Coraline": [],
  "lastfm:Corey Fonville": [],
  "lastfm:Cortex": [
@@ -10888,6 +10984,10 @@
  ],
  "lastfm:Countess Luann de Lesseps": [],
  "lastfm:Courtney Bailey": [],
+ "lastfm:Coyle Girelli": [
+  "Indie",
+  "Country & Folk"
+ ],
  "lastfm:Cropsey Halloween": [],
  "lastfm:Croz Boyce": [
   "Rock",
@@ -10921,7 +11021,9 @@
  "lastfm:DJ Harvey": [
   "Dance"
  ],
+ "lastfm:DJ Heavy Flow": [],
  "lastfm:DJ Lawyer": [],
+ "lastfm:DJ Lord Fascinator": [],
  "lastfm:DJ Meredith Marks": [],
  "lastfm:DJ Shannon": [
   "Rock"
@@ -11198,6 +11300,7 @@
  "lastfm:GENESI": [
   "Dance"
  ],
+ "lastfm:GENIAS": [],
  "lastfm:GFOTY takes over NYC": [],
  "lastfm:GIRL NOISE Music Festival": [],
  "lastfm:GULLY BOYS": [
@@ -11286,6 +11389,7 @@
  "lastfm:Hannah Cole, Evil Adeline": [],
  "lastfm:Hannah Ishizaki, Chiori Miyagawa, and Mark Campbell": [],
  "lastfm:Harlem Gospel Choir": [],
+ "lastfm:Harry Potter And The Goblet of Fire Entirely From Memory": [],
  "lastfm:Hathway": [],
  "lastfm:Hathway, Honest Mistakes": [],
  "lastfm:Haunted Ballroom": [],
@@ -11569,6 +11673,7 @@
   "Dance",
   "Indie"
  ],
+ "lastfm:Knew Them When Fest": [],
  "lastfm:Knocked Loose & Denzel Curry": [],
  "lastfm:Kranium": [
   "Punk & Metal"
@@ -11763,6 +11868,7 @@
  "lastfm:Mal Sounds": [],
  "lastfm:Mal Sounds, TALIA, Isa Reyes": [],
  "lastfm:Mantra Collective Vol": [],
+ "lastfm:Many Shining Windows": [],
  "lastfm:Mareux": [
   "Pop",
   "Dance"
@@ -11852,6 +11958,9 @@
  ],
  "lastfm:Morrissey Blvd": [],
  "lastfm:Mortified NYC": [],
+ "lastfm:Mother Soki": [
+  "Indie"
+ ],
  "lastfm:Mountain Grass Unit": [
   "Country & Folk"
  ],
@@ -12176,10 +12285,14 @@
   "Pop"
  ],
  "lastfm:RÓISNEW": [],
+ "lastfm:SARAHKAY": [],
  "lastfm:SE ESTÁ HACIENDO TARDE": [],
  "lastfm:SERGE CLIVIO AND FRIENDS 6": [],
  "lastfm:SILOWEEN": [],
  "lastfm:SIMRIT": [],
+ "lastfm:SNOWMEN": [
+  "Rock"
+ ],
  "lastfm:SPFDJ": [
   "Dance"
  ],
@@ -12727,6 +12840,7 @@
  ],
  "lastfm:Y2K Party": [],
  "lastfm:YANKEL THE ROOSTER": [],
+ "lastfm:YAOI★ the rave": [],
  "lastfm:YHWH Nailgun": [
   "Indie"
  ],
@@ -13002,6 +13116,10 @@
   "at": "2026-09-30",
   "n": 60253
  },
+ "listeners:At Risk": {
+  "at": "2026-10-03",
+  "n": 620
+ },
  "listeners:Au/Ra": {
   "at": "2026-09-30",
   "n": 595956
@@ -13274,6 +13392,10 @@
   "at": "2026-09-30",
   "n": 94965
  },
+ "listeners:Copper Cross": {
+  "at": "2026-10-03",
+  "n": 11
+ },
  "listeners:Corey Fonville": {
   "at": "2026-09-30",
   "n": 3997
@@ -13281,6 +13403,10 @@
  "listeners:Cowboy Junkies": {
   "at": "2026-09-30",
   "n": 517064
+ },
+ "listeners:Coyle Girelli": {
+  "at": "2026-10-03",
+  "n": 21160
  },
  "listeners:Cradle of Filth": {
   "at": "2026-09-30",
@@ -14022,6 +14148,10 @@
   "at": "2026-09-30",
   "n": 136168
  },
+ "listeners:Knew Them When Fest": {
+  "at": "2026-10-03",
+  "n": 0
+ },
  "listeners:Know Good": {
   "at": "2026-09-30",
   "n": 25323
@@ -14354,6 +14484,10 @@
   "at": "2026-09-30",
   "n": 0
  },
+ "listeners:Mother Soki": {
+  "at": "2026-10-03",
+  "n": 215369
+ },
  "listeners:Mountain Grass Unit": {
   "at": "2026-09-30",
   "n": 9711
@@ -14393,6 +14527,10 @@
  "listeners:Nekrogoblikon": {
   "at": "2026-09-30",
   "n": 127032
+ },
+ "listeners:Neon Nightmare": {
+  "at": "2026-10-03",
+  "n": 6721
  },
  "listeners:Neurosis": {
   "at": "2026-09-30",
@@ -14717,6 +14855,10 @@
  "listeners:SLIFT": {
   "at": "2026-09-30",
   "n": 94024
+ },
+ "listeners:SNOWMEN": {
+  "at": "2026-10-03",
+  "n": 12963
  },
  "listeners:Sadurn": {
   "at": "2026-09-30",
